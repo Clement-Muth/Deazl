@@ -6,7 +6,6 @@ import { ShoppingListDetailsHeader } from "../../Ui/ShoppingListDetails/Shopping
 import { StoreProvider } from "../Contexts/StoreContext";
 
 export const ShoppingListDetails = ({ list, user }: { list: ShoppingListPayload; user: any }) => {
-  console.log(list);
   return (
     <StoreProvider>
       <div className="space-y-4">

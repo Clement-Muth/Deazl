@@ -26,7 +26,7 @@
   "dependencies": {
     "@asteasolutions/zod-to-openapi": "^7.2.0",
     "@auth/prisma-adapter": "^2.7.2",
-    "@deazl/components": "workspace:^",
+    "@deazl/components": "0.0.2",
     "@deazl/shopping-lists": "workspace:^",
     "@deazl/system": "workspace:^",
     "@dotmind/react-use-pwa": "^1.0.4",

@@ -25,7 +25,7 @@ export const ShoppingListInfraSchema = z.object({
       id: z.string().uuid(),
       listId: z.string().uuid(),
       userId: z.string().uuid(),
-      role: z.enum(["ONWER", "EDITOR", "VIEWER"]),
+      role: z.enum(["OWNER", "EDITOR", "VIEWER"]),
       createdAt: z.date(),
       updatedAt: z.date(),
       user: z.object({

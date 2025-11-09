@@ -2201,7 +2201,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@deazl/components@workspace:^, @deazl/components@workspace:packages/components":
+"@deazl/components@npm:0.0.2, @deazl/components@workspace:^, @deazl/components@workspace:packages/components":
   version: 0.0.0-use.local
   resolution: "@deazl/components@workspace:packages/components"
   dependencies:
@@ -2224,7 +2224,7 @@ __metadata:
     "@babel/core": "npm:^7.24.4"
     "@babel/preset-react": "npm:^7.24.1"
     "@babel/preset-typescript": "npm:^7.24.1"
-    "@deazl/components": "workspace:^"
+    "@deazl/components": "npm:0.0.2"
     "@deazl/shopping-lists": "workspace:^"
     "@deazl/system": "workspace:^"
     "@dotmind/react-use-pwa": "npm:^1.0.4"

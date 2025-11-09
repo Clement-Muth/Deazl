@@ -56,8 +56,6 @@ export const SmartItemInput = forwardRef<HTMLInputElement, SmartItemInputProps>(
           // const result = await searchByBarcode({ barcode });
 
           if (result.success) {
-            console.log("Barcode scan result:", result);
-
             // Ajouter automatiquement l'item avec les données du code-barres
             onItemAdded?.({
               customName: result.name,
@@ -66,12 +64,7 @@ export const SmartItemInput = forwardRef<HTMLInputElement, SmartItemInputProps>(
               isCompleted: false,
               barcode: barcode
             });
-
-            // Notification de succès via console pour le moment
-            console.log(`Produit "${result.name}" ajouté via scan!`);
           } else {
-            console.log("Produit non trouvé:", result.error.reason);
-            // Pour l'instant, on ajoute quand même un item avec le code-barres
             onItemAdded?.({
               customName: `Produit ${barcode}`,
               quantity: 1,
@@ -129,6 +122,7 @@ export const SmartItemInput = forwardRef<HTMLInputElement, SmartItemInputProps>(
       <div className={className}>
         <div className="flex gap-2 items-center">
           <Autocomplete
+            aria-label="smart item input"
             ref={ref}
             items={suggestions}
             inputValue={inputValue}

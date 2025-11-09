@@ -1,0 +1,20 @@
+import { notFound } from "next/navigation";
+import { getRecipe } from "~/applications/Recipes/Api";
+import { RecipeDetails } from "~/applications/Recipes/Ui";
+
+export default async function RecipeDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const recipeId = (await params).id;
+  const recipe = await getRecipe(recipeId);
+
+  if (!recipe) notFound();
+
+  return (
+    <main className="flex w-full justify-center p-4">
+      <div className="flex flex-col gap-y-8 max-w-4xl w-full">
+        <div className="max-w-3xl mx-auto w-full pb-8">
+          <RecipeDetails recipe={recipe} />
+        </div>
+      </div>
+    </main>
+  );
+}

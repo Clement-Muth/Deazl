@@ -96,7 +96,7 @@ export function HeroSection() {
                 <div className="absolute -top-4 -left-4 w-72 h-72 bg-primary-50 dark:bg-primary-900/50 rounded-full mix-blend-multiply dark:mix-blend-overlay blur-xl animate-blob" />
                 <div className="absolute -bottom-4 -right-4 w-72 h-72 bg-primary-100 dark:bg-primary-800/50 rounded-full mix-blend-multiply dark:mix-blend-overlay blur-xl animate-blob animation-delay-2000" />
 
-                <div className="relative rounded-2xl bg-white dark:bg-gray-800 shadow-2xl ring-1 ring-gray-900/10 dark:ring-white/10">
+                <div className="relative over rounded-2xl bg-white dark:bg-gray-800 shadow-2xl ring-1 ring-gray-900/10 dark:ring-white/10">
                   <div className="absolute inset-0 bg-gradient-to-tr from-primary-100 via-primary-50/0 to-primary-100 dark:from-primary-900 dark:via-primary-900/0 dark:to-primary-900 rounded-2xl" />
                   <Image
                     src={Hero}

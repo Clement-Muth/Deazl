@@ -1,12 +1,12 @@
-import { Button } from "@heroui/react";
+import { Switch } from "@heroui/react";
 import { Trans } from "@lingui/react/macro";
 import { useMemo, useState } from "react";
+import type { ShoppingListPayload } from "../../Domain/Schemas/ShoppingList.schema";
 import { ShoppingListItemCard } from "../../Ui/ShoppingListDetails/ShoppingListItemCard";
 import { ShoppingModeScanner } from "../../Ui/ShoppingListDetails/ShoppingModeScanner";
 import { SmartConversionSection } from "../../Ui/ShoppingListDetails/SmartConversionSection";
 import { SmartQuickAddBar } from "../../Ui/ShoppingListDetails/SmartQuickAddBar/SmartQuickAddBar";
 import { useShoppingListActions } from "../../Ui/ShoppingListDetails/useShoppingListActions";
-import type { ShoppingListPayload } from "../../Domain/Schemas/ShoppingList.schema";
 
 interface ShoppingListContainerProps {
   initialList: ShoppingListPayload;
@@ -24,7 +24,6 @@ export const ShoppingListContainer = ({ initialList, user }: ShoppingListContain
   // Shopping mode state
   const [isShoppingMode, setIsShoppingMode] = useState(false);
 
-  console.log("User ID:", user.id, "List Owner ID:", initialList.userId);
   const canEdit = useMemo(() => {
     if (!user?.id) return false;
 
@@ -43,15 +42,18 @@ export const ShoppingListContainer = ({ initialList, user }: ShoppingListContain
           <h2 className="text-xl font-semibold text-gray-800">
             {isShoppingMode ? <Trans>Shopping Mode</Trans> : <Trans>Preparation Mode</Trans>}
           </h2>
-          <Button
-            onPress={() => setIsShoppingMode(!isShoppingMode)}
+          <Switch onChange={() => setIsShoppingMode(!isShoppingMode)}>
+            {/* {isShoppingMode ? <Trans>Exit Shopping Mode</Trans> : <Trans>Start Shopping</Trans>} */}
+          </Switch>
+          {/* <Button
+            onPress={() => }
             className={`px-4 py-2 rounded-lg font-medium transition-colors ${isShoppingMode
               ? "bg-red-500 text-white hover:bg-red-600"
               : "bg-blue-500 text-white hover:bg-blue-600"
               }`}
           >
-            {isShoppingMode ? <Trans>Exit Shopping Mode</Trans> : <Trans>Start Shopping</Trans>}
-          </Button>
+            
+          </Button> */}
         </div>
       )}
 

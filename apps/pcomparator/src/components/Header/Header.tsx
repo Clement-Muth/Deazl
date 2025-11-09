@@ -16,7 +16,6 @@ export const Header = ({ rightArea }: HeaderProps) => {
   const device = useDevice();
   const isScrolled = useScroll(64);
 
-  console.log(isScrolled);
   return (
     <Navbar isBlurred={isScrolled} className="bg-transparent">
       <NavbarBrand>
@@ -26,14 +25,16 @@ export const Header = ({ rightArea }: HeaderProps) => {
         </Link>
       </NavbarBrand>
 
-      <NavbarContent>
-        <Link href="/about">
-          <Trans>About</Trans>
-        </Link>
-        <Link href="/pricing">
-          <Trans>Pricing</Trans>
-        </Link>
-      </NavbarContent>
+      {device === "desktop" ? (
+        <NavbarContent>
+          <Link href="/about">
+            <Trans>About</Trans>
+          </Link>
+          <Link href="/pricing">
+            <Trans>Pricing</Trans>
+          </Link>
+        </NavbarContent>
+      ) : null}
 
       <NavbarContent justify="end">
         {/* <NavbarItem>

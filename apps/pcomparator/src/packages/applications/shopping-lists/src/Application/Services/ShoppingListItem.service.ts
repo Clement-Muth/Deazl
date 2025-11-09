@@ -80,13 +80,11 @@ export class ShoppingListItemApplicationService {
     }>
   ): Promise<ShoppingListItem> {
     try {
-      console.log("🔧 ShoppingListItemApplicationService.updateShoppingListItem called:", { itemId, data });
       const session = await auth();
       if (!session?.user?.id) throw new Error("User not authenticated");
 
       const item = await this.itemRepository.findItemById(itemId);
       if (!item) throw new Error("Item not found");
-      console.log("📦 Found item in service:", item);
 
       const list = await this.listRepository.findById(item.shoppingListId);
       if (!list) throw new Error("Shopping list not found");
@@ -117,31 +115,18 @@ export class ShoppingListItemApplicationService {
       }
 
       if (data.isCompleted !== undefined) {
-        console.log("🔄 Updating isCompleted field:", {
-          previous: updatedItem.isCompleted,
-          new: data.isCompleted
-        });
         if (data.isCompleted) {
           updatedItem = updatedItem.withCompletion();
         } else {
           updatedItem = updatedItem.withReset();
         }
-        console.log("✅ isCompleted field updated:", { current: updatedItem.isCompleted });
       }
 
       if (data.barcode !== undefined) {
         updatedItem = updatedItem.withBarcode(data.barcode);
       }
 
-      console.log("🔄 Calling repository.updateItem with:", {
-        id: updatedItem.id,
-        isCompleted: updatedItem.isCompleted
-      });
       const result = await this.itemRepository.updateItem(updatedItem);
-      console.log("✅ Repository.updateItem completed:", {
-        id: result.id,
-        isCompleted: result.isCompleted
-      });
 
       return result;
     } catch (error) {

@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, useDisclosure } from "@heroui/react";
-import { Home, LayoutDashboard, ReceiptText, User } from "lucide-react";
+import { ClipboardList, Home, ReceiptText, User } from "lucide-react";
 import type { ReactNode } from "react";
 import { SignInModal } from "~/applications/Authentication/Ui/Signin/SignInModal/SignInModal";
 import Link from "~/components/Link/Link";
@@ -19,8 +19,8 @@ export const Tabbar = ({ mainButton, isSignedIn }: TabbarProps) => {
       <Button as={Link} href="/" startContent={<Home />} variant="light" radius="full" isIconOnly />
       <Button
         as={Link}
-        href="/dashboard/my-prices"
-        startContent={<LayoutDashboard />}
+        href="/recipes"
+        startContent={<ClipboardList />}
         variant="light"
         radius="full"
         isIconOnly

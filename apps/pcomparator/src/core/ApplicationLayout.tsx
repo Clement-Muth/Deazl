@@ -1,7 +1,6 @@
 import { auth } from "@deazl/system";
 import type { ReactNode } from "react";
 import { SignButton } from "~/applications/Authentication/Ui/Signin/SignButton/SignButton";
-import { DesktopNav } from "~/components/DesktopNav";
 import { Footer } from "~/components/Footer/Footer";
 import { Header } from "~/components/Header/Header";
 import { Toast } from "~/components/Toast/Toast";
@@ -19,12 +18,12 @@ const ApplicationLayout = async ({ children }: ApplicationLayoutProps) => {
   return (
     <>
       <Header rightArea={<SignButton />} />
-      <div className="flex">
-        {device !== "mobile" && !!session?.user && <DesktopNav />}
-        <main className="flex-1">{children}</main>
+      <div className="flex flex-1">
+        {/* {device !== "mobile" && !!session?.user ? <DesktopNav /> : null} */}
+        {children}
       </div>
       {device === "mobile" ? <Tabbar isSignedIn={!!session?.user} /> : null}
-      {!session?.user && <Footer />}
+      {!session?.user ? <Footer /> : null}
       <Toast />
     </>
   );

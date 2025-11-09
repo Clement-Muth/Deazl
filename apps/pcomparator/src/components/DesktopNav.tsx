@@ -2,7 +2,7 @@
 
 import { Button } from "@heroui/react";
 import { Trans } from "@lingui/react/macro";
-import { LineChart, type LucideIcon, Plus, ReceiptText, Settings } from "lucide-react";
+import { BookOpen, LineChart, type LucideIcon, Plus, ReceiptText, Settings } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -24,6 +24,11 @@ const navigationItems: NavItem[] = [
     path: "/shopping-lists",
     label: <Trans>Shopping Lists</Trans>,
     icon: ReceiptText
+  },
+  {
+    path: "/recipes",
+    label: <Trans>Recipes</Trans>,
+    icon: BookOpen
   }
 ];
 

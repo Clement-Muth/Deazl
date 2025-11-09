@@ -19,7 +19,7 @@ interface HomeViewProps {
 
 export function HomeView({ isLoggedIn, userName }: HomeViewProps) {
   return (
-    <main className="relative -mt-[4rem] flex flex-1 w-full flex-col min-h-screen">
+    <main className="relative -mt-[4rem] flex flex-1 w-full flex-col">
       <div className="absolute isolate overflow-hidden min-h-[calc(100dvh)] w-full flex items-center">
         <GridBackground />
       </div>

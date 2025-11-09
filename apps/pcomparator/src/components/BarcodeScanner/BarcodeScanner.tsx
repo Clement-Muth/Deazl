@@ -18,15 +18,6 @@ export const BarcodeScanner = ({
   description = "Positionnez le code-barres dans le cadre",
   continuous = false
 }: BarcodeScannerProps) => {
-  // Test release
-  // Debug des props reçues
-  console.log("🔧 BarcodeScanner props:", {
-    onScanned: typeof onScanned,
-    onClose: typeof onClose,
-    title,
-    description,
-    continuous
-  });
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -111,23 +102,11 @@ export const BarcodeScanner = ({
       return;
     }
 
-    console.log("🔍 Démarrage du scan...");
-    console.log("onScanned disponible:", typeof onScanned);
     setIsScanning(true);
 
     try {
       codeReaderRef.current.decodeFromVideoDevice(null, videoRef.current, (result, error) => {
-        console.log("📱 Callback appelé, result:", result, "error:", error);
-
         if (result) {
-          console.log("🎉 Code-barres détecté:", result.getText());
-
-          // Utiliser les références stables pour éviter les problèmes de closure
-          console.log("🔧 Vérification des refs:", {
-            onScannedRef: typeof onScannedRef.current,
-            onCloseRef: typeof onCloseRef.current
-          });
-
           if (typeof onScannedRef.current === "function") {
             onScannedRef.current(result.getText());
           } else {
@@ -188,7 +167,6 @@ export const BarcodeScanner = ({
   const handleManualInput = () => {
     const barcode = prompt("Entrez le code-barres manuellement:");
     if (barcode?.trim()) {
-      console.log("✏️ Saisie manuelle:", barcode.trim());
       if (typeof onScannedRef.current === "function") {
         onScannedRef.current(barcode.trim());
       }
@@ -200,8 +178,6 @@ export const BarcodeScanner = ({
 
   const simulateScanning = () => {
     const testBarcode = "3017620422003"; // Code-barres Nutella
-    console.log("🧪 Test scan simulé:", testBarcode);
-    console.log("🧪 onScannedRef type:", typeof onScannedRef.current);
 
     if (typeof onScannedRef.current === "function") {
       onScannedRef.current(testBarcode);
