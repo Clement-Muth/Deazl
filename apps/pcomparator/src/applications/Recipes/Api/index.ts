@@ -1,3 +1,4 @@
+export { addRecipeToShoppingList } from "./recipes/addRecipeToShoppingList.api";
 export { createRecipe } from "./recipes/createRecipe.api";
 export { deleteRecipe } from "./recipes/deleteRecipe.api";
 export { getRecipe } from "./recipes/getRecipe.api";

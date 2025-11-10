@@ -42,10 +42,14 @@ export function TestimonialsSection() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <Testimonial
             quote={
-              <Trans>
-                "Thanks to Deazl, I save an average of €20 per week on my groceries. The app is very easy to
-                use!"
-              </Trans>
+              <>
+                "
+                <Trans>
+                  Thanks to Deazl, I save an average of €20 per week on my groceries. The app is very easy to
+                  use!
+                </Trans>
+                ""
+              </>
             }
             author="Sophie M."
             initials="SM"
@@ -53,14 +57,20 @@ export function TestimonialsSection() {
           />
           <Testimonial
             quote={
-              <Trans>"The list sharing is awesome! I can easily coordinate shopping with my family."</Trans>
+              <>
+                "<Trans>The list sharing is awesome! I can easily coordinate shopping with my family.</Trans>"
+              </>
             }
             author="Thomas L."
             initials="TL"
             title={<Trans>User for 1 year</Trans>}
           />
           <Testimonial
-            quote={<Trans>"The price tracking helps me spot the best deals. It's really convenient!"</Trans>}
+            quote={
+              <>
+                "<Trans>The price tracking helps me spot the best deals. It's really convenient!</Trans>"
+              </>
+            }
             author="Marie L."
             initials="ML"
             title={<Trans>User for 3 months</Trans>}

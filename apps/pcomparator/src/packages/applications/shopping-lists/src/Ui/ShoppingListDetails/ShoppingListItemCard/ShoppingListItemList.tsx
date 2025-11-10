@@ -1,14 +1,21 @@
 import { Button, Checkbox } from "@heroui/react";
-import { CheckIcon, TrashIcon } from "lucide-react";
+import { CheckIcon, PencilIcon, TrashIcon } from "lucide-react";
 import { useCallback } from "react";
 import type { ShoppingListItemPayload } from "../../../Domain/Entities/ShoppingListItem.entity";
+import type { BestPriceResult } from "../../../Domain/Utils/priceComparison";
+import { PriceSuggestion } from "../PriceSuggestion";
+import { SwipeableItem } from "./SwipeableItem";
 
 interface ShoppingListItemListProps {
   items: ShoppingListItemPayload[];
   loading: Record<string, boolean>;
   handleToggleComplete: (itemId: string, isCompleted: boolean) => Promise<void>;
   onOpenEditModal: (item: ShoppingListItemPayload) => void;
-  onDeleteItem: (itemId: string) => Promise<void>;
+  onDeleteItem: (itemId: string) => void;
+  onUndoDelete?: (itemId: string) => void;
+  isPendingDelete?: (itemId: string) => boolean;
+  bestPrices?: Record<string, BestPriceResult | null>;
+  isStoreSelected?: boolean;
 }
 
 export const ShoppingListItemList = ({
@@ -16,7 +23,11 @@ export const ShoppingListItemList = ({
   loading,
   handleToggleComplete,
   onOpenEditModal,
-  onDeleteItem
+  onDeleteItem,
+  onUndoDelete,
+  isPendingDelete,
+  bestPrices,
+  isStoreSelected = false
 }: ShoppingListItemListProps) => {
   // Utiliser useCallback pour éviter des re-rendus inutiles
   const onCheckboxClick = useCallback(
@@ -28,64 +39,115 @@ export const ShoppingListItemList = ({
   );
 
   return (
-    <ul className="space-y-2 animate-fadeIn">
-      {items.map((item) => (
-        <li
-          key={item.id}
-          className={`flex items-center justify-between p-3 border rounded-md transition-colors cursor-pointer ${item.isCompleted ? "bg-gray-50 border-gray-200" : "hover:bg-primary-50 border-primary-100"
-            }`}
-          onClick={() => onOpenEditModal(item)}
-        >
-          <div className="flex items-center gap-3 flex-1">
-            <div onClick={(e) => onCheckboxClick(e, item.id, item.isCompleted)}>
-              <Checkbox
-                isSelected={item.isCompleted}
-                isDisabled={loading[item.id]}
-                onValueChange={(isChecked) => handleToggleComplete(item.id, isChecked)}
-                id={`item-${item.id}`}
-                color="success"
-                className="bg-transparent"
-              />
-            </div>
-            <div className="flex flex-col">
-              <label
-                htmlFor={`item-${item.id}`}
-                className={`${item.isCompleted ? "line-through text-gray-400" : "font-medium"
-                  } cursor-pointer bg-transparent`}
-              >
-                {item.customName || `Product #${item.productId?.substring(0, 8) || "Unknown"}`}
-              </label>
-              <div className="flex items-center flex-wrap gap-2 text-sm text-gray-500">
-                <span className="inline-flex items-center bg-gray-100 px-2 py-0.5 rounded-full text-xs">
-                  {item.quantity} {item.unit}
-                </span>
-                {item.price && (
-                  <span className="font-medium text-green-600 inline-flex items-center bg-green-50 px-2 py-0.5 rounded-full text-xs">
-                    {item.price.toFixed(2)}€
-                  </span>
-                )}
-                {item.isCompleted && (
-                  <span className="flex items-center text-green-600">
-                    <CheckIcon size={14} className="mr-1" />
-                    <span className="text-xs">Completed</span>
-                  </span>
-                )}
+    <ul className="space-y-1.5 animate-fadeIn">
+      {items.map((item) => {
+        // Déterminer le prix à afficher (item.price ou bestPrice)
+        const displayPrice = item.price || bestPrices?.[item.id]?.price.amount;
+        const displayUnit = item.unit || bestPrices?.[item.id]?.price.unit || "unit";
+        const totalPrice = displayPrice ? displayPrice * item.quantity : null;
+        const isDeleting = isPendingDelete?.(item.id) || false;
+
+        return (
+          <li key={`item-${item.id}-${item.isCompleted ? "completed" : "active"}`} className="relative">
+            {isDeleting && (
+              <div className="absolute inset-0 bg-red-50 border border-red-200 rounded-md z-20 flex items-center justify-between px-4 animate-fadeIn">
+                <span className="text-sm text-red-700">Deleting...</span>
+                <Button size="sm" color="danger" variant="flat" onPress={() => onUndoDelete?.(item.id)}>
+                  Undo
+                </Button>
               </div>
-            </div>
-          </div>
-          <div className="flex gap-2">
-            <Button
-              variant="light"
-              color="danger"
-              startContent={<TrashIcon className="h-4 w-4" />}
-              size="sm"
-              onPress={() => onDeleteItem(item.id)}
-              isIconOnly
-              className="opacity-70 hover:opacity-100"
-            />
-          </div>
-        </li>
-      ))}
+            )}
+            <SwipeableItem
+              key={`swipe-${item.id}-${item.isCompleted}`}
+              onSwipeLeft={() => onDeleteItem(item.id)}
+              onSwipeRight={() => handleToggleComplete(item.id, !item.isCompleted)}
+              isCompleted={item.isCompleted}
+              disabled={loading[item.id] || isDeleting}
+            >
+              <div
+                className={`flex items-center justify-between p-2 border rounded-md transition-colors ${
+                  isDeleting
+                    ? "bg-gray-50 opacity-50"
+                    : item.isCompleted
+                      ? "border-gray-200 bg-white"
+                      : "border-primary-100 bg-white"
+                }`}
+              >
+                <div className="flex items-center gap-2 flex-1 min-w-0">
+                  <div onClick={(e) => onCheckboxClick(e, item.id, item.isCompleted)} className="shrink-0">
+                    <Checkbox
+                      isSelected={item.isCompleted}
+                      isDisabled={loading[item.id]}
+                      onValueChange={(isChecked) => handleToggleComplete(item.id, isChecked)}
+                      id={`item-${item.id}`}
+                      color="success"
+                      className="bg-transparent"
+                      size="sm"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1 flex-1 min-w-0">
+                    <label
+                      htmlFor={`item-${item.id}`}
+                      className={`${
+                        item.isCompleted ? "line-through text-gray-400" : "font-medium"
+                      } cursor-pointer bg-transparent text-sm truncate`}
+                    >
+                      {item.customName || `Product #${item.productId?.substring(0, 8) || "Unknown"}`}
+                    </label>
+                    <div className="flex items-center flex-wrap gap-x-1.5 gap-y-0.5 text-xs text-gray-500">
+                      <span className="inline-flex items-center bg-gray-100 px-1.5 py-0.5 rounded text-xs font-medium">
+                        {item.quantity} {displayUnit}
+                        {displayPrice && (
+                          <>
+                            {" × "}
+                            {displayPrice.toFixed(2)}€ ={" "}
+                            <span className="font-bold">{totalPrice!.toFixed(2)}€</span>
+                          </>
+                        )}
+                      </span>
+                      {item.isCompleted && (
+                        <span className="flex items-center text-green-600 ml-1">
+                          <CheckIcon size={12} className="mr-0.5" />
+                          <span className="text-xs">Completed</span>
+                        </span>
+                      )}
+                      {/* Price Suggestion inline */}
+                      {bestPrices?.[item.id] && (
+                        <PriceSuggestion
+                          bestPrice={bestPrices[item.id]!}
+                          currentUnitPrice={item.price}
+                          quantity={item.quantity}
+                          isStoreSelected={isStoreSelected}
+                        />
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div className="flex gap-1 shrink-0">
+                  <Button
+                    variant="light"
+                    color="primary"
+                    startContent={<PencilIcon className="h-3.5 w-3.5" />}
+                    size="sm"
+                    onPress={() => onOpenEditModal(item)}
+                    isIconOnly
+                    className="opacity-60 hover:opacity-100 min-w-unit-8 w-8 h-8"
+                  />
+                  <Button
+                    variant="light"
+                    color="danger"
+                    startContent={<TrashIcon className="h-3.5 w-3.5" />}
+                    size="sm"
+                    onPress={() => onDeleteItem(item.id)}
+                    isIconOnly
+                    className="opacity-60 hover:opacity-100 min-w-unit-8 w-8 h-8"
+                  />
+                </div>
+              </div>
+            </SwipeableItem>
+          </li>
+        );
+      })}
     </ul>
   );
 };

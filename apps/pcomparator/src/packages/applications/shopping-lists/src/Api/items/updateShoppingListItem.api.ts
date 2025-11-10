@@ -23,7 +23,9 @@ const UpdateShoppingListItemSchema = z.object({
       unit: z.enum(["unit", "kg", "g", "l", "ml", "piece"]).optional(),
       price: z.number().min(0, "Price cannot be negative").nullable().optional(),
       isCompleted: z.boolean().optional(),
-      barcode: z.string().nullable().optional()
+      barcode: z.string().nullable().optional(),
+      recipeId: z.string().uuid().nullable().optional(),
+      recipeName: z.string().nullable().optional()
     })
     .partial()
 });
@@ -33,7 +35,10 @@ type UpdateShoppingListItemPayload = z.infer<typeof UpdateShoppingListItemSchema
 export const updateShoppingListItem = async (
   itemId: string,
   data: Partial<
-    Pick<ShoppingListItemPayload, "customName" | "quantity" | "unit" | "price" | "isCompleted" | "barcode">
+    Pick<
+      ShoppingListItemPayload,
+      "customName" | "quantity" | "unit" | "price" | "isCompleted" | "barcode" | "recipeId" | "recipeName"
+    >
   >
 ): Promise<ShoppingListItemPayload> => {
   try {
@@ -41,7 +46,10 @@ export const updateShoppingListItem = async (
 
     // Validation et création des Value Objects pour les champs modifiés
     const validatedData: Partial<
-      Pick<ShoppingListItemPayload, "customName" | "quantity" | "unit" | "price" | "isCompleted" | "barcode">
+      Pick<
+        ShoppingListItemPayload,
+        "customName" | "quantity" | "unit" | "price" | "isCompleted" | "barcode" | "recipeId" | "recipeName"
+      >
     > = {};
 
     if (payload.data.customName !== undefined) {
@@ -69,6 +77,14 @@ export const updateShoppingListItem = async (
 
     if (payload.data.barcode !== undefined) {
       validatedData.barcode = payload.data.barcode;
+    }
+
+    if (payload.data.recipeId !== undefined) {
+      validatedData.recipeId = payload.data.recipeId;
+    }
+
+    if (payload.data.recipeName !== undefined) {
+      validatedData.recipeName = payload.data.recipeName;
     }
 
     const updatedItem = await shoppingListItemService.updateShoppingListItem(payload.itemId, validatedData);

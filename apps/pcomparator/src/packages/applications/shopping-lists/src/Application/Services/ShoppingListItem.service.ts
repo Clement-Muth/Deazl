@@ -21,6 +21,8 @@ export class ShoppingListItemApplicationService {
     itemData: {
       customName?: string | null;
       productId?: string | null;
+      recipeId?: string | null;
+      recipeName?: string | null;
       quantity: number;
       unit: string;
       isCompleted?: boolean;
@@ -49,6 +51,8 @@ export class ShoppingListItemApplicationService {
         shoppingListId: listId,
         customName: itemData.customName || undefined,
         productId: itemData.productId,
+        recipeId: itemData.recipeId || undefined,
+        recipeName: itemData.recipeName || undefined,
         quantity: itemData.quantity,
         unit: itemData.unit,
         isCompleted: itemData.isCompleted || false,
@@ -77,6 +81,8 @@ export class ShoppingListItemApplicationService {
       isCompleted: boolean;
       barcode: string | null;
       notes: string | null;
+      recipeId: string | null;
+      recipeName: string | null;
     }>
   ): Promise<ShoppingListItem> {
     try {
@@ -124,6 +130,13 @@ export class ShoppingListItemApplicationService {
 
       if (data.barcode !== undefined) {
         updatedItem = updatedItem.withBarcode(data.barcode);
+      }
+
+      if (data.recipeId !== undefined || data.recipeName !== undefined) {
+        updatedItem = updatedItem.withRecipe(
+          data.recipeId !== undefined ? data.recipeId : (updatedItem.recipeId ?? null),
+          data.recipeName !== undefined ? data.recipeName : (updatedItem.recipeName ?? null)
+        );
       }
 
       const result = await this.itemRepository.updateItem(updatedItem);
@@ -192,6 +205,30 @@ export class ShoppingListItemApplicationService {
       return this.itemRepository.updateItem(updatedItem);
     } catch (error) {
       console.error("Error toggling item completion", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Supprime tous les articles d'une liste de courses associés à une recette
+   */
+  async removeRecipeItemsFromList(listId: string, recipeId: string): Promise<number> {
+    try {
+      const session = await auth();
+      if (!session?.user?.id) throw new Error("User not authenticated");
+
+      const list = await this.listRepository.findById(listId);
+      if (!list) throw new Error("Shopping list not found");
+
+      // Vérifier les permissions de modification
+      const userRole = list.getUserRole(session.user.id);
+      if (!list.canUserModify(session.user.id, userRole || undefined)) {
+        throw new Error("Unauthorized - insufficient permissions to modify list");
+      }
+
+      return this.itemRepository.removeRecipeItems(listId, recipeId);
+    } catch (error) {
+      console.error("Error removing recipe items from list", error);
       throw error;
     }
   }

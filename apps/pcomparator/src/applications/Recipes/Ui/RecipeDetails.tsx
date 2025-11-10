@@ -3,9 +3,20 @@
 import { Button, Card, CardBody, CardHeader, Chip, Tooltip, useDisclosure } from "@heroui/react";
 import { Trans } from "@lingui/react/macro";
 import { motion } from "framer-motion";
-import { ArrowLeftIcon, ChefHat, Clock, Edit, Flame, Printer, Share2, Users } from "lucide-react";
+import {
+  ArrowLeftIcon,
+  ChefHat,
+  Clock,
+  Edit,
+  Flame,
+  Printer,
+  Share2,
+  ShoppingCart,
+  Users
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import type { RecipePayload } from "../Domain/Schemas/Recipe.schema";
+import { AddRecipeToListModal } from "./RecipeDetails/AddRecipeToListModal";
 import ShareRecipeModal from "./RecipeDetails/ShareRecipeModal/ShareRecipeModal";
 
 interface RecipeDetailsProps {
@@ -15,15 +26,16 @@ interface RecipeDetailsProps {
 export default function RecipeDetails({ recipe }: RecipeDetailsProps) {
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen: isAddToListOpen, onOpen: onAddToListOpen, onClose: onAddToListClose } = useDisclosure();
 
   const getDifficultyLabel = (difficulty: string) => {
     switch (difficulty) {
       case "EASY":
-        return <Trans>Facile</Trans>;
+        return <Trans>Easy</Trans>;
       case "MEDIUM":
-        return <Trans>Moyen</Trans>;
+        return <Trans>Medium</Trans>;
       case "HARD":
-        return <Trans>Difficile</Trans>;
+        return <Trans>Hard</Trans>;
       default:
         return difficulty;
     }
@@ -60,6 +72,12 @@ export default function RecipeDetails({ recipe }: RecipeDetailsProps) {
           </Tooltip>
 
           <div className="flex items-center gap-1 sm:gap-2">
+            <Tooltip content={<Trans>Add to shopping list</Trans>}>
+              <Button color="primary" size="sm" isIconOnly onPress={onAddToListOpen}>
+                <ShoppingCart className="h-3 w-3 sm:h-4 sm:w-4" />
+              </Button>
+            </Tooltip>
+
             <Tooltip content="Partager la recette">
               <Button variant="light" size="sm" isIconOnly onPress={onOpen}>
                 <Share2 className="h-3 w-3 sm:h-4 sm:w-4" />
@@ -95,9 +113,14 @@ export default function RecipeDetails({ recipe }: RecipeDetailsProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          // className="w-full h-48 sm:h-64 md:h-80 lg:h-96 overflow-hidden rounded-large mb-4 sm:mb-6"
+          // @ts-ignore
+          className="w-full h-48 sm:h-64 md:h-80 lg:h-96 overflow-hidden rounded-large mb-4 sm:mb-6"
         >
-          <img src={recipe.imageUrl} alt={recipe.name} className="w-full h-full object-cover" />
+          <img
+            src={recipe.imageUrl}
+            alt={recipe.name}
+            className="w-full h-full max-h-[400px] object-cover rounded-xl"
+          />
         </motion.div>
       )}
 
@@ -133,7 +156,7 @@ export default function RecipeDetails({ recipe }: RecipeDetailsProps) {
                 variant="flat"
                 className="text-xs sm:text-sm"
               >
-                {recipe.servings} <Trans>pers.</Trans>
+                {recipe.servings} <Trans>servings</Trans>
               </Chip>
               <Chip
                 size="md"
@@ -150,7 +173,7 @@ export default function RecipeDetails({ recipe }: RecipeDetailsProps) {
                 color="primary"
                 className="text-xs sm:text-sm"
               >
-                <Trans>Prép.</Trans> {recipe.preparationTime} min
+                <Trans>Prep.</Trans> {recipe.preparationTime} min
               </Chip>
               <Chip
                 size="md"
@@ -159,7 +182,7 @@ export default function RecipeDetails({ recipe }: RecipeDetailsProps) {
                 color="warning"
                 className="text-xs sm:text-sm"
               >
-                <Trans>Cuisson</Trans> {recipe.cookingTime} min
+                <Trans>Cooking</Trans> {recipe.cookingTime} min
               </Chip>
             </div>
           </CardBody>
@@ -172,24 +195,26 @@ export default function RecipeDetails({ recipe }: RecipeDetailsProps) {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4, delay: 0.2 }}
-          // className="lg:col-span-1"
+          // @ts-ignore
+          className="lg:col-span-1"
         >
           <Card>
             <CardHeader className="border-b border-divider p-4 sm:p-6">
               <h2 className="text-lg sm:text-xl font-semibold flex items-center gap-2">
                 <ChefHat className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-                <Trans>Ingrédients</Trans>
+                <Trans>Ingredients</Trans>
               </h2>
             </CardHeader>
             <CardBody className="p-4 sm:p-6">
-              <ul className="space-y-2 sm:space-y-3">
+              <ul className="sm:space-y-3">
                 {recipe.ingredients?.map((ingredient, index) => (
                   <motion.li
                     key={ingredient.id}
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.3, delay: 0.3 + index * 0.05 }}
-                    // className="flex items-start gap-2 sm:gap-3 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm sm:text-base"
+                    // @ts-ignore
+                    className="flex items-start gap-2 sm:gap-3 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm sm:text-base"
                   >
                     <span className="text-primary mt-1 font-bold">•</span>
                     <span className="flex-1">
@@ -197,7 +222,7 @@ export default function RecipeDetails({ recipe }: RecipeDetailsProps) {
                         {ingredient.quantity} {ingredient.unit}
                       </span>{" "}
                       <span className="text-gray-600 dark:text-gray-400">
-                        {ingredient.customName || ingredient.productId}
+                        {ingredient.productName || "Product"}
                       </span>
                     </span>
                   </motion.li>
@@ -211,13 +236,14 @@ export default function RecipeDetails({ recipe }: RecipeDetailsProps) {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4, delay: 0.3 }}
-          // className="lg:col-span-2"
+          // @ts-ignore
+          className="lg:col-span-2"
         >
           <Card>
             <CardHeader className="border-b border-divider p-4 sm:p-6">
               <h2 className="text-lg sm:text-xl font-semibold flex items-center gap-2">
                 <Flame className="w-4 h-4 sm:w-5 sm:h-5 text-warning" />
-                <Trans>Préparation</Trans>
+                <Trans>Preparation</Trans>
               </h2>
             </CardHeader>
             <CardBody className="p-4 sm:p-6">
@@ -228,7 +254,8 @@ export default function RecipeDetails({ recipe }: RecipeDetailsProps) {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: 0.4 + index * 0.1 }}
-                    // className="flex gap-3 sm:gap-4 p-2 sm:p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                    // @ts-ignore
+                    className="flex gap-3 sm:gap-4 p-2 sm:p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                   >
                     <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold text-base sm:text-lg shadow-md">
                       {step.stepNumber}
@@ -256,6 +283,10 @@ export default function RecipeDetails({ recipe }: RecipeDetailsProps) {
           </Card>
         </motion.div>
       </div>
+
+      {/* Modals */}
+      <ShareRecipeModal isOpen={isOpen} onClose={onClose} recipeId={recipe.id} recipeName={recipe.name} />
+      <AddRecipeToListModal isOpen={isAddToListOpen} onClose={onAddToListClose} recipe={recipe} />
     </div>
   );
 }

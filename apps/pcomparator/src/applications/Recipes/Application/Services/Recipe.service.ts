@@ -55,6 +55,8 @@ export class RecipeApplicationService {
 
       const recipe = await this.repository.findById(recipeId);
 
+      console.log("Fetched recipe:", recipe?.ingredients.at(0));
+
       if (!recipe) return null;
 
       if (!recipe.canUserView(currentUser.id)) {
@@ -90,8 +92,8 @@ export class RecipeApplicationService {
       const ingredients = data.ingredients.map((ing, index) =>
         RecipeIngredient.create({
           recipeId: savedRecipe.id,
-          productId: ing.productId ?? undefined,
-          customName: ing.customName,
+          productId: ing.productId,
+          productName: ing.productName,
           quantity: ing.quantity,
           unit: ing.unit,
           order: ing.order ?? index
@@ -164,8 +166,8 @@ export class RecipeApplicationService {
         const ingredients = data.ingredients.map((ing, index) =>
           RecipeIngredient.create({
             recipeId: recipe.id,
-            productId: ing.productId ?? undefined,
-            customName: ing.customName,
+            productId: ing.productId,
+            productName: ing.productName,
             quantity: ing.quantity,
             unit: ing.unit,
             order: ing.order ?? index

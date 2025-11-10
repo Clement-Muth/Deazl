@@ -15,6 +15,9 @@ const shoppingListItemService = new ShoppingListItemApplicationService(
 export const addItemToList = async (
   listId: string,
   itemData: {
+    productId?: string | null;
+    recipeId?: string | null;
+    recipeName?: string | null;
     customName?: string | null;
     quantity: number;
     unit: string;
@@ -36,6 +39,9 @@ export const addItemToList = async (
 
     const item = await shoppingListItemService.addItemToList(listId, {
       ...itemData,
+      productId: itemData.productId ?? undefined,
+      recipeId: itemData.recipeId ?? undefined,
+      recipeName: itemData.recipeName ?? undefined,
       quantity: quantity.value,
       unit: unit.value,
       price: price?.value ?? undefined,

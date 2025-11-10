@@ -52,7 +52,9 @@ export class PrismaRecipeSharingRepository implements RecipeSharingRepository {
     const recipe = await prisma.recipe.findUnique({
       where: { shareToken: token },
       include: {
-        ingredients: true,
+        ingredients: {
+          include: { product: true }
+        },
         steps: true,
         collaborators: {
           include: {
@@ -72,8 +74,8 @@ export class PrismaRecipeSharingRepository implements RecipeSharingRepository {
       RecipeIngredient.create(
         {
           recipeId: recipeData.id,
-          productId: ing.productId ?? undefined,
-          customName: ing.customName ?? undefined,
+          productId: ing.product_id,
+          productName: ing.product?.name,
           quantity: ing.quantity,
           unit: ing.unit,
           order: ing.order

@@ -23,4 +23,10 @@ export interface ShoppingListItemRepository {
    * Récupère un article par son ID
    */
   findItemById(id: string): Promise<ShoppingListItem | null>;
+
+  /**
+   * Supprime tous les articles associés à une recette dans une liste de courses
+   * Retourne le nombre d'articles supprimés
+   */
+  removeRecipeItems(listId: string, recipeId: string): Promise<number>;
 }

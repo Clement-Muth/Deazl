@@ -37,7 +37,7 @@ export const RecipeFormNavigation = ({
               size="lg"
               className="w-full sm:w-auto"
             >
-              <Trans>Précédent</Trans>
+              <Trans>Previous</Trans>
             </Button>
           )}
 
@@ -50,7 +50,7 @@ export const RecipeFormNavigation = ({
               className="flex-1 w-full"
               size="lg"
             >
-              <Trans>Suivant</Trans>
+              <Trans>Next</Trans>
             </Button>
           ) : (
             <Button
@@ -66,7 +66,7 @@ export const RecipeFormNavigation = ({
           )}
 
           <Button as="a" href={cancelUrl} variant="light" size="lg" className="w-full sm:w-auto">
-            <Trans>Annuler</Trans>
+            <Trans>Cancel</Trans>
           </Button>
         </div>
       </CardFooter>

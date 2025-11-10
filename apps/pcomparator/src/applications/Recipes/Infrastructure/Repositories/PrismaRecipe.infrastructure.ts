@@ -12,6 +12,7 @@ export class PrismaRecipeRepository implements RecipeRepository {
         where: { id },
         include: {
           ingredients: {
+            include: { product: true },
             orderBy: { order: "asc" }
           },
           steps: {
@@ -34,6 +35,7 @@ export class PrismaRecipeRepository implements RecipeRepository {
         where: { userId },
         include: {
           ingredients: {
+            include: { product: true },
             orderBy: { order: "asc" }
           },
           steps: {
@@ -55,6 +57,7 @@ export class PrismaRecipeRepository implements RecipeRepository {
         where: { isPublic: true },
         include: {
           ingredients: {
+            include: { product: true },
             orderBy: { order: "asc" }
           },
           steps: {
@@ -108,8 +111,7 @@ export class PrismaRecipeRepository implements RecipeRepository {
               data: recipe.ingredients.map((ing) => ({
                 id: ing.id,
                 recipeId: recipe.id,
-                productId: ing.productId ?? null,
-                customName: ing.customName ?? null,
+                productId: ing.productId,
                 quantity: ing.quantity,
                 unit: ing.unit,
                 order: ing.order
@@ -153,8 +155,7 @@ export class PrismaRecipeRepository implements RecipeRepository {
               data: recipe.ingredients.map((ing) => ({
                 id: ing.id,
                 recipeId: recipe.id,
-                productId: ing.productId ?? null,
-                customName: ing.customName ?? null,
+                productId: ing.productId,
                 quantity: ing.quantity,
                 unit: ing.unit,
                 order: ing.order
@@ -197,8 +198,8 @@ export class PrismaRecipeRepository implements RecipeRepository {
       RecipeIngredient.create(
         {
           recipeId: recipeData.id,
-          productId: ing.productId ?? undefined,
-          customName: ing.customName ?? undefined,
+          productId: ing.productId,
+          productName: ing.product?.name,
           quantity: ing.quantity,
           unit: ing.unit,
           order: ing.order

@@ -68,4 +68,15 @@ export class PrismaShoppingListItemRepository implements ShoppingListItemReposit
 
     return ShoppingListItemMapper.toDomain(item);
   }
+
+  async removeRecipeItems(listId: string, recipeId: string): Promise<number> {
+    const result = await prisma.shoppingListItem.deleteMany({
+      where: {
+        shoppingListId: listId,
+        recipeId
+      }
+    });
+
+    return result.count;
+  }
 }

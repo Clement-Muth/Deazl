@@ -5,8 +5,8 @@ export type DifficultyLevel = z.infer<typeof DifficultyLevelEnum>;
 
 export const RecipeIngredientSchema = z.object({
   id: z.string().uuid(),
-  productId: z.string().uuid().nullable().optional(),
-  customName: z.string().nullable().optional(),
+  productId: z.string().uuid(),
+  productName: z.string().optional(),
   quantity: z.number().positive(),
   unit: z.string(),
   order: z.number().int().default(0)
@@ -45,15 +45,17 @@ export const CreateRecipeSchema = z.object({
   servings: z.number().int().positive().default(4),
   imageUrl: z.string().url().nullable().optional(),
   isPublic: z.boolean().default(false),
-  ingredients: z.array(
-    z.object({
-      productId: z.string().uuid().nullable().optional(),
-      customName: z.string().optional(),
-      quantity: z.number().positive(),
-      unit: z.string(),
-      order: z.number().int().default(0)
-    })
-  ),
+  ingredients: z
+    .array(
+      z.object({
+        productId: z.string().uuid("Product is required"),
+        productName: z.string().optional(),
+        quantity: z.number().positive(),
+        unit: z.string(),
+        order: z.number().int().default(0)
+      })
+    )
+    .min(1, "At least one ingredient is required"),
   steps: z.array(
     z.object({
       stepNumber: z.number().int().positive(),
@@ -77,8 +79,8 @@ export const UpdateRecipeSchema = z.object({
   ingredients: z
     .array(
       z.object({
-        productId: z.string().uuid().nullable().optional(),
-        customName: z.string().optional(),
+        productId: z.string().uuid(),
+        productName: z.string().optional(),
         quantity: z.number().positive(),
         unit: z.string(),
         order: z.number().int().default(0)

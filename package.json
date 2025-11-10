@@ -69,6 +69,7 @@
 		"commitlint-plugin-function-rules": "^4.0.2",
 		"husky": "^9.1.7",
 		"rimraf": "^6.0.1",
+		"tsx": "^4.20.6",
 		"turbo": "^2.5.3"
 	},
 	"engines": {

@@ -20,7 +20,7 @@ export const RecipeStepsStep = ({ steps, onAddStep, onRemoveStep, onUpdateStep }
     <Card>
       <CardHeader className="flex justify-between items-center border-b border-divider bg-gray-50 dark:bg-gray-900 p-4 sm:p-6">
         <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-gray-100">
-          <Trans>Étapes de préparation</Trans>
+          <Trans>Preparation Steps</Trans>
         </h2>
         <Button
           color="success"
@@ -29,7 +29,7 @@ export const RecipeStepsStep = ({ steps, onAddStep, onRemoveStep, onUpdateStep }
           onPress={onAddStep}
           size="sm"
         >
-          <Trans>Ajouter</Trans>
+          <Trans>Add</Trans>
         </Button>
       </CardHeader>
       <CardBody className="p-4 sm:p-6">
@@ -43,7 +43,7 @@ export const RecipeStepsStep = ({ steps, onAddStep, onRemoveStep, onUpdateStep }
                 value={step.description}
                 onValueChange={(value) => onUpdateStep(index, "description", value)}
                 isRequired
-                placeholder={t`Décrivez cette étape...`}
+                placeholder={t`Describe this step...`}
                 variant="bordered"
                 minRows={2}
                 className="flex-1"

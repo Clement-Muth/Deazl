@@ -18,6 +18,8 @@ export type ShoppingListItemPayload = z.infer<typeof ShoppingListItemSchema>;
 export interface ShoppingListItemProps {
   shoppingListId: string;
   productId?: string | null;
+  recipeId?: string | null; // ID de la recette source
+  recipeName?: string | null; // Cache du nom de la recette pour affichage
   quantity: ItemQuantity;
   unit: Unit;
   status: ItemStatus;
@@ -38,6 +40,8 @@ export class ShoppingListItem extends Entity<ShoppingListItemProps> {
     props: {
       shoppingListId: string;
       productId?: string | null;
+      recipeId?: string | null;
+      recipeName?: string | null;
       quantity: number;
       unit: string;
       isCompleted?: boolean;
@@ -56,6 +60,8 @@ export class ShoppingListItem extends Entity<ShoppingListItemProps> {
       {
         shoppingListId: props.shoppingListId,
         productId: props.productId,
+        recipeId: props.recipeId,
+        recipeName: props.recipeName,
         quantity: ItemQuantity.create(props.quantity),
         unit: Unit.create(props.unit),
         status: ItemStatus.create(props.isCompleted || false),
@@ -114,6 +120,14 @@ export class ShoppingListItem extends Entity<ShoppingListItemProps> {
 
   get productId(): string | null | undefined {
     return this.props.productId;
+  }
+
+  get recipeId(): string | null | undefined {
+    return this.props.recipeId;
+  }
+
+  get recipeName(): string | null | undefined {
+    return this.props.recipeName;
   }
 
   get quantity(): number {
@@ -264,11 +278,25 @@ export class ShoppingListItem extends Entity<ShoppingListItemProps> {
     );
   }
 
+  public withRecipe(recipeId: string | null, recipeName: string | null): ShoppingListItem {
+    return new ShoppingListItem(
+      {
+        ...this.props,
+        recipeId,
+        recipeName,
+        updatedAt: new Date()
+      },
+      this._id
+    );
+  }
+
   public toObject(): ShoppingListItemPayload {
     return {
       id: this.id,
       shoppingListId: this.shoppingListId,
       productId: this.productId,
+      recipeId: this.recipeId,
+      recipeName: this.recipeName,
       quantity: this.quantity,
       // @ts-ignore
       unit: this.unit,

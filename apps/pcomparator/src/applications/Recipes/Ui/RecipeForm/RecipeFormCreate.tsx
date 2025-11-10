@@ -32,14 +32,14 @@ export const RecipeFormCreate = () => {
     cookingTime: 30,
     servings: 4,
     isPublic: false,
-    ingredients: [{ quantity: 1, unit: "unit", order: 0 }],
+    ingredients: [{ productId: "", productName: "", quantity: 1, unit: "unit", order: 0 }],
     steps: [{ stepNumber: 1, description: "" }]
   });
 
   const steps = [
-    { number: 1 as const, title: t`Informations`, icon: Info },
-    { number: 2 as const, title: t`Ingrédients`, icon: List },
-    { number: 3 as const, title: t`Préparation`, icon: ChefHat }
+    { number: 1 as const, title: t`Basic Info`, icon: Info },
+    { number: 2 as const, title: t`Ingredients`, icon: List },
+    { number: 3 as const, title: t`Preparation`, icon: ChefHat }
   ];
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -111,7 +111,7 @@ export const RecipeFormCreate = () => {
       ...formData,
       ingredients: [
         ...formData.ingredients,
-        { quantity: 1, unit: "unit", order: formData.ingredients.length }
+        { productId: "", productName: "", quantity: 1, unit: "unit", order: formData.ingredients.length }
       ]
     });
   };
@@ -125,7 +125,15 @@ export const RecipeFormCreate = () => {
 
   const updateIngredient = (index: number, field: string, value: any) => {
     const updatedIngredients = [...formData.ingredients];
-    updatedIngredients[index] = { ...updatedIngredients[index], [field]: value };
+
+    if (field === "_batch") {
+      // Handle batch update (multiple fields at once)
+      updatedIngredients[index] = { ...updatedIngredients[index], ...value };
+    } else {
+      // Handle single field update
+      updatedIngredients[index] = { ...updatedIngredients[index], [field]: value };
+    }
+
     setFormData({ ...formData, ingredients: updatedIngredients });
   };
 
@@ -150,11 +158,12 @@ export const RecipeFormCreate = () => {
   };
 
   const canGoToNextStep = () => {
+    console.log("Validating step", formData.ingredients);
     if (currentStep === 1) {
       return formData.name.trim().length > 0;
     }
     if (currentStep === 2) {
-      return formData.ingredients.length > 0 && formData.ingredients.every((ing) => ing.customName);
+      return formData.ingredients.length > 0 && formData.ingredients.every((ing) => ing.productId);
     }
     return true;
   };
@@ -173,8 +182,8 @@ export const RecipeFormCreate = () => {
 
   return (
     <RecipeFormLayout
-      title={<Trans>Créer une nouvelle recette</Trans>}
-      description={<Trans>Partagez votre recette préférée avec la communauté</Trans>}
+      title={<Trans>Create a New Recipe</Trans>}
+      description={<Trans>Share your favorite recipe with the community</Trans>}
       steps={steps}
       currentStep={currentStep}
       error={error}
@@ -241,8 +250,8 @@ export const RecipeFormCreate = () => {
           onPrevStep={prevStep}
           onNextStep={nextStep}
           cancelUrl="/recipes"
-          submitButtonText={t`Créer la recette`}
-          submittingText={t`Création en cours...`}
+          submitButtonText={t`Create Recipe`}
+          submittingText={t`Creating...`}
         />
       </form>
     </RecipeFormLayout>

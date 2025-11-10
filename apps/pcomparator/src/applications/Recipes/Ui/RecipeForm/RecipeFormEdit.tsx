@@ -42,11 +42,11 @@ export const RecipeFormEdit = ({ recipe }: RecipeFormEditProps) => {
     servings: recipe.servings,
     isPublic: recipe.isPublic,
     ingredients: (recipe.ingredients || []).map((ing) => ({
-      customName: ing.customName || "",
+      productId: ing.productId,
+      productName: ing.productName || "",
       quantity: ing.quantity,
       unit: ing.unit,
-      order: ing.order,
-      productId: ing.productId || undefined
+      order: ing.order
     })),
     steps: (recipe.steps || []).map((step) => ({
       stepNumber: step.stepNumber,
@@ -56,9 +56,9 @@ export const RecipeFormEdit = ({ recipe }: RecipeFormEditProps) => {
   });
 
   const steps = [
-    { number: 1 as const, title: t`Informations`, icon: Info },
-    { number: 2 as const, title: t`Ingrédients`, icon: List },
-    { number: 3 as const, title: t`Préparation`, icon: ChefHat }
+    { number: 1 as const, title: t`Information`, icon: Info },
+    { number: 2 as const, title: t`Ingredients`, icon: List },
+    { number: 3 as const, title: t`Preparation`, icon: ChefHat }
   ];
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -121,7 +121,7 @@ export const RecipeFormEdit = ({ recipe }: RecipeFormEditProps) => {
       await updateRecipe(recipe.id, formData);
       window.location.href = `/recipes/${recipe.id}`;
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Une erreur est survenue");
+      setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
       setIsSubmitting(false);
     }
@@ -136,7 +136,7 @@ export const RecipeFormEdit = ({ recipe }: RecipeFormEditProps) => {
       ...formData,
       ingredients: [
         ...formData.ingredients,
-        { quantity: 1, unit: "unit", order: formData.ingredients.length }
+        { productId: "", productName: "", quantity: 1, unit: "unit", order: formData.ingredients.length }
       ]
     });
   };
@@ -179,7 +179,7 @@ export const RecipeFormEdit = ({ recipe }: RecipeFormEditProps) => {
       return (formData.name && formData.name.trim().length > 0) || false;
     }
     if (currentStep === 2) {
-      return formData.ingredients.length > 0 && formData.ingredients.every((ing) => ing.customName);
+      return formData.ingredients.length > 0 && formData.ingredients.every((ing) => ing.productId);
     }
     return true;
   };
@@ -198,8 +198,8 @@ export const RecipeFormEdit = ({ recipe }: RecipeFormEditProps) => {
 
   return (
     <RecipeFormLayout
-      title={<Trans>Modifier la recette</Trans>}
-      description={<Trans>Mettez à jour les informations de votre recette</Trans>}
+      title={<Trans>Edit Recipe</Trans>}
+      description={<Trans>Update your recipe information</Trans>}
       steps={steps}
       currentStep={currentStep}
       error={error}
@@ -266,8 +266,8 @@ export const RecipeFormEdit = ({ recipe }: RecipeFormEditProps) => {
           onPrevStep={prevStep}
           onNextStep={nextStep}
           cancelUrl={`/recipes/${recipe.id}`}
-          submitButtonText={t`Mettre à jour la recette`}
-          submittingText={t`Mise à jour en cours...`}
+          submitButtonText={t`Update Recipe`}
+          submittingText={t`Updating...`}
         />
       </form>
     </RecipeFormLayout>

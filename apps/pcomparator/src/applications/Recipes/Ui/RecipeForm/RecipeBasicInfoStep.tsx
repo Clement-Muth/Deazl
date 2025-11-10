@@ -38,13 +38,13 @@ export const RecipeBasicInfoStep = ({
     <Card>
       <CardHeader className="border-b border-divider bg-gray-50 dark:bg-gray-900 p-4 sm:p-6">
         <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-gray-100">
-          <Trans>Informations générales</Trans>
+          <Trans>General Information</Trans>
         </h2>
       </CardHeader>
       <CardBody className="space-y-4 sm:space-y-6 p-4 sm:p-6">
         <div>
           <p className="text-sm font-medium mb-2">
-            <Trans>Image de couverture</Trans>
+            <Trans>Cover Image</Trans>
           </p>
           {imagePreview ? (
             <div className="relative w-full h-48 sm:h-64 rounded-large overflow-hidden">
@@ -64,10 +64,10 @@ export const RecipeBasicInfoStep = ({
             <label className="flex flex-col items-center justify-center w-full h-48 sm:h-64 border-2 border-dashed border-default-300 rounded-large hover:border-primary cursor-pointer transition-colors">
               <Upload className="w-10 h-10 sm:w-12 sm:h-12 text-default-400 mb-2 sm:mb-3" />
               <p className="text-xs sm:text-sm text-default-600">
-                <Trans>Cliquez pour ajouter une image</Trans>
+                <Trans>Click to add an image</Trans>
               </p>
-              <p className="text-xs text-default-400 mt-1">
-                <Trans>PNG, JPG jusqu'à 10MB</Trans>
+              <p className="text-xs text-gray-400">
+                <Trans>PNG, JPG up to 10MB</Trans>
               </p>
               <input type="file" accept="image/*" onChange={onImageChange} className="hidden" />
             </label>
@@ -75,8 +75,8 @@ export const RecipeBasicInfoStep = ({
         </div>
 
         <Input
-          label={<Trans>Nom de la recette</Trans>}
-          placeholder={t`Ex: Tarte aux pommes`}
+          label={<Trans>Recipe Name</Trans>}
+          placeholder={t`Ex: Apple Pie`}
           value={formData.name}
           onValueChange={(value) => onFormDataChange({ name: value })}
           isRequired
@@ -85,7 +85,7 @@ export const RecipeBasicInfoStep = ({
 
         <Textarea
           label={<Trans>Description</Trans>}
-          placeholder={t`Décrivez votre recette...`}
+          placeholder={t`Describe your recipe...`}
           value={formData.description}
           onValueChange={(value) => onFormDataChange({ description: value })}
           variant="bordered"
@@ -94,7 +94,7 @@ export const RecipeBasicInfoStep = ({
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Select
-            label={<Trans>Difficulté</Trans>}
+            label={<Trans>Difficulty</Trans>}
             selectedKeys={[formData.difficulty]}
             onSelectionChange={(keys) => {
               const value = Array.from(keys)[0] as string;
@@ -103,18 +103,18 @@ export const RecipeBasicInfoStep = ({
             variant="bordered"
           >
             <SelectItem key="EASY">
-              <Trans>Facile</Trans>
+              <Trans>Easy</Trans>
             </SelectItem>
             <SelectItem key="MEDIUM">
-              <Trans>Moyen</Trans>
+              <Trans>Medium</Trans>
             </SelectItem>
             <SelectItem key="HARD">
-              <Trans>Difficile</Trans>
+              <Trans>Hard</Trans>
             </SelectItem>
           </Select>
 
           <Input
-            label={<Trans>Préparation (min)</Trans>}
+            label={<Trans>Preparation (min)</Trans>}
             type="number"
             value={formData.preparationTime.toString()}
             onValueChange={(value) => onFormDataChange({ preparationTime: Number.parseInt(value) || 1 })}
@@ -124,7 +124,7 @@ export const RecipeBasicInfoStep = ({
           />
 
           <Input
-            label={<Trans>Cuisson (min)</Trans>}
+            label={<Trans>Cooking (min)</Trans>}
             type="number"
             value={formData.cookingTime.toString()}
             onValueChange={(value) => onFormDataChange({ cookingTime: Number.parseInt(value) || 1 })}
@@ -136,7 +136,7 @@ export const RecipeBasicInfoStep = ({
 
         <div className="flex items-center gap-4">
           <Input
-            label={<Trans>Nombre de personnes</Trans>}
+            label={<Trans>Number of Servings</Trans>}
             type="number"
             value={formData.servings.toString()}
             onValueChange={(value) => onFormDataChange({ servings: Number.parseInt(value) || 1 })}
@@ -151,7 +151,7 @@ export const RecipeBasicInfoStep = ({
             onValueChange={(checked) => onFormDataChange({ isPublic: checked })}
             className="mt-6"
           >
-            <Trans>Rendre publique</Trans>
+            <Trans>Make Public</Trans>
           </Checkbox>
         </div>
       </CardBody>

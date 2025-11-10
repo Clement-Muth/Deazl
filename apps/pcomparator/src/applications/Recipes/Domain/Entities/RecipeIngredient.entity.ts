@@ -2,8 +2,8 @@ import { Entity, UniqueEntityID } from "@deazl/shared";
 
 interface RecipeIngredientProps {
   recipeId: string;
-  productId?: string;
-  customName?: string;
+  productId: string;
+  productName?: string; // Cached for display
   quantity: number;
   unit: string;
   order: number;
@@ -17,8 +17,8 @@ export class RecipeIngredient extends Entity<RecipeIngredientProps> {
   public static create(
     props: {
       recipeId: string;
-      productId?: string;
-      customName?: string;
+      productId: string;
+      productName?: string;
       quantity: number;
       unit: string;
       order?: number;
@@ -29,7 +29,7 @@ export class RecipeIngredient extends Entity<RecipeIngredientProps> {
       {
         recipeId: props.recipeId,
         productId: props.productId,
-        customName: props.customName,
+        productName: props.productName,
         quantity: props.quantity,
         unit: props.unit,
         order: props.order ?? 0
@@ -46,12 +46,12 @@ export class RecipeIngredient extends Entity<RecipeIngredientProps> {
     return this.props.recipeId;
   }
 
-  get productId(): string | undefined {
+  get productId(): string {
     return this.props.productId;
   }
 
-  get customName(): string | undefined {
-    return this.props.customName;
+  get productName(): string | undefined {
+    return this.props.productName;
   }
 
   get quantity(): number {
@@ -99,8 +99,8 @@ export class RecipeIngredient extends Entity<RecipeIngredientProps> {
   public toObject() {
     return {
       id: this.id,
-      productId: this.productId ?? null,
-      customName: this.customName,
+      productId: this.productId,
+      productName: this.productName,
       quantity: this.quantity,
       unit: this.unit,
       order: this.order

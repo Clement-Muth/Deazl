@@ -162,6 +162,7 @@ model ShoppingListItem {
   id             String   @id @default(uuid()) @db.Uuid
   shoppingListId String   @db.Uuid
   productId      String?  @db.Uuid
+  recipeId       String?  @db.Uuid
   quantity       Float    @default(1)
   unit           String?  @default("unit")
   isCompleted    Boolean  @default(false)
@@ -174,6 +175,7 @@ model ShoppingListItem {
   // Relations
   shoppingList ShoppingList @relation(fields: [shoppingListId], references: [id], onDelete: Cascade)
   product      Product?     @relation(fields: [productId], references: [id])
+  recipe       Recipe?      @relation(fields: [recipeId], references: [id], onDelete: SetNull)
 }
 
 enum CollaboratorRole {
@@ -224,23 +226,23 @@ model Recipe {
   updatedAt       DateTime         @updatedAt
 
   // Relations
-  ingredients   RecipeIngredient[]
-  steps         RecipeStep[]
-  collaborators RecipeCollaborator[]
+  ingredients       RecipeIngredient[]
+  steps             RecipeStep[]
+  collaborators     RecipeCollaborator[]
+  shoppingListItems ShoppingListItem[]
 }
 
 model RecipeIngredient {
-  id         String  @id @default(uuid()) @db.Uuid
-  recipeId   String  @db.Uuid
-  productId  String? @db.Uuid
-  customName String?
-  quantity   Float
-  unit       String
-  order      Int     @default(0)
+  id        String @id @default(uuid()) @db.Uuid
+  recipeId  String @db.Uuid
+  productId String @db.Uuid
+  quantity  Float
+  unit      String
+  order     Int    @default(0)
 
   // Relations
-  recipe  Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
-  product Product? @relation(fields: [productId], references: [id])
+  recipe  Recipe  @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
 }
 
 model RecipeStep {
