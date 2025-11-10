@@ -34,6 +34,7 @@ export const BarcodeScanner = ({
   const [isScanning, setIsScanning] = useState(false);
   const codeReaderRef = useRef<BrowserMultiFormatReader | null>(null);
   const scanTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const isScanningRef = useRef(false);
 
   // Références stables pour les callbacks
   const onScannedRef = useRef(onScanned);
@@ -142,26 +143,31 @@ export const BarcodeScanner = ({
   };
 
   const startScanning = useCallback(() => {
-    if (!codeReaderRef.current || !videoRef.current || isScanning) {
+    console.log("🔍 Tentative démarrage scan...", {
+      hasCodeReader: !!codeReaderRef.current,
+      hasVideo: !!videoRef.current,
+      videoReadyState: videoRef.current?.readyState,
+      alreadyScanning: isScanningRef.current
+    });
+
+    if (!codeReaderRef.current || !videoRef.current) {
+      console.error("❌ Impossible de démarrer le scan: codeReader ou video manquant");
       return;
     }
 
-    console.log("🔍 Démarrage du scan...");
-    console.log("onScanned disponible:", typeof onScanned);
+    if (isScanningRef.current) {
+      console.log("⚠️ Scan déjà en cours, skip");
+      return;
+    }
+
+    console.log("✅ Démarrage du scan...");
+    isScanningRef.current = true;
     setIsScanning(true);
 
     try {
       codeReaderRef.current.decodeFromVideoDevice(null, videoRef.current, (result, error) => {
-        console.log("📱 Callback appelé, result:", result, "error:", error);
-
         if (result) {
           console.log("🎉 Code-barres détecté:", result.getText());
-
-          // Utiliser les références stables pour éviter les problèmes de closure
-          console.log("🔧 Vérification des refs:", {
-            onScannedRef: typeof onScannedRef.current,
-            onCloseRef: typeof onCloseRef.current
-          });
 
           if (typeof onScannedRef.current === "function") {
             onScannedRef.current(result.getText());
@@ -188,13 +194,17 @@ export const BarcodeScanner = ({
           console.error("Erreur de scan:", error);
         }
       });
+      console.log("✅ decodeFromVideoDevice lancé avec succès");
     } catch (err) {
-      console.error("Erreur lors du démarrage du scan:", err);
+      console.error("❌ Erreur lors du démarrage du scan:", err);
+      isScanningRef.current = false;
       setIsScanning(false);
     }
-  }, [isScanning, continuous]);
+  }, [continuous]);
 
   const stopScanning = () => {
+    console.log("🛑 Arrêt du scan");
+    isScanningRef.current = false;
     setIsScanning(false);
     if (scanTimeoutRef.current) {
       clearTimeout(scanTimeoutRef.current);
