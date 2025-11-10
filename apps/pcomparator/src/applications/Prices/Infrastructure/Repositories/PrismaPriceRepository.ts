@@ -10,6 +10,7 @@ export class PrismaPriceRepository {
       data: {
         amount: price.amount,
         currency: price.currency,
+        unit: price.unit ?? "kg",
         date_recorded: price.dateRecorded ?? undefined,
         price_proof_image: price.priceProofImage,
         product_id: price.productId,

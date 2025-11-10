@@ -9,6 +9,48 @@ export interface PriceData {
   dateRecorded: Date;
 }
 
+/**
+ * Converts a quantity from one unit to another
+ * Supports: kg, g, l, ml, unit
+ */
+function convertUnit(quantity: number, fromUnit: string, toUnit: string): number {
+  const from = fromUnit.toLowerCase();
+  const to = toUnit.toLowerCase();
+
+  // Same unit, no conversion needed
+  if (from === to) return quantity;
+
+  // Weight conversions
+  if (from === "kg" && to === "g") return quantity * 1000;
+  if (from === "g" && to === "kg") return quantity / 1000;
+
+  // Volume conversions
+  if (from === "l" && to === "ml") return quantity * 1000;
+  if (from === "ml" && to === "l") return quantity / 1000;
+
+  // If units are incompatible or "unit", return original quantity
+  return quantity;
+}
+
+/**
+ * Calculates the price for a given quantity, handling unit conversions
+ * @param priceAmount Price per unit (e.g., 2.54€/kg)
+ * @param priceUnit Unit of the price (e.g., "kg")
+ * @param itemQuantity Quantity of the item (e.g., 50)
+ * @param itemUnit Unit of the item quantity (e.g., "g")
+ * @returns Total price for the quantity
+ */
+function calculatePriceForQuantity(
+  priceAmount: number,
+  priceUnit: string,
+  itemQuantity: number,
+  itemUnit: string
+): number {
+  // Convert item quantity to price unit
+  const convertedQuantity = convertUnit(itemQuantity, itemUnit, priceUnit);
+  return priceAmount * convertedQuantity;
+}
+
 export interface BestPriceResult {
   price: PriceData;
   savings: number; // Savings compared to highest price
@@ -143,18 +185,48 @@ export function getPriceTrends(prices: PriceData[]): PriceTrendResult | null {
 
 /**
  * Calculates total cost for a shopping list with quantity consideration
+ * Handles unit conversions automatically
  */
 export function calculateTotalCost(
   items: Array<{
     productId: string;
     quantity: number;
+    unit?: string;
     bestPrice?: PriceData | null;
   }>
 ): number {
   return items.reduce((total, item) => {
     if (!item.bestPrice) return total;
-    return total + item.bestPrice.amount * item.quantity;
+    const itemUnit = item.unit || item.bestPrice.unit || "unit";
+    const price = calculatePriceForQuantity(
+      item.bestPrice.amount,
+      item.bestPrice.unit,
+      item.quantity,
+      itemUnit
+    );
+    return total + price;
   }, 0);
+}
+
+/**
+ * Calculates the unit price for display, handling conversions
+ * @param priceAmount Price per unit from DB (e.g., 2.54€/kg)
+ * @param priceUnit Unit of the price (e.g., "kg")
+ * @param displayUnit Unit to display (e.g., "g")
+ * @returns Unit price in display unit (e.g., 0.00254€/g)
+ */
+export function getUnitPriceInDisplayUnit(
+  priceAmount: number,
+  priceUnit: string,
+  displayUnit: string
+): number {
+  // If units are the same, return as is
+  if (priceUnit.toLowerCase() === displayUnit.toLowerCase()) {
+    return priceAmount;
+  }
+
+  // Calculate what 1 unit of displayUnit costs
+  return calculatePriceForQuantity(priceAmount, priceUnit, 1, displayUnit);
 }
 
 /**
@@ -179,11 +251,13 @@ export function getPriceForStore(prices: PriceData[], storeId: string): BestPric
 
 /**
  * Finds the best store based on total savings across all items
+ * Handles unit conversions automatically
  */
 export function findBestStoreForList(
   itemsWithPrices: Array<{
     productId: string;
     quantity: number;
+    unit?: string;
     prices: PriceData[];
   }>
 ): { storeName: string; totalCost: number; savings: number } | null {
@@ -207,7 +281,9 @@ export function findBestStoreForList(
     for (const item of itemsWithPrices) {
       const storePrice = item.prices.find((p) => p.storeId === storeId);
       if (storePrice) {
-        totalCost += storePrice.amount * item.quantity;
+        const itemUnit = item.unit || storePrice.unit || "unit";
+        const price = calculatePriceForQuantity(storePrice.amount, storePrice.unit, item.quantity, itemUnit);
+        totalCost += price;
         storeName = storePrice.storeName;
       }
     }

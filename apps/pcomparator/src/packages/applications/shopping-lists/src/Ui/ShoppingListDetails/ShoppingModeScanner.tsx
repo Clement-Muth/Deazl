@@ -27,19 +27,19 @@ export const ShoppingModeScanner = ({
     async (barcode: string) => {
       try {
         // 1. Chercher si un item existant a ce code-barres
-        const existingItem = items.find((item) => item.barcode === barcode);
+        const existingItem = items.find((item) => item.product?.barcode === barcode);
 
         if (existingItem) {
           // Item trouvé dans la liste → le marquer comme complété
           if (!existingItem.isCompleted) {
             await onItemToggleAction(existingItem.id, true);
-            setLastScannedItem(existingItem.customName || "Item");
+            setLastScannedItem(existingItem.product?.name || "Item");
             setScanCount((prev) => prev + 1);
 
-            console.log(`✅ Item "${existingItem.customName}" marqué comme complété!`);
+            console.log(`✅ Item "${existingItem.product?.name}" marqué comme complété!`);
           } else {
-            console.log(`ℹ️ Item "${existingItem.customName}" déjà complété`);
-            setLastScannedItem(`${existingItem.customName} (déjà complété)`);
+            console.log(`ℹ️ Item "${existingItem.product?.name}" déjà complété`);
+            setLastScannedItem(`${existingItem.product?.name} (déjà complété)`);
           }
         } else {
           // 2. Item non trouvé → rechercher dans OpenFoodFacts et ajouter

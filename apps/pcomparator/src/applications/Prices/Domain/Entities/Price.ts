@@ -7,6 +7,7 @@ export const PriceSchema = z.object({
   storeId: z.string().uuid(),
   amount: z.number().min(0),
   currency: z.nativeEnum(Currency),
+  unit: z.string().default("kg"),
   priceProofImage: z.string().url().nullable().optional(),
   dateRecorded: z.date().nullable().optional()
 });

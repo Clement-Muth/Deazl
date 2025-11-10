@@ -1,8 +1,8 @@
 import { useLingui } from "@lingui/react/macro";
 import type React from "react";
+import type { JSX } from "react";
 import useForm from "../../Form/useForm";
 import { File as FileComponent } from "./File";
-import type { JSX } from "react";
 
 class File {
   public name: string;

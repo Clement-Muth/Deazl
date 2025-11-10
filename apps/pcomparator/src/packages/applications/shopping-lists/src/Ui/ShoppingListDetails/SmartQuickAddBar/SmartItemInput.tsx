@@ -2,7 +2,7 @@
 
 import { BarcodeScanner } from "@deazl/components";
 import { Autocomplete, AutocompleteItem, Avatar, Button, useDisclosure } from "@heroui/react";
-import { PlusIcon, QrCodeIcon, SearchIcon, StoreIcon, TagIcon } from "lucide-react";
+import { PackagePlusIcon, PlusIcon, QrCodeIcon, SearchIcon, StoreIcon, TagIcon } from "lucide-react";
 import { forwardRef, useCallback, useState } from "react";
 import type { ProductSearchResult } from "../../../Api/searchProducts.api";
 import { type SmartSuggestion, useSmartProductSearch } from "./useSmartProductSearch";
@@ -10,10 +10,9 @@ import { type SmartSuggestion, useSmartProductSearch } from "./useSmartProductSe
 interface SmartItemInputProps {
   listId: string;
   className?: string;
-  onItemAdded?: (item: any) => void;
   onProductSelected?: (product: ProductSearchResult, quantity: number, unit: string, price?: number) => void;
+  onCreateProductRequested?: (name: string, quantity: number, unit: string, price?: number) => void;
   placeholder?: string;
-  autoFocus?: boolean;
 }
 
 export const SmartItemInput = forwardRef<HTMLInputElement, SmartItemInputProps>(
@@ -21,10 +20,9 @@ export const SmartItemInput = forwardRef<HTMLInputElement, SmartItemInputProps>(
     {
       listId,
       className = "",
-      onItemAdded,
       onProductSelected,
-      placeholder = "Rechercher ou ajouter un produit (ex: 2kg pommes, lait, 500g riz 2.99€)",
-      autoFocus = false
+      onCreateProductRequested,
+      placeholder = "Rechercher un produit (ex: 2kg pommes, lait, 500g riz 2.99€)"
     },
     ref
   ) => {
@@ -52,70 +50,40 @@ export const SmartItemInput = forwardRef<HTMLInputElement, SmartItemInputProps>(
         closeScanner();
 
         try {
-          const result: any = {};
-          // const result = await searchByBarcode({ barcode });
-
-          if (result.success) {
-            // Ajouter automatiquement l'item avec les données du code-barres
-            onItemAdded?.({
-              customName: result.name,
-              quantity: 1,
-              unit: "unit",
-              isCompleted: false,
-              barcode: barcode
-            });
-          } else {
-            onItemAdded?.({
-              customName: `Produit ${barcode}`,
-              quantity: 1,
-              unit: "unit",
-              isCompleted: false,
-              barcode: barcode
-            });
-          }
+          // TODO: Implement barcode search to find product in database
+          // For now, just log the barcode
+          console.log("Barcode scanned:", barcode);
         } catch (error) {
           console.error("Erreur lors du scan:", error);
         } finally {
           setIsScannerLoading(false);
         }
       },
-      [onItemAdded, closeScanner]
+      [closeScanner]
     );
 
     const handleSuggestionSelect = useCallback(
       (suggestion: SmartSuggestion) => {
-        if (suggestion.type === "quick-add") {
-          console.log("SmartItemInput: Adding custom item via quick-add:", suggestion.parsedItem);
-          onItemAdded?.({
-            customName: suggestion.parsedItem.productName,
-            quantity: suggestion.parsedItem.quantity,
-            unit: suggestion.parsedItem.unit,
-            price: suggestion.parsedItem.price,
-            isCompleted: false
-          });
+        if (suggestion.type === "create-product") {
+          // Trigger create product modal
+          onCreateProductRequested?.(
+            suggestion.parsedItem.productName,
+            suggestion.parsedItem.quantity,
+            suggestion.parsedItem.unit,
+            suggestion.parsedItem.price
+          );
           clearInput();
-        } else {
+        } else if (suggestion.type !== "quick-add") {
+          // Only allow product selection
           originalHandleSuggestionSelect(suggestion);
         }
       },
-      [originalHandleSuggestionSelect, onItemAdded, clearInput]
+      [originalHandleSuggestionSelect, onCreateProductRequested, clearInput]
     );
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
-      if (e.key === "Enter" && inputValue.trim()) {
-        // Si pas de suggestions et que l'input est valide, ajouter comme item custom
-        if (suggestions.length === 0 && parsedInput) {
-          console.log("SmartItemInput: Adding custom item (no suggestions):", parsedInput);
-          onItemAdded?.({
-            customName: parsedInput.productName,
-            quantity: parsedInput.quantity,
-            unit: parsedInput.unit,
-            price: parsedInput.price,
-            isCompleted: false
-          });
-          clearInput();
-        }
-      }
+      // Removed: custom item addition on Enter key
+      // Users must select a product from suggestions
     };
 
     return (
@@ -138,7 +106,6 @@ export const SmartItemInput = forwardRef<HTMLInputElement, SmartItemInputProps>(
             allowsCustomValue
             isLoading={isLoading}
             placeholder={placeholder}
-            autoFocus={autoFocus}
             startContent={<SearchIcon className="h-4 w-4 text-gray-400" />}
             onKeyDown={handleKeyDown}
             classNames={{
@@ -201,6 +168,8 @@ const SuggestionItem = ({ suggestion, onSelect }: SuggestionItemProps) => {
     switch (suggestion.type) {
       case "product":
         return <TagIcon size={12} className="text-primary-500" />;
+      case "create-product":
+        return <PackagePlusIcon size={12} className="text-green-600" />;
       case "quick-add":
         return <PlusIcon size={12} className="text-gray-500" />;
       default:

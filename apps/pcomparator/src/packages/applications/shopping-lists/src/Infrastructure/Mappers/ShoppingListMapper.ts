@@ -16,9 +16,7 @@ export class ShoppingListMapper {
             productId: item.productId,
             quantity: item.quantity,
             unit: item.unit,
-            isCompleted: item.isCompleted,
-            customName: item.customName ?? undefined,
-            price: item.price
+            isCompleted: item.isCompleted
           },
           item.id
         )

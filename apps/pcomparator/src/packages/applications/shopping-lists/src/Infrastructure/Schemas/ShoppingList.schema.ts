@@ -11,13 +11,24 @@ export const ShoppingListInfraSchema = z.object({
       createdAt: z.date(),
       updatedAt: z.date(),
       shoppingListId: z.string().uuid(),
-      productId: z.string().uuid().nullable(),
+      productId: z.string().uuid(),
       quantity: z.number(),
       unit: z.string(),
       isCompleted: z.boolean(),
-      customName: z.string().nullable(),
-      price: z.number().nullable(),
-      barcode: z.string().nullable()
+      // notes: z.string().nullable(),
+      product: z
+        .object({
+          id: z.string().uuid(),
+          barcode: z.string(),
+          name: z.string(),
+          description: z.string().nullable(),
+          category_id: z.string().uuid().nullable(),
+          brand_id: z.string().uuid().nullable(),
+          nutrition_score: z.any().nullable(),
+          created_at: z.date(),
+          updated_at: z.date()
+        })
+        .nullable()
     })
   ),
   collaborators: z.array(

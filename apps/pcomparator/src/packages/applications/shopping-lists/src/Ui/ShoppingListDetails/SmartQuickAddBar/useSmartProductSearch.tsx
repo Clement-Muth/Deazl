@@ -14,7 +14,7 @@ interface UseSmartProductSearchProps {
 
 export interface SmartSuggestion {
   id: string;
-  type: "product" | "quick-add";
+  type: "product" | "quick-add" | "create-product";
   product?: ProductSearchResult;
   parsedItem: ParsedItem;
   match?: ProductMatch;
@@ -73,21 +73,28 @@ export const useSmartProductSearch = ({
           confidence: match.similarity
         }));
 
-        // 5. Ajouter option "Ajout rapide" si pas de match parfait
-        const hasHighConfidenceMatch = matches.some((match) =>
-          ProductMatcher.isHighConfidenceMatch(parsed, match)
-        );
-
+        // 5. Ajouter option "Créer nouveau produit" si aucun ou peu de résultats
         const allSuggestions: SmartSuggestion[] = [...productSuggestions];
 
-        if (!hasHighConfidenceMatch && parsed.productName.length > 2) {
+        if (searchResults.length === 0 && parsed.productName.length >= 2) {
+          // Aucun produit trouvé → proposer la création
           allSuggestions.push({
-            id: `quick-add-${parsed.productName}`,
-            type: "quick-add",
+            id: `create-product-${parsed.productName}`,
+            type: "create-product",
             parsedItem: parsed,
-            displayText: `Ajouter "${parsed.productName}"`,
+            displayText: `Créer "${parsed.productName}" comme nouveau produit`,
             subtitle: `${parsed.quantity} ${parsed.unit}${parsed.price ? ` • ${parsed.price.toFixed(2)}€` : ""}`,
-            confidence: 0.5
+            confidence: 0.9
+          });
+        } else if (searchResults.length > 0 && searchResults.length < 3 && parsed.productName.length >= 2) {
+          // Peu de résultats → proposer la création en dernier
+          allSuggestions.push({
+            id: `create-product-${parsed.productName}`,
+            type: "create-product",
+            parsedItem: parsed,
+            displayText: `Créer "${parsed.productName}" comme nouveau produit`,
+            subtitle: "Pas trouvé ce que vous cherchiez ?",
+            confidence: 0.3
           });
         }
 

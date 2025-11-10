@@ -18,17 +18,22 @@ const useLocation = () => {
   const fetchLocations = async (url: string) => {
     try {
       setLoading(true);
-      // const data = await ky.get(url).json<LocationResponse>();
-      const data: any = {};
+      const response = await fetch(url);
+      const data = (await response.json()) as LocationResponse;
 
-      setLocation(
-        data.features.map(({ properties }) => ({
-          name: properties.name,
-          address: `${properties.street} ${properties.postcode} ${properties.state} ${properties.country}`
-        }))
-      );
+      if (data.features && Array.isArray(data.features)) {
+        setLocation(
+          data.features.map(({ properties }) => ({
+            name: properties.name,
+            address: `${properties.street} ${properties.postcode} ${properties.state} ${properties.country}`
+          }))
+        );
+      } else {
+        setLocation([]);
+      }
     } catch (error) {
       console.error("Error fetching locations:", error);
+      setLocation([]);
     } finally {
       setLoading(false);
     }
