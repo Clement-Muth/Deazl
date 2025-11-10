@@ -57,9 +57,7 @@ export const Price = ({ onNextStep, onPrevious }: PriceProps) => {
             className="flex-1"
           >
             {UNITS.map((unit) => (
-              <SelectItem key={unit.key} value={unit.key}>
-                {unit.label}
-              </SelectItem>
+              <SelectItem key={unit.key}>{unit.label}</SelectItem>
             ))}
           </Select>
         </div>

@@ -1,9 +1,7 @@
 "use client";
 
 import { Card, CardBody, CardFooter, CardHeader } from "@heroui/react";
-import { t } from "@lingui/macro";
-import { useLingui } from "@lingui/react";
-import { Trans } from "@lingui/react/macro";
+import { Trans, useLingui } from "@lingui/react/macro";
 import { toast } from "react-toastify";
 import { updatePhoneNumber } from "~/applications/Profile/Api/updatePhoneNumber";
 import useForm from "~/components/Form/useForm";
@@ -15,7 +13,7 @@ interface SettingsPhoneNumberProps {
 
 export const SettingsPhoneNumber = ({ defaultValue }: SettingsPhoneNumberProps) => {
   const form = useForm<{ phone: string }>(undefined, { defaultValues: { phone: defaultValue } });
-  const { i18n } = useLingui();
+  const { t } = useLingui();
   const notify = () =>
     toast(<Trans>Phone number updated</Trans>, {
       type: "success"
@@ -49,9 +47,9 @@ export const SettingsPhoneNumber = ({ defaultValue }: SettingsPhoneNumberProps) 
               placeholder=" "
               defaultValue={defaultValue}
               name="phone"
-              description={t(i18n)`Please use 32 characters at maximum.`}
-              label={t(i18n)`Enter a phone number to receive important service updates by SMS.`}
-              required={t(i18n)`Invalid phone number.`}
+              description={t`Please use 32 characters at maximum.`}
+              label={t`Enter a phone number to receive important service updates by SMS.`}
+              required={t`Invalid phone number.`}
             />
           </CardBody>
         </form.Form>

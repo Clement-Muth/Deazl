@@ -87,12 +87,12 @@ export const File = ({
                   labelPlacement="outside"
                   placeholder={
                     dragging
-                      ? t(i18n)`Drag and drop your file`
+                      ? t`Drag and drop your file`
                       : value?.length
                         ? Array.from(value as FileList)
                             .map((v) => v.name)
                             .join()
-                        : t(i18n)`Select your file`
+                        : t`Select your file`
                   }
                   classNames={{
                     label: "text-black-primary text-sm",

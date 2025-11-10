@@ -1,7 +1,5 @@
 "use client";
-
-import { Trans, t } from "@lingui/macro";
-import { useLingui } from "@lingui/react";
+import { Trans, useLingui } from "@lingui/react/macro";
 import clsx from "clsx";
 import type { InputHTMLAttributes, ReactNode } from "react";
 import { Controller, type FieldValues, type RegisterOptions, useFormContext } from "react-hook-form";
@@ -33,7 +31,7 @@ export default ({
   const {deps, max, maxLength, min, minLength, onBlur, onChange, pattern, required, shouldUnregister, validate, value} = props;
   // biome-ignore format: keep one line
   const rules = {deps, max, maxLength, min, minLength, onBlur, onChange, pattern, required: required ? {message: required as string, value: true} : undefined, shouldUnregister, validate, value};
-  const { i18n } = useLingui();
+  const { t } = useLingui();
 
   return (
     <Controller
@@ -56,7 +54,7 @@ export default ({
             </label>
           ) : null}
           <PhoneInput
-            placeholder={t(i18n)`Enter your phone number`}
+            placeholder={t`Enter your phone number`}
             defaultCountry="FR"
             country="FR"
             {...props}

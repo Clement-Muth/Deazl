@@ -15,14 +15,13 @@ const HomePage = async () => {
     // Calculate stats
     const stats = {
       totalLists: lists?.length || 0,
-      completedItems: lists?.reduce(
-        (sum, list) => sum + (list.items?.filter((item) => item.isCompleted).length || 0),
-        0
-      ),
+      completedItems:
+        lists?.reduce((sum, list) => sum + (list.items?.filter((item) => item.isCompleted).length || 0), 0) ||
+        0,
       totalSavings: 0 // TODO: Calculate from price comparisons
     };
 
-    return <DashboardView userName={session.user.name} recentLists={recentLists} stats={stats} />;
+    return <DashboardView userName={session.user.name} recentLists={recentLists || []} stats={stats} />;
   }
 
   return <HomeView isLoggedIn={false} />;

@@ -147,15 +147,18 @@ export class ShoppingList extends Entity<ShoppingListProps> {
   }
 
   public get totalPrice(): number {
-    return this.props.items.reduce((sum, item) => sum + (item.price || 0), 0);
+    // TODO: Calculer depuis les prix des produits
+    return 0;
   }
 
   public get totalPendingPrice(): number {
-    return this.getPendingItems().reduce((sum, item) => sum + (item.price || 0), 0);
+    // TODO: Calculer depuis les prix des produits
+    return 0;
   }
 
   public get totalCompletedPrice(): number {
-    return this.getCompletedItems().reduce((sum, item) => sum + (item.price || 0), 0);
+    // TODO: Calculer depuis les prix des produits
+    return 0;
   }
 
   public isEmpty(): boolean {

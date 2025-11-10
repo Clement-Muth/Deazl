@@ -52,7 +52,7 @@ export const Location = ({ onNextStep, onPrevious }: LocationProps) => {
         {/* Nearby stores from geolocation */}
         {loading ? (
           <div className="flex justify-center py-8">
-            <Spinner size="lg" label={<Trans>Finding nearby stores...</Trans>} />
+            <Spinner size="lg" />
           </div>
         ) : location && location.length > 0 ? (
           <div className="space-y-2">

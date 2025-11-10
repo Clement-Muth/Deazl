@@ -52,9 +52,9 @@ export const useFileHandler = (
 
   const validateFiles = (files: File[]) => {
     if (minFile && files.length < minFile)
-      throw new FormError("", "", t(i18n)`You must add more than ${minFile} files`);
+      throw new FormError("", "", t`You must add more than ${minFile} files`);
     if (maxFile && maxFile !== "unlimited" && files.length > maxFile)
-      throw new FormError("", "", t(i18n)`You can only add a maximum of ${maxFile} files`);
+      throw new FormError("", "", t`You can only add a maximum of ${maxFile} files`);
 
     for (const file of Array.from(files)) {
       new Byte(file, maxSize);
@@ -77,7 +77,7 @@ export const useFileHandler = (
     onFileLoaded?.(filePreviews.filter((_, n) => index !== n));
     setFilePreviews(filePreviews.filter((_, n) => index !== n));
     if (minFile && dataTransfer.files.length < minFile)
-      throw new FormError("", "", t(i18n)`You must add more than ${minFile} files`);
+      throw new FormError("", "", t`You must add more than ${minFile} files`);
   };
 
   return {

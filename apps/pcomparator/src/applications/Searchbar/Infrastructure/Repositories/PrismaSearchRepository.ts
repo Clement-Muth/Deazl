@@ -14,6 +14,7 @@ export class PrismaSearchRepository implements SearchRepository {
       ? prices.map((price) => ({
           amount: price.amount,
           currency: price.currency as Currency,
+          unit: price.unit,
           id: price.id,
           productId: price.product_id,
           storeId: price.store_id,

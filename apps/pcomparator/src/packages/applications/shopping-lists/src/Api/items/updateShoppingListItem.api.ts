@@ -4,7 +4,6 @@ import { z } from "zod";
 import { ShoppingListItemApplicationService } from "../../Application/Services/ShoppingListItem.service";
 import type { ShoppingListItemPayload } from "../../Domain/Entities/ShoppingListItem.entity";
 import { ItemQuantity } from "../../Domain/ValueObjects/ItemQuantity.vo";
-import { Price } from "../../Domain/ValueObjects/Price.vo";
 import { Unit } from "../../Domain/ValueObjects/Unit.vo";
 import { PrismaShoppingListRepository } from "../../Infrastructure/Repositories/PrismaShoppingList.infrastructure";
 import { PrismaShoppingListItemRepository } from "../../Infrastructure/Repositories/PrismaShoppingListItem.infrastructure";
@@ -18,12 +17,9 @@ const UpdateShoppingListItemSchema = z.object({
   itemId: z.string().uuid(),
   data: z
     .object({
-      customName: z.string().min(2, "Item name must be at least 2 characters long").optional(),
       quantity: z.number().positive("Quantity must be positive").optional(),
       unit: z.enum(["unit", "kg", "g", "l", "ml", "piece"]).optional(),
-      price: z.number().min(0, "Price cannot be negative").nullable().optional(),
       isCompleted: z.boolean().optional(),
-      barcode: z.string().nullable().optional(),
       recipeId: z.string().uuid().nullable().optional(),
       recipeName: z.string().nullable().optional()
     })
@@ -35,10 +31,7 @@ type UpdateShoppingListItemPayload = z.infer<typeof UpdateShoppingListItemSchema
 export const updateShoppingListItem = async (
   itemId: string,
   data: Partial<
-    Pick<
-      ShoppingListItemPayload,
-      "customName" | "quantity" | "unit" | "price" | "isCompleted" | "barcode" | "recipeId" | "recipeName"
-    >
+    Pick<ShoppingListItemPayload, "quantity" | "unit" | "isCompleted" | "recipeId" | "recipeName">
   >
 ): Promise<ShoppingListItemPayload> => {
   try {
@@ -46,15 +39,8 @@ export const updateShoppingListItem = async (
 
     // Validation et création des Value Objects pour les champs modifiés
     const validatedData: Partial<
-      Pick<
-        ShoppingListItemPayload,
-        "customName" | "quantity" | "unit" | "price" | "isCompleted" | "barcode" | "recipeId" | "recipeName"
-      >
+      Pick<ShoppingListItemPayload, "quantity" | "unit" | "isCompleted" | "recipeId" | "recipeName">
     > = {};
-
-    if (payload.data.customName !== undefined) {
-      validatedData.customName = payload.data.customName;
-    }
 
     if (payload.data.quantity !== undefined) {
       const quantity = ItemQuantity.create(payload.data.quantity);
@@ -66,17 +52,8 @@ export const updateShoppingListItem = async (
       validatedData.unit = unit.value;
     }
 
-    if (payload.data.price !== undefined) {
-      const price = Price.createOptional(payload.data.price);
-      validatedData.price = price?.value ?? undefined;
-    }
-
     if (payload.data.isCompleted !== undefined) {
       validatedData.isCompleted = payload.data.isCompleted;
-    }
-
-    if (payload.data.barcode !== undefined) {
-      validatedData.barcode = payload.data.barcode;
     }
 
     if (payload.data.recipeId !== undefined) {

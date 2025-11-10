@@ -62,7 +62,7 @@ async function detectMergeOpportunities(
     if (existingItem) {
       merged.push({
         productId: ingredient.productId,
-        productName: ingredient.productName || existingItem.customName || "Unknown",
+        productName: ingredient.productName || existingItem.product?.name || "Unknown",
         existingQuantity: existingItem.quantity,
         newQuantity: ingredient.quantity,
         totalQuantity: existingItem.quantity + ingredient.quantity,

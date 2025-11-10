@@ -71,7 +71,7 @@ export const Tabbar = ({ isSignedIn }: TabbarProps) => {
       ) : null}
       <NewPriceModal
         isOpen={isNewPriceOpen}
-        barcode={{ barcode: barcode!, format: "" }}
+        barcode={barcode || undefined}
         onOpenChange={onOpenChangeNewPrice}
         onClose={onClose}
         onSuccessfull={() => {

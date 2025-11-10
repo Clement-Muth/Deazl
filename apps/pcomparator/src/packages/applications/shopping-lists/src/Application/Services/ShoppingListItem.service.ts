@@ -19,7 +19,7 @@ export class ShoppingListItemApplicationService {
   async addItemToList(
     listId: string,
     itemData: {
-      productId: string;
+      productId: string | null;
       recipeId?: string | null;
       recipeName?: string | null;
       quantity: number;

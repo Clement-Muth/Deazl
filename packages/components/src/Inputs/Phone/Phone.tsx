@@ -56,7 +56,7 @@ export default ({
             </label>
           ) : null}
           <PhoneInput
-            placeholder={t(i18n)`Enter your phone number`}
+            placeholder={t`Enter your phone number`}
             defaultCountry="FR"
             country="FR"
             {...props}

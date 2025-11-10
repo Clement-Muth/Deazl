@@ -105,13 +105,13 @@ export class SmartConversionApplicationService {
         return null;
       }
 
-      const itemName = item.customName || "";
+      const itemName = item.product?.name || "";
       if (!itemName.trim()) {
         return null;
       }
 
       // 🚀 Stratégie optimisée : privilégier le code-barres
-      if (item.barcode) {
+      if (item.product?.barcode) {
         return await this.generateBarcodeBasedSuggestion(item);
       }
 
@@ -196,9 +196,7 @@ export class SmartConversionApplicationService {
           quantity: item.quantity,
           unit: item.unit,
           isCompleted: item.isCompleted,
-          customName: item.customName,
-          price: item.price,
-          barcode: item.barcode,
+          // Les anciennes données ne sont plus nécessaires
           notes: item.notes
         },
         item.id
@@ -243,8 +241,8 @@ export class SmartConversionApplicationService {
           (item) =>
             !item.productId && // Pas de produit associé
             item.isCompleted && // Item complété
-            item.customName && // A un nom
-            item.customName.trim().length > 2 // Nom suffisamment long
+            item.product?.name && // A un nom
+            item.product.name.trim().length > 2 // Nom suffisamment long
         )
         .map((item) => item.id!)
         .filter(Boolean);

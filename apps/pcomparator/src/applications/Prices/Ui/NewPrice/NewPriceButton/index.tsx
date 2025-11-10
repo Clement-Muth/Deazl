@@ -46,7 +46,8 @@ export const NewPriceButton = () => {
             notify(productName);
             onClose();
           }}
-          barcode={barcode}
+          productName=""
+          barcode={barcode?.barcode}
         />
       ) : null}
       {device === "desktop" ? (

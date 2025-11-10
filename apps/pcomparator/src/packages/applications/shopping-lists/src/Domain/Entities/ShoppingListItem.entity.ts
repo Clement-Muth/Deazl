@@ -16,13 +16,19 @@ export type ShoppingListItemPayload = z.infer<typeof ShoppingListItemSchema>;
 
 export interface ShoppingListItemProps {
   shoppingListId: string;
-  productId: string;
+  productId: string | null;
   recipeId?: string | null; // ID de la recette source
   recipeName?: string | null; // Cache du nom de la recette pour affichage
   quantity: ItemQuantity;
   unit: Unit;
   status: ItemStatus;
   notes?: string | null;
+  product?: {
+    id: string;
+    name: string;
+    barcode: string;
+    description: string | null;
+  } | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -35,13 +41,19 @@ export class ShoppingListItem extends Entity<ShoppingListItemProps> {
   public static create(
     props: {
       shoppingListId: string;
-      productId: string;
+      productId: string | null;
       recipeId?: string | null;
       recipeName?: string | null;
       quantity: number;
       unit: string;
       isCompleted?: boolean;
       notes?: string | null;
+      product?: {
+        id: string;
+        name: string;
+        barcode: string;
+        description: string | null;
+      } | null;
     },
     id?: string
   ): ShoppingListItem {
@@ -55,6 +67,7 @@ export class ShoppingListItem extends Entity<ShoppingListItemProps> {
         unit: Unit.create(props.unit),
         status: ItemStatus.create(props.isCompleted || false),
         notes: props.notes,
+        product: props.product,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -97,8 +110,20 @@ export class ShoppingListItem extends Entity<ShoppingListItemProps> {
     return this.props.shoppingListId;
   }
 
-  get productId(): string {
+  get productId(): string | null {
     return this.props.productId;
+  }
+
+  get product():
+    | {
+        id: string;
+        name: string;
+        barcode: string;
+        description: string | null;
+      }
+    | null
+    | undefined {
+    return this.props.product;
   }
 
   get recipeId(): string | null | undefined {
@@ -224,6 +249,7 @@ export class ShoppingListItem extends Entity<ShoppingListItemProps> {
       unit: this.unit,
       isCompleted: this.isCompleted,
       notes: this.notes,
+      product: this.product,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     };

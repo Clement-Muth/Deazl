@@ -14,6 +14,16 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
+#: src/applications/Prices/Ui/NewPrice/FormSteps/Step2/Price.tsx
+msgid "Select unit"
+msgstr "Select unit"
+
+#. js-lingui-explicit-id
+#: src/applications/Prices/Ui/NewPrice/FormSteps/Step1/PriceDetails.tsx
+msgid "Unit"
+msgstr "Unit"
+
+#. js-lingui-explicit-id
 #: src/components/Inputs/Input/Barcode.tsx
 msgid "All barcode types are accepted."
 msgstr "All barcode types are accepted."
@@ -40,6 +50,7 @@ msgid "delete my account"
 msgstr "delete my account"
 
 #. js-lingui-explicit-id
+#: src/applications/Prices/Ui/NewPrice/FormSteps/Step1/PriceDetails.tsx
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step2/Price.tsx
 msgid "Please enter a valid price."
 msgstr "Please enter a valid price."
@@ -54,6 +65,10 @@ msgstr "-{0}€"
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
 msgid "{0} items will be merged, {1} new items will be added"
 msgstr "{0} items will be merged, {1} new items will be added"
+
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
+msgid "{name} has been added to your list"
+msgstr "{name} has been added to your list"
 
 #: src/components/Footer/Footer.tsx
 msgid "© 2025 Deazl. All rights reserved."
@@ -96,8 +111,8 @@ msgstr "A passionate team of developers, designers, and data experts dedicated t
 msgid "A wide coverage of stores"
 msgstr "A wide coverage of stores"
 
-#: src/components/Header/Header.tsx
 #: src/components/Footer/Footer.tsx
+#: src/components/Header/Header.tsx
 msgid "About"
 msgstr "About"
 
@@ -109,8 +124,8 @@ msgstr "Access prices from many stores near you. Our network grows every day tha
 msgid "Account deleted"
 msgstr "Account deleted"
 
-#: src/app/[locale]/settings/page.tsx
 #: src/app/[locale]/dashboard/page.tsx
+#: src/app/[locale]/settings/page.tsx
 msgid "Account Settings"
 msgstr "Account Settings"
 
@@ -127,8 +142,8 @@ msgstr "Active Lists"
 msgid "Active users"
 msgstr "Active users"
 
-#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
 #: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
 msgid "Add"
 msgstr "Add"
 
@@ -136,9 +151,17 @@ msgstr "Add"
 msgid "Add a new store to track prices and products. This information will help you compare prices across different stores."
 msgstr "Add a new store to track prices and products. This information will help you compare prices across different stores."
 
+#: src/applications/Prices/Ui/NewPrice/FormSteps/Step3/Proof.tsx
+msgid "Add a photo of the price tag or receipt (optional)"
+msgstr "Add a photo of the price tag or receipt (optional)"
+
 #: src/components/DesktopNav.tsx
 msgid "Add a Price"
 msgstr "Add a Price"
+
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
+msgid "Add a product that doesn't exist in our database"
+msgstr "Add a product that doesn't exist in our database"
 
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListItemCard/ShoppingListItemCard.tsx
 msgid "Add items using the quick add bar above"
@@ -159,6 +182,15 @@ msgstr "Add new price by typing barcode"
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/AddStoreModal.tsx
 msgid "Add New Store"
 msgstr "Add New Store"
+
+#: src/applications/Prices/Ui/NewPrice/NewPiceModal.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/AddPriceButton.tsx
+msgid "Add price"
+msgstr "Add price"
+
+#: src/applications/Prices/Ui/NewPrice/FormSteps/Step1/PriceDetails.tsx
+msgid "Add price information"
+msgstr "Add price information"
 
 #: src/views/Home/components/HowItWorks/HowItWorksSection.tsx
 msgid "Add the products you want to track"
@@ -251,18 +283,26 @@ msgstr "Avatar updated"
 msgid "Average savings"
 msgstr "Average savings"
 
+#: src/applications/Prices/Ui/NewPrice/FormSteps/Step2/Location.tsx
+msgid "Back"
+msgstr "Back"
+
 #: src/app/[locale]/error.tsx
 msgid "Back to Home"
 msgstr "Back to Home"
 
 #: src/components/Inputs/Input/Barcode.tsx
-#: src/applications/Prices/Ui/NewPrice/NewPiceModal.tsx
 msgid "Barcode"
 msgstr "Barcode"
 
 #: src/applications/Recipes/Ui/RecipeForm/CreateProductModal.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
 msgid "Barcode (Optional)"
 msgstr "Barcode (Optional)"
+
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
+msgid "Barcode saved, but no product info found"
+msgstr "Barcode saved, but no product info found"
 
 #: src/applications/Recipes/Ui/RecipeForm/RecipeFormCreate.tsx
 msgid "Basic Info"
@@ -288,13 +328,18 @@ msgstr "Both name and location are required"
 msgid "By signing in, you agree to our <0>terms of service</0> and <1>privacy policy</1>."
 msgstr "By signing in, you agree to our <0>terms of service</0> and <1>privacy policy</1>."
 
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ProductSelectionModal.tsx
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/AddStoreModal.tsx
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListItemCard/ShoppingListItemCard.tsx
-#: src/applications/Recipes/Ui/RecipeForm/RecipeFormNavigation.tsx
-#: src/applications/Recipes/Ui/RecipeForm/CreateProductModal.tsx
-#: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
+#: src/applications/Prices/Ui/NewPrice/FormSteps/Step1/PriceDetails.tsx
+msgid "Camera"
+msgstr "Camera"
+
 #: src/applications/Prices/Ui/ListPrices/CardPrice/DeletePriceModal/DeletePriceModal.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
+#: src/applications/Recipes/Ui/RecipeForm/CreateProductModal.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeFormNavigation.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/AddStoreModal.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ProductSelectionModal.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListItemCard/ShoppingListItemCard.tsx
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -318,8 +363,8 @@ msgstr "Click on the avatar to upload a custom one from your files."
 msgid "Click to add an image"
 msgstr "Click to add an image"
 
-#: src/applications/Searchbar/Ui/SearchResult/SearchResultModal.tsx
 #: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModal.tsx
+#: src/applications/Searchbar/Ui/SearchResult/SearchResultModal.tsx
 msgid "Close"
 msgstr "Close"
 
@@ -339,8 +384,8 @@ msgstr "Collaborator invited successfully"
 msgid "Collaborators"
 msgstr "Collaborators"
 
-#: src/components/Footer/Footer.tsx
 #: src/app/[locale]/about/page.tsx
+#: src/components/Footer/Footer.tsx
 msgid "Community"
 msgstr "Community"
 
@@ -368,8 +413,8 @@ msgstr "Compare prices, save smart"
 msgid "Comparez les prix dans les plus grandes enseignes de distribution françaises."
 msgstr "Comparez les prix dans les plus grandes enseignes de distribution françaises."
 
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/Stats/Stats.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListContainer.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/Stats/Stats.tsx
 msgid "Completed"
 msgstr "Completed"
 
@@ -380,6 +425,14 @@ msgstr "Completed lists will appear here"
 #: src/applications/Prices/Ui/ListPrices/CardPrice/DeletePriceModal/DeletePriceModal.tsx
 msgid "confirm"
 msgstr "confirm"
+
+#: src/applications/Prices/Ui/NewPrice/FormSteps/Step2/Location.tsx
+msgid "Confirm"
+msgstr "Confirm"
+
+#: src/applications/Prices/Ui/NewPrice/FormSteps/Step1/PriceDetails.tsx
+msgid "Confirm & Add"
+msgstr "Confirm & Add"
 
 #: src/app/[locale]/features/page.tsx
 msgid "Consumption trends"
@@ -429,6 +482,10 @@ msgstr "Cover Image"
 msgid "Create"
 msgstr "Create"
 
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
+msgid "Create & Add to List"
+msgstr "Create & Add to List"
+
 #: src/views/Home/components/CTA/CTASection.tsx
 msgid "Create a free account"
 msgstr "Create a free account"
@@ -462,6 +519,7 @@ msgid "Create my first recipe"
 msgstr "Create my first recipe"
 
 #: src/applications/Recipes/Ui/RecipeForm/CreateProductModal.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
 msgid "Create New Product"
 msgstr "Create New Product"
 
@@ -480,6 +538,10 @@ msgstr "Create Shopping List"
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/AddStoreModal.tsx
 msgid "Create Store"
 msgstr "Create Store"
+
+#: src/views/Home/components/Dashboard/DashboardView.tsx
+msgid "Create Your First List"
+msgstr "Create Your First List"
 
 #: src/app/[locale]/recipes/content.tsx
 msgid "Create your first recipe to start organizing your collection"
@@ -502,7 +564,6 @@ msgid "Creating..."
 msgstr "Creating..."
 
 #: src/applications/Prices/Ui/NewQuickPrice/FormSteps/Location.tsx
-#: src/applications/Prices/Ui/NewPrice/FormSteps/Step4/Location.tsx
 msgid "Custom location"
 msgstr "Custom location"
 
@@ -599,6 +660,10 @@ msgstr "Done"
 msgid "Drag and drop your file"
 msgstr "Drag and drop your file"
 
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
+msgid "e.g., Organic Apples"
+msgstr "e.g., Organic Apples"
+
 #: src/applications/Recipes/Ui/RecipeDetails.tsx
 #: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
 msgid "Easy"
@@ -636,27 +701,28 @@ msgstr "Enter your product name"
 msgid "Environment"
 msgstr "Environment"
 
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/useShoppingListActions.tsx
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/useShoppingListActions.tsx
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/useShoppingListActions.tsx
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/useQuickAdd.tsx
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListDetailsHeader.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/useRecipeShare.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/useRecipeShare.tsx
+#: src/applications/Recipes/Ui/RecipeForm/CreateProductModal.tsx
+#: src/applications/Recipes/Ui/RecipeForm/CreateProductModal.tsx
+#: src/applications/Recipes/Ui/RecipeForm/CreateProductModal.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/AddStoreModal.tsx
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/SmartQuickAddBar/useSmartAdd.tsx
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/SmartQuickAddBar/useSmartAdd.tsx
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/useShoppingListShare.tsx
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/useShoppingListShare.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/useShareList.tsx
-#: src/applications/Recipes/Ui/RecipeForm/CreateProductModal.tsx
-#: src/applications/Recipes/Ui/RecipeForm/CreateProductModal.tsx
-#: src/applications/Recipes/Ui/RecipeForm/CreateProductModal.tsx
-#: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
-#: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
-#: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
-#: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
-#: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
-#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/useRecipeShare.tsx
-#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/useRecipeShare.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/useShoppingListShare.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/useShoppingListShare.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListDetailsHeader.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/SmartQuickAddBar/useSmartAdd.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/useQuickAdd.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/useShoppingListActions.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/useShoppingListActions.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/useShoppingListActions.tsx
 msgid "Error"
 msgstr "Error"
 
@@ -685,6 +751,7 @@ msgid "Failed to add recipe to list"
 msgstr "Failed to add recipe to list"
 
 #: src/applications/Recipes/Ui/RecipeForm/CreateProductModal.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
 msgid "Failed to create product"
 msgstr "Failed to create product"
 
@@ -716,8 +783,8 @@ msgstr "Failed to load collaborators"
 msgid "Failed to remove item"
 msgstr "Failed to remove item"
 
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/useShoppingListShare.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/useShareList.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/useShoppingListShare.tsx
 msgid "Failed to send invitation"
 msgstr "Failed to send invitation"
 
@@ -741,8 +808,8 @@ msgstr "Features"
 msgid "Find the best prices near you"
 msgstr "Find the best prices near you"
 
-#: src/app/[locale]/auth/signin/page.tsx
 #: src/app/[locale]/about/page.tsx
+#: src/app/[locale]/auth/signin/page.tsx
 msgid "For the community"
 msgstr "For the community"
 
@@ -761,6 +828,10 @@ msgstr "Frequently Asked Questions"
 #: src/applications/Profile/Ui/Settings/DisplayName.tsx
 msgid "Fullname updated"
 msgstr "Fullname updated"
+
+#: src/applications/Prices/Ui/NewPrice/FormSteps/Step1/PriceDetails.tsx
+msgid "Gallery"
+msgstr "Gallery"
 
 #: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
 msgid "General Information"
@@ -834,9 +905,9 @@ msgid "Information"
 msgstr "Information"
 
 #: src/applications/Recipes/Ui/RecipeDetails.tsx
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
-#: src/applications/Recipes/Ui/RecipeForm/RecipeFormEdit.tsx
 #: src/applications/Recipes/Ui/RecipeForm/RecipeFormCreate.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeFormEdit.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
 msgid "Ingredients"
 msgstr "Ingredients"
 
@@ -878,7 +949,6 @@ msgid "Invite People"
 msgstr "Invite People"
 
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/useQuickAdd.tsx
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/SmartQuickAddBar/useSmartAdd.tsx
 msgid "Item added"
 msgstr "Item added"
 
@@ -910,6 +980,10 @@ msgstr "Item updated"
 msgid "items completed"
 msgstr "items completed"
 
+#: src/views/Home/components/Dashboard/DashboardView.tsx
+msgid "Items Completed"
+msgstr "Items Completed"
+
 #: src/app/[locale]/features/page.tsx
 msgid "Join our community and start enjoying all our features for free."
 msgstr "Join our community and start enjoying all our features for free."
@@ -934,8 +1008,8 @@ msgstr "Join thousands of users already saving with Deazl. Registration is free 
 msgid "Kilograms (kg)"
 msgstr "Kilograms (kg)"
 
-#: src/views/Home/components/Hero/HeroSection.tsx
 #: src/views/Home/components/CTA/CTASection.tsx
+#: src/views/Home/components/Hero/HeroSection.tsx
 msgid "Learn more"
 msgstr "Learn more"
 
@@ -947,7 +1021,7 @@ msgstr "Leave empty to auto-generate"
 msgid "Legal"
 msgstr "Legal"
 
-#: src/views/Home/HomeView.tsx
+#: src/views/Home/components/Dashboard/DashboardView.tsx
 msgid "Let's find the best deals for your shopping!"
 msgstr "Let's find the best deals for your shopping!"
 
@@ -955,14 +1029,10 @@ msgstr "Let's find the best deals for your shopping!"
 msgid "Light"
 msgstr "Light"
 
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/useShareList.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/QrCodeTab.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/useShareList.tsx
 msgid "Link copied"
 msgstr "Link copied"
-
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListContainer.tsx
-msgid "List"
-msgstr "List"
 
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListDetailsHeader.tsx
 msgid "List deleted"
@@ -973,7 +1043,6 @@ msgid "Liters (l)"
 msgstr "Liters (l)"
 
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/AddStoreModal.tsx
-#: src/applications/Prices/Ui/NewPrice/NewPiceModal.tsx
 msgid "Location"
 msgstr "Location"
 
@@ -993,9 +1062,9 @@ msgstr "Make Public"
 msgid "Manage and organize your shopping lists"
 msgstr "Manage and organize your shopping lists"
 
-#: src/core/pwa/Install.tsx
-#: src/core/pwa/Install.tsx
 #: src/applications/Products/Ui/NewProduct/NewProduct.tsx
+#: src/core/pwa/Install.tsx
+#: src/core/pwa/Install.tsx
 msgid "Maybe later"
 msgstr "Maybe later"
 
@@ -1022,7 +1091,12 @@ msgstr "Missing information"
 msgid "Monitor price changes over time and find the best deals."
 msgstr "Monitor price changes over time and find the best deals."
 
+#: src/views/Home/components/Dashboard/DashboardView.tsx
+msgid "My Lists"
+msgstr "My Lists"
+
 #: src/app/[locale]/dashboard/layout.tsx
+#: src/views/Home/components/Dashboard/DashboardView.tsx
 msgid "My Prices"
 msgstr "My Prices"
 
@@ -1030,12 +1104,21 @@ msgstr "My Prices"
 msgid "My Recipes"
 msgstr "My Recipes"
 
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
+msgid "Name automatically filled from barcode scan"
+msgstr "Name automatically filled from barcode scan"
+
 #: src/app/[locale]/features/page.tsx
 msgid "National coverage"
 msgstr "National coverage"
 
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/ShoppingListsView.tsx
+#: src/applications/Prices/Ui/NewPrice/FormSteps/Step2/Location.tsx
+msgid "Nearby stores"
+msgstr "Nearby stores"
+
 #: src/packages/applications/shopping-lists/src/Ui/NewShoppingListButton/NewShoppingListButton.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/ShoppingListsView.tsx
+#: src/views/Home/components/Dashboard/DashboardView.tsx
 msgid "New List"
 msgstr "New List"
 
@@ -1043,13 +1126,13 @@ msgstr "New List"
 msgid "New list name"
 msgstr "New list name"
 
-#: src/components/Form/FormActions.tsx
-#: src/applications/Recipes/Ui/RecipeForm/RecipeFormNavigation.tsx
-#: src/applications/Prices/Ui/NewQuickPrice/FormSteps/Location.tsx
-#: src/applications/Prices/Ui/NewPrice/FormSteps/Step4/Location.tsx
-#: src/applications/Prices/Ui/NewPrice/FormSteps/Step3/Proof.tsx
-#: src/applications/Prices/Ui/NewPrice/FormSteps/Step2/Price.tsx
+#: src/applications/Prices/Ui/NewPrice/FormSteps/Step1/PriceDetails.tsx
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step1/TypeBarcode.tsx
+#: src/applications/Prices/Ui/NewPrice/FormSteps/Step2/Price.tsx
+#: src/applications/Prices/Ui/NewPrice/FormSteps/Step3/Proof.tsx
+#: src/applications/Prices/Ui/NewQuickPrice/FormSteps/Location.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeFormNavigation.tsx
+#: src/components/Form/FormActions.tsx
 msgid "Next"
 msgstr "Next"
 
@@ -1069,6 +1152,10 @@ msgstr "No price available for this product"
 msgid "No recipes yet"
 msgstr "No recipes yet"
 
+#: src/views/Home/components/Dashboard/DashboardView.tsx
+msgid "No shopping lists yet"
+msgstr "No shopping lists yet"
+
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/StoreSelector.tsx
 msgid "No store selected"
 msgstr "No store selected"
@@ -1084,6 +1171,10 @@ msgstr "Nos magasins partenaires"
 #: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
 msgid "Number of Servings"
 msgstr "Number of Servings"
+
+#: src/applications/Prices/Ui/NewPrice/FormSteps/Step2/Location.tsx
+msgid "Or search manually"
+msgstr "Or search manually"
 
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/RecipeGroup.tsx
 msgid "Other items"
@@ -1150,8 +1241,8 @@ msgstr "Please select a shopping list"
 msgid "Please select at least one ingredient"
 msgstr "Please select at least one ingredient"
 
-#: src/applications/Profile/Ui/Settings/PhoneNumber.tsx
 #: src/applications/Profile/Ui/Settings/DisplayName.tsx
+#: src/applications/Profile/Ui/Settings/PhoneNumber.tsx
 msgid "Please use 32 characters at maximum."
 msgstr "Please use 32 characters at maximum."
 
@@ -1164,8 +1255,8 @@ msgid "Prep."
 msgstr "Prep."
 
 #: src/applications/Recipes/Ui/RecipeDetails.tsx
-#: src/applications/Recipes/Ui/RecipeForm/RecipeFormEdit.tsx
 #: src/applications/Recipes/Ui/RecipeForm/RecipeFormCreate.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeFormEdit.tsx
 msgid "Preparation"
 msgstr "Preparation"
 
@@ -1173,28 +1264,31 @@ msgstr "Preparation"
 msgid "Preparation (min)"
 msgstr "Preparation (min)"
 
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListContainer.tsx
-msgid "Preparation Mode"
-msgstr "Preparation Mode"
-
 #: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
 msgid "Preparation Steps"
 msgstr "Preparation Steps"
 
-#: src/applications/Recipes/Ui/RecipeForm/RecipeFormNavigation.tsx
-#: src/applications/Prices/Ui/NewQuickPrice/FormSteps/Location.tsx
-#: src/applications/Prices/Ui/NewPrice/FormSteps/Step4/Location.tsx
-#: src/applications/Prices/Ui/NewPrice/FormSteps/Step3/Proof.tsx
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step2/Price.tsx
+#: src/applications/Prices/Ui/NewPrice/FormSteps/Step3/Proof.tsx
+#: src/applications/Prices/Ui/NewQuickPrice/FormSteps/Location.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeFormNavigation.tsx
 msgid "Previous"
 msgstr "Previous"
 
-#: src/components/DesktopNav.tsx
-#: src/applications/Prices/Ui/NewQuickPrice/FormSteps/Price.tsx
-#: src/applications/Prices/Ui/NewPrice/NewPiceModal.tsx
+#: src/applications/Prices/Ui/NewPrice/FormSteps/Step1/PriceDetails.tsx
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step2/Price.tsx
+#: src/applications/Prices/Ui/NewQuickPrice/FormSteps/Price.tsx
+#: src/components/DesktopNav.tsx
 msgid "Price"
 msgstr "Price"
+
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
+msgid "Price (Optional)"
+msgstr "Price (Optional)"
+
+#: src/applications/Prices/Ui/NewPrice/NewPiceModal.tsx
+msgid "Price & Photo"
+msgstr "Price & Photo"
 
 #: src/core/Tabbar.tsx
 msgid "Price added"
@@ -1207,6 +1301,10 @@ msgstr "Price deleted"
 #: src/app/[locale]/features/page.tsx
 msgid "Price drop alerts"
 msgstr "Price drop alerts"
+
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/AddPriceButton.tsx
+msgid "Price for {createdProductName} added!"
+msgstr "Price for {createdProductName} added!"
 
 #: src/applications/Prices/Ui/NewPrice/NewPriceButton/index.tsx
 msgid "Price for {productName} added!"
@@ -1228,8 +1326,8 @@ msgstr "Prices for {search}"
 msgid "Prices verified by the community"
 msgstr "Prices verified by the community"
 
-#: src/components/Header/Header.tsx
 #: src/components/Footer/Footer.tsx
+#: src/components/Header/Header.tsx
 msgid "Pricing"
 msgstr "Pricing"
 
@@ -1237,8 +1335,8 @@ msgstr "Pricing"
 msgid "Privacy"
 msgstr "Privacy"
 
-#: src/components/Footer/Footer.tsx
 #: src/applications/Prices/Ui/ListPrices/CardPrice/SeeMoreMenu/SeeMoreModal.tsx
+#: src/components/Footer/Footer.tsx
 msgid "Product"
 msgstr "Product"
 
@@ -1246,31 +1344,50 @@ msgstr "Product"
 msgid "Product \"{productName}\" was not found but added to your account."
 msgstr "Product \"{productName}\" was not found but added to your account."
 
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/SmartQuickAddBar/useSmartAdd.tsx
 #: src/applications/Products/Ui/NewProduct/NewProduct.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/SmartQuickAddBar/useSmartAdd.tsx
 msgid "Product added"
 msgstr "Product added"
+
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
+msgid "Product created"
+msgstr "Product created"
 
 #: src/applications/Recipes/Ui/RecipeForm/CreateProductModal.tsx
 msgid "Product created successfully"
 msgstr "Product created successfully"
 
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
+msgid "Product found"
+msgstr "Product found"
+
 #: src/applications/Recipes/Ui/RecipeForm/CreateProductModal.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
 msgid "Product Name"
 msgstr "Product Name"
 
 #: src/applications/Recipes/Ui/RecipeForm/CreateProductModal.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
 msgid "Product name is required"
 msgstr "Product name is required"
+
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
+msgid "Product not found"
+msgstr "Product not found"
 
 #: src/applications/Products/Ui/NewProduct/NewProduct.tsx
 msgid "Product Not Found"
 msgstr "Product Not Found"
 
+#: src/applications/Prices/Ui/NewPrice/FormSteps/Step1/PriceDetails.tsx
+msgid "Proof photo (optional)"
+msgstr "Proof photo (optional)"
+
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/QrCodeTab.tsx
 msgid "QR Code downloaded"
 msgstr "QR Code downloaded"
 
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ProductSelectionModal.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListItemCard/ShoppingListItemCard.tsx
 msgid "Quantity"
@@ -1297,15 +1414,16 @@ msgstr "Real-time price comparison"
 msgid "Real-time updates"
 msgstr "Real-time updates"
 
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListContainer.tsx
-msgid "Recipe"
-msgstr "Recipe"
+#: src/views/Home/components/Dashboard/DashboardView.tsx
+msgid "Recent Shopping Lists"
+msgstr "Recent Shopping Lists"
 
 #: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
 msgid "Recipe Name"
 msgstr "Recipe Name"
 
 #: src/components/DesktopNav.tsx
+#: src/views/Home/components/Dashboard/DashboardView.tsx
 msgid "Recipes"
 msgstr "Recipes"
 
@@ -1322,7 +1440,7 @@ msgstr "Referenced products"
 msgid "Remove all from recipe"
 msgstr "Remove all from recipe"
 
-#. placeholder {0}: removedItem.customName
+#. placeholder {0}: removedItem.product.name
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/useShoppingListActions.tsx
 msgid "Removed {0}"
 msgstr "Removed {0}"
@@ -1331,9 +1449,9 @@ msgstr "Removed {0}"
 msgid "Return to the app"
 msgstr "Return to the app"
 
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListItemCard/ShoppingListItemCard.tsx
-#: src/applications/Profile/Ui/Settings/PhoneNumber.tsx
 #: src/applications/Profile/Ui/Settings/DisplayName.tsx
+#: src/applications/Profile/Ui/Settings/PhoneNumber.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListItemCard/ShoppingListItemCard.tsx
 msgid "Save"
 msgstr "Save"
 
@@ -1345,13 +1463,17 @@ msgstr "Save money"
 msgid "Savings"
 msgstr "Savings"
 
-#: src/applications/Prices/Ui/NewPrice/NewPriceButton/NewPriceButtonMobile.tsx
 #: src/applications/Prices/Ui/NewPrice/NewPriceButton/NewPriceButtonDesktop.tsx
+#: src/applications/Prices/Ui/NewPrice/NewPriceButton/NewPriceButtonMobile.tsx
 msgid "Scan barcode"
 msgstr "Scan barcode"
 
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
+msgid "Scan or enter barcode"
+msgstr "Scan or enter barcode"
+
+#: src/applications/Prices/Ui/NewPrice/FormSteps/Step2/Location.tsx
 #: src/applications/Prices/Ui/NewQuickPrice/FormSteps/Location.tsx
-#: src/applications/Prices/Ui/NewPrice/FormSteps/Step4/Location.tsx
 msgid "Search"
 msgstr "Search"
 
@@ -1375,6 +1497,10 @@ msgstr "Select Ingredients"
 msgid "Select Shopping List"
 msgstr "Select Shopping List"
 
+#: src/applications/Prices/Ui/NewPrice/FormSteps/Step2/Location.tsx
+msgid "Select store"
+msgstr "Select store"
+
 #: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
 msgid "Select unit"
 msgstr "Select unit"
@@ -1392,8 +1518,8 @@ msgstr "Selected"
 msgid "servings"
 msgstr "servings"
 
-#: src/components/DesktopNav.tsx
 #: src/applications/Authentication/Ui/Signin/SignButton/ProfileButton.tsx
+#: src/components/DesktopNav.tsx
 msgid "Settings"
 msgstr "Settings"
 
@@ -1429,14 +1555,11 @@ msgstr "Shopping list created"
 msgid "Shopping list deleted successfully"
 msgstr "Shopping list deleted successfully"
 
-#: src/views/Home/components/QuickAccess/QuickAccessSection.tsx
 #: src/components/DesktopNav.tsx
+#: src/views/Home/components/Dashboard/DashboardView.tsx
+#: src/views/Home/components/QuickAccess/QuickAccessSection.tsx
 msgid "Shopping Lists"
 msgstr "Shopping Lists"
-
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListContainer.tsx
-msgid "Shopping Mode"
-msgstr "Shopping Mode"
 
 #: src/app/[locale]/auth/signin/page.tsx
 msgid "Sign in"
@@ -1478,8 +1601,8 @@ msgstr "Smart product suggestions"
 msgid "Smart shopping lists"
 msgstr "Smart shopping lists"
 
-#: src/views/Home/components/Hero/HeroSection.tsx
 #: src/app/[locale]/pricing/page.tsx
+#: src/views/Home/components/Hero/HeroSection.tsx
 msgid "Start for free"
 msgstr "Start for free"
 
@@ -1494,6 +1617,10 @@ msgstr "Start saving in just a few simple steps. No more running around differen
 #: src/views/Home/components/Stats/StatsSection.tsx
 msgid "Statistics"
 msgstr "Statistics"
+
+#: src/applications/Prices/Ui/NewPrice/NewPiceModal.tsx
+msgid "Store"
+msgstr "Store"
 
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/AddStoreModal.tsx
 msgid "Store created"
@@ -1512,10 +1639,10 @@ msgstr "Store Name"
 msgid "Store network"
 msgstr "Store network"
 
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/useShoppingListShare.tsx
-#: src/applications/Recipes/Ui/RecipeForm/CreateProductModal.tsx
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
 #: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/useRecipeShare.tsx
+#: src/applications/Recipes/Ui/RecipeForm/CreateProductModal.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/useShoppingListShare.tsx
 msgid "Success"
 msgstr "Success"
 
@@ -1579,6 +1706,10 @@ msgstr "The team"
 msgid "This action <0>CANNOT be undone</0>. Please be certain about your decision."
 msgstr "This action <0>CANNOT be undone</0>. Please be certain about your decision."
 
+#: src/applications/Prices/Ui/NewPrice/FormSteps/Step3/Proof.tsx
+msgid "This helps verify the price and improves data quality"
+msgstr "This helps verify the price and improves data quality"
+
 #: src/applications/Profile/Ui/Settings/Avatar.tsx
 msgid "This is your avatar."
 msgstr "This is your avatar."
@@ -1598,6 +1729,10 @@ msgstr "Total Items"
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ProductSelectionModal.tsx
 msgid "Total Price"
 msgstr "Total Price"
+
+#: src/views/Home/components/Dashboard/DashboardView.tsx
+msgid "Total Savings"
+msgstr "Total Savings"
 
 #: src/views/Home/components/Hero/HeroSection.tsx
 msgid "Totally free and open source"
@@ -1627,24 +1762,27 @@ msgstr "Try Again"
 msgid "Type \"confirm\" to confirm"
 msgstr "Type \"confirm\" to confirm"
 
-#: src/applications/Prices/Ui/NewPrice/NewPriceButton/NewPriceButtonMobile.tsx
 #: src/applications/Prices/Ui/NewPrice/NewPriceButton/NewPriceButtonDesktop.tsx
+#: src/applications/Prices/Ui/NewPrice/NewPriceButton/NewPriceButtonMobile.tsx
 msgid "Type barcode"
 msgstr "Type barcode"
-
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/SmartQuickAddBar/useSmartAdd.tsx
-msgid "Unable to add item"
-msgstr "Unable to add item"
 
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/SmartQuickAddBar/useSmartAdd.tsx
 msgid "Unable to add product"
 msgstr "Unable to add product"
 
+#: src/applications/Prices/Ui/NewPrice/FormSteps/Step1/PriceDetails.tsx
+#: src/applications/Prices/Ui/NewPrice/FormSteps/Step2/Price.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ProductSelectionModal.tsx
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
 msgid "Unit"
 msgstr "Unit"
+
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
+msgid "unit(s)"
+msgstr "unit(s)"
 
 #: src/applications/Recipes/Ui/RecipeForm/RecipeFormEdit.tsx
 msgid "Update Recipe"
@@ -1658,6 +1796,10 @@ msgstr "Update your recipe information"
 msgid "Updating..."
 msgstr "Updating..."
 
+#: src/applications/Prices/Ui/NewPrice/FormSteps/Step3/Proof.tsx
+msgid "Upload from gallery"
+msgstr "Upload from gallery"
+
 #: src/views/Home/components/Testimonials/TestimonialsSection.tsx
 msgid "User for 1 year"
 msgstr "User for 1 year"
@@ -1669,6 +1811,10 @@ msgstr "User for 3 months"
 #: src/views/Home/components/Testimonials/TestimonialsSection.tsx
 msgid "User for 6 months"
 msgstr "User for 6 months"
+
+#: src/views/Home/components/Dashboard/DashboardView.tsx
+msgid "View All"
+msgstr "View All"
 
 #: src/app/[locale]/pricing/page.tsx
 msgid "View on GitHub"
@@ -1694,9 +1840,10 @@ msgstr "We envision a future where price comparison is accessible to all, where 
 msgid "We have an active community ready to help you. You can ask your questions on our forum or consult our detailed documentation."
 msgstr "We have an active community ready to help you. You can ask your questions on our forum or consult our detailed documentation."
 
-#: src/views/Home/HomeView.tsx
-msgid "Welcome back, {userName}"
-msgstr "Welcome back, {userName}"
+#. placeholder {0}: userName || "there"
+#: src/views/Home/components/Dashboard/DashboardView.tsx
+msgid "Welcome back, {0}"
+msgstr "Welcome back, {0}"
 
 #: src/views/Home/components/Testimonials/TestimonialsSection.tsx
 msgid "What our users say"
@@ -1705,6 +1852,10 @@ msgstr "What our users say"
 #: src/views/Home/components/QuickAccess/QuickAccessSection.tsx
 msgid "What would you like to do today?"
 msgstr "What would you like to do today?"
+
+#: src/applications/Prices/Ui/NewPrice/FormSteps/Step2/Location.tsx
+msgid "Where did you see this price?"
+msgstr "Where did you see this price?"
 
 #: src/views/Home/components/Features/FeaturesSection.tsx
 msgid "Why choose Deazl?"

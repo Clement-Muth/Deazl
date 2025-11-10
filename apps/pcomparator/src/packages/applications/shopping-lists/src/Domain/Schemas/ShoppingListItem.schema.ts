@@ -5,7 +5,7 @@ export const UnitSchema = z.enum(["unit", "kg", "g", "l", "ml", "piece"]);
 export const ShoppingListItemSchema = z.object({
   id: z.string().uuid(),
   shoppingListId: z.string().uuid(),
-  productId: z.string().uuid(),
+  productId: z.string().uuid().nullable(),
   recipeId: z.string().uuid().nullable().optional(),
   recipeName: z.string().nullable().optional(),
   quantity: z.number().positive().default(1),

@@ -31,8 +31,6 @@ export const useSmartAdd = ({ listId, onItemAdded }: UseSmartAddProps) => {
         productName: product.name,
         quantity,
         unit,
-        price,
-        customName,
         isCompleted: false
       });
 

@@ -105,7 +105,9 @@ export const ShoppingListItemList = ({
                         item.isCompleted ? "line-through text-gray-400" : "font-medium"
                       } cursor-pointer bg-transparent text-sm truncate`}
                     >
-                      {item.product?.name}
+                      {item.product?.name ||
+                        item.recipeName ||
+                        `Product #${item.productId?.substring(0, 8) || "Unknown"}`}
                     </label>
                     <div className="flex items-center flex-wrap gap-x-1.5 gap-y-0.5 text-xs text-gray-500">
                       <span className="inline-flex items-center bg-gray-100 px-1.5 py-0.5 rounded text-xs font-medium">

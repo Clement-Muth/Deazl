@@ -1,6 +1,4 @@
-import {} from "@heroui/react";
-import { t } from "@lingui/macro";
-import { useLingui } from "@lingui/react";
+import { useLingui } from "@lingui/react/macro";
 import { useState } from "react";
 import { createPrice } from "~/applications/Prices/Api/createPrice";
 import { Currency } from "~/applications/Prices/Domain/ValueObjects/Currency";
@@ -13,7 +11,7 @@ interface NewProductModalProps {
   onClose: () => void;
   onOpenChange: (isOpen: boolean) => void;
   productId?: string;
-  productName: string;
+  productName?: string;
   barcode?: string;
   selectedStore?: { id: string; name: string; location: string } | null;
   onSuccessfull: (productName: string) => void;
@@ -29,7 +27,7 @@ export const NewPriceModal = ({
   onOpenChange,
   onSuccessfull
 }: NewProductModalProps) => {
-  const { i18n } = useLingui();
+  const { t } = useLingui();
   const [step, setStep] = useState<number>(1);
   const hasStore = !!selectedStore;
   const [productData, setProductData] = useState<{
@@ -49,20 +47,17 @@ export const NewPriceModal = ({
       header={
         hasStore ? (
           <div className="text-center py-2">
-            <h3 className="text-lg font-semibold">{t(i18n)`Add price`}</h3>
+            <h3 className="text-lg font-semibold">{t`Add price`}</h3>
             <p className="text-sm text-gray-500">{selectedStore.name}</p>
           </div>
         ) : (
-          <Stepper
-            steps={[{ label: t(i18n)`Price & Photo` }, { label: t(i18n)`Store` }]}
-            currentStep={step}
-          />
+          <Stepper steps={[{ label: t`Price & Photo` }, { label: t`Store` }]} currentStep={step} />
         )
       }
       body={
         <FormSteps
           step={step}
-          productName={productName}
+          productName={productName || ""}
           hasStore={hasStore}
           onNextStep={async (data) => {
             setProductData((product) => ({ ...product, ...data }));
@@ -70,7 +65,7 @@ export const NewPriceModal = ({
             if (hasStore) {
               const product = await createPrice({
                 productId: productId,
-                productName: productName,
+                productName: productName || "",
                 barcode: barcode,
                 amount: data.price!,
                 currency: Currency.Euro,
@@ -90,7 +85,7 @@ export const NewPriceModal = ({
 
             const product = await createPrice({
               productId: productId,
-              productName: productName,
+              productName: productName || "",
               barcode: barcode,
               amount: finalProductData.price!,
               currency: Currency.Euro,
