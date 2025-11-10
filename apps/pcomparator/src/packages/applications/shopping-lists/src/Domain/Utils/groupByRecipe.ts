@@ -53,15 +53,12 @@ export function groupItemsByRecipe(items: ShoppingListItemPayload[]): RecipeGrou
 export function calculateRecipeStats(items: ShoppingListItemPayload[]): RecipeGroupStats {
   let totalItems = 0;
   let completedItems = 0;
-  let totalPrice = 0;
+  const totalPrice = 0; // TODO: Calculer le prix depuis les données Product
 
   for (const item of items) {
     totalItems++;
     if (item.isCompleted) {
       completedItems++;
-    }
-    if (item.price) {
-      totalPrice += item.price;
     }
   }
 

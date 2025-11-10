@@ -72,33 +72,39 @@ export function usePriceSuggestions(
   const itemsWithBestPrices = items.map((item) => ({
     productId: item.productId || "",
     quantity: item.quantity,
+    unit: item.unit,
     bestPrice: bestPrices[item.id]?.price || null
   }));
 
   const totalCost = calculateTotalCost(itemsWithBestPrices);
 
   // Calculate total cost with current item prices (if available)
-  const totalWithCurrentPrices = items.reduce((sum, item) => {
-    if (item.price) {
-      return sum + item.price * item.quantity;
-    }
-    return sum;
-  }, 0);
+  const totalWithCurrentPrices = 0; // No longer using item.price since it's been removed
 
   // If store is selected, calculate savings compared to best prices across all stores
   // If no store selected, calculate savings compared to current item prices
   let potentialSavings = 0;
   if (selectedStoreId) {
-    // Calculate what the cost would be with best prices
-    const bestPossibleCost = items.reduce((sum, item) => {
-      if (item.productId && itemPrices[item.productId]) {
-        const bestPrice = findBestPrice(itemPrices[item.productId]);
-        if (bestPrice) {
-          return sum + bestPrice.price.amount * item.quantity;
+    // Calculate what the cost would be with best prices (with unit conversion)
+    const bestPossibleCost = calculateTotalCost(
+      items.map((item) => {
+        if (item.productId && itemPrices[item.productId]) {
+          const bestPrice = findBestPrice(itemPrices[item.productId]);
+          return {
+            productId: item.productId,
+            quantity: item.quantity,
+            unit: item.unit,
+            bestPrice: bestPrice?.price || null
+          };
         }
-      }
-      return sum;
-    }, 0);
+        return {
+          productId: item.productId || "",
+          quantity: item.quantity,
+          unit: item.unit,
+          bestPrice: null
+        };
+      })
+    );
     potentialSavings = totalCost > 0 && bestPossibleCost > 0 ? totalCost - bestPossibleCost : 0;
   } else {
     potentialSavings = totalWithCurrentPrices > 0 && totalCost > 0 ? totalWithCurrentPrices - totalCost : 0;
@@ -112,6 +118,7 @@ export function usePriceSuggestions(
       .map((item) => ({
         productId: item.productId as string,
         quantity: item.quantity,
+        unit: item.unit,
         prices: itemPrices[item.productId as string]
       }));
 

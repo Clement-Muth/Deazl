@@ -6,9 +6,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArchiveIcon, ListPlusIcon, ShoppingCartIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import type { ShoppingListPayload } from "../../Domain/Schemas/ShoppingList.schema";
 import { EmptyState, type EmptyStateProps } from "../../Ui/ShoppingLists/EmptyState";
 import { ShoppingListCard } from "../../Ui/ShoppingLists/ShoppingListCard";
-import type { ShoppingListPayload } from "../../Domain/Schemas/ShoppingList.schema";
 
 export interface ShoppingListViewProps {
   lists: ShoppingListPayload[] | null;

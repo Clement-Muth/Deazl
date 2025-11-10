@@ -75,7 +75,6 @@ model Product {
   created_at      DateTime @default(now())
   updated_at      DateTime @updatedAt
 
-  // Relations
   category         Category?          @relation(fields: [category_id], references: [id])
   brand            Brand?             @relation(fields: [brand_id], references: [id])
   prices           Price[]
@@ -88,8 +87,6 @@ model Category {
   name               String  @unique
   description        String?
   parent_category_id String? @db.Uuid
-
-  // Relations
   products Product[]
 }
 
@@ -98,21 +95,19 @@ model Brand {
   name        String  @unique
   description String?
   website_url String?
-
-  // Relations
   products Product[]
 }
 
 enum Currency {
-  AED // Dirham des Émirats arabes unis
-  AUD // Dollar australien
-  CAD // Dollar canadien
-  CHF // Franc suisse
-  CNY // Yuan renminbi chinois
-  EUR // Euro
-  GBP // Livre sterling
-  JPY // Yen japonais
-  USD // Dollar américain
+  AED
+  AUD
+  CAD
+  CHF
+  CNY
+  EUR
+  GBP
+  JPY
+  USD
 }
 
 model Price {
@@ -135,8 +130,6 @@ model Store {
   name        String
   location    String
   website_url String?
-
-  // Relations
   prices Price[]
 
   @@unique([name, location])
@@ -152,7 +145,6 @@ model ShoppingList {
   isPublic    Boolean  @default(false)
   shareToken  String?  @unique
 
-  // Relations
   user          User                       @relation(fields: [userId], references: [id], onDelete: Cascade)
   items         ShoppingListItem[]
   collaborators ShoppingListCollaborator[]
@@ -161,21 +153,17 @@ model ShoppingList {
 model ShoppingListItem {
   id             String   @id @default(uuid()) @db.Uuid
   shoppingListId String   @db.Uuid
-  productId      String?  @db.Uuid
+  productId      String   @db.Uuid
   recipeId       String?  @db.Uuid
   quantity       Float    @default(1)
   unit           String?  @default("unit")
   isCompleted    Boolean  @default(false)
-  customName     String?
-  price          Float? // Champ pour stocker le prix d'un article
-  barcode        String? // Code-barres pour enrichissement OpenFoodFacts
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
-  // Relations
   shoppingList ShoppingList @relation(fields: [shoppingListId], references: [id], onDelete: Cascade)
-  product      Product?     @relation(fields: [productId], references: [id])
-  recipe       Recipe?      @relation(fields: [recipeId], references: [id], onDelete: SetNull)
+  product      Product     @relation(fields: [productId], references: [id])
+  recipe       Recipe?      @relation(fields: [recipeId], references: [id])
 }
 
 enum CollaboratorRole {
@@ -215,8 +203,8 @@ model Recipe {
   name            String
   description     String?
   difficulty      DifficultyLevel  @default(EASY)
-  preparationTime Int // en minutes
-  cookingTime     Int // en minutes
+  preparationTime Int
+  cookingTime     Int
   servings        Int              @default(4)
   imageUrl        String?
   userId          String
@@ -225,7 +213,6 @@ model Recipe {
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
 
-  // Relations
   ingredients       RecipeIngredient[]
   steps             RecipeStep[]
   collaborators     RecipeCollaborator[]
@@ -239,8 +226,6 @@ model RecipeIngredient {
   quantity  Float
   unit      String
   order     Int    @default(0)
-
-  // Relations
   recipe  Recipe  @relation(fields: [recipeId], references: [id], onDelete: Cascade)
   product Product @relation(fields: [productId], references: [id])
 }
@@ -250,9 +235,7 @@ model RecipeStep {
   recipeId    String @db.Uuid
   stepNumber  Int
   description String
-  duration    Int? // durée en minutes pour cette étape
-
-  // Relations
+  duration    Int?
   recipe Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
 
   @@unique([recipeId, stepNumber])
@@ -266,7 +249,6 @@ model RecipeCollaborator {
   role      RecipeRole
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
-
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([recipeId, userId])

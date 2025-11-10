@@ -1,4 +1,3 @@
-export const compileNamespace = "ts";
 export const locales = ["fr", "en"];
 export const sourceLocale = "en";
 export const format = "po";

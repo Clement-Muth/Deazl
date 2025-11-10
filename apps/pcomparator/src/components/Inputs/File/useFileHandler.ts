@@ -1,5 +1,4 @@
-import { t } from "@lingui/macro";
-import { useLingui } from "@lingui/react";
+import { useLingui } from "@lingui/react/macro";
 import { type ChangeEvent, type DragEvent, useCallback, useState } from "react";
 import FormError from "~/components/Form/FormError";
 
@@ -27,7 +26,7 @@ export const useFileHandler = (
   onError: (message: string) => void,
   isMultiple: boolean
 ) => {
-  const { i18n } = useLingui();
+  const { t } = useLingui();
   const [filePreviews, setFilePreviews] = useState<string[]>([]);
 
   const onChangeFile = useCallback(
@@ -52,9 +51,9 @@ export const useFileHandler = (
 
   const validateFiles = (files: File[]) => {
     if (minFile && files.length < minFile)
-      throw new FormError("", "", t(i18n)`You must add more than ${minFile} files`);
+      throw new FormError("", "", t`You must add more than ${minFile} files`);
     if (maxFile && maxFile !== "unlimited" && files.length > maxFile)
-      throw new FormError("", "", t(i18n)`You can only add a maximum of ${maxFile} files`);
+      throw new FormError("", "", t`You can only add a maximum of ${maxFile} files`);
 
     for (const file of Array.from(files)) {
       new Byte(file, maxSize);
@@ -77,7 +76,7 @@ export const useFileHandler = (
     onFileLoaded?.(filePreviews.filter((_, n) => index !== n));
     setFilePreviews(filePreviews.filter((_, n) => index !== n));
     if (minFile && dataTransfer.files.length < minFile)
-      throw new FormError("", "", t(i18n)`You must add more than ${minFile} files`);
+      throw new FormError("", "", t`You must add more than ${minFile} files`);
   };
 
   return {

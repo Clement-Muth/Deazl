@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Location } from "~/applications/Prices/Ui/NewPrice/FormSteps/Step4/Location";
+import { Location } from "~/applications/Prices/Ui/NewPrice/FormSteps/Step2/Location";
 import { Price } from "~/applications/Prices/Ui/NewQuickPrice/FormSteps/Price";
 import { Modal } from "~/components/Modal/Modal";
 import { Stepper } from "~/components/Stepper/Stepper";

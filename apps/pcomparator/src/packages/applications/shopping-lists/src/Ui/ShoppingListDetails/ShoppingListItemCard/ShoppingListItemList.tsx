@@ -3,6 +3,8 @@ import { CheckIcon, PencilIcon, TrashIcon } from "lucide-react";
 import { useCallback } from "react";
 import type { ShoppingListItemPayload } from "../../../Domain/Entities/ShoppingListItem.entity";
 import type { BestPriceResult } from "../../../Domain/Utils/priceComparison";
+import { getUnitPriceInDisplayUnit } from "../../../Domain/Utils/priceComparison";
+import { AddPriceButton } from "../AddPriceButton";
 import { PriceSuggestion } from "../PriceSuggestion";
 import { SwipeableItem } from "./SwipeableItem";
 
@@ -16,6 +18,7 @@ interface ShoppingListItemListProps {
   isPendingDelete?: (itemId: string) => boolean;
   bestPrices?: Record<string, BestPriceResult | null>;
   isStoreSelected?: boolean;
+  selectedStore?: { id: string; name: string; location: string } | null;
 }
 
 export const ShoppingListItemList = ({
@@ -27,7 +30,8 @@ export const ShoppingListItemList = ({
   onUndoDelete,
   isPendingDelete,
   bestPrices,
-  isStoreSelected = false
+  isStoreSelected = false,
+  selectedStore
 }: ShoppingListItemListProps) => {
   // Utiliser useCallback pour éviter des re-rendus inutiles
   const onCheckboxClick = useCallback(
@@ -41,10 +45,19 @@ export const ShoppingListItemList = ({
   return (
     <ul className="space-y-1.5 animate-fadeIn">
       {items.map((item) => {
-        // Déterminer le prix à afficher (item.price ou bestPrice)
-        const displayPrice = item.price || bestPrices?.[item.id]?.price.amount;
+        // Determine which price to display with proper unit conversion
         const displayUnit = item.unit || bestPrices?.[item.id]?.price.unit || "unit";
-        const totalPrice = displayPrice ? displayPrice * item.quantity : null;
+
+        let unitPrice: number | null = null;
+        let totalPrice: number | null = null;
+
+        if (bestPrices?.[item.id]) {
+          const bestPrice = bestPrices[item.id]!.price;
+          // Convert price to display unit (e.g., 2.54€/kg → 0.00254€/g)
+          unitPrice = getUnitPriceInDisplayUnit(bestPrice.amount, bestPrice.unit, displayUnit);
+          totalPrice = unitPrice * item.quantity;
+        }
+
         const isDeleting = isPendingDelete?.(item.id) || false;
 
         return (
@@ -92,15 +105,17 @@ export const ShoppingListItemList = ({
                         item.isCompleted ? "line-through text-gray-400" : "font-medium"
                       } cursor-pointer bg-transparent text-sm truncate`}
                     >
-                      {item.customName || `Product #${item.productId?.substring(0, 8) || "Unknown"}`}
+                      {item.product?.name ||
+                        item.recipeName ||
+                        `Product #${item.productId?.substring(0, 8) || "Unknown"}`}
                     </label>
                     <div className="flex items-center flex-wrap gap-x-1.5 gap-y-0.5 text-xs text-gray-500">
                       <span className="inline-flex items-center bg-gray-100 px-1.5 py-0.5 rounded text-xs font-medium">
                         {item.quantity} {displayUnit}
-                        {displayPrice && (
+                        {unitPrice && (
                           <>
                             {" × "}
-                            {displayPrice.toFixed(2)}€ ={" "}
+                            {unitPrice.toFixed(2)}€ ={" "}
                             <span className="font-bold">{totalPrice!.toFixed(2)}€</span>
                           </>
                         )}
@@ -115,7 +130,7 @@ export const ShoppingListItemList = ({
                       {bestPrices?.[item.id] && (
                         <PriceSuggestion
                           bestPrice={bestPrices[item.id]!}
-                          currentUnitPrice={item.price}
+                          currentUnitPrice={unitPrice}
                           quantity={item.quantity}
                           isStoreSelected={isStoreSelected}
                         />
@@ -124,6 +139,17 @@ export const ShoppingListItemList = ({
                   </div>
                 </div>
                 <div className="flex gap-1 shrink-0">
+                  {/* Show Add Price button if no price available */}
+                  {!unitPrice && item.productId && (
+                    <AddPriceButton
+                      productId={item.productId}
+                      productName={item.product?.name || "Product"}
+                      barcode={item.product?.barcode}
+                      quantity={item.quantity}
+                      unit={displayUnit}
+                      selectedStore={selectedStore}
+                    />
+                  )}
                   <Button
                     variant="light"
                     color="primary"

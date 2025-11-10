@@ -18,6 +18,7 @@ export const ParamsSchema = z.object({
   brandName: z.string(),
   location: z.string(),
   amount: z.number().positive(),
+  unit: z.string().default("kg"),
   proof: z.string(),
   currency: z.nativeEnum(Currency)
 });
@@ -54,14 +55,15 @@ export const POST = withAuthentication(
       name: paramsPayload.storeName
     });
 
-    await priceRepository.create({
+    const createdPrice = await priceRepository.create({
       productId: product.id,
       storeId: store.id,
       amount: paramsPayload.amount,
       currency: paramsPayload.currency,
+      unit: paramsPayload.unit,
       priceProofImage: paramsPayload.proof
     });
 
-    return NextResponse.json(product, { status: HttpStatus.CREATED });
+    return NextResponse.json({ name: product.name }, { status: HttpStatus.CREATED });
   })
 );

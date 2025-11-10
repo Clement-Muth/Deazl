@@ -1,8 +1,8 @@
 "use client";
 
 import { Card, CardBody, CardFooter, CardHeader } from "@heroui/react";
-import { Trans, t } from "@lingui/macro";
-import { useLingui } from "@lingui/react";
+import { Trans } from "@lingui/react/macro";
+import { useLingui } from "@lingui/react/macro";
 import { toast } from "react-toastify";
 import { updateFullname } from "~/applications/Profile/Api/updateFullname";
 import useForm from "~/components/Form/useForm";
@@ -14,7 +14,7 @@ interface SettingsDisplayNameProps {
 
 export const SettingsDisplayName = ({ defaultValue }: SettingsDisplayNameProps) => {
   const form = useForm<{ fullname: string }>(undefined, { defaultValues: { fullname: defaultValue } });
-  const { i18n } = useLingui();
+  const { t } = useLingui();
   const notify = () =>
     toast(<Trans>Fullname updated</Trans>, {
       type: "success"
@@ -48,9 +48,9 @@ export const SettingsDisplayName = ({ defaultValue }: SettingsDisplayNameProps) 
             placeholder=" "
             defaultValue={defaultValue}
             name="fullname"
-            description={t(i18n)`Please use 32 characters at maximum.`}
-            label={t(i18n)`Please enter your full name, or a display name you are comfortable with.`}
-            required={t(i18n)`Invalid display name.`}
+            description={t`Please use 32 characters at maximum.`}
+            label={t`Please enter your full name, or a display name you are comfortable with.`}
+            required={t`Invalid display name.`}
           />
         </CardBody>
       </form.Form>

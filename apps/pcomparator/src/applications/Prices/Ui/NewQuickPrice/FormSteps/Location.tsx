@@ -41,7 +41,7 @@ export const Location = ({ onNextStep, onPrevious }: LocationProps) => {
               <Radio
                 value={name}
                 description={address}
-                key={name}
+                key={address}
                 onChange={() => {
                   setChoosenLocation({ storeName: name, location: address });
                 }}

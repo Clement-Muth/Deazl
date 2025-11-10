@@ -32,20 +32,13 @@ export const addItemToList = async (
     const unit = Unit.create(itemData.unit);
     const price = Price.createOptional(itemData.price);
 
-    // Validation du nom personnalisé
-    if (itemData.customName && itemData.customName.trim().length < 2) {
-      throw new Error("Item name must be at least 2 characters long");
-    }
-
     const item = await shoppingListItemService.addItemToList(listId, {
       ...itemData,
-      productId: itemData.productId ?? undefined,
+      productId: itemData.productId ?? null,
       recipeId: itemData.recipeId ?? undefined,
       recipeName: itemData.recipeName ?? undefined,
       quantity: quantity.value,
-      unit: unit.value,
-      price: price?.value ?? undefined,
-      barcode: itemData.barcode
+      unit: unit.value
     });
 
     return item.toObject();

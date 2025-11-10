@@ -10,6 +10,7 @@ export class PrismaPriceRepository {
       data: {
         amount: price.amount,
         currency: price.currency,
+        unit: price.unit ?? "kg",
         date_recorded: price.dateRecorded ?? undefined,
         price_proof_image: price.priceProofImage,
         product_id: price.productId,
@@ -20,6 +21,7 @@ export class PrismaPriceRepository {
     return {
       amount: createdPrice.amount,
       currency: createdPrice.currency as Currency,
+      unit: createdPrice.unit,
       dateRecorded: createdPrice.date_recorded,
       id: createdPrice.id,
       priceProofImage: createdPrice.price_proof_image,
@@ -35,6 +37,7 @@ export class PrismaPriceRepository {
     return userPrices.map((price) => ({
       amount: price.amount,
       id: price.id,
+      unit: price.unit,
       priceProofImage: price.price_proof_image,
       productId: price.product_id,
       storeId: price.store_id,

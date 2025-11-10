@@ -16,7 +16,11 @@ export class PrismaShoppingListRepository implements ShoppingListRepository {
         create: persistenceData,
         update: persistenceData,
         include: {
-          items: true,
+          items: {
+            include: {
+              product: true
+            }
+          },
           collaborators: {
             include: {
               user: true
@@ -42,7 +46,11 @@ export class PrismaShoppingListRepository implements ShoppingListRepository {
     try {
       const whereClause: any = {};
       const include = {
-        items: true,
+        items: {
+          include: {
+            product: true
+          }
+        },
         collaborators: {
           include: {
             user: true
@@ -133,7 +141,11 @@ export class PrismaShoppingListRepository implements ShoppingListRepository {
       const list = await prisma.shoppingList.findUnique({
         where: { id: shoppingListId },
         include: {
-          items: true,
+          items: {
+            include: {
+              product: true
+            }
+          },
           collaborators: {
             include: {
               user: true

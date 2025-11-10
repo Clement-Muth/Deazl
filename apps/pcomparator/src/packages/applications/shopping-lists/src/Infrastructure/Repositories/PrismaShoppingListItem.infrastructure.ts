@@ -24,10 +24,11 @@ export class PrismaShoppingListItemRepository implements ShoppingListItemReposit
         productId: itemData.productId,
         quantity: itemData.quantity,
         unit: itemData.unit,
-        isCompleted: itemData.isCompleted,
-        customName: itemData.customName,
-        price: itemData.price
+        isCompleted: itemData.isCompleted
         // notes: itemData.notes
+      },
+      include: {
+        product: true
       }
     });
 
@@ -43,10 +44,11 @@ export class PrismaShoppingListItemRepository implements ShoppingListItemReposit
         quantity: itemData.quantity,
         unit: itemData.unit,
         isCompleted: itemData.isCompleted,
-        customName: itemData.customName,
-        price: itemData.price,
         // notes: itemData.notes,
         updatedAt: new Date()
+      },
+      include: {
+        product: true
       }
     });
 
@@ -61,7 +63,10 @@ export class PrismaShoppingListItemRepository implements ShoppingListItemReposit
 
   async findItemById(id: string): Promise<ShoppingListItem | null> {
     const item = await prisma.shoppingListItem.findUnique({
-      where: { id }
+      where: { id },
+      include: {
+        product: true
+      }
     });
 
     if (!item) return null;

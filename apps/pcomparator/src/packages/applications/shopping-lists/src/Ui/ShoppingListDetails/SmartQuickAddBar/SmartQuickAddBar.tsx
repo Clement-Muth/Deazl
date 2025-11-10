@@ -3,6 +3,7 @@
 import { useDisclosure } from "@heroui/react";
 import { useState } from "react";
 import type { ProductSearchResult } from "../../../Api/searchProducts.api";
+import { CreateProductModal } from "../CreateProductModal/CreateProductModal";
 import { ProductSelectionModal } from "../ProductSelectionModal";
 import { SmartItemInput } from "./SmartItemInput";
 import { useSmartAdd } from "./useSmartAdd";
@@ -14,16 +15,25 @@ interface SmartQuickAddBarProps {
 }
 
 export const SmartQuickAddBar = ({ listId, className = "", onItemAdded }: SmartQuickAddBarProps) => {
-  const { addCustomItem, addProductItem, isSubmitting } = useSmartAdd({
+  const { addProductItem, isSubmitting } = useSmartAdd({
     listId,
     onItemAdded
   });
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isCreateProductOpen,
+    onOpen: onCreateProductOpen,
+    onClose: onCreateProductClose
+  } = useDisclosure();
   const [selectedProduct, setSelectedProduct] = useState<ProductSearchResult | null>(null);
   const [pendingQuantity, setPendingQuantity] = useState(1);
   const [pendingUnit, setPendingUnit] = useState("unit");
   const [pendingPrice, setPendingPrice] = useState<number | undefined>();
+  const [createProductName, setCreateProductName] = useState("");
+  const [createProductQuantity, setCreateProductQuantity] = useState(1);
+  const [createProductUnit, setCreateProductUnit] = useState("unit");
+  const [createProductPrice, setCreateProductPrice] = useState<number | undefined>();
 
   const handleProductSelected = (
     product: ProductSearchResult,
@@ -44,15 +54,12 @@ export const SmartQuickAddBar = ({ listId, className = "", onItemAdded }: SmartQ
     }
   };
 
-  const handleCustomItemAdded = (itemData: {
-    customName: string;
-    quantity: number;
-    unit: string;
-    price?: number;
-    isCompleted?: boolean;
-  }) => {
-    console.log("SmartQuickAddBar: Received custom item:", itemData);
-    addCustomItem(itemData);
+  const handleCreateProductRequested = (name: string, quantity: number, unit: string, price?: number) => {
+    setCreateProductName(name);
+    setCreateProductQuantity(quantity);
+    setCreateProductUnit(unit);
+    setCreateProductPrice(price);
+    onCreateProductOpen();
   };
 
   const handleModalConfirm = (data: {
@@ -79,8 +86,7 @@ export const SmartQuickAddBar = ({ listId, className = "", onItemAdded }: SmartQ
       <SmartItemInput
         listId={listId}
         onProductSelected={handleProductSelected}
-        onItemAdded={handleCustomItemAdded}
-        autoFocus
+        onCreateProductRequested={handleCreateProductRequested}
       />
 
       <ProductSelectionModal
@@ -91,6 +97,17 @@ export const SmartQuickAddBar = ({ listId, className = "", onItemAdded }: SmartQ
         defaultUnit={pendingUnit}
         defaultPrice={pendingPrice}
         onConfirm={handleModalConfirm}
+      />
+
+      <CreateProductModal
+        isOpen={isCreateProductOpen}
+        onClose={onCreateProductClose}
+        listId={listId}
+        initialName={createProductName}
+        initialQuantity={createProductQuantity}
+        initialUnit={createProductUnit}
+        initialPrice={createProductPrice}
+        onProductCreated={onItemAdded}
       />
     </div>
   );

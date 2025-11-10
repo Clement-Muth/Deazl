@@ -15,9 +15,9 @@
 	"scripts": {
 		"build": "turbo build --filter='!@deazl/pcomparator'",
 		"build:fast": "turbo build:fast --filter='!@deazl/pcomparator'",
-		"dev:pcomparator": "yarn workspace @deazl/pcomparator dev",
-		"build:pcomparator": "yarn workspace @deazl/pcomparator build",
-		"test:pcomparator": "yarn workspace @deazl/pcomparator test",
+		"dev:pcomparator": "turbo dev --filter=@deazl/pcomparator",
+		"build:pcomparator": "turbo build",
+		"test:pcomparator": "turbo test",
 		"prisma:generate": "prisma generate --schema=apps/pcomparator/prisma/schema.prisma",
 		"prisma:studio": "prisma studio --schema=apps/pcomparator/prisma/schema.prisma",
 		"prisma:migrate": "prisma migrate dev --schema=apps/pcomparator/prisma/schema.prisma",
@@ -70,10 +70,10 @@
 		"husky": "^9.1.7",
 		"rimraf": "^6.0.1",
 		"tsx": "^4.20.6",
-		"turbo": "^2.5.3"
+		"turbo": "^2.6.0"
 	},
 	"engines": {
 		"node": ">=20.x"
 	},
-	"packageManager": "yarn@4.9.2"
+	"packageManager": "yarn@4.11.0"
 }

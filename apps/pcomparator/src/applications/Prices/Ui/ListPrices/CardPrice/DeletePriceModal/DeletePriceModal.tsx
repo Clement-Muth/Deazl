@@ -1,6 +1,6 @@
 import { ModalFooter } from "@heroui/react";
-import { Trans, t } from "@lingui/macro";
-import { useLingui } from "@lingui/react";
+import { useLingui } from "@lingui/react/macro";
+import { Trans } from "@lingui/react/macro";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { deletePrice } from "~/applications/Prices/Api/deletePrice";
@@ -22,7 +22,7 @@ export const DeletePriceModal = ({ priceId, isOpen, onOpenChange, onClose }: Del
       type: "success"
     });
   const { refresh } = useRouter();
-  const { i18n } = useLingui();
+  const { t } = useLingui();
 
   return (
     <Modal
@@ -64,7 +64,7 @@ export const DeletePriceModal = ({ priceId, isOpen, onOpenChange, onClose }: Del
           <Input
             name="confirmation"
             label={<Trans>Type "{<Trans>confirm</Trans>}" to confirm</Trans>}
-            placeholder={t(i18n)`confirm`}
+            placeholder={t`confirm`}
           />
         </form.Form>
       }

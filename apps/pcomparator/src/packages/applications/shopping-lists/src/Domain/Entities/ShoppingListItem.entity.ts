@@ -4,7 +4,6 @@ import { BusinessRuleViolationError } from "../../Domain/Errors/ShoppingListItem
 import type { ShoppingListItemSchema } from "../../Domain/Schemas/ShoppingListItem.schema";
 import { ItemQuantity } from "../../Domain/ValueObjects/ItemQuantity.vo";
 import { ItemStatus } from "../../Domain/ValueObjects/ItemStatus.vo";
-import { Price } from "../../Domain/ValueObjects/Price.vo";
 import { Unit } from "../../Domain/ValueObjects/Unit.vo";
 
 export class ItemNameTooShortError extends DomainError {
@@ -17,16 +16,19 @@ export type ShoppingListItemPayload = z.infer<typeof ShoppingListItemSchema>;
 
 export interface ShoppingListItemProps {
   shoppingListId: string;
-  productId?: string | null;
+  productId: string | null;
   recipeId?: string | null; // ID de la recette source
   recipeName?: string | null; // Cache du nom de la recette pour affichage
   quantity: ItemQuantity;
   unit: Unit;
   status: ItemStatus;
-  customName?: string;
-  totalPrice?: Price | null; // Total price for the item quantity
-  barcode?: string | null; // Code-barres pour enrichissement OpenFoodFacts
   notes?: string | null;
+  product?: {
+    id: string;
+    name: string;
+    barcode: string;
+    description: string | null;
+  } | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -39,23 +41,22 @@ export class ShoppingListItem extends Entity<ShoppingListItemProps> {
   public static create(
     props: {
       shoppingListId: string;
-      productId?: string | null;
+      productId: string | null;
       recipeId?: string | null;
       recipeName?: string | null;
       quantity: number;
       unit: string;
       isCompleted?: boolean;
-      customName?: string;
-      price?: number | null; // Total price for item quantity
-      barcode?: string | null; // Code-barres pour enrichissement OpenFoodFacts
       notes?: string | null;
+      product?: {
+        id: string;
+        name: string;
+        barcode: string;
+        description: string | null;
+      } | null;
     },
     id?: string
   ): ShoppingListItem {
-    if (props.customName && props.customName.length < 2) {
-      throw new ItemNameTooShortError();
-    }
-
     const itemEntity = new ShoppingListItem(
       {
         shoppingListId: props.shoppingListId,
@@ -65,10 +66,8 @@ export class ShoppingListItem extends Entity<ShoppingListItemProps> {
         quantity: ItemQuantity.create(props.quantity),
         unit: Unit.create(props.unit),
         status: ItemStatus.create(props.isCompleted || false),
-        customName: props.customName,
-        totalPrice: props.price !== undefined ? Price.create(props.price) : undefined,
-        barcode: props.barcode,
         notes: props.notes,
+        product: props.product,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -79,24 +78,17 @@ export class ShoppingListItem extends Entity<ShoppingListItemProps> {
   }
 
   public withUpdates(
-    updates: Partial<
-      Pick<ShoppingListItemPayload, "customName" | "quantity" | "unit" | "price" | "isCompleted" | "barcode">
-    >,
+    updates: Partial<Pick<ShoppingListItemPayload, "quantity" | "unit" | "isCompleted">>,
     shoppingListItemId: string
   ): ShoppingListItem {
     try {
-      // Check if user has editor or owner role to update the item
-
       return ShoppingListItem.create(
         {
           shoppingListId: this.shoppingListId,
           productId: this.productId,
           quantity: updates.quantity ?? this.quantity,
           unit: updates.unit ?? this.unit,
-          isCompleted: updates.isCompleted ?? this.isCompleted,
-          customName: updates.customName ?? this.customName,
-          price: updates.price ?? this.price,
-          barcode: updates.barcode ?? this.barcode
+          isCompleted: updates.isCompleted ?? this.isCompleted
         },
         shoppingListItemId
       );
@@ -118,8 +110,20 @@ export class ShoppingListItem extends Entity<ShoppingListItemProps> {
     return this.props.shoppingListId;
   }
 
-  get productId(): string | null | undefined {
+  get productId(): string | null {
     return this.props.productId;
+  }
+
+  get product():
+    | {
+        id: string;
+        name: string;
+        barcode: string;
+        description: string | null;
+      }
+    | null
+    | undefined {
+    return this.props.product;
   }
 
   get recipeId(): string | null | undefined {
@@ -142,18 +146,6 @@ export class ShoppingListItem extends Entity<ShoppingListItemProps> {
     return this.props.status.isCompleted;
   }
 
-  get customName(): string | undefined {
-    return this.props.customName;
-  }
-
-  get price(): number | null | undefined {
-    return this.props.totalPrice?.value;
-  }
-
-  get barcode(): string | null | undefined {
-    return this.props.barcode;
-  }
-
   get notes(): string | null | undefined {
     return this.props.notes;
   }
@@ -164,15 +156,6 @@ export class ShoppingListItem extends Entity<ShoppingListItemProps> {
 
   get updatedAt(): Date | undefined {
     return this.props.updatedAt;
-  }
-
-  // Calculate the unit price based on total price and quantity
-  public getUnitPrice(): Price | null {
-    const totalPrice = this.props.totalPrice;
-    if (!totalPrice || totalPrice.value === null || !this.props.quantity) {
-      return null;
-    }
-    return Price.create(totalPrice.value / this.props.quantity.value);
   }
 
   // Immutable update methods - return new instances
@@ -192,42 +175,6 @@ export class ShoppingListItem extends Entity<ShoppingListItemProps> {
       {
         ...this.props,
         unit: Unit.create(unit),
-        updatedAt: new Date()
-      },
-      this._id
-    );
-  }
-
-  public withName(name: string): ShoppingListItem {
-    if (name && name.length < 2) {
-      throw new ItemNameTooShortError();
-    }
-    return new ShoppingListItem(
-      {
-        ...this.props,
-        customName: name,
-        updatedAt: new Date()
-      },
-      this._id
-    );
-  }
-
-  public withPrice(price: number | null): ShoppingListItem {
-    return new ShoppingListItem(
-      {
-        ...this.props,
-        totalPrice: Price.create(price),
-        updatedAt: new Date()
-      },
-      this._id
-    );
-  }
-
-  public withBarcode(barcode: string | null): ShoppingListItem {
-    return new ShoppingListItem(
-      {
-        ...this.props,
-        barcode,
         updatedAt: new Date()
       },
       this._id
@@ -301,10 +248,8 @@ export class ShoppingListItem extends Entity<ShoppingListItemProps> {
       // @ts-ignore
       unit: this.unit,
       isCompleted: this.isCompleted,
-      customName: this.customName,
-      // @ts-ignore
-      price: this.price,
       notes: this.notes,
+      product: this.product,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     };

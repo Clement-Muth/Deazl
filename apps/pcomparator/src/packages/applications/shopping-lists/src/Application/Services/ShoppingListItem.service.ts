@@ -19,16 +19,13 @@ export class ShoppingListItemApplicationService {
   async addItemToList(
     listId: string,
     itemData: {
-      customName?: string | null;
-      productId?: string | null;
+      productId: string | null;
       recipeId?: string | null;
       recipeName?: string | null;
       quantity: number;
       unit: string;
       isCompleted?: boolean;
-      price?: number | null;
       notes?: string | null;
-      barcode?: string | null;
     }
   ): Promise<ShoppingListItem> {
     try {
@@ -49,16 +46,13 @@ export class ShoppingListItemApplicationService {
       // Créer l'entité article
       const item = ShoppingListItem.create({
         shoppingListId: listId,
-        customName: itemData.customName || undefined,
         productId: itemData.productId,
         recipeId: itemData.recipeId || undefined,
         recipeName: itemData.recipeName || undefined,
         quantity: itemData.quantity,
         unit: itemData.unit,
         isCompleted: itemData.isCompleted || false,
-        price: itemData.price || undefined,
-        notes: itemData.notes || undefined,
-        barcode: itemData.barcode || undefined
+        notes: itemData.notes || undefined
       });
 
       return this.itemRepository.addItem(listId, item);
@@ -74,12 +68,9 @@ export class ShoppingListItemApplicationService {
   async updateShoppingListItem(
     itemId: string,
     data: Partial<{
-      customName: string | null;
       quantity: number;
       unit: string;
-      price: number | null;
       isCompleted: boolean;
-      barcode: string | null;
       notes: string | null;
       recipeId: string | null;
       recipeName: string | null;
@@ -104,20 +95,12 @@ export class ShoppingListItemApplicationService {
       // Create updated item using immutable methods
       let updatedItem = item;
 
-      if (data.customName !== undefined) {
-        updatedItem = updatedItem.withName(data.customName || "");
-      }
-
       if (data.quantity !== undefined) {
         updatedItem = updatedItem.withQuantity(data.quantity);
       }
 
       if (data.unit !== undefined && Object.values(UnitType).includes(data.unit as UnitType)) {
         updatedItem = updatedItem.withUnit(data.unit);
-      }
-
-      if (data.price !== undefined) {
-        updatedItem = updatedItem.withPrice(data.price);
       }
 
       if (data.isCompleted !== undefined) {
@@ -128,8 +111,8 @@ export class ShoppingListItemApplicationService {
         }
       }
 
-      if (data.barcode !== undefined) {
-        updatedItem = updatedItem.withBarcode(data.barcode);
+      if (data.notes !== undefined) {
+        updatedItem = updatedItem.withNotes(data.notes);
       }
 
       if (data.recipeId !== undefined || data.recipeName !== undefined) {

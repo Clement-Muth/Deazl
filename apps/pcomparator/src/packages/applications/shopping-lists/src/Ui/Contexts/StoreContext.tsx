@@ -24,14 +24,14 @@ interface StoreContextType {
 // Créer le contexte avec une valeur par défaut
 const StoreContext = createContext<StoreContextType>({
   selectedStore: null,
-  setSelectedStore: () => { },
+  setSelectedStore: () => {},
   stores: [],
-  setStores: () => { },
+  setStores: () => {},
   isLoading: false,
-  setIsLoading: () => { },
+  setIsLoading: () => {},
   error: null,
-  setError: () => { },
-  refreshStores: async () => { }
+  setError: () => {},
+  refreshStores: async () => {}
 });
 
 export function StoreProvider({ children }: { children: ReactNode }) {

@@ -1,8 +1,7 @@
 "use client";
 
 import { useDisclosure } from "@heroui/react";
-import { t } from "@lingui/macro";
-import { useLingui } from "@lingui/react";
+import { useLingui } from "@lingui/react/macro";
 import clsx from "clsx";
 import { Send } from "lucide-react";
 import { type ReactNode, useActionState } from "react";
@@ -35,7 +34,7 @@ interface SearchbarProps {
 
 export const Searchbar = ({ startContent }: SearchbarProps) => {
   const [state, formAction] = useActionState(search, null);
-  const { i18n } = useLingui();
+  const { t } = useLingui();
   const { onOpen } = useDisclosure();
 
   return (
@@ -51,7 +50,7 @@ export const Searchbar = ({ startContent }: SearchbarProps) => {
           <input
             name="search"
             className={clsx("rounded-full bg-default-100 border-none shadow-sm w-full h-12 pl-12 pr-16")}
-            placeholder={t(i18n)`Enter your product name`}
+            placeholder={t`Enter your product name`}
           />
           {!state?.success && state?.errors.fieldErrors.search ? (
             <p aria-live="polite" className="text-danger">

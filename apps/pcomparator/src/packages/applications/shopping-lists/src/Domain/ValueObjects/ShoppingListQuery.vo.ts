@@ -10,17 +10,17 @@ export class ShoppingListQuery {
     isShared?: boolean;
     name?: string;
   } = {};
-  
+
   private ordering: {
     field: string;
-    direction: 'asc' | 'desc';
-  } = { field: 'updatedAt', direction: 'desc' };
-  
+    direction: "asc" | "desc";
+  } = { field: "updatedAt", direction: "desc" };
+
   private pagination?: {
     limit: number;
     offset: number;
   };
-  
+
   /**
    * Filtre les listes appartenant à un utilisateur spécifique
    */
@@ -28,7 +28,7 @@ export class ShoppingListQuery {
     this.filters.userId = userId;
     return this;
   }
-  
+
   /**
    * Filtre les listes où l'utilisateur est collaborateur
    */
@@ -36,7 +36,7 @@ export class ShoppingListQuery {
     this.filters.collaboratorUserId = userId;
     return this;
   }
-  
+
   /**
    * Filtre uniquement les listes partagées
    */
@@ -44,7 +44,7 @@ export class ShoppingListQuery {
     this.filters.isShared = true;
     return this;
   }
-  
+
   /**
    * Filtre par nom de liste (recherche partielle)
    */
@@ -52,31 +52,31 @@ export class ShoppingListQuery {
     this.filters.name = name;
     return this;
   }
-  
+
   /**
    * Trie par date de modification (plus récent en premier)
    */
   orderByMostRecent(): ShoppingListQuery {
-    this.ordering = { field: 'updatedAt', direction: 'desc' };
+    this.ordering = { field: "updatedAt", direction: "desc" };
     return this;
   }
-  
+
   /**
    * Trie par nom alphabétique
    */
   orderByName(): ShoppingListQuery {
-    this.ordering = { field: 'name', direction: 'asc' };
+    this.ordering = { field: "name", direction: "asc" };
     return this;
   }
-  
+
   /**
    * Trie par date de création
    */
   orderByCreationDate(): ShoppingListQuery {
-    this.ordering = { field: 'createdAt', direction: 'desc' };
+    this.ordering = { field: "createdAt", direction: "desc" };
     return this;
   }
-  
+
   /**
    * Ajoute une pagination
    */
@@ -84,18 +84,30 @@ export class ShoppingListQuery {
     this.pagination = { limit, offset };
     return this;
   }
-  
+
   // Getters pour que l'Infrastructure puisse construire les requêtes
-  get userId() { return this.filters.userId; }
-  get collaboratorUserId() { return this.filters.collaboratorUserId; }
-  get isShared() { return this.filters.isShared; }
-  get name() { return this.filters.name; }
-  get orderBy() { 
-    return { [this.ordering.field]: this.ordering.direction }; 
+  get userId() {
+    return this.filters.userId;
   }
-  get limit() { return this.pagination?.limit; }
-  get offset() { return this.pagination?.offset; }
-  
+  get collaboratorUserId() {
+    return this.filters.collaboratorUserId;
+  }
+  get isShared() {
+    return this.filters.isShared;
+  }
+  get name() {
+    return this.filters.name;
+  }
+  get orderBy() {
+    return { [this.ordering.field]: this.ordering.direction };
+  }
+  get limit() {
+    return this.pagination?.limit;
+  }
+  get offset() {
+    return this.pagination?.offset;
+  }
+
   /**
    * Combine les filtres pour les listes accessibles par un utilisateur
    * (propriétaire OU collaborateur)

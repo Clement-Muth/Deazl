@@ -1,7 +1,7 @@
 "use client";
 
-import { Trans } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
+import { Trans } from "@lingui/react/macro";
 import { Barcode as BarcodeIcon } from "lucide-react";
 import { Input, type InputProps } from "./Input";
 

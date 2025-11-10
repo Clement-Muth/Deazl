@@ -5,8 +5,8 @@ import { removeItemFromList } from "../../Api/items/removeItemFromList.api";
 import { toggleItemComplete } from "../../Api/items/toggleItemComplete.api";
 import { updateShoppingListItem } from "../../Api/items/updateShoppingListItem.api";
 import type { ShoppingListItemPayload } from "../../Domain/Entities/ShoppingListItem.entity";
-import { useSmartConversionNotifications } from "../../Ui/Hooks/useSmartConversionNotifications";
 import type { ShoppingListPayload } from "../../Domain/Schemas/ShoppingList.schema";
+import { useSmartConversionNotifications } from "../../Ui/Hooks/useSmartConversionNotifications";
 
 export const useShoppingListActions = (initialList: ShoppingListPayload) => {
   const [items, setItems] = useState<ShoppingListItemPayload[]>(initialList.items || []);
@@ -46,8 +46,8 @@ export const useShoppingListActions = (initialList: ShoppingListPayload) => {
 
         if (isCompleted) {
           // Déclencher la notification de conversion intelligente
-          if (item && !item.productId) {
-            notifyItemCompleted(itemId, item.customName || "Unnamed item");
+          if (item?.productId) {
+            notifyItemCompleted(itemId, item.product?.name || "Unnamed item");
           }
 
           addToast({
@@ -114,8 +114,8 @@ export const useShoppingListActions = (initialList: ShoppingListPayload) => {
 
       addToast({
         title: <Trans>Item removed</Trans>,
-        description: removedItem?.customName ? (
-          <Trans>Removed {removedItem.customName}</Trans>
+        description: removedItem?.product?.name ? (
+          <Trans>Removed {removedItem.product.name}</Trans>
         ) : (
           <Trans>Item removed from list</Trans>
         ),

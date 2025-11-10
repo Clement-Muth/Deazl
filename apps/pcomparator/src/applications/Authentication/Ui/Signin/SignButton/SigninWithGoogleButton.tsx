@@ -1,18 +1,17 @@
 "use client";
 
 import { Button } from "@heroui/react";
-import { t } from "@lingui/macro";
-import { useLingui } from "@lingui/react";
+import { useLingui } from "@lingui/react/macro";
 import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 export const SigninWithGoogleButton = () => {
+  const { t } = useLingui();
   const [isLoading, setIsLoading] = useState(false);
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
-  const { i18n } = useLingui();
 
   const handleSignIn = async () => {
     try {
@@ -67,7 +66,7 @@ export const SigninWithGoogleButton = () => {
         isDisabled={isLoading}
       >
         <span className="relative z-10 text-base">
-          {isLoading ? t(i18n)`Signing in...` : t(i18n)`Sign in with Google`}
+          {isLoading ? t`Signing in...` : t`Sign in with Google`}
         </span>
       </Button>
     </form>

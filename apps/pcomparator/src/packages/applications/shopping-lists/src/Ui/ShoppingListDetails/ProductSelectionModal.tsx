@@ -167,10 +167,11 @@ export const ProductSelectionModal = ({
                       key={price.id}
                       isPressable
                       isHoverable
-                      className={`cursor-pointer transition-all ${selectedPriceId === price.id
+                      className={`cursor-pointer transition-all ${
+                        selectedPriceId === price.id
                           ? "ring-2 ring-primary-500 bg-primary-50"
                           : "hover:bg-gray-50"
-                        }`}
+                      }`}
                       onPress={() => setSelectedPriceId(price.id)}
                     >
                       <CardBody className="py-3">

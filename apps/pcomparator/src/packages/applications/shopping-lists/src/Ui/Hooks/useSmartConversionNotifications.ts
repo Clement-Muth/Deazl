@@ -40,7 +40,7 @@ export const useSmartConversionNotifications = ({
               const item = await itemResponse.json();
               return {
                 itemId: item.id,
-                itemName: item.customName || "Unnamed item",
+                itemName: item.product?.name || "Unnamed item",
                 listId
               };
             }

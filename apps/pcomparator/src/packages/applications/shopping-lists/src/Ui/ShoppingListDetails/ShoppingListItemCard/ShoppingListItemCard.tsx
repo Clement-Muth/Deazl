@@ -19,6 +19,7 @@ import type { ShoppingListItemPayload } from "../../../Domain/Entities/ShoppingL
 import type { ShoppingListPayload } from "../../../Domain/Schemas/ShoppingList.schema";
 import type { BestPriceResult } from "../../../Domain/Utils/priceComparison";
 import { StoreSelector } from "../../../Ui/ShoppingListDetails/StoreSelector";
+import { TotalCostSummary } from "../../../Ui/ShoppingListDetails/TotalCostSummary";
 import { ShoppingListItemList } from "./ShoppingListItemList";
 import { useUndoDelete } from "./useUndoDelete";
 
@@ -28,7 +29,11 @@ export const ShoppingListItemCard = ({
   onDeleteItem,
   onUpdateItem,
   bestPrices,
-  isStoreSelected = false
+  isStoreSelected = false,
+  selectedStore,
+  totalCost = 0,
+  potentialSavings = 0,
+  bestStoreName
 }: {
   list: ShoppingListPayload;
   onToggleItem: (itemId: string, isCompleted: boolean) => Promise<void>;
@@ -36,6 +41,10 @@ export const ShoppingListItemCard = ({
   onUpdateItem: (itemId: string, data: Partial<ShoppingListItemPayload>) => Promise<void>;
   bestPrices?: Record<string, BestPriceResult | null>;
   isStoreSelected?: boolean;
+  selectedStore?: { id: string; name: string; location: string } | null;
+  totalCost?: number;
+  potentialSavings?: number;
+  bestStoreName?: string | null;
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedItem, setSelectedItem] = useState<ShoppingListItemPayload | null>(null);
@@ -77,7 +86,7 @@ export const ShoppingListItemCard = ({
 
   const handleDeleteItem = (itemId: string) => {
     const item = list.items?.find((i) => i.id === itemId);
-    const itemName = item?.customName || `Product #${item?.productId?.substring(0, 8) || "Unknown"}`;
+    const itemName = item?.product?.name || `Product #${item?.productId?.substring(0, 8) || "Unknown"}`;
 
     // Schedule deletion immediately
     scheduleDelete(
@@ -104,7 +113,7 @@ export const ShoppingListItemCard = ({
 
   const handleUndoDelete = (itemId: string) => {
     const item = list.items?.find((i) => i.id === itemId);
-    const itemName = item?.customName || `Product #${item?.productId?.substring(0, 8) || "Unknown"}`;
+    const itemName = item?.product?.name || `Product #${item?.productId?.substring(0, 8) || "Unknown"}`;
 
     undoDelete(itemId);
 
@@ -119,11 +128,14 @@ export const ShoppingListItemCard = ({
   const stats = {
     total: list.items?.length || 0,
     checked: list.items?.filter((i) => i.isCompleted).length || 0,
-    hasPrices: list.items?.some((i) => i.price || bestPrices?.[i.id]) || false,
+    hasPrices: list.items?.some((i) => bestPrices?.[i.id]) || false,
     totalAmount:
       list.items?.reduce((sum, i) => {
-        const price = i.price || bestPrices?.[i.id]?.price.amount || 0;
-        return sum + price * i.quantity;
+        // bestPrices is UNIT price
+        if (bestPrices?.[i.id]?.price.amount) {
+          return sum + bestPrices[i.id]!.price.amount * i.quantity; // bestPrice is unit price
+        }
+        return sum;
       }, 0) || 0
   };
 
@@ -133,6 +145,17 @@ export const ShoppingListItemCard = ({
         <CardHeader className="pb-2">
           <div className="flex flex-col gap-2 w-full">
             <StoreSelector />
+
+            {/* Total Cost Summary after Store Selector */}
+            {totalCost > 0 && (
+              <TotalCostSummary
+                totalCost={totalCost}
+                potentialSavings={potentialSavings}
+                bestStoreName={bestStoreName || undefined}
+                itemCount={list.items?.length || 0}
+                completedCount={list.items?.filter((i) => i.isCompleted).length || 0}
+              />
+            )}
 
             {list.description && (
               <div className="flex items-start gap-2 p-3 rounded-lg bg-blue-50 border border-blue-100">
@@ -178,6 +201,7 @@ export const ShoppingListItemCard = ({
               isPendingDelete={isPendingDelete}
               bestPrices={bestPrices}
               isStoreSelected={isStoreSelected}
+              selectedStore={selectedStore}
             />
           )}
         </CardBody>
@@ -192,7 +216,7 @@ export const ShoppingListItemCard = ({
           <ModalBody>
             {selectedItem && (
               <div className="space-y-3">
-                <p className="text-sm text-gray-600">{selectedItem.customName || "Product"}</p>
+                <p className="text-sm text-gray-600">{selectedItem.product?.name || "Product"}</p>
                 <Input
                   label={<Trans>Quantity</Trans>}
                   type="number"

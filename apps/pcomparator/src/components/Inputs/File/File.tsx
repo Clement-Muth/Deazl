@@ -1,7 +1,6 @@
 import { Avatar, AvatarGroup } from "@heroui/avatar";
 import { Input, type InputProps as InputPropsNextUi } from "@heroui/input";
-import { t } from "@lingui/macro";
-import { useLingui } from "@lingui/react";
+import { useLingui } from "@lingui/react/macro";
 import clsx from "clsx";
 import { useState } from "react";
 import { Controller, type FieldValues, type RegisterOptions, useFormContext } from "react-hook-form";
@@ -43,7 +42,7 @@ export const File = ({
   ...props
 }: FileProps & RegisterOptions<FieldValues, any>) => {
   const form = useFormContext();
-  const { i18n } = useLingui();
+  const { t } = useLingui();
   // biome-ignore format: keep one line
   const rules = {deps, max, maxLength, min, minLength, onBlur, onChange, pattern, required: required ? {message: required as string, value: true} : undefined, shouldUnregister, validate, value};
   const [dragging, setDragging] = useState<boolean>(false);
@@ -87,12 +86,12 @@ export const File = ({
                   labelPlacement="outside"
                   placeholder={
                     dragging
-                      ? t(i18n)`Drag and drop your file`
+                      ? t`Drag and drop your file`
                       : value?.length
                         ? Array.from(value as FileList)
                             .map((v) => v.name)
                             .join()
-                        : t(i18n)`Select your file`
+                        : t`Select your file`
                   }
                   classNames={{
                     label: "text-black-primary text-sm",

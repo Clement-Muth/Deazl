@@ -14,11 +14,18 @@ export class ShoppingListMapper {
           {
             shoppingListId: raw.id,
             productId: item.productId,
+            recipeId: item.recipeId,
             quantity: item.quantity,
             unit: item.unit,
             isCompleted: item.isCompleted,
-            customName: item.customName ?? undefined,
-            price: item.price
+            product: item.product
+              ? {
+                  id: item.product.id,
+                  name: item.product.name,
+                  barcode: item.product.barcode,
+                  description: item.product.description
+                }
+              : undefined
           },
           item.id
         )
