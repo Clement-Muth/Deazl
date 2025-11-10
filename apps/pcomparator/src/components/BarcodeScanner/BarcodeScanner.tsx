@@ -66,10 +66,11 @@ export const BarcodeScanner = ({
 
       const mediaStream = await navigator.mediaDevices.getUserMedia({
         video: {
-          facingMode: "environment",
-          width: { ideal: 1280 },
-          height: { ideal: 720 }
-        }
+          facingMode: { ideal: "environment" },
+          width: { ideal: 1920, min: 640 },
+          height: { ideal: 1080, min: 480 }
+        },
+        audio: false
       });
 
       setStream(mediaStream);
@@ -77,18 +78,53 @@ export const BarcodeScanner = ({
 
       if (videoRef.current) {
         videoRef.current.srcObject = mediaStream;
+
+        // Wait for video metadata to load before playing
+        await new Promise<void>((resolve) => {
+          if (!videoRef.current) return resolve();
+
+          videoRef.current.onloadedmetadata = () => {
+            resolve();
+          };
+        });
+
         try {
           await videoRef.current.play();
-          // Démarrer le scan après que la vidéo soit prête
+          console.log("✅ Vidéo démarrée avec succès");
+
+          // Wait for video to be actually playing
+          await new Promise<void>((resolve) => {
+            if (!videoRef.current) return resolve();
+
+            const checkPlaying = setInterval(() => {
+              if (videoRef.current && videoRef.current.readyState >= 2) {
+                clearInterval(checkPlaying);
+                resolve();
+              }
+            }, 100);
+
+            // Timeout après 5 secondes
+            setTimeout(() => {
+              clearInterval(checkPlaying);
+              resolve();
+            }, 5000);
+          });
+
+          console.log("✅ Vidéo prête, démarrage du scan");
+          setIsLoading(false);
+
+          // Démarrer le scan après que la vidéo soit vraiment prête
           setTimeout(() => {
             startScanning();
-          }, 1000);
+          }, 500);
         } catch (playError) {
           console.error("Erreur de lecture vidéo:", playError);
+          setError("Impossible de démarrer la vidéo");
+          setIsLoading(false);
         }
+      } else {
+        setIsLoading(false);
       }
-
-      setIsLoading(false);
     } catch (err) {
       console.error("Erreur accès caméra:", err);
       setHasPermission(false);
@@ -240,9 +276,17 @@ export const BarcodeScanner = ({
 
           {hasPermission && !error && (
             <>
-              <video ref={videoRef} className="w-full h-full object-cover" autoPlay playsInline muted />
+              <video
+                ref={videoRef}
+                className="w-full h-full object-cover"
+                autoPlay
+                playsInline
+                muted
+                webkit-playsinline="true"
+                style={{ backgroundColor: "black" }}
+              />
 
-              <div className="absolute inset-0 flex items-center justify-center">
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                 <div className="relative">
                   <div className="w-64 h-32 border-2 border-white rounded-lg relative">
                     <div className="absolute top-0 left-0 w-6 h-6 border-t-4 border-l-4 border-primary-500 rounded-tl-lg" />
