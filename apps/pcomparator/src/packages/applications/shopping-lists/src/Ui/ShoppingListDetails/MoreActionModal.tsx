@@ -1,11 +1,12 @@
 import { Modal, ModalBody, ModalContent } from "@heroui/react";
-import { DownloadIcon, Share2Icon, TrashIcon } from "lucide-react";
+import { Edit3Icon, Share2Icon, TrashIcon } from "lucide-react";
 
 interface MoreActionModalProps {
   shoppingListId: string;
   isOpen: boolean;
   onClose: () => void;
-  onDelete: (id: string) => void;
+  onDelete: () => void;
+  onEdit: () => void;
   onShare: () => void;
 }
 
@@ -14,6 +15,7 @@ export const MoreActionModal = ({
   isOpen,
   onClose,
   onDelete,
+  onEdit,
   onShare
 }: MoreActionModalProps) => (
   <Modal
@@ -32,6 +34,20 @@ export const MoreActionModal = ({
             className="flex items-center gap-2 py-3 px-4 cursor-pointer hover:bg-primary-50 transition-colors"
             onClick={() => {
               onClose();
+              onEdit();
+            }}
+          >
+            <Edit3Icon className="h-4 w-4 text-primary-600" />
+            <div className="flex flex-col">
+              <span className="font-medium">Edit List</span>
+              <span className="text-sm text-gray-500">Update list name and description</span>
+            </div>
+          </div>
+
+          <div
+            className="flex items-center gap-2 py-3 px-4 cursor-pointer hover:bg-primary-50 transition-colors"
+            onClick={() => {
+              onClose();
               onShare();
             }}
           >
@@ -43,23 +59,10 @@ export const MoreActionModal = ({
           </div>
 
           <div
-            className="flex items-center gap-2 py-3 px-4 cursor-pointer hover:bg-primary-50 transition-colors"
-            onClick={() => {
-              onClose();
-              // Ajouter ici la logique pour exporter la liste
-            }}
-          >
-            <DownloadIcon className="h-4 w-4 text-primary-600" />
-            <div className="flex flex-col">
-              <span className="font-medium">Export List</span>
-              <span className="text-sm text-gray-500">Export this list as CSV</span>
-            </div>
-          </div>
-
-          <div
             className="flex items-center gap-2 py-3 px-4 cursor-pointer hover:bg-red-50 text-red-600 transition-colors"
             onClick={() => {
-              onDelete(shoppingListId);
+              onClose();
+              onDelete();
             }}
           >
             <TrashIcon className="h-4 w-4" />

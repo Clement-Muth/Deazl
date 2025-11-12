@@ -58,7 +58,6 @@ export class ShoppingListApplicationService {
 
       const shoppingList = ShoppingList.create({
         name: data.name,
-        description: data.description,
         userId: currentUser.id
       });
 
@@ -78,7 +77,7 @@ export class ShoppingListApplicationService {
 
       if (!list) throw new Error("Shopping list not found");
 
-      if (list.isOwner(currentUser.id)) throw new Error("Unauthorized - only owner can delete list");
+      if (!list.isOwner(currentUser.id)) throw new Error("Unauthorized - only owner can delete list");
 
       await this.repository.remove(shoppingListId);
     } catch (error) {
@@ -101,7 +100,7 @@ export class ShoppingListApplicationService {
       if (!list.canUserModify(currentUser.id, userRole || undefined))
         throw new Error("Unauthorized - insufficient permissions to modify list");
 
-      const updatedList = list.withUpdates({ name: data.name, description: data.description });
+      const updatedList = list.withUpdates({ name: data.name });
 
       return this.repository.save(updatedList);
     } catch (error) {

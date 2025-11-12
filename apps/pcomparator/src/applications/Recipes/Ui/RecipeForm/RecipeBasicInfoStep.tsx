@@ -16,6 +16,7 @@ import { useLingui } from "@lingui/react/macro";
 import { Trans } from "@lingui/react/macro";
 import { Upload, X } from "lucide-react";
 import type { CreateRecipePayload } from "../../Domain/Schemas/Recipe.schema";
+import { AIDescriptionButton } from "./AIDescriptionButton";
 
 interface RecipeBasicInfoStepProps {
   formData: CreateRecipePayload;
@@ -55,7 +56,7 @@ export const RecipeBasicInfoStep = ({
                 size="sm"
                 variant="solid"
                 onPress={onImageRemove}
-                className="absolute top-2 right-2"
+                className="absolute top-2 right-2 z-10"
               >
                 <X className="w-4 h-4" />
               </Button>
@@ -83,14 +84,23 @@ export const RecipeBasicInfoStep = ({
           variant="bordered"
         />
 
-        <Textarea
-          label={<Trans>Description</Trans>}
-          placeholder={t`Describe your recipe...`}
-          value={formData.description}
-          onValueChange={(value) => onFormDataChange({ description: value })}
-          variant="bordered"
-          minRows={3}
-        />
+        <div className="space-y-2">
+          <div className="flex items-start justify-between gap-2">
+            <Textarea
+              label={<Trans>Description</Trans>}
+              placeholder={t`Describe your recipe...`}
+              value={formData.description}
+              onValueChange={(value) => onFormDataChange({ description: value })}
+              variant="bordered"
+              minRows={3}
+              className="flex-1"
+            />
+          </div>
+          <AIDescriptionButton
+            formData={formData}
+            onDescriptionGenerated={(desc) => onFormDataChange({ description: desc })}
+          />
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Select

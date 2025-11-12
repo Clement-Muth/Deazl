@@ -1,5 +1,5 @@
 import { Button, Checkbox } from "@heroui/react";
-import { CheckIcon, PencilIcon, TrashIcon } from "lucide-react";
+import { CheckIcon } from "lucide-react";
 import { useCallback } from "react";
 import type { ShoppingListItemPayload } from "../../../Domain/Entities/ShoppingListItem.entity";
 import type { BestPriceResult } from "../../../Domain/Utils/priceComparison";
@@ -95,7 +95,7 @@ export const ShoppingListItemList = ({
                       id={`item-${item.id}`}
                       color="success"
                       className="bg-transparent"
-                      size="sm"
+                      size="md"
                     />
                   </div>
                   <div className="flex flex-col gap-1 flex-1 min-w-0">
@@ -103,7 +103,7 @@ export const ShoppingListItemList = ({
                       htmlFor={`item-${item.id}`}
                       className={`${
                         item.isCompleted ? "line-through text-gray-400" : "font-medium"
-                      } cursor-pointer bg-transparent text-sm truncate`}
+                      } cursor-pointer bg-transparent truncate`}
                     >
                       {item.product?.name ||
                         item.recipeName ||
@@ -150,24 +150,6 @@ export const ShoppingListItemList = ({
                       selectedStore={selectedStore}
                     />
                   )}
-                  <Button
-                    variant="light"
-                    color="primary"
-                    startContent={<PencilIcon className="h-3.5 w-3.5" />}
-                    size="sm"
-                    onPress={() => onOpenEditModal(item)}
-                    isIconOnly
-                    className="opacity-60 hover:opacity-100 min-w-unit-8 w-8 h-8"
-                  />
-                  <Button
-                    variant="light"
-                    color="danger"
-                    startContent={<TrashIcon className="h-3.5 w-3.5" />}
-                    size="sm"
-                    onPress={() => onDeleteItem(item.id)}
-                    isIconOnly
-                    className="opacity-60 hover:opacity-100 min-w-unit-8 w-8 h-8"
-                  />
                 </div>
               </div>
             </SwipeableItem>

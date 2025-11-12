@@ -1,10 +1,23 @@
 "use client";
 
-import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/react";
+import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, useDisclosure } from "@heroui/react";
+import { Trans } from "@lingui/react/macro";
 import { motion } from "framer-motion";
-import { CalendarIcon, GlobeIcon, MoreVerticalIcon, ShoppingBagIcon, UsersIcon } from "lucide-react";
-import Link from "next/link";
+import {
+  CalendarIcon,
+  Edit3Icon,
+  GlobeIcon,
+  MoreVerticalIcon,
+  Share2Icon,
+  ShoppingBagIcon,
+  TrashIcon,
+  UsersIcon
+} from "lucide-react";
+import { useRouter } from "next/navigation";
+import { type CardAction, PressableCard } from "~/components/PressableCard";
 import type { ShoppingListPayload } from "../../Domain/Schemas/ShoppingList.schema";
+import { CreateEditListModal } from "./CreateEditListModal";
+import { DeleteListModal } from "./DeleteListModal";
 
 export interface ShoppingListCardProps {
   list: ShoppingListPayload;
@@ -12,23 +25,47 @@ export interface ShoppingListCardProps {
 }
 
 export const ShoppingListCard = ({ list, userRole }: ShoppingListCardProps) => {
-  const isOwner = userRole === "OWNER";
+  const router = useRouter();
+  const isOwner = true;
+  const editModal = useDisclosure();
+  const deleteModal = useDisclosure();
   const hasCollaborators = list.collaborators && list.collaborators.length > 0;
 
+  const cardActions: CardAction[] = isOwner
+    ? [
+        {
+          key: "edit",
+          label: <Trans>Edit List</Trans>,
+          icon: <Edit3Icon className="h-5 w-5" />,
+          variant: "light",
+          onAction: () => editModal.onOpen()
+        },
+        {
+          key: "share",
+          label: <Trans>Share List</Trans>,
+          icon: <Share2Icon className="h-5 w-5" />,
+          variant: "light",
+          onAction: () => {
+            // TODO: Open share modal
+          }
+        },
+        {
+          key: "delete",
+          label: <Trans>Delete List</Trans>,
+          icon: <TrashIcon className="h-5 w-5" />,
+          variant: "solid",
+          color: "danger",
+          onAction: () => deleteModal.onOpen()
+        }
+      ]
+    : [];
+
   return (
-    <motion.div
-      layout
-      style={{
-        position: "relative",
-        overflow: "hidden",
-        borderRadius: "0.75rem",
-        border: "1px solid rgb(243 244 246)",
-        backgroundColor: "white"
-      }}
-    >
-      <Link
-        href={`/shopping-lists/${list.id}`}
-        className="group relative block p-4 transition duration-200 hover:bg-gray-50"
+    <motion.div layout>
+      <PressableCard
+        actions={cardActions}
+        onPress={() => router.push(`/shopping-lists/${list.id}`)}
+        className="group relative p-4 transition duration-200 hover:bg-gray-50"
       >
         <div className="flex items-center justify-between">
           <h2 className="font-semibold text-lg text-gray-900 line-clamp-1 group-hover:text-primary-600 transition-colors">
@@ -53,12 +90,20 @@ export const ShoppingListCard = ({ list, userRole }: ShoppingListCardProps) => {
                     variant="light"
                     size="sm"
                     className="p-1 absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"
-                    onClick={(e) => e.preventDefault()}
                   >
                     <MoreVerticalIcon className="h-4 w-4" />
                   </Button>
                 </DropdownTrigger>
-                <DropdownMenu aria-label="List actions">
+                <DropdownMenu
+                  aria-label="List actions"
+                  onAction={(key) => {
+                    if (key === "edit") {
+                      editModal.onOpen();
+                    } else if (key === "delete") {
+                      deleteModal.onOpen();
+                    }
+                  }}
+                >
                   <DropdownItem key="share">Share List</DropdownItem>
                   <DropdownItem key="edit">Edit List</DropdownItem>
                   <DropdownItem key="duplicate">Duplicate List</DropdownItem>
@@ -124,7 +169,10 @@ export const ShoppingListCard = ({ list, userRole }: ShoppingListCardProps) => {
             />
           </div>
         </div>
-      </Link>
+      </PressableCard>
+
+      <CreateEditListModal isOpen={editModal.isOpen} onClose={editModal.onClose} list={list} mode="edit" />
+      <DeleteListModal isOpen={deleteModal.isOpen} onClose={deleteModal.onClose} list={list} />
     </motion.div>
   );
 };

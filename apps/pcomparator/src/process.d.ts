@@ -15,5 +15,6 @@ declare namespace NodeJS {
     BLOB_READ_WRITE_TOKEN: string;
     OPEN_FOOD_FACTS_USERNAME: string;
     OPEN_FOOD_FACTS_PASSWORD: string;
+    OPENAI_API_KEY: string;
   }
 }
