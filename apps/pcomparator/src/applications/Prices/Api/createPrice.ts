@@ -1,6 +1,6 @@
 "use server";
 
-import { OpenFoodFactPricesApiClient } from "@deazl/system";
+import { prisma } from "@deazl/system";
 import { z } from "zod";
 import { Currency } from "~/applications/Prices/Domain/ValueObjects/Currency";
 import { PrismaBrandRepository } from "~/applications/Prices/Infrastructure/Repositories/PrismaBrandRepository";
@@ -8,6 +8,7 @@ import { PrismaCategoryRepository } from "~/applications/Prices/Infrastructure/R
 import { PrismaPriceRepository } from "~/applications/Prices/Infrastructure/Repositories/PrismaPriceRepository";
 import { PrismaProductRepository } from "~/applications/Prices/Infrastructure/Repositories/PrismaProductRepository";
 import { PrismaStoreRepository } from "~/applications/Prices/Infrastructure/Repositories/PrismaStoreRepository";
+import { parseOpenFoodFactsQuality } from "~/packages/applications/shopping-lists/src/Domain/ValueObjects/ProductQuality.vo";
 
 const ParamsSchema = z.object({
   productId: z.string().optional(),
@@ -53,32 +54,51 @@ export const createPrice = async (params: CreatePriceParams): Promise<CreatePric
     else if (paramsPayload.barcode) {
       console.log("Fetching product from Open Food Facts:", paramsPayload.barcode);
 
-      const offProduct = await OpenFoodFactPricesApiClient.get(
-        `products/code/${paramsPayload.barcode}`
-      ).json<{
-        product_name: string;
-        brands: string;
-        image_url: string;
-      }>();
+      // Utiliser l'API v2 d'OpenFoodFacts directement
+      const offResponse = await fetch(
+        `https://world.openfoodfacts.org/api/v2/product/${paramsPayload.barcode}.json`
+      );
 
-      console.log("OFF Product data:", offProduct);
-      proofImage = offProduct.image_url;
+      if (!offResponse.ok) {
+        throw new Error(`OpenFoodFacts API error: ${offResponse.statusText}`);
+      }
+
+      const offData = await offResponse.json();
+      console.log("OFF API Response:", JSON.stringify(offData, null, 2));
+
+      if (!offData.product) {
+        throw new Error(`Product not found in OpenFoodFacts: ${paramsPayload.barcode}`);
+      }
+
+      const offProduct = offData.product;
+      proofImage = offProduct.image_url || offProduct.image_front_url || null;
+
+      // Extract quality data from OpenFoodFacts
+      const qualityData = parseOpenFoodFactsQuality(offProduct);
+      console.log("Parsed quality data:", JSON.stringify(qualityData, null, 2));
 
       const category = await categoryRepository.findOrCreate("N/A", {
         description: "",
         name: "N/A"
       });
 
-      const brand = await brandRepository.findOrCreate(offProduct.brands, {
+      const brandName = offProduct.brands || offProduct.brands_tags?.[0] || "Unknown";
+      const brand = await brandRepository.findOrCreate(brandName, {
         description: "",
-        name: offProduct.brands
+        name: brandName
       });
 
+      const productName =
+        offProduct.product_name ||
+        offProduct.product_name_fr ||
+        offProduct.product_name_en ||
+        "Unknown Product";
       product = await productRepository.findOrCreate(paramsPayload.barcode, {
-        name: offProduct.product_name,
+        name: productName,
         categoryId: category.id,
         brandId: brand.id,
-        barcode: paramsPayload.barcode
+        barcode: paramsPayload.barcode,
+        nutritionScore: qualityData // Store enriched quality data
       });
     } else {
       throw new Error("Either productId or barcode must be provided");
@@ -97,7 +117,7 @@ export const createPrice = async (params: CreatePriceParams): Promise<CreatePric
       name: paramsPayload.storeName
     });
 
-    await priceRepository.create({
+    const createdPrice = await priceRepository.create({
       productId: product.id,
       storeId: store.id,
       amount: paramsPayload.amount,
@@ -107,6 +127,23 @@ export const createPrice = async (params: CreatePriceParams): Promise<CreatePric
     });
 
     console.log("Price created successfully for product:", product.name);
+
+    // Auto-select this price for all shopping list items that have this product but no selected price yet
+    try {
+      await prisma.shoppingListItem.updateMany({
+        where: {
+          productId: product.id,
+          selectedPriceId: null
+        },
+        data: {
+          selectedPriceId: createdPrice.id
+        }
+      });
+      console.log("Auto-selected price for shopping list items without a selected price");
+    } catch (error) {
+      console.warn("Failed to auto-select price for shopping list items:", error);
+      // Non-blocking error - price is still created
+    }
 
     return { name: product.name };
   } catch (error) {

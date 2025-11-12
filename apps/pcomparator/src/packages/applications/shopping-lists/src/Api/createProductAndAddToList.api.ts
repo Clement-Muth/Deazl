@@ -3,6 +3,7 @@
 import { PrismaProductRepository } from "~/applications/Prices/Infrastructure/Repositories/PrismaProductRepository";
 import { ShoppingListItemApplicationService } from "../Application/Services/ShoppingListItem.service";
 import { ItemQuantity } from "../Domain/ValueObjects/ItemQuantity.vo";
+import { parseOpenFoodFactsQuality } from "../Domain/ValueObjects/ProductQuality.vo";
 import { Unit } from "../Domain/ValueObjects/Unit.vo";
 import { PrismaShoppingListRepository } from "../Infrastructure/Repositories/PrismaShoppingList.infrastructure";
 import { PrismaShoppingListItemRepository } from "../Infrastructure/Repositories/PrismaShoppingListItem.infrastructure";
@@ -43,6 +44,7 @@ export const createProductAndAddToList = async (params: CreateProductAndAddToLis
 
     // 2. If barcode is provided, try to fetch product info from Open Food Facts
     // ALWAYS prioritize Open Food Facts name over user input for consistency
+    let qualityData: any = null;
     if (productData.barcode) {
       try {
         const openFoodFactsResponse = await fetch(
@@ -52,10 +54,16 @@ export const createProductAndAddToList = async (params: CreateProductAndAddToLis
         if (openFoodFactsResponse.ok) {
           const data = await openFoodFactsResponse.json();
 
-          if (data.status === 1 && data.product && data.product.product_name) {
+          if (data.status === 1 && data.product) {
             // Use Open Food Facts name (more accurate and consistent)
-            productName = data.product.product_name;
-            console.log(`Using Open Food Facts name: "${productName}" instead of "${productData.name}"`);
+            if (data.product.product_name) {
+              productName = data.product.product_name;
+              console.log(`Using Open Food Facts name: "${productName}" instead of "${productData.name}"`);
+            }
+
+            // Extract quality data from OpenFoodFacts
+            qualityData = parseOpenFoodFactsQuality(data.product);
+            console.log("Parsed quality data:", JSON.stringify(qualityData, null, 2));
           }
         }
       } catch (error) {
@@ -71,7 +79,7 @@ export const createProductAndAddToList = async (params: CreateProductAndAddToLis
       description: null,
       categoryId: null,
       brandId: null,
-      nutritionScore: null
+      nutritionScore: qualityData // Store enriched quality data
     });
 
     // 4. Create shopping list item linked to the product

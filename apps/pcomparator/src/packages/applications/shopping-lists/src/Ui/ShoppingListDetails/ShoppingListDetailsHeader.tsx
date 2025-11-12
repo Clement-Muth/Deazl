@@ -1,12 +1,14 @@
 "use client";
 
 import { Button, Tooltip, useDisclosure } from "@heroui/react";
-import { ArrowLeftIcon, MoreVerticalIcon, UserPlusIcon } from "lucide-react";
+import { ArrowLeftIcon, MoreVerticalIcon, SlidersIcon, UserPlusIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import type { ShoppingListPayload } from "../../Domain/Schemas/ShoppingList.schema";
 import { CreateEditListModal } from "../ShoppingLists/CreateEditListModal";
 import { DeleteListModal } from "../ShoppingLists/DeleteListModal";
+import { OptimizationPreferencesModal } from "../components/OptimizationPreferencesModal.simple";
 import { MoreActionModal } from "./MoreActionModal";
+import { OptimizeListButton } from "./OptimizeListButton";
 import ShareListModal from "./ShareListModal/ShareListModal";
 
 interface ShoppingListPageHeaderProps {
@@ -25,6 +27,7 @@ export const ShoppingListDetailsHeader = ({
   const shareModal = useDisclosure();
   const editModal = useDisclosure();
   const deleteModal = useDisclosure();
+  const preferencesModal = useDisclosure();
 
   const handleShareList = () => {
     shareModal.onOpen();
@@ -67,6 +70,29 @@ export const ShoppingListDetailsHeader = ({
         </div>
       </div>
 
+      {/* Optimize List Button */}
+      {list.items && list.items.length > 0 && (
+        <div className="flex justify-end gap-2">
+          <Tooltip content="Adjust optimization preferences">
+            <Button
+              variant="flat"
+              size="md"
+              onPress={preferencesModal.onOpen}
+              startContent={<SlidersIcon className="h-4 w-4" />}
+            >
+              Preferences
+            </Button>
+          </Tooltip>
+          <OptimizeListButton
+            listId={shoppingListId}
+            onOptimizationComplete={() => {
+              // Refresh the page to show updated prices
+              router.refresh();
+            }}
+          />
+        </div>
+      )}
+
       <MoreActionModal
         isOpen={actionsModal.isOpen}
         onClose={actionsModal.onClose}
@@ -90,6 +116,7 @@ export const ShoppingListDetailsHeader = ({
         list={list}
         redirectAfterDelete
       />
+      <OptimizationPreferencesModal isOpen={preferencesModal.isOpen} onClose={preferencesModal.onClose} />
     </div>
   );
 };

@@ -18,7 +18,12 @@ export class PrismaShoppingListRepository implements ShoppingListRepository {
         include: {
           items: {
             include: {
-              product: true
+              product: true,
+              selectedPrice: {
+                include: {
+                  store: true
+                }
+              }
             }
           },
           collaborators: {
@@ -48,7 +53,12 @@ export class PrismaShoppingListRepository implements ShoppingListRepository {
       const include = {
         items: {
           include: {
-            product: true
+            product: true,
+            selectedPrice: {
+              include: {
+                store: true
+              }
+            }
           }
         },
         collaborators: {
@@ -143,7 +153,12 @@ export class PrismaShoppingListRepository implements ShoppingListRepository {
         include: {
           items: {
             include: {
-              product: true
+              product: true,
+              selectedPrice: {
+                include: {
+                  store: true
+                }
+              }
             }
           },
           collaborators: {

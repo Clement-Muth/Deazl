@@ -15,6 +15,8 @@ import {
   Users
 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { ProductDetailPage } from "~/packages/applications/shopping-lists/src/Ui/components/ProductDetailPage";
 import type { RecipePayload } from "../Domain/Schemas/Recipe.schema";
 import { AddRecipeToListModal } from "./RecipeDetails/AddRecipeToListModal";
 import ShareRecipeModal from "./RecipeDetails/ShareRecipeModal/ShareRecipeModal";
@@ -27,6 +29,7 @@ export default function RecipeDetails({ recipe }: RecipeDetailsProps) {
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isOpen: isAddToListOpen, onOpen: onAddToListOpen, onClose: onAddToListClose } = useDisclosure();
+  const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
 
   const getDifficultyLabel = (difficulty: string) => {
     switch (difficulty) {
@@ -214,14 +217,15 @@ export default function RecipeDetails({ recipe }: RecipeDetailsProps) {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.3, delay: 0.3 + index * 0.05 }}
                     // @ts-ignore
-                    className="flex items-start gap-2 sm:gap-3 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm sm:text-base"
+                    className="flex items-start gap-2 sm:gap-3 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm sm:text-base cursor-pointer"
+                    onClick={() => ingredient.productId && setSelectedProductId(ingredient.productId)}
                   >
                     <span className="text-primary mt-1 font-bold">•</span>
                     <span className="flex-1">
                       <span className="font-semibold text-gray-900 dark:text-gray-100">
                         {ingredient.quantity} {ingredient.unit}
                       </span>{" "}
-                      <span className="text-gray-600 dark:text-gray-400">
+                      <span className="text-gray-600 dark:text-gray-400 hover:text-primary transition-colors">
                         {ingredient.productName || "Product"}
                       </span>
                     </span>
@@ -287,6 +291,45 @@ export default function RecipeDetails({ recipe }: RecipeDetailsProps) {
       {/* Modals */}
       <ShareRecipeModal isOpen={isOpen} onClose={onClose} recipeId={recipe.id} recipeName={recipe.name} />
       <AddRecipeToListModal isOpen={isAddToListOpen} onClose={onAddToListClose} recipe={recipe} />
+
+      {/* Product Detail Modal */}
+      {selectedProductId && (
+        <ProductDetailPage
+          productId={selectedProductId}
+          isOpen={!!selectedProductId}
+          onClose={() => setSelectedProductId(null)}
+          compact
+          // @ts-ignore
+          fetchProduct={async (id) => {
+            const { getProductWithPricesAndQuality } = await import(
+              "~/packages/applications/shopping-lists/src/Api/products/getProductWithPricesAndQuality.api"
+            );
+            const result = await getProductWithPricesAndQuality(id);
+            if (!result.success || !result.product) {
+              throw new Error(result.error || "Produit introuvable");
+            }
+            return {
+              id: result.product.id,
+              name: result.product.name,
+              brand: result.product.brand?.name,
+              barcode: result.product.barcode,
+              qualityData: result.product.qualityData || undefined,
+              prices: result.product.prices.map((p) => ({
+                id: p.id,
+                productId: result.product.id,
+                storeId: p.store.id,
+                storeName: p.store.name,
+                amount: p.amount,
+                currency: p.currency,
+                unit: p.unit,
+                dateRecorded: new Date(p.dateRecorded)
+              })),
+              isOpenFoodFacts: result.product.isOpenFoodFacts,
+              lastUpdated: new Date(result.product.updatedAt)
+            };
+          }}
+        />
+      )}
     </div>
   );
 }

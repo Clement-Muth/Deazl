@@ -42,7 +42,6 @@ export const Modal = ({
       <BottomSheet
         open={isOpen}
         onDismiss={onClose}
-        expandOnContentDrag
         header={header}
         footer={footer}
         snapPoints={({ maxHeight, minHeight }) => {

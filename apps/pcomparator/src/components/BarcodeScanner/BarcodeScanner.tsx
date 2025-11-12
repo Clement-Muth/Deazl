@@ -61,18 +61,45 @@ export const BarcodeScanner = ({
       setIsLoading(true);
       setError(null);
 
-      if (!navigator.mediaDevices?.getUserMedia) {
-        throw new Error("Camera API not supported");
+      // Vérifier si on est en HTTPS ou localhost
+      const isSecureContext =
+        window.isSecureContext ||
+        window.location.protocol === "https:" ||
+        window.location.hostname === "localhost" ||
+        window.location.hostname === "127.0.0.1";
+
+      if (!isSecureContext) {
+        throw new Error(
+          "La caméra nécessite une connexion HTTPS sécurisée. Veuillez accéder au site via HTTPS."
+        );
       }
 
-      const mediaStream = await navigator.mediaDevices.getUserMedia({
+      // Vérifier le support de l'API avec plusieurs fallbacks
+      if (!navigator.mediaDevices) {
+        console.error("navigator.mediaDevices n'est pas disponible");
+        throw new Error(
+          "L'API de caméra n'est pas disponible sur ce navigateur. Veuillez utiliser un navigateur récent (Chrome, Safari, Firefox)."
+        );
+      }
+
+      if (!navigator.mediaDevices.getUserMedia) {
+        console.error("getUserMedia n'est pas disponible");
+        throw new Error(
+          "Votre navigateur ne supporte pas l'accès à la caméra. Veuillez mettre à jour votre navigateur."
+        );
+      }
+
+      // Demander les permissions avec des contraintes optimisées pour mobile
+      const constraints = {
         video: {
           facingMode: { ideal: "environment" },
-          width: { ideal: 1920, min: 640 },
-          height: { ideal: 1080, min: 480 }
+          width: { ideal: 1280, min: 640, max: 1920 },
+          height: { ideal: 720, min: 480, max: 1080 }
         },
         audio: false
-      });
+      };
+
+      const mediaStream = await navigator.mediaDevices.getUserMedia(constraints);
 
       setStream(mediaStream);
       setHasPermission(true);
@@ -129,7 +156,31 @@ export const BarcodeScanner = ({
     } catch (err) {
       console.error("Erreur accès caméra:", err);
       setHasPermission(false);
-      setError(err instanceof Error ? err.message : "Impossible d'accéder à la caméra");
+
+      // Messages d'erreur plus spécifiques selon le type d'erreur
+      let errorMessage = "Impossible d'accéder à la caméra";
+
+      if (err instanceof Error) {
+        if (err.name === "NotAllowedError" || err.name === "PermissionDeniedError") {
+          errorMessage =
+            "Permission caméra refusée. Veuillez autoriser l'accès à la caméra dans les paramètres de votre navigateur.";
+        } else if (err.name === "NotFoundError" || err.name === "DevicesNotFoundError") {
+          errorMessage = "Aucune caméra détectée sur cet appareil.";
+        } else if (err.name === "NotReadableError" || err.name === "TrackStartError") {
+          errorMessage =
+            "La caméra est déjà utilisée par une autre application. Veuillez fermer les autres applications et réessayer.";
+        } else if (err.name === "OverconstrainedError" || err.name === "ConstraintNotSatisfiedError") {
+          errorMessage = "Les paramètres de la caméra ne sont pas supportés. Essayez avec un autre appareil.";
+        } else if (err.name === "NotSupportedError") {
+          errorMessage = "L'API de caméra n'est pas supportée sur ce navigateur.";
+        } else if (err.name === "TypeError") {
+          errorMessage = "Erreur de configuration de la caméra.";
+        } else {
+          errorMessage = err.message;
+        }
+      }
+
+      setError(errorMessage);
       setIsLoading(false);
     }
   };
@@ -305,6 +356,7 @@ export const BarcodeScanner = ({
                 playsInline
                 muted
                 webkit-playsinline="true"
+                x-webkit-airplay="allow"
                 style={{ backgroundColor: "black" }}
               />
 

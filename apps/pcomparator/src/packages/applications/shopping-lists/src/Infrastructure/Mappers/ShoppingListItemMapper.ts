@@ -9,7 +9,24 @@ export class ShoppingListItemMapper {
         quantity: raw.quantity,
         unit: raw.unit,
         isCompleted: raw.isCompleted,
-        notes: raw.notes
+        notes: raw.notes,
+        selectedPriceId: raw.selectedPriceId || null,
+        // @ts-ignore
+        selectedPrice: raw.selectedPrice
+          ? {
+              id: raw.selectedPrice.id,
+              amount: raw.selectedPrice.amount,
+              currency: raw.selectedPrice.currency,
+              unit: raw.selectedPrice.unit,
+              store: raw.selectedPrice.store
+                ? {
+                    id: raw.selectedPrice.store.id,
+                    name: raw.selectedPrice.store.name,
+                    location: raw.selectedPrice.store.location
+                  }
+                : undefined
+            }
+          : undefined
       },
       raw.id
     );
@@ -24,6 +41,7 @@ export class ShoppingListItemMapper {
       unit: entity.unit,
       isCompleted: entity.isCompleted,
       notes: entity.notes,
+      selectedPriceId: entity.selectedPriceId || null,
       updatedAt: new Date()
     };
   }
