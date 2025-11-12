@@ -1,6 +1,6 @@
 "use client";
 
-import { BarcodeScanner } from "@deazl/components";
+import { BarcodeScannerWithUI } from "@deazl/components";
 import { Autocomplete, AutocompleteItem, Avatar, Button, useDisclosure } from "@heroui/react";
 import { PackagePlusIcon, PlusIcon, QrCodeIcon, SearchIcon, StoreIcon, TagIcon } from "lucide-react";
 import { forwardRef, useCallback, useState } from "react";
@@ -150,7 +150,7 @@ export const SmartItemInput = forwardRef<HTMLInputElement, SmartItemInputProps>(
           </Button>
         </div>
 
-        {isScannerOpen && <BarcodeScanner onClose={closeScanner} onScanned={handleBarcodeScanned} />}
+        {isScannerOpen && <BarcodeScannerWithUI onClose={closeScanner} onScanned={handleBarcodeScanned} />}
       </div>
     );
   }

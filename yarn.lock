@@ -6045,7 +6045,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@preflower/barcode-detector-polyfill@npm:^0.9.20":
+"@preflower/barcode-detector-polyfill@npm:^0.9.20, @preflower/barcode-detector-polyfill@npm:^0.9.21":
   version: 0.9.21
   resolution: "@preflower/barcode-detector-polyfill@npm:0.9.21"
   dependencies:
@@ -12086,6 +12086,7 @@ __metadata:
     commitlint-plugin-function-rules: "npm:^4.0.2"
     husky: "npm:^9.1.7"
     prisma: "npm:5.21.1"
+    react-barcode-scanner: "npm:^4.0.0"
     rimraf: "npm:^6.0.1"
     semantic-release: "npm:^24.0.0"
     tsx: "npm:^4.20.6"
@@ -19052,6 +19053,20 @@ __metadata:
     react: "*"
     react-dom: "*"
   checksum: 10/582dd6e01db2a8424d8c373637c4793f857d440cbf1984062c55fb404b82c6efc863ce80fbc10815c1e6ceda548a932c42dcfad7288410d52563dfe633b46d47
+  languageName: node
+  linkType: hard
+
+"react-barcode-scanner@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "react-barcode-scanner@npm:4.0.0"
+  dependencies:
+    "@preflower/barcode-detector-polyfill": "npm:^0.9.21"
+    tslib: "npm:^2.6.3"
+    webrtc-adapter: "npm:^9.0.1"
+  peerDependencies:
+    react: "*"
+    react-dom: "*"
+  checksum: 10/78bc9379901e30ca12de4bc4fb4f8d0f04b29ea49d6ccca11e28300d2d665262b25865b4b538a479f3cece5d472420d7765d07aa92878a7346f95b3cf259b266
   languageName: node
   linkType: hard
 

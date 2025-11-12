@@ -1,6 +1,6 @@
 "use client";
 
-import { BarcodeScanner } from "@deazl/components";
+import { BarcodeScannerWithUI } from "@deazl/components";
 import {
   Button,
   Input,
@@ -262,7 +262,7 @@ export const CreateProductModal = ({
         </ModalContent>
       </Modal>
 
-      {isScannerOpen && <BarcodeScanner onClose={closeScanner} onScanned={handleBarcodeScanned} />}
+      {isScannerOpen && <BarcodeScannerWithUI onClose={closeScanner} onScanned={handleBarcodeScanned} />}
     </>
   );
 };

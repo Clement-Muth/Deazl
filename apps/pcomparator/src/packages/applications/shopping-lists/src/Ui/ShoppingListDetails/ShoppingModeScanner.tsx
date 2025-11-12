@@ -1,6 +1,6 @@
 "use client";
 
-import { BarcodeScanner } from "@deazl/components";
+import { BarcodeScannerWithUI } from "@deazl/components";
 import { Button, Card, CardBody, CardHeader } from "@heroui/react";
 import { ShoppingCartIcon, XIcon } from "lucide-react";
 import { useCallback, useState } from "react";
@@ -148,12 +148,12 @@ export const ShoppingModeScanner = ({
 
       {/* Scanner persistant */}
       {isScanning && (
-        <BarcodeScanner
-          onScanned={handleBarcodeScanned}
+        <BarcodeScannerWithUI
           onClose={handleScannerClose}
+          onScanned={handleBarcodeScanned}
+          continuous
           title="Mode Shopping"
           description="Scannez un produit pour le marquer comme complété"
-          continuous={true}
         />
       )}
     </div>
