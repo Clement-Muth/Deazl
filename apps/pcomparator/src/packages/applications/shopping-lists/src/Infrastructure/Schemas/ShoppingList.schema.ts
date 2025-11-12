@@ -16,7 +16,8 @@ export const ShoppingListInfraSchema = z.object({
       quantity: z.number(),
       unit: z.string(),
       isCompleted: z.boolean(),
-      // notes: z.string().nullable(),
+      selectedPriceId: z.string().uuid().nullable().optional(),
+      notes: z.string().nullable().optional(),
       product: z
         .object({
           id: z.string().uuid(),
@@ -29,7 +30,21 @@ export const ShoppingListInfraSchema = z.object({
           created_at: z.date(),
           updated_at: z.date()
         })
+        .nullable(),
+      selectedPrice: z
+        .object({
+          id: z.string().uuid(),
+          amount: z.number(),
+          currency: z.string(),
+          unit: z.string(),
+          store: z.object({
+            id: z.string().uuid(),
+            name: z.string(),
+            location: z.string()
+          })
+        })
         .nullable()
+        .optional()
     })
   ),
   collaborators: z.array(

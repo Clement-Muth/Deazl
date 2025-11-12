@@ -233,6 +233,10 @@ msgstr "{0} articles ajoutés, {1} doublons fusionnés"
 msgid "Adjust Portions"
 msgstr "Ajuster les portions"
 
+#: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
+msgid "Adjust the importance of each criterion to customize the optimization algorithm. Weights are automatically normalized."
+msgstr "Ajustez l'importance de chaque critère pour personnaliser l'algorithme d'optimisation. Les poids sont automatiquement normalisés."
+
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListContainer.tsx
 msgid "All"
 msgstr "Tous"
@@ -282,6 +286,10 @@ msgstr "Êtes-vous sûr de vouloir supprimer <0>\"{0}\"</0> ?"
 msgid "Are you sure you want to delete this price?"
 msgstr "Êtes-vous sûr de vouloir supprimer ce prix ?"
 
+#: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
+msgid "Availability"
+msgstr "Disponibilité"
+
 #: src/applications/Profile/Ui/Settings/Avatar.tsx
 msgid "Avatar"
 msgstr "Avatar"
@@ -324,6 +332,7 @@ msgstr "Informations de base"
 msgid "Best at"
 msgstr "Meilleur à"
 
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ItemPriceAlternativesModal/ItemPriceAlternativesModal.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ProductSelectionModal.tsx
 msgid "Best Price"
 msgstr "Meilleur prix"
@@ -348,8 +357,10 @@ msgstr "Appareil photo"
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
 #: src/applications/Recipes/Ui/RecipeForm/CreateProductModal.tsx
 #: src/applications/Recipes/Ui/RecipeForm/RecipeFormNavigation.tsx
+#: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/AddStoreModal.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ItemPriceAlternativesModal/ItemPriceAlternativesModal.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ProductSelectionModal.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListItemCard/ShoppingListItemCard.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/CreateEditListModal.tsx
@@ -364,6 +375,10 @@ msgstr "Centilitres (cl)"
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
 msgid "Choose a list"
 msgstr "Choisir une liste"
+
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ItemPriceAlternativesModal/ItemPriceAlternativesModal.tsx
+msgid "Choose a price"
+msgstr "Choisir un prix"
 
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/StoreSelector.tsx
 msgid "Clear"
@@ -630,6 +645,10 @@ msgstr "Deazl est un projet open source maintenu grâce aux contributions de la 
 msgid "Deazl was born from a simple conviction: everyone should be able to shop at the best price without spending hours comparing stores."
 msgstr "Deazl est né d'une conviction simple : tout le monde devrait pouvoir faire ses courses au meilleur prix sans passer des heures à comparer les magasins."
 
+#: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
+msgid "Default values have been restored"
+msgstr "Les valeurs par défaut ont été restaurées"
+
 #: src/applications/Profile/Ui/Settings/DeleteAccount.tsx
 msgid "Delete Account"
 msgstr "Supprimer mon compte"
@@ -680,6 +699,10 @@ msgstr "Découvrez comment Deazl aide nos utilisateurs à économiser sur leurs 
 #: src/applications/Profile/Ui/Settings/DisplayName.tsx
 msgid "Display Name"
 msgstr "Nom d'affichage"
+
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ItemPriceAlternativesModal/ItemPriceAlternativesModal.tsx
+msgid "Distance"
+msgstr "Distance"
 
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/RecipeGroup.tsx
 msgid "done"
@@ -757,9 +780,13 @@ msgstr "Environnement"
 #: src/applications/Recipes/Ui/RecipeForm/CreateProductModal.tsx
 #: src/applications/Recipes/Ui/RecipeForm/CreateProductModal.tsx
 #: src/applications/Recipes/Ui/RecipeForm/CreateProductModal.tsx
+#: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
+#: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/AddStoreModal.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/OptimizeListButton/OptimizeListButton.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/OptimizeListButton/OptimizeListButton.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/useShareList.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/useShoppingListShare.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/useShoppingListShare.tsx
@@ -957,6 +984,22 @@ msgstr "Comment l'application est-elle maintenue ?"
 msgid "I understand, delete my account"
 msgstr "Je comprends, supprimez mon compte."
 
+#: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
+msgid "Importance of nutritional and environmental quality"
+msgstr "Importance de la qualité nutritionnelle et environnementale"
+
+#: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
+msgid "Importance of stock availability"
+msgstr "Importance de la disponibilité des stocks"
+
+#: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
+msgid "Importance of store proximity"
+msgstr "Importance de la proximité des magasins"
+
+#: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
+msgid "Importance of the best price"
+msgstr "Importance du meilleur prix"
+
 #: src/app/[locale]/features/page.tsx
 msgid "In detail"
 msgstr "En détail"
@@ -1115,6 +1158,10 @@ msgstr "Liste mise à jour"
 msgid "Liters (l)"
 msgstr "Litres (l)"
 
+#: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
+msgid "Loading..."
+msgstr "Chargement..."
+
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/AddStoreModal.tsx
 msgid "Location"
 msgstr "Localisation"
@@ -1216,6 +1263,7 @@ msgstr "Aucune liste de courses active"
 msgid "No completed lists"
 msgstr "Aucune liste de courses terminée"
 
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ItemPriceAlternativesModal/ItemPriceAlternativesModal.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ProductSelectionModal.tsx
 msgid "No price available for this product"
 msgstr "Aucun prix disponible pour ce produit"
@@ -1244,9 +1292,29 @@ msgstr "Nos magasins partenaires"
 msgid "Number of Servings"
 msgstr "Nombre de portions"
 
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ItemPriceAlternativesModal/ItemPriceAlternativesModal.tsx
+msgid "Nutri-Score"
+msgstr "Nutri-Score"
+
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/EmptyState.tsx
 msgid "Once you complete a shopping list, it will appear here for your reference."
 msgstr "Une fois que vous avez terminé une liste de courses, elle apparaîtra ici pour votre référence."
+
+#: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
+msgid "Optimization Preferences"
+msgstr "Préférences d'optimisation"
+
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/OptimizeListButton/OptimizeListButton.tsx
+msgid "Optimization successful"
+msgstr "Optimisation réussie"
+
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/OptimizeListButton/OptimizeListButton.tsx
+msgid "Optimize List"
+msgstr "Optimiser la liste"
+
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/OptimizeListButton/OptimizeListButton.tsx
+msgid "Optimizing..."
+msgstr "Optimisation en cours..."
 
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step2/Location.tsx
 msgid "Or search manually"
@@ -1334,6 +1402,14 @@ msgstr "Veuillez utiliser 32 caractères maximum."
 msgid "PNG, JPG up to 10MB"
 msgstr "PNG, JPG jusqu'à 10 Mo"
 
+#: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
+msgid "Preferences Reset"
+msgstr "Préférences réinitialisées"
+
+#: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
+msgid "Preferences Saved"
+msgstr "Préférences enregistrées"
+
 #: src/applications/Recipes/Ui/RecipeDetails.tsx
 msgid "Prep."
 msgstr "Prep."
@@ -1363,6 +1439,7 @@ msgstr "Précédent"
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step2/Price.tsx
 #: src/applications/Prices/Ui/NewQuickPrice/FormSteps/Price.tsx
 #: src/components/DesktopNav.tsx
+#: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
 msgid "Price"
 msgstr "Prix"
 
@@ -1401,6 +1478,10 @@ msgstr "Historique des prix"
 #: src/views/Home/components/Features/FeaturesSection.tsx
 msgid "Price tracking"
 msgstr "Suivi des prix"
+
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ItemPriceAlternativesModal/ItemPriceAlternativesModal.tsx
+msgid "Price: Low to High"
+msgstr "Prix : Croissant"
 
 #: src/applications/Searchbar/Ui/SearchResult/SearchResultModal.tsx
 msgid "Prices for {search}"
@@ -1467,9 +1548,18 @@ msgstr "Produit non trouvé"
 msgid "Proof photo (optional)"
 msgstr "Photo de preuve (optionnelle)"
 
+#: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
+msgid "Proximity"
+msgstr "Proximité"
+
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/QrCodeTab.tsx
 msgid "QR Code downloaded"
 msgstr "QR Code téléchargé"
+
+#: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ItemPriceAlternativesModal/ItemPriceAlternativesModal.tsx
+msgid "Quality"
+msgstr "Qualité"
 
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ProductSelectionModal.tsx
@@ -1529,12 +1619,17 @@ msgstr "Supprimer tout de la recette"
 msgid "Removed {0}"
 msgstr "Supprimé {0}"
 
+#: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
+msgid "Reset"
+msgstr "Réinitialiser"
+
 #: src/app/[locale]/dashboard/layout.tsx
 msgid "Return to the app"
 msgstr "Retourner à l'application"
 
 #: src/applications/Profile/Ui/Settings/DisplayName.tsx
 #: src/applications/Profile/Ui/Settings/PhoneNumber.tsx
+#: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListItemCard/ShoppingListItemCard.tsx
 msgid "Save"
 msgstr "Enregistrer"
@@ -1839,6 +1934,7 @@ msgstr "Astuce : Vous pouvez ajouter des articles à votre liste après l'avoir 
 msgid "Together, we build a collaborative and reliable database."
 msgstr "Ensemble, nous construisons une base de données collaborative et fiable."
 
+#: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/TotalCostSummary.tsx
 msgid "Total"
 msgstr "Total"
@@ -1891,6 +1987,14 @@ msgstr "Type de code-barre"
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/SmartQuickAddBar/useSmartAdd.tsx
 msgid "Unable to add product"
 msgstr "Impossible d'ajouter le produit"
+
+#: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
+msgid "Unable to reset preferences"
+msgstr "Impossible de réinitialiser les préférences"
+
+#: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
+msgid "Unable to save preferences"
+msgstr "Impossible d'enregistrer les préférences"
 
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step1/PriceDetails.tsx
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step2/Price.tsx
@@ -2014,6 +2118,10 @@ msgstr "Vos lists"
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/AddStoreModal.tsx
 msgid "Your new store has been added and selected"
 msgstr "Votre nouveau magasin a été ajouté et sélectionné"
+
+#: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
+msgid "Your optimization preferences have been updated"
+msgstr "Vos préférences d'optimisation ont été mises à jour"
 
 #: src/components/Inputs/Phone/Phone.tsx
 msgid "Your phone number is not valid"

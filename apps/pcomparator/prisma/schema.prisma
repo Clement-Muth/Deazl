@@ -15,6 +15,10 @@ model User {
   emailVerified         DateTime?
   image                 String?
   phone                 String?
+  
+  // Optimization preferences (stored as JSON)
+  optimizationPreferences Json? @db.JsonB
+  
   accounts              Account[]
   sessions              Session[]
   shoppingLists         ShoppingList[]
@@ -121,8 +125,9 @@ model Price {
   price_proof_image String?
 
   // Relations
-  product Product @relation(fields: [product_id], references: [id])
-  store   Store   @relation(fields: [store_id], references: [id])
+  product                 Product            @relation(fields: [product_id], references: [id])
+  store                   Store              @relation(fields: [store_id], references: [id])
+  shoppingListItem        ShoppingListItem[] @relation("SelectedPrice")
 }
 
 model Store {
@@ -151,19 +156,22 @@ model ShoppingList {
 }
 
 model ShoppingListItem {
-  id             String   @id @default(uuid()) @db.Uuid
-  shoppingListId String   @db.Uuid
-  productId      String   @db.Uuid
-  recipeId       String?  @db.Uuid
-  quantity       Float    @default(1)
-  unit           String?  @default("unit")
-  isCompleted    Boolean  @default(false)
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  id              String   @id @default(uuid()) @db.Uuid
+  shoppingListId  String   @db.Uuid
+  productId       String   @db.Uuid
+  recipeId        String?  @db.Uuid
+  quantity        Float    @default(1)
+  unit            String?  @default("unit")
+  isCompleted     Boolean  @default(false)
+  selectedPriceId String?  @db.Uuid
+  notes           String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
-  shoppingList ShoppingList @relation(fields: [shoppingListId], references: [id], onDelete: Cascade)
-  product      Product     @relation(fields: [productId], references: [id])
-  recipe       Recipe?      @relation(fields: [recipeId], references: [id])
+  shoppingList  ShoppingList @relation(fields: [shoppingListId], references: [id], onDelete: Cascade)
+  product       Product      @relation(fields: [productId], references: [id])
+  recipe        Recipe?      @relation(fields: [recipeId], references: [id])
+  selectedPrice Price?       @relation("SelectedPrice", fields: [selectedPriceId], references: [id])
 }
 
 enum CollaboratorRole {

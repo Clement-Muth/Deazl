@@ -11,6 +11,7 @@ export const ShoppingListItemSchema = z.object({
   quantity: z.number().positive().default(1),
   unit: UnitSchema.default("unit"),
   isCompleted: z.boolean().default(false),
+  selectedPriceId: z.string().uuid().nullable().optional(),
   notes: z.string().nullable().optional(),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
@@ -20,6 +21,20 @@ export const ShoppingListItemSchema = z.object({
       name: z.string(),
       barcode: z.string(),
       description: z.string().nullable().optional()
+    })
+    .nullable()
+    .optional(),
+  selectedPrice: z
+    .object({
+      id: z.string().uuid(),
+      amount: z.number(),
+      currency: z.string(),
+      unit: z.string(),
+      store: z.object({
+        id: z.string().uuid(),
+        name: z.string(),
+        location: z.string()
+      })
     })
     .nullable()
     .optional()

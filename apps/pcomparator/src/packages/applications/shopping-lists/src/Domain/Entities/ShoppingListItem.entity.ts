@@ -22,12 +22,24 @@ export interface ShoppingListItemProps {
   quantity: ItemQuantity;
   unit: Unit;
   status: ItemStatus;
+  selectedPriceId?: string | null;
   notes?: string | null;
   product?: {
     id: string;
     name: string;
     barcode: string;
     description: string | null;
+  } | null;
+  selectedPrice?: {
+    id: string;
+    amount: number;
+    currency: string;
+    unit: string;
+    store: {
+      id: string;
+      name: string;
+      location: string;
+    };
   } | null;
   createdAt: Date;
   updatedAt: Date;
@@ -47,12 +59,24 @@ export class ShoppingListItem extends Entity<ShoppingListItemProps> {
       quantity: number;
       unit: string;
       isCompleted?: boolean;
+      selectedPriceId?: string | null;
       notes?: string | null;
       product?: {
         id: string;
         name: string;
         barcode: string;
         description: string | null;
+      } | null;
+      selectedPrice?: {
+        id: string;
+        amount: number;
+        currency: string;
+        unit: string;
+        store: {
+          id: string;
+          name: string;
+          location: string;
+        };
       } | null;
     },
     id?: string
@@ -66,8 +90,10 @@ export class ShoppingListItem extends Entity<ShoppingListItemProps> {
         quantity: ItemQuantity.create(props.quantity),
         unit: Unit.create(props.unit),
         status: ItemStatus.create(props.isCompleted || false),
+        selectedPriceId: props.selectedPriceId,
         notes: props.notes,
         product: props.product,
+        selectedPrice: props.selectedPrice,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -144,6 +170,27 @@ export class ShoppingListItem extends Entity<ShoppingListItemProps> {
 
   get isCompleted(): boolean {
     return this.props.status.isCompleted;
+  }
+
+  get selectedPriceId(): string | null | undefined {
+    return this.props.selectedPriceId;
+  }
+
+  get selectedPrice():
+    | {
+        id: string;
+        amount: number;
+        currency: string;
+        unit: string;
+        store: {
+          id: string;
+          name: string;
+          location: string;
+        };
+      }
+    | null
+    | undefined {
+    return this.props.selectedPrice;
   }
 
   get notes(): string | null | undefined {
@@ -237,6 +284,17 @@ export class ShoppingListItem extends Entity<ShoppingListItemProps> {
     );
   }
 
+  public withSelectedPrice(selectedPriceId: string | null): ShoppingListItem {
+    return new ShoppingListItem(
+      {
+        ...this.props,
+        selectedPriceId,
+        updatedAt: new Date()
+      },
+      this._id
+    );
+  }
+
   public toObject(): ShoppingListItemPayload {
     return {
       id: this.id,
@@ -248,8 +306,10 @@ export class ShoppingListItem extends Entity<ShoppingListItemProps> {
       // @ts-ignore
       unit: this.unit,
       isCompleted: this.isCompleted,
+      selectedPriceId: this.selectedPriceId,
       notes: this.notes,
       product: this.product,
+      selectedPrice: this.selectedPrice,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     };
