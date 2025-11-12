@@ -6,7 +6,6 @@ import Logo from "public/static/logo.png";
 import type { ReactNode } from "react";
 import Link from "~/components/Link/Link";
 import useDevice from "~/hooks/useDevice";
-import useScroll from "~/hooks/useScroll";
 
 interface HeaderProps {
   rightArea: ReactNode;
@@ -14,10 +13,9 @@ interface HeaderProps {
 
 export const Header = ({ rightArea }: HeaderProps) => {
   const device = useDevice();
-  const isScrolled = useScroll(64);
 
   return (
-    <Navbar isBlurred={isScrolled} className="bg-transparent">
+    <Navbar className="bg-transparent">
       <NavbarBrand>
         <Link href="/" className="flex-[0_0_auto]">
           <Image src={Logo.src} fallbackSrc={Logo.blurDataURL} width={35} height={35} />

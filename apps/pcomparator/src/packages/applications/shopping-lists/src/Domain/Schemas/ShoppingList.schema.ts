@@ -29,8 +29,7 @@ export const ShoppingListSchema = z.object({
 });
 
 export const CreateShoppingListSchema = z.object({
-  name: z.string(),
-  description: z.string().optional()
+  name: z.string()
 });
 export type CreateShoppingListPayload = z.infer<typeof CreateShoppingListSchema>;
 
@@ -41,8 +40,7 @@ export const GetShoppingListSchema = z.string().uuid();
 export type GetShoppingListPayload = z.infer<typeof GetShoppingListSchema>;
 
 export const UpdateShoppingListSchema = z.object({
-  name: z.string(),
-  description: z.string().optional()
+  name: z.string()
 });
 export type UpdateShoppingListPayload = z.infer<typeof UpdateShoppingListSchema>;
 

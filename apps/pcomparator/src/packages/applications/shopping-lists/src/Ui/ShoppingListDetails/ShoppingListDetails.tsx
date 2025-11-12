@@ -9,7 +9,7 @@ export const ShoppingListDetails = ({ list, user }: { list: ShoppingListPayload;
   return (
     <StoreProvider>
       <div className="space-y-4">
-        <ShoppingListDetailsHeader listName={list.name} shoppingListId={list.id} />
+        <ShoppingListDetailsHeader listName={list.name} shoppingListId={list.id} list={list} />
         <ShoppingListContainer initialList={list} user={{ id: user.id }} />
       </div>
     </StoreProvider>

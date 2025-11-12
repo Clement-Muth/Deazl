@@ -108,6 +108,7 @@ export const SmartItemInput = forwardRef<HTMLInputElement, SmartItemInputProps>(
             placeholder={placeholder}
             startContent={<SearchIcon className="h-4 w-4 text-gray-400" />}
             onKeyDown={handleKeyDown}
+            size="lg"
             classNames={{
               base: "w-full",
               listboxWrapper: "max-h-80",

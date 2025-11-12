@@ -85,8 +85,7 @@ export const AddRecipeToListModal = ({ recipe, isOpen, onClose }: AddRecipeToLis
 
     try {
       const newList = await createShoppingList({
-        name: newListName.trim(),
-        description: `Shopping list for ${recipe.name}`
+        name: newListName.trim()
       });
 
       setLists([...lists, { id: newList.id, name: newList.name }]);

@@ -49,6 +49,7 @@ export const updateShoppingListItem = async (
 
     if (payload.data.unit !== undefined) {
       const unit = Unit.create(payload.data.unit);
+      // @ts-ignore
       validatedData.unit = unit.value;
     }
 

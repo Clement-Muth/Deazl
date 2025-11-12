@@ -150,7 +150,15 @@ export const RecipeFormEdit = ({ recipe }: RecipeFormEditProps) => {
 
   const updateIngredient = (index: number, field: string, value: any) => {
     const updatedIngredients = [...formData.ingredients];
-    updatedIngredients[index] = { ...updatedIngredients[index], [field]: value };
+
+    if (field === "_batch") {
+      // Handle batch update (multiple fields at once)
+      updatedIngredients[index] = { ...updatedIngredients[index], ...value };
+    } else {
+      // Handle single field update
+      updatedIngredients[index] = { ...updatedIngredients[index], [field]: value };
+    }
+
     setFormData({ ...formData, ingredients: updatedIngredients });
   };
 

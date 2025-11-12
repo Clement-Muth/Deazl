@@ -11,7 +11,7 @@ export default async function RecipeDetailPage({ params }: { params: Promise<{ i
   return (
     <main className="flex w-full justify-center p-4">
       <div className="flex flex-col gap-y-8 max-w-4xl w-full">
-        <div className="max-w-3xl mx-auto w-full pb-8">
+        <div className="max-w-7xl mx-auto w-full pb-8">
           <RecipeDetails recipe={recipe} />
         </div>
       </div>

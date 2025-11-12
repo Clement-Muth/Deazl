@@ -54,9 +54,15 @@ export const RecipeFormNavigation = ({
             </Button>
           ) : (
             <Button
-              type="submit"
               color="primary"
               isLoading={isSubmitting}
+              onPress={(e) => {
+                // Trigger form submission via the parent form
+                const form = (e.target as HTMLElement).closest("form");
+                if (form) {
+                  form.requestSubmit();
+                }
+              }}
               endContent={<Check className="w-4 h-4" />}
               className="flex-1 w-full"
               size="lg"

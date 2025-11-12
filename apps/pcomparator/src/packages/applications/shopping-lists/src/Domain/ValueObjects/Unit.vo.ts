@@ -8,7 +8,12 @@ export enum UnitType {
   G = "g",
   L = "l",
   ML = "ml",
-  PIECE = "piece"
+  CL = "cl",
+  PIECE = "piece",
+  TEASPOON = "teaspoon",
+  TABLESPOON = "tablespoon",
+  CUP = "cup",
+  PINCH = "pinch"
 }
 
 export type UnitPayload = z.infer<typeof UnitSchema>;
@@ -44,5 +49,14 @@ export class Unit extends ValueObject<UnitProps> {
 
   public isCountUnit(): boolean {
     return this.props.value === UnitType.UNIT || this.props.value === UnitType.PIECE;
+  }
+
+  public isCookingUnit(): boolean {
+    return (
+      this.props.value === UnitType.TEASPOON ||
+      this.props.value === UnitType.TABLESPOON ||
+      this.props.value === UnitType.CUP ||
+      this.props.value === UnitType.PINCH
+    );
   }
 }
