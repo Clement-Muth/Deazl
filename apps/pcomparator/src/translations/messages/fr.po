@@ -66,6 +66,10 @@ msgstr "-{0}€"
 msgid "{0} items will be merged, {1} new items will be added"
 msgstr "{0} articles seront fusionnés, {1} nouveaux articles seront ajoutés"
 
+#: src/applications/Recipes/Ui/RecipeForm/AIDescriptionButton.tsx
+msgid "{error}"
+msgstr "{error}"
+
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
 msgid "{name} has been added to your list"
 msgstr "{name} a été ajouté à votre liste"
@@ -2130,7 +2134,6 @@ msgstr "Votre liste de courses a été créée avec succès"
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/CreateEditListModal.tsx
 msgid "Your shopping list has been updated successfully"
 msgstr "Votre liste de courses a été mise à jour avec succès"
-
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListItemCard/ShoppingListItemCard.tsx
 msgid "Your shopping list is empty"
 msgstr "Votre liste de courses est vide"

@@ -66,6 +66,10 @@ msgstr "-{0}€"
 msgid "{0} items will be merged, {1} new items will be added"
 msgstr "{0} items will be merged, {1} new items will be added"
 
+#: src/applications/Recipes/Ui/RecipeForm/AIDescriptionButton.tsx
+msgid "{error}"
+msgstr "{error}"
+
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
 msgid "{name} has been added to your list"
 msgstr "{name} has been added to your list"
