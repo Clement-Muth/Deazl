@@ -11,7 +11,13 @@ interface SmartItemInputProps {
   listId: string;
   className?: string;
   onProductSelected?: (product: ProductSearchResult, quantity: number, unit: string, price?: number) => void;
-  onCreateProductRequested?: (name: string, quantity: number, unit: string, price?: number) => void;
+  onCreateProductRequested?: (
+    name: string,
+    quantity: number,
+    unit: string,
+    price?: number,
+    barcode?: string
+  ) => void;
   placeholder?: string;
 }
 
@@ -50,16 +56,56 @@ export const SmartItemInput = forwardRef<HTMLInputElement, SmartItemInputProps>(
         closeScanner();
 
         try {
-          // TODO: Implement barcode search to find product in database
-          // For now, just log the barcode
-          console.log("Barcode scanned:", barcode);
+          // Fetch product info from Open Food Facts
+          const response = await fetch(`https://world.openfoodfacts.org/api/v2/product/${barcode}.json`);
+
+          if (response.ok) {
+            const data = await response.json();
+
+            if (data.status === 1 && data.product && data.product.product_name) {
+              // Product found - open create modal with pre-filled data
+              onCreateProductRequested?.(
+                data.product.product_name,
+                parsedInput?.quantity || 1,
+                parsedInput?.unit || "unit",
+                parsedInput?.price,
+                barcode
+              );
+            } else {
+              // Product not found - open create modal with barcode only
+              onCreateProductRequested?.(
+                "",
+                parsedInput?.quantity || 1,
+                parsedInput?.unit || "unit",
+                parsedInput?.price,
+                barcode
+              );
+            }
+          } else {
+            // API error - open create modal anyway
+            onCreateProductRequested?.(
+              "",
+              parsedInput?.quantity || 1,
+              parsedInput?.unit || "unit",
+              parsedInput?.price,
+              barcode
+            );
+          }
         } catch (error) {
           console.error("Erreur lors du scan:", error);
+          // On error - still open create modal
+          onCreateProductRequested?.(
+            "",
+            parsedInput?.quantity || 1,
+            parsedInput?.unit || "unit",
+            parsedInput?.price,
+            barcode
+          );
         } finally {
           setIsScannerLoading(false);
         }
       },
-      [closeScanner]
+      [closeScanner, onCreateProductRequested, parsedInput]
     );
 
     const handleSuggestionSelect = useCallback(
@@ -70,7 +116,8 @@ export const SmartItemInput = forwardRef<HTMLInputElement, SmartItemInputProps>(
             suggestion.parsedItem.productName,
             suggestion.parsedItem.quantity,
             suggestion.parsedItem.unit,
-            suggestion.parsedItem.price
+            suggestion.parsedItem.price,
+            undefined
           );
           clearInput();
         } else if (suggestion.type !== "quick-add") {

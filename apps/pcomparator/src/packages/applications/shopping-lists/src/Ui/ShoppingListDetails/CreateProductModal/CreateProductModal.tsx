@@ -27,6 +27,7 @@ interface CreateProductModalProps {
   initialQuantity?: number;
   initialUnit?: string;
   initialPrice?: number;
+  initialBarcode?: string;
   onProductCreated?: (item: any) => void;
 }
 
@@ -38,11 +39,12 @@ export const CreateProductModal = ({
   initialQuantity = 1,
   initialUnit = "unit",
   initialPrice,
+  initialBarcode = "",
   onProductCreated
 }: CreateProductModalProps) => {
   const { t } = useLingui();
   const [name, setName] = useState(initialName);
-  const [barcode, setBarcode] = useState("");
+  const [barcode, setBarcode] = useState(initialBarcode);
   const [quantity, setQuantity] = useState(initialQuantity);
   const [unit, setUnit] = useState(initialUnit);
   const [price, setPrice] = useState<number | undefined>(initialPrice);
@@ -58,9 +60,9 @@ export const CreateProductModal = ({
       setQuantity(initialQuantity);
       setUnit(initialUnit);
       setPrice(initialPrice);
-      setBarcode("");
+      setBarcode(initialBarcode);
     }
-  }, [isOpen, initialName, initialQuantity, initialUnit, initialPrice]);
+  }, [isOpen, initialName, initialQuantity, initialUnit, initialPrice, initialBarcode]);
 
   const handleBarcodeScanned = async (scannedBarcode: string) => {
     setBarcode(scannedBarcode);

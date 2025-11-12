@@ -34,6 +34,7 @@ export const SmartQuickAddBar = ({ listId, className = "", onItemAdded }: SmartQ
   const [createProductQuantity, setCreateProductQuantity] = useState(1);
   const [createProductUnit, setCreateProductUnit] = useState("unit");
   const [createProductPrice, setCreateProductPrice] = useState<number | undefined>();
+  const [createProductBarcode, setCreateProductBarcode] = useState("");
 
   const handleProductSelected = (
     product: ProductSearchResult,
@@ -54,11 +55,18 @@ export const SmartQuickAddBar = ({ listId, className = "", onItemAdded }: SmartQ
     }
   };
 
-  const handleCreateProductRequested = (name: string, quantity: number, unit: string, price?: number) => {
+  const handleCreateProductRequested = (
+    name: string,
+    quantity: number,
+    unit: string,
+    price?: number,
+    barcode?: string
+  ) => {
     setCreateProductName(name);
     setCreateProductQuantity(quantity);
     setCreateProductUnit(unit);
     setCreateProductPrice(price);
+    setCreateProductBarcode(barcode || "");
     onCreateProductOpen();
   };
 
@@ -107,6 +115,7 @@ export const SmartQuickAddBar = ({ listId, className = "", onItemAdded }: SmartQ
         initialQuantity={createProductQuantity}
         initialUnit={createProductUnit}
         initialPrice={createProductPrice}
+        initialBarcode={createProductBarcode}
         onProductCreated={onItemAdded}
       />
     </div>
