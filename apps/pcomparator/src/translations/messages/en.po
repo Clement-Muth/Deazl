@@ -81,6 +81,10 @@ msgstr "© 2025 Deazl. All rights reserved."
 #: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
 msgid "⚠️ The Photon API is free but rate-limited. Enriching many stores may take time."
 msgstr "⚠️ The Photon API is free but rate-limited. Enriching many stores may take time."
+#. placeholder {0}: totalSavings.toFixed(2)
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/PriceSuggestion.tsx
+msgid "+{0}€ vs best"
+msgstr "+{0}€ vs best"
 
 #: src/app/[locale]/pricing/page.tsx
 msgid "100% Free and Open Source"
