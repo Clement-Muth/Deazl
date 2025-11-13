@@ -9,7 +9,7 @@ export default async function RecipeDetailPage({ params }: { params: Promise<{ i
   if (!recipe) notFound();
 
   return (
-    <main className="flex w-full justify-center p-4">
+    <main className="flex w-full justify-center pt-0">
       <div className="flex flex-col gap-y-8 max-w-4xl w-full">
         <div className="max-w-7xl mx-auto w-full pb-8">
           <RecipeDetails recipe={recipe} />

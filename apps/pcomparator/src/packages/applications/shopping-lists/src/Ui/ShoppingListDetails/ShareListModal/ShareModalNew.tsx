@@ -247,7 +247,7 @@ export const ShareModalNew = ({ isOpen, onClose, listId, listName, ownerId }: Sh
         <div className="flex items-center gap-2">
           <ShareIcon className="h-5 w-5 text-primary-600" />
           <span className="text-lg md:text-xl font-semibold">
-            <Trans>Share "{listName}"</Trans>
+            <Trans>Share '{listName}'</Trans>
           </span>
         </div>
       }

@@ -13,7 +13,7 @@ import {
   useDisclosure
 } from "@heroui/react";
 import { Trans } from "@lingui/react/macro";
-import { InfoIcon, SaveIcon, ShoppingCartIcon } from "lucide-react";
+import { SaveIcon, ShoppingCartIcon } from "lucide-react";
 import { useState } from "react";
 import type { ShoppingListItemPayload } from "../../../Domain/Entities/ShoppingListItem.entity";
 import type { ShoppingListPayload } from "../../../Domain/Schemas/ShoppingList.schema";
@@ -143,7 +143,7 @@ export const ShoppingListItemCard = ({
     <>
       <Card className="shadow-sm border border-gray-100 hover:border-gray-200 transition-colors">
         <CardHeader className="pb-2">
-          <div className="flex flex-col gap-2 w-full">
+          <div className="flex flex-col gap-4 w-full">
             <StoreSelector />
 
             {/* Total Cost Summary after Store Selector */}
@@ -155,26 +155,6 @@ export const ShoppingListItemCard = ({
                 itemCount={list.items?.length || 0}
                 completedCount={list.items?.filter((i) => i.isCompleted).length || 0}
               />
-            )}
-
-            {list.description && (
-              <div className="flex items-start gap-2 p-3 rounded-lg bg-blue-50 border border-blue-100">
-                <InfoIcon size={16} className="text-blue-500 flex-shrink-0 mt-0.5" />
-                <div className="flex-1">
-                  <p className="text-sm text-blue-700">{list.description}</p>
-                  {stats.total > 0 && (
-                    <p className="text-xs text-blue-600 mt-1">
-                      {stats.checked} / {stats.total} <Trans>items completed</Trans>
-                      {stats.hasPrices && (
-                        <>
-                          {" • "}
-                          <span className="font-semibold">{stats.totalAmount.toFixed(2)}€</span>
-                        </>
-                      )}
-                    </p>
-                  )}
-                </div>
-              </div>
             )}
           </div>
         </CardHeader>
@@ -224,7 +204,6 @@ export const ShoppingListItemCard = ({
                   onChange={(e) => setQuantity(e.target.value)}
                   min="0.01"
                   step="0.01"
-                  autoFocus
                   endContent={<span className="text-xs text-gray-400">{selectedItem.unit}</span>}
                 />
               </div>

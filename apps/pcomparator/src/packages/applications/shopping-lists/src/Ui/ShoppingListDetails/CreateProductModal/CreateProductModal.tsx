@@ -1,22 +1,11 @@
 "use client";
 
 import { BarcodeScannerWithUI } from "@deazl/components";
-import {
-  Button,
-  Input,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  Select,
-  SelectItem,
-  addToast,
-  useDisclosure
-} from "@heroui/react";
+import { Button, Input, Select, SelectItem, addToast, useDisclosure } from "@heroui/react";
 import { Trans, useLingui } from "@lingui/react/macro";
-import { QrCodeIcon } from "lucide-react";
+import { ScanBarcode } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Modal } from "~/components/Modal/Modal";
 import { createProductAndAddToList } from "../../../Api/createProductAndAddToList.api";
 
 interface CreateProductModalProps {
@@ -160,16 +149,12 @@ export const CreateProductModal = ({
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={handleClose} size="lg" isDismissable={!isSubmitting}>
-        <ModalContent>
-          <ModalHeader className="flex flex-col gap-1">
-            <Trans>Create New Product</Trans>
-            <p className="text-sm font-normal text-gray-600 dark:text-gray-400">
-              <Trans>Add a product that doesn't exist in our database</Trans>
-            </p>
-          </ModalHeader>
-
-          <ModalBody className="gap-4">
+      <Modal
+        isOpen={isOpen}
+        onClose={handleClose}
+        isForm
+        body={
+          <>
             {/* Product Name */}
             <Input
               label={t`Product Name`}
@@ -177,8 +162,7 @@ export const CreateProductModal = ({
               value={name}
               onValueChange={setName}
               isRequired
-              autoFocus
-              variant="bordered"
+              size="lg"
               isDisabled={isFetchingProductInfo}
               description={
                 barcode && name !== initialName ? t`Name automatically filled from barcode scan` : undefined
@@ -186,24 +170,24 @@ export const CreateProductModal = ({
             />
 
             {/* Barcode with Scanner */}
-            <div className="flex gap-2">
+            <div className="flex gap-2 items-center">
               <Input
                 label={t`Barcode (Optional)`}
                 placeholder={t`Scan or enter barcode`}
                 value={barcode}
+                size="lg"
                 onValueChange={setBarcode}
-                variant="bordered"
                 className="flex-1"
               />
               <Button
                 isIconOnly
                 variant="flat"
                 color="primary"
+                className="w-16 h-16"
                 onPress={openScanner}
-                className="mt-6"
                 aria-label="Scan barcode"
               >
-                <QrCodeIcon className="h-5 w-5" />
+                <ScanBarcode />
               </Button>
             </div>
 
@@ -216,15 +200,15 @@ export const CreateProductModal = ({
                 onValueChange={(value) => setQuantity(Number(value))}
                 min="0.01"
                 step="0.01"
+                size="lg"
                 isRequired
-                variant="bordered"
                 className="flex-1"
               />
               <Select
                 label={t`Unit`}
                 selectedKeys={[unit]}
+                size="lg"
                 onSelectionChange={(keys) => setUnit(Array.from(keys)[0] as string)}
-                variant="bordered"
                 className="flex-1"
               >
                 <SelectItem key="unit">{t`unit(s)`}</SelectItem>
@@ -243,26 +227,35 @@ export const CreateProductModal = ({
               onValueChange={(value) => setPrice(value ? Number(value) : undefined)}
               min="0"
               step="0.01"
+              size="lg"
               placeholder="0.00"
-              variant="bordered"
               startContent={
                 <div className="pointer-events-none flex items-center">
                   <span className="text-default-400 text-small">€</span>
                 </div>
               }
             />
-          </ModalBody>
-
-          <ModalFooter>
-            <Button variant="light" onPress={handleClose} isDisabled={isSubmitting}>
+          </>
+        }
+        header={
+          <>
+            <Trans>Create New Product</Trans>
+            <p className="text-sm font-normal text-gray-600 dark:text-gray-400">
+              <Trans>Add a product that doesn't exist in our database</Trans>
+            </p>
+          </>
+        }
+        footer={
+          <div className="flex w-full gap-4">
+            <Button variant="solid" onPress={handleClose} isDisabled={isSubmitting} size="lg">
               <Trans>Cancel</Trans>
             </Button>
-            <Button color="primary" onPress={handleSubmit} isLoading={isSubmitting}>
+            <Button color="primary" onPress={handleSubmit} isLoading={isSubmitting} size="lg" fullWidth>
               <Trans>Create & Add to List</Trans>
             </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+          </div>
+        }
+      />
 
       {isScannerOpen && <BarcodeScannerWithUI onClose={closeScanner} onScanned={handleBarcodeScanned} />}
     </>

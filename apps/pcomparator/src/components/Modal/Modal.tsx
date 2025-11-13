@@ -59,7 +59,9 @@ export const Modal = ({
           }
         }}
       >
-        <div className={clsx(fullwidth ? "p-0" : "p-4", "h-full pointer-events-auto")}>{body}</div>
+        <div className={clsx(fullwidth ? "p-0" : "p-4", "flex flex-col h-full pointer-events-auto gap-4")}>
+          {body}
+        </div>
       </BottomSheet>
     );
   }

@@ -95,7 +95,7 @@ export const SwipeableItem = ({
   }
 
   return (
-    <div className="relative overflow-hidden rounded-md">
+    <div className="relative overflow-hidden rounded-large">
       {/* Colored background layer */}
       <motion.div
         style={{

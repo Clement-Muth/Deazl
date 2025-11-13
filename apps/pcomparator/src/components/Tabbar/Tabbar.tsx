@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, useDisclosure } from "@heroui/react";
-import { ClipboardList, Home, ReceiptText, User } from "lucide-react";
+import { ChefHat, Home, ReceiptText, User } from "lucide-react";
 import type { ReactNode } from "react";
 import { SignInModal } from "~/applications/Authentication/Ui/Signin/SignInModal/SignInModal";
 import Link from "~/components/Link/Link";
@@ -16,12 +16,13 @@ export const Tabbar = ({ mainButton, isSignedIn }: TabbarProps) => {
 
   return (
     <div className="flex sticky bottom-0 justify-evenly py-4 border-t rounded-t-3xl border-t-transparent items-center shadow-medium bg-white dark:bg-black z-30">
-      <Button as={Link} href="/" startContent={<Home />} variant="light" radius="full" isIconOnly />
+      <Button as={Link} href="/" startContent={<Home />} variant="light" size="lg" radius="full" isIconOnly />
       <Button
         as={Link}
         href="/recipes"
-        startContent={<ClipboardList />}
+        startContent={<ChefHat />}
         variant="light"
+        size="lg"
         radius="full"
         isIconOnly
       />
@@ -31,6 +32,7 @@ export const Tabbar = ({ mainButton, isSignedIn }: TabbarProps) => {
         href="/shopping-lists"
         startContent={<ReceiptText />}
         variant="light"
+        size="lg"
         radius="full"
         isIconOnly
       />
@@ -40,6 +42,7 @@ export const Tabbar = ({ mainButton, isSignedIn }: TabbarProps) => {
         onPress={isSignedIn ? undefined : onOpen}
         startContent={<User />}
         variant="light"
+        size="lg"
         radius="full"
         isIconOnly
       />

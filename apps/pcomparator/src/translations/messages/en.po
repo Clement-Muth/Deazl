@@ -73,10 +73,6 @@ msgstr "© 2025 Deazl. All rights reserved."
 msgid "+{0}€ vs best"
 msgstr "+{0}€ vs best"
 
-#: src/applications/Profile/Ui/Settings/PhoneNumber.tsx
-msgid "+33 6 12 34 56 78"
-msgstr "+33 6 12 34 56 78"
-
 #: src/app/[locale]/pricing/page.tsx
 msgid "100% Free and Open Source"
 msgstr "100% Free and Open Source"
@@ -115,13 +111,8 @@ msgid "Account deleted"
 msgstr "Account deleted"
 
 #: src/app/[locale]/dashboard/page.tsx
-#: src/app/[locale]/settings/page.tsx
 msgid "Account Settings"
 msgstr "Account Settings"
-
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListContainer.tsx
-msgid "Active"
-msgstr "Active"
 
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/Stats/Stats.tsx
 msgid "Active Lists"
@@ -227,10 +218,6 @@ msgstr "Adjust Portions"
 msgid "Adjust the importance of each criterion to customize the optimization algorithm. Weights are automatically normalized."
 msgstr "Adjust the importance of each criterion to customize the optimization algorithm. Weights are automatically normalized."
 
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListContainer.tsx
-msgid "All"
-msgstr "All"
-
 #: src/app/[locale]/features/page.tsx
 msgid "All our features"
 msgstr "All our features"
@@ -295,7 +282,6 @@ msgstr "Avatar updated"
 msgid "Average savings"
 msgstr "Average savings"
 
-#: src/app/[locale]/settings/page.tsx
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step2/Location.tsx
 msgid "Back"
 msgstr "Back"
@@ -478,7 +464,6 @@ msgstr "Compare prices, save smart"
 msgid "Comparez les prix dans les plus grandes enseignes de distribution françaises."
 msgstr "Comparez les prix dans les plus grandes enseignes de distribution françaises."
 
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListContainer.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/Stats/Stats.tsx
 msgid "Completed"
 msgstr "Completed"
@@ -1200,10 +1185,6 @@ msgstr "Item removed from list"
 msgid "Item updated"
 msgstr "Item updated"
 
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListItemCard/ShoppingListItemCard.tsx
-msgid "items completed"
-msgstr "items completed"
-
 #: src/views/Home/components/Dashboard/DashboardView.tsx
 msgid "Items Completed"
 msgstr "Items Completed"
@@ -1913,12 +1894,12 @@ msgid "Share"
 msgstr "Share"
 
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
-msgid "Share \"{listName}\""
-msgstr "Share \"{listName}\""
+msgid "Share '{listName}'"
+msgstr "Share '{listName}'"
 
 #: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
-msgid "Share \"{recipeName}\""
-msgstr "Share \"{recipeName}\""
+msgid "Share '{recipeName}'"
+msgstr "Share '{recipeName}'"
 
 #: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModal.tsx
 #: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalBody.tsx
@@ -1941,11 +1922,6 @@ msgstr "Share Recipe"
 #: src/applications/Recipes/Ui/RecipeForm/RecipeFormCreate.tsx
 msgid "Share your favorite recipe with the community"
 msgstr "Share your favorite recipe with the community"
-
-#: src/applications/Recipes/Ui/RecipeDetails.tsx
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListDetailsHeader.tsx
-msgid "Shared"
-msgstr "Shared"
 
 #: src/views/Home/components/HowItWorks/HowItWorksSection.tsx
 msgid "Shop at the best prices"

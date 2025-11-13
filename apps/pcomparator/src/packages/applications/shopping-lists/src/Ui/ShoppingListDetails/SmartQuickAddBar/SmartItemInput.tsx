@@ -2,7 +2,7 @@
 
 import { BarcodeScannerWithUI } from "@deazl/components";
 import { Autocomplete, AutocompleteItem, Avatar, Button, useDisclosure } from "@heroui/react";
-import { PackagePlusIcon, PlusIcon, QrCodeIcon, SearchIcon, StoreIcon, TagIcon } from "lucide-react";
+import { PackagePlusIcon, PlusIcon, ScanBarcode, SearchIcon, StoreIcon, TagIcon } from "lucide-react";
 import { forwardRef, useCallback, useState } from "react";
 import type { ProductSearchResult } from "../../../Api/searchProducts.api";
 import { type SmartSuggestion, useSmartProductSearch } from "./useSmartProductSearch";
@@ -188,13 +188,12 @@ export const SmartItemInput = forwardRef<HTMLInputElement, SmartItemInputProps>(
             size="lg"
             variant="flat"
             color="primary"
+            startContent={<ScanBarcode className="h-5 w-5" />}
             onPress={openScanner}
             isLoading={isScannerLoading}
             aria-label="Scanner un code-barres"
             className="flex-shrink-0"
-          >
-            <QrCodeIcon className="h-5 w-5" />
-          </Button>
+          />
         </div>
 
         {isScannerOpen && <BarcodeScannerWithUI onClose={closeScanner} onScanned={handleBarcodeScanned} />}

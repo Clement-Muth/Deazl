@@ -47,7 +47,7 @@ export const RecipeFormNavigation = ({
               onPress={onNextStep}
               endContent={<ArrowRight className="w-4 h-4" />}
               isDisabled={!canGoToNextStep}
-              className="flex-1 w-full"
+              className="w-full"
               size="lg"
             >
               <Trans>Next</Trans>
@@ -64,7 +64,7 @@ export const RecipeFormNavigation = ({
                 }
               }}
               endContent={<Check className="w-4 h-4" />}
-              className="flex-1 w-full"
+              className="w-full"
               size="lg"
             >
               {isSubmitting ? submittingText : submitButtonText}

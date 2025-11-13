@@ -1,5 +1,6 @@
 "use client";
 
+import { Card } from "@heroui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChefHat, Clock, Users } from "lucide-react";
 import Link from "next/link";
@@ -39,18 +40,8 @@ export default function RecipesList({ recipes }: RecipesListProps) {
               damping: 30,
               delay: index * 0.05
             }}
-            style={{
-              position: "relative",
-              overflow: "hidden",
-              borderRadius: "0.75rem",
-              border: "1px solid rgb(243 244 246)",
-              backgroundColor: "white"
-            }}
           >
-            <Link
-              href={`/recipes/${recipe.id}`}
-              className="group relative block transition duration-200 hover:bg-gray-50"
-            >
+            <Card as={Link} href={`/recipes/${recipe.id}`} isPressable>
               {/* Image Header */}
               <div className="relative w-full h-48 overflow-hidden">
                 {recipe.imageUrl ? (
@@ -128,7 +119,7 @@ export default function RecipesList({ recipes }: RecipesListProps) {
                   </div>
                 )}
               </div>
-            </Link>
+            </Card>
           </motion.div>
         ))}
       </div>

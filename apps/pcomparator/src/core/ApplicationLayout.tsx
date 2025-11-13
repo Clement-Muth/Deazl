@@ -15,11 +15,7 @@ const ApplicationLayout = async ({ children }: ApplicationLayoutProps) => {
 
   return (
     <>
-      {/* <Header rightArea={<SignButton />} /> */}
-      <div className="flex flex-1">
-        {/* {device !== "mobile" && !!session?.user ? <DesktopNav /> : null} */}
-        {children}
-      </div>
+      <div className="flex flex-1 w-full pb-6">{children}</div>
       {device === "mobile" ? <Tabbar isSignedIn={!!session?.user} /> : null}
       {!session?.user ? <Footer /> : null}
       <Toast />
