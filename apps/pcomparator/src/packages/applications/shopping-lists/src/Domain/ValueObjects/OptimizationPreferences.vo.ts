@@ -29,7 +29,16 @@ export const OptimizationPreferencesSchema = z.object({
   onlyInStock: z.boolean().default(false),
 
   // Marques préférées
-  preferredBrands: z.array(z.string()).default([])
+  preferredBrands: z.array(z.string()).default([]),
+
+  // Nouvelles préférences pour l'optimisation intelligente
+  userLocation: z
+    .object({
+      latitude: z.number(),
+      longitude: z.number()
+    })
+    .optional(),
+  favoriteStoreIds: z.array(z.string()).default([])
 });
 
 export type OptimizationPreferences = z.infer<typeof OptimizationPreferencesSchema>;
@@ -49,7 +58,8 @@ export const DEFAULT_OPTIMIZATION_PREFERENCES: OptimizationPreferences = {
   },
   excludedStores: [],
   onlyInStock: false,
-  preferredBrands: []
+  preferredBrands: [],
+  favoriteStoreIds: []
 };
 
 /**

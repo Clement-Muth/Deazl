@@ -54,6 +54,16 @@ msgstr "Unité"
 msgid "-{0}€"
 msgstr "-{0}€"
 
+#. placeholder {0}: totalSavings.toFixed(2)
+#. placeholder {1}: betterAlternative.price.storeName
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/PriceSuggestion.tsx
+msgid "-{0}€ @ {1}"
+msgstr ""
+
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/PriceSuggestion.tsx
+msgid "(optimal)"
+msgstr ""
+
 #. placeholder {0}: mergePreview.merged
 #. placeholder {1}: mergePreview.added
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
@@ -68,10 +78,9 @@ msgstr "{name} a été ajouté à votre liste"
 msgid "© 2025 Deazl. All rights reserved."
 msgstr "© 2025 Deazl. Tous droits réservés."
 
-#. placeholder {0}: totalSavings.toFixed(2)
-#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/PriceSuggestion.tsx
-msgid "+{0}€ vs best"
-msgstr "+{0}€ vs meilleur"
+#: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
+msgid "⚠️ The Photon API is free but rate-limited. Enriching many stores may take time."
+msgstr ""
 
 #: src/app/[locale]/pricing/page.tsx
 msgid "100% Free and Open Source"
@@ -114,6 +123,11 @@ msgstr "Compte supprimé"
 msgid "Account Settings"
 msgstr "Paramètres de compte"
 
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
+msgid "Active"
+msgstr ""
+
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/Stats/Stats.tsx
 msgid "Active Lists"
 msgstr "Listes actives"
@@ -145,6 +159,10 @@ msgstr "Ajouter un produit qui n'existe pas dans notre base de données"
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalBody.tsx
 msgid "Add Collaborator"
 msgstr "Ajouter un collaborateur"
+
+#: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
+msgid "Add GPS coordinates to stores for distance-based optimization"
+msgstr ""
 
 #: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
 msgid "Add ingredient"
@@ -222,6 +240,14 @@ msgstr "Ajustez l'importance de chaque critère pour personnaliser l'algorithme 
 msgid "All our features"
 msgstr "Toutes nos fonctionnalités"
 
+#: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
+msgid "All stores enriched!"
+msgstr ""
+
+#: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
+msgid "All stores now have GPS coordinates for distance-based optimization"
+msgstr ""
+
 #: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
 msgid "Already Added"
@@ -289,6 +315,10 @@ msgstr "Retour"
 #: src/app/[locale]/error.tsx
 msgid "Back to Home"
 msgstr "Retour à l'accueil"
+
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
+msgid "Balance between best price and proximity"
+msgstr ""
 
 #: src/components/Inputs/Input/Barcode.tsx
 msgid "Barcode"
@@ -361,6 +391,8 @@ msgstr "Peut voir"
 #: src/applications/Prices/Ui/ListPrices/CardPrice/DeletePriceModal/DeletePriceModal.tsx
 #: src/applications/Profile/Ui/Settings/DeleteAccount.tsx
 #: src/applications/Profile/Ui/Settings/DisplayName.tsx
+#: src/applications/Profile/Ui/Settings/FavoriteStores.tsx
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
 #: src/applications/Profile/Ui/Settings/PhoneNumber.tsx
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
 #: src/applications/Recipes/Ui/RecipeForm/CreateProductModal.tsx
@@ -395,6 +427,14 @@ msgstr "Effacer"
 #: src/app/[locale]/about/page.tsx
 msgid "Clear and verified information for informed choices."
 msgstr "Informations claires et vérifiées pour des choix éclairés"
+
+#: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
+msgid "Click \"Enrich All\" to process all stores at once (500ms delay between each)"
+msgstr ""
+
+#: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
+msgid "Click \"Enrich\" for a single store to get its coordinates"
+msgstr ""
 
 #: src/applications/Profile/Ui/Settings/Avatar.tsx
 msgid "Click on the avatar to upload a custom one from your files."
@@ -464,9 +504,22 @@ msgstr "Comparer les prix, économiser intelligemment"
 msgid "Comparez les prix dans les plus grandes enseignes de distribution françaises."
 msgstr "Comparer les prix dans les plus grandes enseignes de distribution françaises."
 
+#: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/Stats/Stats.tsx
 msgid "Completed"
 msgstr "Terminées"
+
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
+msgid "Configure"
+msgstr ""
+
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
+msgid "Configure how prices are selected"
+msgstr ""
+
+#: src/app/[locale]/settings/page.tsx
+msgid "Configure how prices are selected for your shopping lists"
+msgstr ""
 
 #: src/applications/Prices/Ui/ListPrices/CardPrice/DeletePriceModal/DeletePriceModal.tsx
 msgid "confirm"
@@ -740,6 +793,7 @@ msgstr "Le nom d'affichage doit comporter 32 caractères ou moins"
 msgid "Display name updated"
 msgstr "Nom d'affichage mis à jour"
 
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ItemPriceAlternativesModal/ItemPriceAlternativesModal.tsx
 msgid "Distance"
 msgstr "Distance"
@@ -806,6 +860,22 @@ msgstr "Éditeur"
 msgid "Email"
 msgstr "Email"
 
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
+msgid "Enable"
+msgstr ""
+
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
+msgid "Enable location to find nearby stores"
+msgstr ""
+
+#: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
+msgid "Enrich"
+msgstr ""
+
+#: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
+msgid "Enrich All"
+msgstr ""
+
 #: src/applications/Profile/Ui/Settings/DisplayName.tsx
 msgid "Enter your display name"
 msgstr "Entrez votre nom d'affichage"
@@ -825,6 +895,8 @@ msgstr "Environnement"
 #: src/applications/Profile/Ui/Settings/Avatar.tsx
 #: src/applications/Profile/Ui/Settings/DeleteAccount.tsx
 #: src/applications/Profile/Ui/Settings/DisplayName.tsx
+#: src/applications/Profile/Ui/Settings/FavoriteStores.tsx
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
 #: src/applications/Profile/Ui/Settings/PhoneNumber.tsx
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
@@ -843,6 +915,10 @@ msgstr "Environnement"
 #: src/applications/Recipes/Ui/RecipeForm/CreateProductModal.tsx
 #: src/applications/Recipes/Ui/RecipeForm/CreateProductModal.tsx
 #: src/applications/Recipes/Ui/RecipeForm/CreateProductModal.tsx
+#: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
+#: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
+#: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
+#: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
 #: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
 #: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/AddStoreModal.tsx
@@ -993,6 +1069,10 @@ msgstr "Échec de la mise à jour de la liste de courses"
 msgid "FAQ"
 msgstr "FAQ"
 
+#: src/applications/Profile/Ui/Settings/FavoriteStores.tsx
+msgid "Favorite Stores"
+msgstr ""
+
 #: src/components/Footer/Footer.tsx
 msgid "Features"
 msgstr "Fonctionnalités"
@@ -1033,6 +1113,19 @@ msgstr "Générer avec l'IA"
 #: src/applications/Recipes/Ui/RecipeForm/AIDescriptionButton.tsx
 msgid "Generating..."
 msgstr "Génération en cours..."
+
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
+msgid "Geolocation"
+msgstr ""
+
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
+msgid "Geolocation Error"
+msgstr ""
+
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
+msgid "Geolocation not supported"
+msgstr ""
 
 #: src/core/pwa/Install.tsx
 #: src/core/pwa/Install.tsx
@@ -1081,6 +1174,7 @@ msgstr "Comment puis-je obtenir de l'aide ?"
 msgid "How can I support the project?"
 msgstr "Comment puis-je soutenir le projet ?"
 
+#: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
 #: src/views/Home/components/HowItWorks/HowItWorksSection.tsx
 msgid "How does it work?"
 msgstr "Comment ça fonctionne ?"
@@ -1112,6 +1206,14 @@ msgstr "Importance du meilleur prix"
 #: src/app/[locale]/features/page.tsx
 msgid "In detail"
 msgstr "En détail"
+
+#: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
+msgid "In progress"
+msgstr ""
+
+#: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
+msgid "Incomplete"
+msgstr ""
 
 #: src/applications/Recipes/Ui/RecipeForm/RecipeFormEdit.tsx
 msgid "Information"
@@ -1282,6 +1384,18 @@ msgstr "Chargement..."
 msgid "Location"
 msgstr "Localisation"
 
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
+msgid "Location detected"
+msgstr ""
+
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
+msgid "Location permission denied. Please allow location access in your browser settings."
+msgstr ""
+
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
+msgid "Location request timed out. Please try again."
+msgstr ""
+
 #: src/components/Footer/Footer.tsx
 msgid "Made with ❤️ in France"
 msgstr "Fabriqué avec ❤️ en France"
@@ -1294,13 +1408,33 @@ msgstr "Grandes chaînes et magasins locaux"
 msgid "Make Public"
 msgstr "Rendre public"
 
+#: src/applications/Profile/Ui/Settings/FavoriteStores.tsx
+msgid "Manage"
+msgstr ""
+
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/ShoppingListsView.tsx
 msgid "Manage and organize your shopping lists"
 msgstr "Gérez et organisez vos listes de courses"
 
+#: src/applications/Profile/Ui/Settings/FavoriteStores.tsx
+msgid "Manage Favorite Stores"
+msgstr ""
+
+#: src/app/[locale]/admin/stores/page.tsx
+msgid "Manage store data and GPS coordinates for distance-based price optimization"
+msgstr ""
+
 #: src/app/[locale]/settings/page.tsx
 msgid "Manage your contact details"
 msgstr "Gérez vos coordonnées"
+
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
+msgid "Max radius"
+msgstr ""
+
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
+msgid "Maximum radius"
+msgstr ""
 
 #: src/applications/Products/Ui/NewProduct/NewProduct.tsx
 #: src/core/pwa/Install.tsx
@@ -1321,6 +1455,10 @@ msgstr "Millilitres (ml)"
 #: src/applications/Recipes/Ui/RecipeDetails.tsx
 msgid "min"
 msgstr "min"
+
+#: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
+msgid "Missing"
+msgstr ""
 
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/AddStoreModal.tsx
 msgid "Missing information"
@@ -1365,6 +1503,10 @@ msgstr "Nouvelle liste"
 msgid "New list name"
 msgstr "Nom de la nouvelle liste"
 
+#: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
+msgid "New stores will automatically be enriched when created"
+msgstr ""
+
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step1/PriceDetails.tsx
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step1/TypeBarcode.tsx
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step2/Price.tsx
@@ -1388,6 +1530,10 @@ msgstr "Aucune liste de courses active"
 msgid "No completed lists"
 msgstr "Aucune liste de courses terminée"
 
+#: src/applications/Profile/Ui/Settings/FavoriteStores.tsx
+msgid "No favorite stores configured"
+msgstr ""
+
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ItemPriceAlternativesModal/ItemPriceAlternativesModal.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ProductSelectionModal.tsx
 msgid "No price available for this product"
@@ -1405,6 +1551,10 @@ msgstr "Pas encore de listes de courses"
 msgid "No store selected"
 msgstr "Aucun magasin sélectionné"
 
+#: src/applications/Profile/Ui/Settings/FavoriteStores.tsx
+msgid "No stores available"
+msgstr ""
+
 #: src/app/[locale]/pricing/page.tsx
 msgid "No, all features are available without limits. We simply ask you to use the app responsibly and contribute to the community."
 msgstr "Non, toutes les fonctionnalités sont disponibles sans limites. Nous vous demandons simplement d'utiliser l'application de manière responsable et de contribuer à la communauté."
@@ -1412,6 +1562,10 @@ msgstr "Non, toutes les fonctionnalités sont disponibles sans limites. Nous vou
 #: src/views/Home/components/Stores/StoresSection.tsx
 msgid "Nos magasins partenaires"
 msgstr "Nos magasins partenaires"
+
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
+msgid "Not configured"
+msgstr ""
 
 #: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
 msgid "Number of Servings"
@@ -1424,6 +1578,10 @@ msgstr "Nutri-Score"
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/EmptyState.tsx
 msgid "Once you complete a shopping list, it will appear here for your reference."
 msgstr "Une fois que vous avez terminé une liste de courses, elle apparaîtra ici pour votre référence."
+
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
+msgid "Only show stores within this distance"
+msgstr ""
 
 #: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
@@ -1487,6 +1645,10 @@ msgstr "Notre vision"
 msgid "Owner"
 msgstr "Propriétaire"
 
+#: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
+msgid "Partial"
+msgstr ""
+
 #: src/views/Home/components/HomeStats.tsx
 #: src/views/Home/components/Stats/StatsSection.tsx
 msgid "Partner stores"
@@ -1546,6 +1708,12 @@ msgstr "Veuillez sélectionner au moins un ingrédient"
 msgid "PNG, JPG up to 10MB"
 msgstr "PNG, JPG jusqu'à 10 Mo"
 
+#. placeholder {0}: preferences.userLocation.latitude.toFixed(4)
+#. placeholder {1}: preferences.userLocation.longitude.toFixed(4)
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
+msgid "Position: {0}, {1}"
+msgstr ""
+
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListDetailsHeader.tsx
 msgid "Preferences"
 msgstr "Préférences"
@@ -1553,6 +1721,11 @@ msgstr "Préférences"
 #: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
 msgid "Preferences Reset"
 msgstr "Préférences réinitialisées"
+
+#: src/applications/Profile/Ui/Settings/FavoriteStores.tsx
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
+msgid "Preferences saved"
+msgstr ""
 
 #: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
 msgid "Preferences Saved"
@@ -1586,6 +1759,7 @@ msgstr "Précédent"
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step1/PriceDetails.tsx
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step2/Price.tsx
 #: src/applications/Prices/Ui/NewQuickPrice/FormSteps/Price.tsx
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
 #: src/components/DesktopNav.tsx
 #: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
 msgid "Price"
@@ -1623,13 +1797,33 @@ msgstr "Prix pour {productName} ajouté !"
 msgid "Price History"
 msgstr "Historique des prix"
 
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
+msgid "Price Optimization"
+msgstr ""
+
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
+msgid "Price Optimization Settings"
+msgstr ""
+
 #: src/views/Home/components/Features/FeaturesSection.tsx
 msgid "Price tracking"
 msgstr "Suivi des prix"
 
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
+msgid "Price vs Distance priority"
+msgstr ""
+
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
+msgid "Price weight"
+msgstr ""
+
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ItemPriceAlternativesModal/ItemPriceAlternativesModal.tsx
 msgid "Price: Low to High"
 msgstr "Prix : Croissant"
+
+#: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
+msgid "prices"
+msgstr ""
 
 #: src/applications/Searchbar/Ui/SearchResult/SearchResultModal.tsx
 msgid "Prices for {search}"
@@ -1647,6 +1841,10 @@ msgstr "Tarification"
 #: src/applications/Recipes/Ui/RecipeDetails.tsx
 msgid "Print"
 msgstr "Imprimer"
+
+#: src/applications/Profile/Ui/Settings/FavoriteStores.tsx
+msgid "Priority stores for price selection"
+msgstr ""
 
 #: src/components/Footer/Footer.tsx
 msgid "Privacy"
@@ -1802,6 +2000,8 @@ msgstr "Retourner à l'application"
 msgid "Role updated"
 msgstr "Rôle mis à jour"
 
+#: src/applications/Profile/Ui/Settings/FavoriteStores.tsx
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
 #: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListItemCard/ShoppingListItemCard.tsx
 msgid "Save"
@@ -1865,6 +2065,10 @@ msgstr "Sélectionnez le magasin"
 #: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
 msgid "Select unit"
 msgstr "Sélectionnez l'unité"
+
+#: src/applications/Profile/Ui/Settings/FavoriteStores.tsx
+msgid "Select your favorite stores. When no specific store is selected, prices from these stores will be prioritized."
+msgstr ""
 
 #: src/components/Inputs/File/File.tsx
 msgid "Select your file"
@@ -1945,6 +2149,10 @@ msgstr "Liste de courses supprimée avec succès"
 msgid "Shopping Lists"
 msgstr "Listes de courses"
 
+#: src/app/[locale]/settings/page.tsx
+msgid "Shopping Optimization"
+msgstr ""
+
 #: src/app/[locale]/auth/signin/page.tsx
 msgid "Sign in"
 msgstr "Se connecter"
@@ -2018,6 +2226,14 @@ msgstr "Magasin créé"
 msgid "Store geolocation"
 msgstr "Géolocalisation du magasin"
 
+#: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
+msgid "Store GPS Enrichment"
+msgstr ""
+
+#: src/app/[locale]/admin/stores/page.tsx
+msgid "Store Management"
+msgstr ""
+
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/AddStoreModal.tsx
 msgid "Store Name"
 msgstr "Nom du magasin"
@@ -2038,6 +2254,7 @@ msgstr "Réseau de magasins"
 #: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
 #: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/useRecipeShare.tsx
 #: src/applications/Recipes/Ui/RecipeForm/CreateProductModal.tsx
+#: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
@@ -2115,6 +2332,10 @@ msgstr "Le QR code a été téléchargé"
 msgid "The team"
 msgstr "L'équipe"
 
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
+msgid "These settings will be used to automatically select the best prices for your shopping lists. Distance is calculated as the crow flies."
+msgstr ""
+
 #: src/applications/Prices/Ui/ListPrices/CardPrice/DeletePriceModal/DeletePriceModal.tsx
 msgid "This action <0>CANNOT be undone</0>. Please be certain about your decision."
 msgstr "Cette action <0>ne peut PAS être annulée</0>. Veuillez être sûr de votre décision."
@@ -2139,6 +2360,10 @@ msgstr "C'est le nom qui sera affiché dans toute l'application."
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/DeleteListModal.tsx
 msgid "This list contains <0>{0} item(s)</0>. All items will be permanently deleted."
 msgstr "Cette liste contient <0>{0} article(s)</0>. Tous les articles seront définitivement supprimés."
+
+#: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
+msgid "This tool uses the Photon API (Komoot) to automatically find GPS coordinates for stores based on their name and location."
+msgstr ""
 
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
 msgid "This user is already a collaborator on this list."
@@ -2176,6 +2401,10 @@ msgstr "Total des articles"
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ProductSelectionModal.tsx
 msgid "Total Price"
 msgstr "Prix total"
+
+#: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
+msgid "Total prices"
+msgstr ""
 
 #: src/views/Home/components/Dashboard/DashboardView.tsx
 msgid "Total Savings"
@@ -2218,10 +2447,31 @@ msgstr "Type de code-barre"
 msgid "Unable to add product"
 msgstr "Impossible d'ajouter le produit"
 
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
+msgid "Unable to detect your position. Please try again or check your browser settings."
+msgstr ""
+
+#: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
+msgid "Unable to enrich stores"
+msgstr ""
+
+#: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
+msgid "Unable to enrich this store"
+msgstr ""
+
+#: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
+msgid "Unable to load stores"
+msgstr ""
+
 #: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
 msgid "Unable to reset preferences"
 msgstr "Impossible de réinitialiser les préférences"
 
+#: src/applications/Profile/Ui/Settings/FavoriteStores.tsx
+msgid "Unable to save favorite stores"
+msgstr ""
+
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
 #: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
 msgid "Unable to save preferences"
 msgstr "Impossible d'enregistrer les préférences"
@@ -2305,6 +2555,10 @@ msgstr "Voir les tendances des prix au fil du temps. Surveillez les changements 
 msgid "Viewer"
 msgstr "Spectateur"
 
+#: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
+msgid "Warning"
+msgstr ""
+
 #: src/applications/Profile/Ui/Settings/DeleteAccount.tsx
 msgid "Warning: This action cannot be undone"
 msgstr "Avertissement : Cette action ne peut pas être annulée"
@@ -2342,6 +2596,10 @@ msgstr "Où avez-vous vu ce prix ?"
 msgid "Why choose Deazl?"
 msgstr "Pourquoi choisir Deazl ?"
 
+#: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
+msgid "Without coordinates"
+msgstr ""
+
 #: src/components/Inputs/File/useFileHandler.ts
 msgid "You can only add a maximum of {maxFile} files"
 msgstr "Vous ne pouvez ajouter que {maxFile} fichiers maximum"
@@ -2363,9 +2621,17 @@ msgstr "Vous devez ajouter plus de {minFile} fichiers"
 msgid "Your account has been permanently deleted"
 msgstr "Votre compte a été supprimé de manière permanente"
 
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
+msgid "Your browser does not support geolocation"
+msgstr ""
+
 #: src/applications/Prices/Ui/ListPrices/CardPrice/SeeMoreMenu/SeeMoreModal.tsx
 msgid "Your criteria"
 msgstr "Vos critères"
+
+#: src/applications/Profile/Ui/Settings/FavoriteStores.tsx
+msgid "Your favorite stores have been updated"
+msgstr ""
 
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/ShoppingListsView.tsx
 msgid "Your Lists"
@@ -2386,6 +2652,14 @@ msgstr "Votre numéro de téléphone n'est pas valide."
 #: src/applications/Profile/Ui/Settings/PhoneNumber.tsx
 msgid "Your phone number will be used for account recovery and notifications."
 msgstr "Votre numéro de téléphone sera utilisé pour la récupération de compte et les notifications."
+
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
+msgid "Your position has been saved"
+msgstr ""
+
+#: src/applications/Profile/Ui/Settings/OptimalPricing.tsx
+msgid "Your price optimization preferences have been updated"
+msgstr ""
 
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/CreateEditListModal.tsx
 msgid "Your shopping list has been created successfully"

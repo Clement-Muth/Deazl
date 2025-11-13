@@ -22,7 +22,7 @@ export const CollapsibleCard = ({
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
 
   return (
-    <div className={`bg-gray-50 rounded-lg border border-gray-100 ${className}`}>
+    <div className={`bg-gray-50 rounded-large border border-gray-100 ${className}`}>
       <button
         onClick={() => setIsExpanded(!isExpanded)}
         type="button"

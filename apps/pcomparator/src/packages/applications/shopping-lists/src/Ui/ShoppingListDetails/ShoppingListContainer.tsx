@@ -5,9 +5,10 @@ import type { ShoppingListPayload } from "../../Domain/Schemas/ShoppingList.sche
 import { ShoppingListItemCard } from "../../Ui/ShoppingListDetails/ShoppingListItemCard";
 import { SmartConversionSection } from "../../Ui/ShoppingListDetails/SmartConversionSection";
 import { SmartQuickAddBar } from "../../Ui/ShoppingListDetails/SmartQuickAddBar/SmartQuickAddBar";
-import { usePriceSuggestions } from "../../Ui/ShoppingListDetails/usePriceSuggestions";
+import { useOptimalPricing } from "../../Ui/ShoppingListDetails/useOptimalPricing";
 import { useShoppingListActions } from "../../Ui/ShoppingListDetails/useShoppingListActions";
 import { useStore } from "../Contexts/StoreContext";
+import { useUserOptimizationPreferences } from "../Hooks/useUserOptimizationPreferences";
 
 interface ShoppingListContainerProps {
   initialList: ShoppingListPayload;
@@ -25,6 +26,9 @@ export const ShoppingListContainer = ({ initialList, user }: ShoppingListContain
   // Get selected store from context
   const { selectedStore } = useStore();
 
+  // Get user optimization preferences
+  const { preferences: userPreferences } = useUserOptimizationPreferences();
+
   // Filter state for completed items
   const [filter, setFilter] = useState<"all" | "active" | "completed">("all");
 
@@ -40,14 +44,19 @@ export const ShoppingListContainer = ({ initialList, user }: ShoppingListContain
     }
   }, [items, filter]);
 
-  // Price suggestions hook with selected store
+  // Optimal pricing hook - prix intelligents selon magasin sélectionné et préférences
   const {
-    bestPrices,
+    itemPrices,
     totalCost,
     potentialSavings,
-    bestStoreName,
+    storeSummary,
     loading: pricesLoading
-  } = usePriceSuggestions(items, selectedStore?.id);
+  } = useOptimalPricing(items, {
+    selectedStoreIds: selectedStore?.id ? [selectedStore.id] : undefined,
+    userPreferences: userPreferences || {
+      showSavingSuggestions: true
+    }
+  });
 
   const canEdit = useMemo(() => {
     if (!user?.id) return false;
@@ -97,12 +106,12 @@ export const ShoppingListContainer = ({ initialList, user }: ShoppingListContain
           onToggleItem={canEdit ? handleToggleComplete : noopPromise}
           onDeleteItem={canEdit ? handleDeleteItem : noopPromise}
           onUpdateItem={canEdit ? handleUpdateItem : noopPromise}
-          bestPrices={bestPrices}
+          itemPrices={itemPrices}
           isStoreSelected={!!selectedStore}
           selectedStore={selectedStore}
           totalCost={totalCost}
           potentialSavings={potentialSavings}
-          bestStoreName={bestStoreName}
+          storeSummary={storeSummary}
         />
 
         {/* Smart Conversion Section */}
