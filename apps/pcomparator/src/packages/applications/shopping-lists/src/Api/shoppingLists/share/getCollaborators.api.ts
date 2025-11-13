@@ -18,7 +18,7 @@ export async function getCollaborators(shoppingListId: GetCollaboratorsPayload) 
     const payload = GetCollaboratorsSchema.parse(shoppingListId);
 
     const collaborators = await shoppingListSharingService.getListCollaborators(payload);
-    
+
     // Convert entities to plain objects for serialization
     return collaborators.map((collaborator) => collaborator.toObject());
   } catch (error) {

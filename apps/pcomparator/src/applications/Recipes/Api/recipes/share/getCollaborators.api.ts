@@ -18,7 +18,7 @@ export async function getCollaborators(recipeId: GetCollaboratorsPayload) {
     const payload = GetCollaboratorsSchema.parse(recipeId);
 
     const collaborators = await recipeSharingService.getRecipeCollaborators(payload);
-    
+
     // Convert entities to plain objects for serialization
     return collaborators.map((collaborator) => collaborator.toObject());
   } catch (error) {
