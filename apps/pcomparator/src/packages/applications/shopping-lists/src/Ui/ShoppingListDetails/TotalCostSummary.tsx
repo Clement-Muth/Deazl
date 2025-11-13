@@ -26,7 +26,7 @@ export const TotalCostSummary = ({
   const optimizedTotal = totalCost;
 
   return (
-    <Card className="shadow-sm border border-gray-200">
+    <Card shadow="none" className="border border-gray-200">
       <CardBody className="p-4">
         <div className="flex items-center justify-between gap-4">
           {/* Left side - Total */}

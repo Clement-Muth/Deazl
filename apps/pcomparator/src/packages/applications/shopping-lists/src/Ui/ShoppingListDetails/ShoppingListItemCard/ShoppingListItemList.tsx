@@ -126,7 +126,7 @@ export const ShoppingListItemList = ({
                 disabled={loading[item.id] || isDeleting}
               >
                 <div
-                  className={`flex items-center justify-between p-2 border rounded-md transition-colors ${
+                  className={`flex items-center justify-between p-2 border rounded-large transition-colors ${
                     isDeleting
                       ? "bg-gray-50 opacity-50"
                       : item.isCompleted

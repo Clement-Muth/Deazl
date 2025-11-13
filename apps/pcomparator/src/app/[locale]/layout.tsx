@@ -18,7 +18,7 @@ export const generateStaticParams = () => locales.map((locale) => ({ lang: local
 const RootLayout = ({ children, locale }: NextPageProps) => {
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body className={`${inter.className} min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900`}>
+      <body className={`${inter.className} min-h-[100dvh] flex flex-col bg-gray-50 dark:bg-gray-900`}>
         <ApplicationKernel locale={locale}>
           <ApplicationLayout>
             {/* <InstallPWA /> */}

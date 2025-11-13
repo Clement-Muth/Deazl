@@ -1,17 +1,10 @@
 "use client";
 
-import {
-  Button,
-  Chip,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-  useDisclosure
-} from "@heroui/react";
+import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, useDisclosure } from "@heroui/react";
 import { Trans } from "@lingui/react/macro";
-import { ArrowLeftIcon, Edit, MoreVertical, Share2, SlidersIcon, Trash } from "lucide-react";
+import { Edit, MoreVertical, Share2, SlidersIcon, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { PageHeader } from "~/components/Header/PageHeader";
 import type { ShoppingListPayload } from "../../Domain/Schemas/ShoppingList.schema";
 import { CreateEditListModal } from "../ShoppingLists/CreateEditListModal";
 import { DeleteListModal } from "../ShoppingLists/DeleteListModal";
@@ -50,120 +43,106 @@ export const ShoppingListDetailsHeader = ({
   };
 
   return (
-    <div className="flex flex-col gap-3 mb-4 sm:mb-6 pb-3 sm:pb-4 border-b border-gray-200">
+    <>
       {/* Header with actions */}
-      <div className="flex items-center justify-between gap-2">
-        <div className="flex items-center gap-2 flex-1 min-w-0">
-          <Button
-            variant="light"
-            size="sm"
-            isIconOnly
-            className="flex-shrink-0"
-            onPress={() => router.push("/shopping-lists")}
-          >
-            <ArrowLeftIcon className="h-4 w-4" />
-          </Button>
-          <div className="flex flex-col min-w-0 flex-1">
-            <h1 className="text-base sm:text-lg font-semibold truncate">{listName}</h1>
-            {list.isPublic && (
-              <Chip size="sm" variant="flat" color="primary" className="mt-1 w-fit">
-                <Trans>Shared</Trans>
-              </Chip>
-            )}
-          </div>
-        </div>
+      <PageHeader
+        title={listName}
+        href="/shopping-lists"
+        extra={
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2 flex-shrink-0">
+              {/* Mobile: Show dropdown menu */}
+              <div className="flex sm:hidden items-center gap-1">
+                <Dropdown placement="bottom-end">
+                  <DropdownTrigger>
+                    <Button variant="light" size="sm" isIconOnly>
+                      <MoreVertical className="h-4 w-4" />
+                    </Button>
+                  </DropdownTrigger>
+                  <DropdownMenu aria-label="List actions">
+                    <DropdownItem
+                      key="share"
+                      startContent={<Share2 className="h-4 w-4" />}
+                      onPress={handleShareList}
+                    >
+                      <Trans>Share</Trans>
+                    </DropdownItem>
+                    <DropdownItem key="edit" startContent={<Edit className="h-4 w-4" />} onPress={handleEdit}>
+                      <Trans>Edit</Trans>
+                    </DropdownItem>
+                    <DropdownItem
+                      key="delete"
+                      className="text-danger"
+                      color="danger"
+                      startContent={<Trash className="h-4 w-4" />}
+                      onPress={handleDelete}
+                    >
+                      <Trans>Delete</Trans>
+                    </DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
+              </div>
 
-        <div className="flex items-center gap-2 flex-shrink-0">
-          {/* Mobile: Show dropdown menu */}
-          <div className="flex sm:hidden items-center gap-1">
-            <Dropdown placement="bottom-end">
-              <DropdownTrigger>
-                <Button variant="light" size="sm" isIconOnly>
-                  <MoreVertical className="h-4 w-4" />
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu aria-label="List actions">
-                <DropdownItem
-                  key="share"
+              {/* Desktop: Show all buttons */}
+              <div className="hidden sm:flex items-center gap-2">
+                <Button
+                  variant="light"
+                  size="sm"
                   startContent={<Share2 className="h-4 w-4" />}
                   onPress={handleShareList}
                 >
                   <Trans>Share</Trans>
-                </DropdownItem>
-                <DropdownItem key="edit" startContent={<Edit className="h-4 w-4" />} onPress={handleEdit}>
-                  <Trans>Edit</Trans>
-                </DropdownItem>
-                <DropdownItem
-                  key="delete"
-                  className="text-danger"
-                  color="danger"
-                  startContent={<Trash className="h-4 w-4" />}
-                  onPress={handleDelete}
-                >
-                  <Trans>Delete</Trans>
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-          </div>
-
-          {/* Desktop: Show all buttons */}
-          <div className="hidden sm:flex items-center gap-2">
-            <Button
-              variant="light"
-              size="sm"
-              startContent={<Share2 className="h-4 w-4" />}
-              onPress={handleShareList}
-            >
-              <Trans>Share</Trans>
-            </Button>
-            <Button
-              variant="light"
-              size="sm"
-              startContent={<Edit className="h-4 w-4" />}
-              onPress={handleEdit}
-            >
-              <Trans>Edit</Trans>
-            </Button>
-            <Dropdown placement="bottom-end">
-              <DropdownTrigger>
-                <Button variant="light" size="sm" isIconOnly>
-                  <MoreVertical className="h-4 w-4" />
                 </Button>
-              </DropdownTrigger>
-              <DropdownMenu aria-label="More actions">
-                <DropdownItem
-                  key="preferences"
-                  startContent={<SlidersIcon className="h-4 w-4" />}
-                  onPress={preferencesModal.onOpen}
+                <Button
+                  variant="light"
+                  size="sm"
+                  startContent={<Edit className="h-4 w-4" />}
+                  onPress={handleEdit}
                 >
-                  <Trans>Preferences</Trans>
-                </DropdownItem>
-                <DropdownItem
-                  key="delete"
-                  className="text-danger"
-                  color="danger"
-                  startContent={<Trash className="h-4 w-4" />}
-                  onPress={handleDelete}
-                >
-                  <Trans>Delete</Trans>
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
+                  <Trans>Edit</Trans>
+                </Button>
+                <Dropdown placement="bottom-end">
+                  <DropdownTrigger>
+                    <Button variant="light" size="sm" isIconOnly>
+                      <MoreVertical className="h-4 w-4" />
+                    </Button>
+                  </DropdownTrigger>
+                  <DropdownMenu aria-label="More actions">
+                    <DropdownItem
+                      key="preferences"
+                      startContent={<SlidersIcon className="h-4 w-4" />}
+                      onPress={preferencesModal.onOpen}
+                    >
+                      <Trans>Preferences</Trans>
+                    </DropdownItem>
+                    <DropdownItem
+                      key="delete"
+                      className="text-danger"
+                      color="danger"
+                      startContent={<Trash className="h-4 w-4" />}
+                      onPress={handleDelete}
+                    >
+                      <Trans>Delete</Trans>
+                    </DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-
-      {/* Optimize List Button */}
-      {list.items && list.items.length > 0 && (
-        <div className="flex justify-end">
-          <OptimizeListButton
-            listId={shoppingListId}
-            onOptimizationComplete={() => {
-              router.refresh();
-            }}
-          />
-        </div>
-      )}
+        }
+      >
+        {/* Optimize List Button */}
+        {list.items && list.items.length > 0 && (
+          <div className="flex justify-end">
+            <OptimizeListButton
+              listId={shoppingListId}
+              onOptimizationComplete={() => {
+                router.refresh();
+              }}
+            />
+          </div>
+        )}
+      </PageHeader>
 
       <ShareModalNew
         isOpen={shareModal.isOpen}
@@ -181,6 +160,6 @@ export const ShoppingListDetailsHeader = ({
         redirectAfterDelete
       />
       <OptimizationPreferencesModal isOpen={preferencesModal.isOpen} onClose={preferencesModal.onClose} />
-    </div>
+    </>
   );
 };

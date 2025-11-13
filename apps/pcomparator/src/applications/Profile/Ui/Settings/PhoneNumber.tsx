@@ -46,7 +46,7 @@ export const SettingsPhoneNumber = ({ defaultValue }: SettingsPhoneNumberProps) 
       <div className="space-y-3">
         <Input
           label={t`Phone number`}
-          placeholder={t`+33 6 12 34 56 78`}
+          placeholder={"+33 6 12 34 56 78"}
           value={phoneNumber}
           onValueChange={setPhoneNumber}
           onFocus={() => setIsFocused(true)}

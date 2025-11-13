@@ -1,4 +1,4 @@
-import { Button, ButtonGroup } from "@heroui/react";
+import {} from "@heroui/react";
 import { Trans } from "@lingui/react/macro";
 import { useMemo, useState } from "react";
 import type { ShoppingListPayload } from "../../Domain/Schemas/ShoppingList.schema";
@@ -60,9 +60,9 @@ export const ShoppingListContainer = ({ initialList, user }: ShoppingListContain
   }, [initialList.userId, initialList.collaborators, user.id]);
 
   return (
-    <div className="flex flex-col gap-6 animate-fadeIn">
+    <div className="flex flex-col gap-6 animate-fadeIn w-full">
       {/* Filter Tabs */}
-      <div className="flex justify-end">
+      {/* <div className="flex justify-end">
         <ButtonGroup size="sm" variant="flat">
           <Button color={filter === "all" ? "primary" : "default"} onPress={() => setFilter("all")}>
             <Trans>All</Trans> ({items.length})
@@ -77,16 +77,12 @@ export const ShoppingListContainer = ({ initialList, user }: ShoppingListContain
             <Trans>Completed</Trans> ({items.filter((i) => i.isCompleted).length})
           </Button>
         </ButtonGroup>
-      </div>
+      </div> */}
 
       {/* UI */}
       <>
         {canEdit ? (
-          <SmartQuickAddBar
-            listId={initialList.id}
-            onItemAdded={handleAddItem}
-            className="flex-1 min-w-[260px]"
-          />
+          <SmartQuickAddBar listId={initialList.id} onItemAdded={handleAddItem} className="min-w-[260px]" />
         ) : (
           <div className="bg-yellow-50 p-4 rounded-lg border border-yellow-100">
             <p className="text-sm text-yellow-700">

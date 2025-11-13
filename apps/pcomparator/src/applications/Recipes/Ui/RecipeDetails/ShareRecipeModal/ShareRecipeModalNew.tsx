@@ -253,7 +253,7 @@ export const ShareRecipeModalNew = ({
         <div className="flex items-center gap-2">
           <ShareIcon className="h-5 w-5 text-primary-600" />
           <span className="text-lg md:text-xl font-semibold">
-            <Trans>Share "{recipeName}"</Trans>
+            <Trans>Share '{recipeName}'</Trans>
           </span>
         </div>
       }
