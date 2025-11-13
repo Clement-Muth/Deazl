@@ -17,7 +17,7 @@ import { SaveIcon, ShoppingCartIcon } from "lucide-react";
 import { useState } from "react";
 import type { ShoppingListItemPayload } from "../../../Domain/Entities/ShoppingListItem.entity";
 import type { ShoppingListPayload } from "../../../Domain/Schemas/ShoppingList.schema";
-import type { BestPriceResult } from "../../../Domain/Utils/priceComparison";
+import type { ItemOptimalPrice } from "../../../Domain/Services/OptimalPricingService";
 import { StoreSelector } from "../../../Ui/ShoppingListDetails/StoreSelector";
 import { TotalCostSummary } from "../../../Ui/ShoppingListDetails/TotalCostSummary";
 import { ShoppingListItemList } from "./ShoppingListItemList";
@@ -28,23 +28,23 @@ export const ShoppingListItemCard = ({
   onToggleItem,
   onDeleteItem,
   onUpdateItem,
-  bestPrices,
+  itemPrices,
   isStoreSelected = false,
   selectedStore,
   totalCost = 0,
   potentialSavings = 0,
-  bestStoreName
+  storeSummary = []
 }: {
   list: ShoppingListPayload;
   onToggleItem: (itemId: string, isCompleted: boolean) => Promise<void>;
   onDeleteItem: (itemId: string) => Promise<void>;
   onUpdateItem: (itemId: string, data: Partial<ShoppingListItemPayload>) => Promise<void>;
-  bestPrices?: Record<string, BestPriceResult | null>;
+  itemPrices: Record<string, ItemOptimalPrice>;
   isStoreSelected?: boolean;
   selectedStore?: { id: string; name: string; location: string } | null;
   totalCost?: number;
   potentialSavings?: number;
-  bestStoreName?: string | null;
+  storeSummary: Array<{ storeId: string; storeName: string; itemCount: number; subtotal: number }>;
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedItem, setSelectedItem] = useState<ShoppingListItemPayload | null>(null);
@@ -128,15 +128,8 @@ export const ShoppingListItemCard = ({
   const stats = {
     total: list.items?.length || 0,
     checked: list.items?.filter((i) => i.isCompleted).length || 0,
-    hasPrices: list.items?.some((i) => bestPrices?.[i.id]) || false,
-    totalAmount:
-      list.items?.reduce((sum, i) => {
-        // bestPrices is UNIT price
-        if (bestPrices?.[i.id]?.price.amount) {
-          return sum + bestPrices[i.id]!.price.amount * i.quantity; // bestPrice is unit price
-        }
-        return sum;
-      }, 0) || 0
+    hasPrices: list.items?.some((i) => itemPrices[i.id]?.selectedPrice) || false,
+    totalAmount: totalCost
   };
 
   return (
@@ -151,7 +144,7 @@ export const ShoppingListItemCard = ({
               <TotalCostSummary
                 totalCost={totalCost}
                 potentialSavings={potentialSavings}
-                bestStoreName={bestStoreName || undefined}
+                storeSummary={storeSummary}
                 itemCount={list.items?.length || 0}
                 completedCount={list.items?.filter((i) => i.isCompleted).length || 0}
               />
@@ -179,7 +172,7 @@ export const ShoppingListItemCard = ({
               onDeleteItem={handleDeleteItem}
               onUndoDelete={handleUndoDelete}
               isPendingDelete={isPendingDelete}
-              bestPrices={bestPrices}
+              itemPrices={itemPrices}
               isStoreSelected={isStoreSelected}
               selectedStore={selectedStore}
             />

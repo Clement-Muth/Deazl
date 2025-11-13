@@ -134,6 +134,8 @@ model Store {
   id          String  @id @default(uuid()) @db.Uuid
   name        String
   location    String
+  latitude    Float?
+  longitude   Float?
   website_url String?
   prices Price[]
 

@@ -1,39 +1,44 @@
 "use client";
 
 import { Trans } from "@lingui/react/macro";
-import { ArrowRight, TrendingDown } from "lucide-react";
-import type { BestPriceResult } from "../../Domain/Utils/priceComparison";
+import { ArrowRight, MapPin, TrendingDown } from "lucide-react";
+import type { ItemOptimalPrice, OptimalPriceResult } from "../../Domain/Services/OptimalPricingService";
 
 interface PriceSuggestionProps {
-  bestPrice: BestPriceResult;
+  optimalPrice: OptimalPriceResult;
+  optimalPriceInfo?: ItemOptimalPrice;
   currentUnitPrice?: number | null;
   quantity: number;
   isStoreSelected?: boolean;
 }
 
 export const PriceSuggestion = ({
-  bestPrice,
+  optimalPrice,
+  optimalPriceInfo,
   currentUnitPrice,
   quantity,
   isStoreSelected = false
 }: PriceSuggestionProps) => {
-  const displayedPrice = bestPrice.price.amount;
+  const displayedPrice = optimalPrice.price.amount;
+  const distanceKm = optimalPrice.distanceKm;
 
-  // When store is selected: bestPrice.savings is the difference (storePrice - bestPrice)
-  // Positive means store is more expensive, negative means store is cheaper
+  // Meilleure alternative disponible si l'utilisateur a sélectionné un magasin préféré
+  const betterAlternative = optimalPrice.betterAlternative;
+
+  // When store is selected: show if better alternative exists
   // When no store selected: compare current price with best price
   const hasBetterPrice = isStoreSelected
-    ? bestPrice.savings > 0 // positive savings means selected store is more expensive
+    ? !!betterAlternative && betterAlternative.savings > 0
     : currentUnitPrice && currentUnitPrice > displayedPrice;
 
   const savingsPerUnit = hasBetterPrice
-    ? isStoreSelected
-      ? bestPrice.savings
+    ? isStoreSelected && betterAlternative
+      ? betterAlternative.savings
       : currentUnitPrice! - displayedPrice
     : 0;
   const totalSavings = savingsPerUnit * quantity;
 
-  // Affichage ultra-compact en ligne
+  // Affichage ultra-compact en ligne avec distance
   return (
     <span className="inline-flex items-center gap-1.5 flex-wrap">
       <span className="text-gray-400">•</span>
@@ -41,33 +46,53 @@ export const PriceSuggestion = ({
         // Mode: Store selected - show selected store's price and comparison
         <>
           <span className="text-xs font-bold text-primary-700">
-            {displayedPrice.toFixed(2)}€/{bestPrice.price.unit}
+            {displayedPrice.toFixed(2)}€/{optimalPrice.price.unit}
           </span>
           <span className="text-xs text-gray-500">@</span>
-          <span className="text-xs font-medium text-primary-600">{bestPrice.price.storeName}</span>
-          {hasBetterPrice ? (
+          <span className="text-xs font-medium text-primary-600">{optimalPrice.price.storeName}</span>
+          {distanceKm !== undefined && (
+            <span className="inline-flex items-center gap-0.5 text-xs text-gray-500">
+              <MapPin className="h-3 w-3" />
+              {distanceKm.toFixed(1)}km
+            </span>
+          )}
+          {hasBetterPrice && betterAlternative ? (
             <>
               <span className="text-xs text-gray-400">|</span>
               <TrendingDown className="h-3 w-3 text-orange-600" />
               <span className="text-xs text-orange-700">
-                <Trans>+{totalSavings.toFixed(2)}€ vs best</Trans>
+                <Trans>
+                  -{totalSavings.toFixed(2)}€ @ {betterAlternative.price.storeName}
+                </Trans>
               </span>
+              {betterAlternative.distanceKm !== undefined && (
+                <span className="inline-flex items-center gap-0.5 text-xs text-orange-600">
+                  <MapPin className="h-3 w-3" />
+                  {betterAlternative.distanceKm.toFixed(1)}km
+                </span>
+              )}
             </>
           ) : (
             <span className="text-xs text-green-700">✓</span>
           )}
         </>
       ) : (
-        // Mode: No store selected - show best price suggestion
+        // Mode: No store selected - show optimal price (best price + distance)
         <>
           {hasBetterPrice ? (
             <>
               <ArrowRight className="h-3 w-3 text-blue-600" />
               <span className="text-xs font-bold text-blue-700">
-                {displayedPrice.toFixed(2)}€/{bestPrice.price.unit}
+                {displayedPrice.toFixed(2)}€/{optimalPrice.price.unit}
               </span>
               <span className="text-xs text-gray-500">@</span>
-              <span className="text-xs font-medium text-blue-600">{bestPrice.price.storeName}</span>
+              <span className="text-xs font-medium text-blue-600">{optimalPrice.price.storeName}</span>
+              {distanceKm !== undefined && (
+                <span className="inline-flex items-center gap-0.5 text-xs text-blue-600">
+                  <MapPin className="h-3 w-3" />
+                  {distanceKm.toFixed(1)}km
+                </span>
+              )}
               <TrendingDown className="h-3 w-3 text-success-600" />
               <span className="text-xs font-bold text-success-700">
                 <Trans>-{totalSavings.toFixed(2)}€</Trans>
@@ -76,11 +101,22 @@ export const PriceSuggestion = ({
           ) : (
             <>
               <span className="text-xs font-bold text-green-700">
-                {displayedPrice.toFixed(2)}€/{bestPrice.price.unit}
+                {displayedPrice.toFixed(2)}€/{optimalPrice.price.unit}
               </span>
               <span className="text-xs text-gray-500">@</span>
-              <span className="text-xs font-medium text-green-600">{bestPrice.price.storeName}</span>
+              <span className="text-xs font-medium text-green-600">{optimalPrice.price.storeName}</span>
+              {distanceKm !== undefined && (
+                <span className="inline-flex items-center gap-0.5 text-xs text-green-600">
+                  <MapPin className="h-3 w-3" />
+                  {distanceKm.toFixed(1)}km
+                </span>
+              )}
               <span className="text-xs text-green-700">✓</span>
+              {optimalPriceInfo?.selectionReason === "best_price_distance" && (
+                <span className="text-xs text-green-600">
+                  <Trans>(optimal)</Trans>
+                </span>
+              )}
             </>
           )}
         </>

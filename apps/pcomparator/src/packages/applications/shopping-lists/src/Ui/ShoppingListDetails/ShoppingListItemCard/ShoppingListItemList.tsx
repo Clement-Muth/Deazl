@@ -3,7 +3,7 @@ import { CheckIcon, DollarSignIcon } from "lucide-react";
 import { useCallback, useState } from "react";
 import { getItemPriceAlternatives } from "../../../Api/items/getItemPriceAlternatives.api";
 import type { ShoppingListItemPayload } from "../../../Domain/Entities/ShoppingListItem.entity";
-import type { BestPriceResult } from "../../../Domain/Utils/priceComparison";
+import type { ItemOptimalPrice } from "../../../Domain/Services/OptimalPricingService";
 import { getUnitPriceInDisplayUnit } from "../../../Domain/Utils/priceComparison";
 import { ProductQuickView } from "../../components/ProductQuickView";
 import { AddPriceButton } from "../AddPriceButton";
@@ -19,7 +19,7 @@ interface ShoppingListItemListProps {
   onDeleteItem: (itemId: string) => void;
   onUndoDelete?: (itemId: string) => void;
   isPendingDelete?: (itemId: string) => boolean;
-  bestPrices?: Record<string, BestPriceResult | null>;
+  itemPrices: Record<string, ItemOptimalPrice>;
   isStoreSelected?: boolean;
   selectedStore?: { id: string; name: string; location: string } | null;
 }
@@ -32,7 +32,7 @@ export const ShoppingListItemList = ({
   onDeleteItem,
   onUndoDelete,
   isPendingDelete,
-  bestPrices,
+  itemPrices,
   isStoreSelected = false,
   selectedStore
 }: ShoppingListItemListProps) => {
@@ -93,16 +93,20 @@ export const ShoppingListItemList = ({
     <>
       <ul className="space-y-1.5 animate-fadeIn">
         {items.map((item) => {
+          // Récupérer le prix optimal pour cet article
+          const optimalPrice = itemPrices[item.id];
+          const selectedPrice = optimalPrice?.selectedPrice;
+
           // Determine which price to display with proper unit conversion
-          const displayUnit = item.unit || bestPrices?.[item.id]?.price.unit || "unit";
+          const displayUnit = item.unit || selectedPrice?.price.unit || "unit";
 
           let unitPrice: number | null = null;
           let totalPrice: number | null = null;
 
-          if (bestPrices?.[item.id]) {
-            const bestPrice = bestPrices[item.id]!.price;
+          if (selectedPrice) {
+            const price = selectedPrice.price;
             // Convert price to display unit (e.g., 2.54€/kg → 0.00254€/g)
-            unitPrice = getUnitPriceInDisplayUnit(bestPrice.amount, bestPrice.unit, displayUnit);
+            unitPrice = getUnitPriceInDisplayUnit(price.amount, price.unit, displayUnit);
             totalPrice = unitPrice * item.quantity;
           }
 
@@ -181,9 +185,10 @@ export const ShoppingListItemList = ({
                           </span>
                         )}
                         {/* Price Suggestion inline */}
-                        {bestPrices?.[item.id] && (
+                        {selectedPrice && (
                           <PriceSuggestion
-                            bestPrice={bestPrices[item.id]!}
+                            optimalPrice={selectedPrice}
+                            optimalPriceInfo={optimalPrice}
                             currentUnitPrice={unitPrice}
                             quantity={item.quantity}
                             isStoreSelected={isStoreSelected}

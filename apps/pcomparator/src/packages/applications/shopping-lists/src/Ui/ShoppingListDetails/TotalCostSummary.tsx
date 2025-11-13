@@ -7,7 +7,7 @@ import { ShoppingCart, Store, TrendingDown } from "lucide-react";
 interface TotalCostSummaryProps {
   totalCost: number;
   potentialSavings: number;
-  bestStoreName?: string;
+  storeSummary: Array<{ storeId: string; storeName: string; itemCount: number; subtotal: number }>;
   itemCount: number;
   completedCount: number;
   currency?: string;
@@ -16,7 +16,7 @@ interface TotalCostSummaryProps {
 export const TotalCostSummary = ({
   totalCost,
   potentialSavings,
-  bestStoreName,
+  storeSummary,
   itemCount,
   completedCount,
   currency = "EUR"
@@ -24,6 +24,9 @@ export const TotalCostSummary = ({
   const hasSavings = potentialSavings > 0;
   const savingsPercentage = totalCost > 0 ? (potentialSavings / (totalCost + potentialSavings)) * 100 : 0;
   const optimizedTotal = totalCost;
+
+  // Déterminer le meilleur magasin (celui avec le plus d'articles ou le plus gros sous-total)
+  const bestStoreName = storeSummary.length > 0 ? storeSummary[0].storeName : undefined;
 
   return (
     <Card shadow="none" className="border border-gray-200">

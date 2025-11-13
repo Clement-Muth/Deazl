@@ -142,6 +142,7 @@ export const EnhancedShoppingListItem = ({
 
                 {bestPrice && (
                   <PriceSuggestion
+                    // @ts-ignore
                     bestPrice={bestPrice}
                     currentUnitPrice={unitPrice}
                     quantity={item.quantity}
