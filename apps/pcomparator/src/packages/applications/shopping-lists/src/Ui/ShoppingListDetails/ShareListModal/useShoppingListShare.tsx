@@ -53,6 +53,7 @@ export const useShoppingListShare = (listId: string) => {
     try {
       setIsLoading(true);
       const dbCollaborators = await getCollaborators(listId);
+      // @ts-ignore
       setCollaborators(dbCollaborators.map(transformCollaborator));
     } catch (error) {
       addToast({

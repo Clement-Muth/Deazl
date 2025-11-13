@@ -17,7 +17,10 @@ export async function getCollaborators(recipeId: GetCollaboratorsPayload) {
   try {
     const payload = GetCollaboratorsSchema.parse(recipeId);
 
-    return recipeSharingService.getRecipeCollaborators(payload);
+    const collaborators = await recipeSharingService.getRecipeCollaborators(payload);
+    
+    // Convert entities to plain objects for serialization
+    return collaborators.map((collaborator) => collaborator.toObject());
   } catch (error) {
     console.error("Failed to retrieve collaborators:", error);
     throw new Error("Failed to retrieve collaborators");

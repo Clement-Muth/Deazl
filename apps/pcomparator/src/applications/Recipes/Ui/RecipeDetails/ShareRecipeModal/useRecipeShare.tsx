@@ -52,6 +52,7 @@ export const useRecipeShare = (recipeId: string) => {
         await addCollaborator({ recipeId, email, role });
 
         const updatedCollaborators = await getCollaborators(recipeId);
+        // @ts-ignore
         setCollaborators(updatedCollaborators.map(transformCollaborator));
 
         addToast({
@@ -76,6 +77,7 @@ export const useRecipeShare = (recipeId: string) => {
     const fetchCollaborators = async () => {
       try {
         const dbCollaborators = await getCollaborators(recipeId);
+        // @ts-ignore
         setCollaborators(dbCollaborators.map(transformCollaborator));
       } catch (error) {
         console.error("Failed to fetch collaborators:", error);

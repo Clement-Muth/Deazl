@@ -18,7 +18,14 @@ export async function getRecipeByShareToken(token: GetRecipeByShareTokenPayload)
       throw new Error("Recipe not found");
     }
 
-    return recipe.toObject();
+    const recipeObject = recipe.toObject();
+
+    // Convert dates to ISO strings for serialization
+    return {
+      ...recipeObject,
+      createdAt: recipeObject.createdAt?.toISOString(),
+      updatedAt: recipeObject.updatedAt?.toISOString()
+    };
   } catch (error) {
     console.error("Failed to get recipe by share token:", error);
     throw new Error("Failed to get recipe by share token");

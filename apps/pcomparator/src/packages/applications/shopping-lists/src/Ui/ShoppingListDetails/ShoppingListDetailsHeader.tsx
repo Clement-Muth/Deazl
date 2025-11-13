@@ -1,15 +1,23 @@
 "use client";
 
-import { Button, Tooltip, useDisclosure } from "@heroui/react";
-import { ArrowLeftIcon, MoreVerticalIcon, SlidersIcon, UserPlusIcon } from "lucide-react";
+import {
+  Button,
+  Chip,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+  useDisclosure
+} from "@heroui/react";
+import { Trans } from "@lingui/react/macro";
+import { ArrowLeftIcon, Edit, MoreVertical, Share2, SlidersIcon, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import type { ShoppingListPayload } from "../../Domain/Schemas/ShoppingList.schema";
 import { CreateEditListModal } from "../ShoppingLists/CreateEditListModal";
 import { DeleteListModal } from "../ShoppingLists/DeleteListModal";
 import { OptimizationPreferencesModal } from "../components/OptimizationPreferencesModal.simple";
-import { MoreActionModal } from "./MoreActionModal";
 import { OptimizeListButton } from "./OptimizeListButton";
-import ShareListModal from "./ShareListModal/ShareListModal";
+import { ShareModalNew } from "./ShareListModal/ShareModalNew";
 
 interface ShoppingListPageHeaderProps {
   shoppingListId: string;
@@ -42,71 +50,127 @@ export const ShoppingListDetailsHeader = ({
   };
 
   return (
-    <div className="flex flex-col gap-4 mb-6 pb-4 border-b border-gray-200">
-      {/* Ligne des boutons */}
-      <div className="flex items-center justify-between">
-        <Button
-          variant="light"
-          size="lg"
-          startContent={<ArrowLeftIcon className="h-4 w-4" />}
-          className="text-primary-500 hover:shadow-sm transition-all px-0 min-w-0"
-          onPress={() => router.push("/shopping-lists")}
-        >
-          {listName} (Personal)
-        </Button>
+    <div className="flex flex-col gap-3 mb-4 sm:mb-6 pb-3 sm:pb-4 border-b border-gray-200">
+      {/* Header with actions */}
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2 flex-1 min-w-0">
+          <Button
+            variant="light"
+            size="sm"
+            isIconOnly
+            className="flex-shrink-0"
+            onPress={() => router.push("/shopping-lists")}
+          >
+            <ArrowLeftIcon className="h-4 w-4" />
+          </Button>
+          <div className="flex flex-col min-w-0 flex-1">
+            <h1 className="text-base sm:text-lg font-semibold truncate">{listName}</h1>
+            {list.isPublic && (
+              <Chip size="sm" variant="flat" color="primary" className="mt-1 w-fit">
+                <Trans>Shared</Trans>
+              </Chip>
+            )}
+          </div>
+        </div>
 
-        <div className="flex items-center gap-2">
-          <Tooltip content="Invite someone to collaborate">
-            <Button variant="light" size="md" isIconOnly onPress={handleShareList}>
-              <UserPlusIcon className="h-4 w-4" />
-            </Button>
-          </Tooltip>
+        <div className="flex items-center gap-2 flex-shrink-0">
+          {/* Mobile: Show dropdown menu */}
+          <div className="flex sm:hidden items-center gap-1">
+            <Dropdown placement="bottom-end">
+              <DropdownTrigger>
+                <Button variant="light" size="sm" isIconOnly>
+                  <MoreVertical className="h-4 w-4" />
+                </Button>
+              </DropdownTrigger>
+              <DropdownMenu aria-label="List actions">
+                <DropdownItem
+                  key="share"
+                  startContent={<Share2 className="h-4 w-4" />}
+                  onPress={handleShareList}
+                >
+                  <Trans>Share</Trans>
+                </DropdownItem>
+                <DropdownItem key="edit" startContent={<Edit className="h-4 w-4" />} onPress={handleEdit}>
+                  <Trans>Edit</Trans>
+                </DropdownItem>
+                <DropdownItem
+                  key="delete"
+                  className="text-danger"
+                  color="danger"
+                  startContent={<Trash className="h-4 w-4" />}
+                  onPress={handleDelete}
+                >
+                  <Trans>Delete</Trans>
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </div>
 
-          <Tooltip content="More actions">
-            <Button isIconOnly variant="light" size="md" onPress={actionsModal.onOpen}>
-              <MoreVerticalIcon className="h-4 w-4" />
+          {/* Desktop: Show all buttons */}
+          <div className="hidden sm:flex items-center gap-2">
+            <Button
+              variant="light"
+              size="sm"
+              startContent={<Share2 className="h-4 w-4" />}
+              onPress={handleShareList}
+            >
+              <Trans>Share</Trans>
             </Button>
-          </Tooltip>
+            <Button
+              variant="light"
+              size="sm"
+              startContent={<Edit className="h-4 w-4" />}
+              onPress={handleEdit}
+            >
+              <Trans>Edit</Trans>
+            </Button>
+            <Dropdown placement="bottom-end">
+              <DropdownTrigger>
+                <Button variant="light" size="sm" isIconOnly>
+                  <MoreVertical className="h-4 w-4" />
+                </Button>
+              </DropdownTrigger>
+              <DropdownMenu aria-label="More actions">
+                <DropdownItem
+                  key="preferences"
+                  startContent={<SlidersIcon className="h-4 w-4" />}
+                  onPress={preferencesModal.onOpen}
+                >
+                  <Trans>Preferences</Trans>
+                </DropdownItem>
+                <DropdownItem
+                  key="delete"
+                  className="text-danger"
+                  color="danger"
+                  startContent={<Trash className="h-4 w-4" />}
+                  onPress={handleDelete}
+                >
+                  <Trans>Delete</Trans>
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </div>
         </div>
       </div>
 
       {/* Optimize List Button */}
       {list.items && list.items.length > 0 && (
-        <div className="flex justify-end gap-2">
-          <Tooltip content="Adjust optimization preferences">
-            <Button
-              variant="flat"
-              size="md"
-              onPress={preferencesModal.onOpen}
-              startContent={<SlidersIcon className="h-4 w-4" />}
-            >
-              Preferences
-            </Button>
-          </Tooltip>
+        <div className="flex justify-end">
           <OptimizeListButton
             listId={shoppingListId}
             onOptimizationComplete={() => {
-              // Refresh the page to show updated prices
               router.refresh();
             }}
           />
         </div>
       )}
 
-      <MoreActionModal
-        isOpen={actionsModal.isOpen}
-        onClose={actionsModal.onClose}
-        onDelete={handleDelete}
-        onEdit={handleEdit}
-        onShare={handleShareList}
-        shoppingListId={shoppingListId}
-      />
-
-      <ShareListModal
+      <ShareModalNew
         isOpen={shareModal.isOpen}
-        onCloseAction={shareModal.onClose}
+        onClose={shareModal.onClose}
         listId={shoppingListId}
         listName={listName}
+        ownerId={list.userId}
       />
 
       <CreateEditListModal isOpen={editModal.isOpen} onClose={editModal.onClose} list={list} mode="edit" />

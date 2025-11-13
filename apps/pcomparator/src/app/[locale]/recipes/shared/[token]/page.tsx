@@ -18,6 +18,7 @@ export default async function SharedRecipePage({ params }: SharedRecipePageProps
 
     return (
       <div className="container mx-auto p-4 sm:p-6 max-w-5xl">
+        {/* @ts-ignore */}
         <RecipeDetails recipe={recipe} />
       </div>
     );

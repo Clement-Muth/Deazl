@@ -1,6 +1,17 @@
 "use client";
 
-import { Button, Card, CardBody, CardHeader, Chip, Tooltip, useDisclosure } from "@heroui/react";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Chip,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+  useDisclosure
+} from "@heroui/react";
 import { Trans } from "@lingui/react/macro";
 import { motion } from "framer-motion";
 import {
@@ -9,6 +20,7 @@ import {
   Clock,
   Edit,
   Flame,
+  MoreVertical,
   Printer,
   Share2,
   ShoppingCart,
@@ -19,7 +31,7 @@ import { useState } from "react";
 import { ProductDetailPage } from "~/packages/applications/shopping-lists/src/Ui/components/ProductDetailPage";
 import type { RecipePayload } from "../Domain/Schemas/Recipe.schema";
 import { AddRecipeToListModal } from "./RecipeDetails/AddRecipeToListModal";
-import ShareRecipeModal from "./RecipeDetails/ShareRecipeModal/ShareRecipeModal";
+import { ShareRecipeModalNew } from "./RecipeDetails/ShareRecipeModal/ShareRecipeModalNew";
 
 interface RecipeDetailsProps {
   recipe: RecipePayload;
@@ -60,55 +72,104 @@ export default function RecipeDetails({ recipe }: RecipeDetailsProps) {
   return (
     <div className="space-y-3 sm:space-y-4">
       {/* Header with actions */}
-      <div className="flex flex-col gap-3 sm:gap-4 mb-4 sm:mb-6 pb-3 sm:pb-4 border-b border-gray-200">
+      <div className="flex flex-col gap-3 mb-4 sm:mb-6 pb-3 sm:pb-4 border-b border-gray-200">
         <div className="flex items-center justify-between gap-2">
-          <Tooltip content="Retour aux recettes">
+          <div className="flex items-center gap-2 flex-1 min-w-0">
             <Button
               variant="light"
               size="sm"
-              startContent={<ArrowLeftIcon className="h-3 w-3 sm:h-4 sm:w-4" />}
-              className="text-primary-500 hover:shadow-sm transition-all px-0 min-w-0 text-sm sm:text-base truncate"
+              isIconOnly
+              className="flex-shrink-0"
               onPress={() => router.push("/recipes")}
             >
-              <span className="truncate max-w-[150px] sm:max-w-none">{recipe.name}</span>
+              <ArrowLeftIcon className="h-4 w-4" />
             </Button>
-          </Tooltip>
+            <div className="flex flex-col min-w-0 flex-1">
+              <h1 className="text-base sm:text-lg font-semibold truncate">{recipe.name}</h1>
+              {recipe.isPublic && (
+                <Chip size="sm" variant="flat" color="primary" className="mt-1 w-fit">
+                  <Trans>Shared</Trans>
+                </Chip>
+              )}
+            </div>
+          </div>
 
-          <div className="flex items-center gap-1 sm:gap-2">
-            <Tooltip content={<Trans>Add to shopping list</Trans>}>
+          <div className="flex items-center gap-2 flex-shrink-0">
+            {/* Mobile: Show only primary action + menu */}
+            <div className="flex sm:hidden items-center gap-1">
               <Button color="primary" size="sm" isIconOnly onPress={onAddToListOpen}>
-                <ShoppingCart className="h-3 w-3 sm:h-4 sm:w-4" />
+                <ShoppingCart className="h-4 w-4" />
               </Button>
-            </Tooltip>
+              <Dropdown placement="bottom-end">
+                <DropdownTrigger>
+                  <Button variant="light" size="sm" isIconOnly>
+                    <MoreVertical className="h-4 w-4" />
+                  </Button>
+                </DropdownTrigger>
+                <DropdownMenu aria-label="Recipe actions">
+                  <DropdownItem key="share" startContent={<Share2 className="h-4 w-4" />} onPress={onOpen}>
+                    <Trans>Share</Trans>
+                  </DropdownItem>
+                  <DropdownItem
+                    key="edit"
+                    startContent={<Edit className="h-4 w-4" />}
+                    onPress={() => router.push(`/recipes/${recipe.id}/edit`)}
+                  >
+                    <Trans>Edit</Trans>
+                  </DropdownItem>
+                  <DropdownItem
+                    key="print"
+                    startContent={<Printer className="h-4 w-4" />}
+                    onPress={() => window.print()}
+                  >
+                    <Trans>Print</Trans>
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+            </div>
 
-            <Tooltip content="Partager la recette">
-              <Button variant="light" size="sm" isIconOnly onPress={onOpen}>
-                <Share2 className="h-3 w-3 sm:h-4 sm:w-4" />
+            {/* Desktop: Show all buttons */}
+            <div className="hidden sm:flex items-center gap-2">
+              <Button
+                color="primary"
+                size="sm"
+                startContent={<ShoppingCart className="h-4 w-4" />}
+                onPress={onAddToListOpen}
+              >
+                <Trans>Add to list</Trans>
               </Button>
-            </Tooltip>
-
-            <Tooltip content="Modifier la recette">
               <Button
                 variant="light"
                 size="sm"
-                isIconOnly
+                startContent={<Share2 className="h-4 w-4" />}
+                onPress={onOpen}
+              >
+                <Trans>Share</Trans>
+              </Button>
+              <Button
+                variant="light"
+                size="sm"
+                startContent={<Edit className="h-4 w-4" />}
                 onPress={() => router.push(`/recipes/${recipe.id}/edit`)}
               >
-                <Edit className="h-3 w-3 sm:h-4 sm:w-4" />
+                <Trans>Edit</Trans>
               </Button>
-            </Tooltip>
-
-            <Tooltip content="Imprimer">
               <Button variant="light" size="sm" isIconOnly onPress={() => window.print()}>
-                <Printer className="h-3 w-3 sm:h-4 sm:w-4" />
+                <Printer className="h-4 w-4" />
               </Button>
-            </Tooltip>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Share Modal */}
-      <ShareRecipeModal isOpen={isOpen} onClose={onClose} recipeId={recipe.id} recipeName={recipe.name} />
+      <ShareRecipeModalNew
+        isOpen={isOpen}
+        onClose={onClose}
+        recipeId={recipe.id}
+        recipeName={recipe.name}
+        ownerId={recipe.userId}
+      />
 
       {/* Image with animation */}
       {recipe.imageUrl && (
@@ -289,7 +350,6 @@ export default function RecipeDetails({ recipe }: RecipeDetailsProps) {
       </div>
 
       {/* Modals */}
-      <ShareRecipeModal isOpen={isOpen} onClose={onClose} recipeId={recipe.id} recipeName={recipe.name} />
       <AddRecipeToListModal isOpen={isAddToListOpen} onClose={onAddToListClose} recipe={recipe} />
 
       {/* Product Detail Modal */}

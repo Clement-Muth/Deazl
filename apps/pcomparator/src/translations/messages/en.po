@@ -34,12 +34,6 @@ msgid "Your file exceeded the limit ${maxSize}Mo"
 msgstr "Your file exceeded the limit ${maxSize}Mo"
 
 #. js-lingui-explicit-id
-#: src/applications/Profile/Ui/Settings/DeleteAccount.tsx
-#: src/applications/Profile/Ui/Settings/DeleteAccount.tsx
-msgid "delete my account"
-msgstr "delete my account"
-
-#. js-lingui-explicit-id
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step1/PriceDetails.tsx
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step2/Price.tsx
 msgid "Please enter a valid price."
@@ -66,10 +60,6 @@ msgstr "-{0}€"
 msgid "{0} items will be merged, {1} new items will be added"
 msgstr "{0} items will be merged, {1} new items will be added"
 
-#: src/applications/Recipes/Ui/RecipeForm/AIDescriptionButton.tsx
-msgid "{error}"
-msgstr "{error}"
-
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
 msgid "{name} has been added to your list"
 msgstr "{name} has been added to your list"
@@ -83,13 +73,9 @@ msgstr "© 2025 Deazl. All rights reserved."
 msgid "+{0}€ vs best"
 msgstr "+{0}€ vs best"
 
-#: src/applications/Profile/Ui/Settings/DeleteAccount.tsx
-msgid "<0>Permanently remove your Personal Account and all of its contents from the PComparator platform. This action is not reversible, so please continue with caution.</0>"
-msgstr "<0>Permanently remove your Personal Account and all of its contents from the PComparator platform. This action is not reversible, so please continue with caution.</0>"
-
-#: src/applications/Profile/Ui/Settings/DeleteAccount.tsx
-msgid "<0>To verify, type</0> <1>delete my account</1><2> below:</2>"
-msgstr "<0>To verify, type</0> <1>delete my account</1><2> below:</2>"
+#: src/applications/Profile/Ui/Settings/PhoneNumber.tsx
+msgid "+33 6 12 34 56 78"
+msgstr "+33 6 12 34 56 78"
 
 #: src/app/[locale]/pricing/page.tsx
 msgid "100% Free and Open Source"
@@ -162,6 +148,13 @@ msgstr "Add a Price"
 msgid "Add a product that doesn't exist in our database"
 msgstr "Add a product that doesn't exist in our database"
 
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalBody.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalBody.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalBody.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalBody.tsx
+msgid "Add Collaborator"
+msgstr "Add Collaborator"
+
 #: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
 msgid "Add ingredient"
 msgstr "Add ingredient"
@@ -207,6 +200,7 @@ msgstr "Add the products you want to track"
 msgid "Add this product"
 msgstr "Add this product"
 
+#: src/applications/Recipes/Ui/RecipeDetails.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ProductSelectionModal.tsx
 msgid "Add to list"
 msgstr "Add to list"
@@ -214,10 +208,6 @@ msgstr "Add to list"
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
 msgid "Add to List"
 msgstr "Add to List"
-
-#: src/applications/Recipes/Ui/RecipeDetails.tsx
-msgid "Add to shopping list"
-msgstr "Add to shopping list"
 
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
 msgid "Add to Shopping List"
@@ -245,13 +235,14 @@ msgstr "All"
 msgid "All our features"
 msgstr "All our features"
 
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+msgid "Already Added"
+msgstr "Already Added"
+
 #: src/views/Home/components/CTA/CTASection.tsx
 msgid "Already over 10,000 products referenced and new prices added every day."
 msgstr "Already over 10,000 products referenced and new prices added every day."
-
-#: src/applications/Profile/Ui/Settings/Avatar.tsx
-msgid "An avatar is optional but strongly recommended."
-msgstr "An avatar is optional but strongly recommended."
 
 #: src/app/[locale]/error.tsx
 msgid "An error occurred"
@@ -268,6 +259,11 @@ msgstr "An unexpected error occurred"
 #: src/app/[locale]/features/page.tsx
 msgid "Analysis of savings made"
 msgstr "Analysis of savings made"
+
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalBody.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalBody.tsx
+msgid "Anyone with the link can view"
+msgstr "Anyone with the link can view"
 
 #: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModal.tsx
 msgid "Anyone with this link can view the recipe"
@@ -291,10 +287,6 @@ msgid "Availability"
 msgstr "Availability"
 
 #: src/applications/Profile/Ui/Settings/Avatar.tsx
-msgid "Avatar"
-msgstr "Avatar"
-
-#: src/applications/Profile/Ui/Settings/Avatar.tsx
 msgid "Avatar updated"
 msgstr "Avatar updated"
 
@@ -303,6 +295,7 @@ msgstr "Avatar updated"
 msgid "Average savings"
 msgstr "Average savings"
 
+#: src/app/[locale]/settings/page.tsx
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step2/Location.tsx
 msgid "Back"
 msgstr "Back"
@@ -353,7 +346,36 @@ msgstr "By signing in, you agree to our <0>terms of service</0> and <1>privacy p
 msgid "Camera"
 msgstr "Camera"
 
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalBody.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalBody.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalBody.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalBody.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalBody.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalBody.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalBody.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalBody.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalBody.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalBody.tsx
+msgid "Can edit"
+msgstr "Can edit"
+
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalBody.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalBody.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalBody.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalBody.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalBody.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalBody.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalBody.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalBody.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalBody.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalBody.tsx
+msgid "Can view"
+msgstr "Can view"
+
 #: src/applications/Prices/Ui/ListPrices/CardPrice/DeletePriceModal/DeletePriceModal.tsx
+#: src/applications/Profile/Ui/Settings/DeleteAccount.tsx
+#: src/applications/Profile/Ui/Settings/DisplayName.tsx
+#: src/applications/Profile/Ui/Settings/PhoneNumber.tsx
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
 #: src/applications/Recipes/Ui/RecipeForm/CreateProductModal.tsx
 #: src/applications/Recipes/Ui/RecipeForm/RecipeFormNavigation.tsx
@@ -409,9 +431,19 @@ msgstr "Collaborative lists"
 msgid "Collaborative shopping lists"
 msgstr "Collaborative shopping lists"
 
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+msgid "Collaborator added successfully"
+msgstr "Collaborator added successfully"
+
 #: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/useRecipeShare.tsx
 msgid "Collaborator invited successfully"
 msgstr "Collaborator invited successfully"
+
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+msgid "Collaborator removed"
+msgstr "Collaborator removed"
 
 #: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModal.tsx
 msgid "Collaborators"
@@ -471,6 +503,10 @@ msgstr "Consumption trends"
 msgid "Contact"
 msgstr "Contact"
 
+#: src/app/[locale]/settings/page.tsx
+msgid "Contact Information"
+msgstr "Contact Information"
+
 #: src/app/[locale]/features/page.tsx
 msgid "Contact us"
 msgstr "Contact us"
@@ -500,6 +536,8 @@ msgid "Cooking (min)"
 msgstr "Cooking (min)"
 
 #: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModal.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalBody.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalBody.tsx
 msgid "Copy"
 msgstr "Copy"
 
@@ -609,6 +647,10 @@ msgstr "Cup"
 msgid "Custom location"
 msgstr "Custom location"
 
+#: src/app/[locale]/settings/page.tsx
+msgid "Danger Zone"
+msgstr "Danger Zone"
+
 #: src/components/ThemeSwitcher/ThemeSwitcher.tsx
 msgid "Dark"
 msgstr "Dark"
@@ -649,9 +691,10 @@ msgstr "Deazl was born from a simple conviction: everyone should be able to shop
 msgid "Default values have been restored"
 msgstr "Default values have been restored"
 
-#: src/applications/Profile/Ui/Settings/DeleteAccount.tsx
-msgid "Delete Account"
-msgstr "Delete Account"
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListDetailsHeader.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListDetailsHeader.tsx
+msgid "Delete"
+msgstr "Delete"
 
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/DeleteListModal.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/DeleteListModal.tsx
@@ -697,8 +740,20 @@ msgid "Discover how Deazl helps our users save on their groceries every day."
 msgstr "Discover how Deazl helps our users save on their groceries every day."
 
 #: src/applications/Profile/Ui/Settings/DisplayName.tsx
-msgid "Display Name"
-msgstr "Display Name"
+msgid "Display name"
+msgstr "Display name"
+
+#: src/applications/Profile/Ui/Settings/DisplayName.tsx
+msgid "Display name is required"
+msgstr "Display name is required"
+
+#: src/applications/Profile/Ui/Settings/DisplayName.tsx
+msgid "Display name must be 32 characters or less"
+msgstr "Display name must be 32 characters or less"
+
+#: src/applications/Profile/Ui/Settings/DisplayName.tsx
+msgid "Display name updated"
+msgstr "Display name updated"
 
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ItemPriceAlternativesModal/ItemPriceAlternativesModal.tsx
 msgid "Distance"
@@ -737,6 +792,13 @@ msgstr "Easy"
 msgid "Easy sharing with loved ones"
 msgstr "Easy sharing with loved ones"
 
+#: src/applications/Recipes/Ui/RecipeDetails.tsx
+#: src/applications/Recipes/Ui/RecipeDetails.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListDetailsHeader.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListDetailsHeader.tsx
+msgid "Edit"
+msgstr "Edit"
+
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/CreateEditListModal.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/ShoppingListCard.tsx
 msgid "Edit List"
@@ -754,9 +816,14 @@ msgstr "Edit Recipe"
 msgid "Editor"
 msgstr "Editor"
 
-#: src/applications/Profile/Ui/Settings/PhoneNumber.tsx
-msgid "Enter a phone number to receive important service updates by SMS."
-msgstr "Enter a phone number to receive important service updates by SMS."
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalBody.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalBody.tsx
+msgid "Email"
+msgstr "Email"
+
+#: src/applications/Profile/Ui/Settings/DisplayName.tsx
+msgid "Enter your display name"
+msgstr "Enter your display name"
 
 #: src/components/Inputs/Phone/Phone.tsx
 msgid "Enter your phone number"
@@ -770,11 +837,22 @@ msgstr "Enter your product name"
 msgid "Environment"
 msgstr "Environment"
 
+#: src/applications/Profile/Ui/Settings/Avatar.tsx
+#: src/applications/Profile/Ui/Settings/DeleteAccount.tsx
+#: src/applications/Profile/Ui/Settings/DisplayName.tsx
+#: src/applications/Profile/Ui/Settings/PhoneNumber.tsx
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
 #: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/useRecipeShare.tsx
 #: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/useRecipeShare.tsx
 #: src/applications/Recipes/Ui/RecipeForm/CreateProductModal.tsx
@@ -787,6 +865,13 @@ msgstr "Environment"
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/OptimizeListButton/OptimizeListButton.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/OptimizeListButton/OptimizeListButton.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/useShareList.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/useShoppingListShare.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/useShoppingListShare.tsx
@@ -817,6 +902,13 @@ msgstr "Ex: Apple Pie"
 msgid "Excellence"
 msgstr "Excellence"
 
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+msgid "Failed to add collaborator"
+msgstr "Failed to add collaborator"
+
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/useQuickAdd.tsx
 msgid "Failed to add item"
 msgstr "Failed to add item"
@@ -839,6 +931,10 @@ msgstr "Failed to create shopping list"
 msgid "Failed to create store"
 msgstr "Failed to create store"
 
+#: src/applications/Profile/Ui/Settings/DeleteAccount.tsx
+msgid "Failed to delete account. Please try again."
+msgstr "Failed to delete account. Please try again."
+
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/DeleteListModal.tsx
 msgid "Failed to delete shopping list"
 msgstr "Failed to delete shopping list"
@@ -855,6 +951,16 @@ msgstr "Failed to invite collaborator"
 msgid "Failed to load collaborators"
 msgstr "Failed to load collaborators"
 
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+msgid "Failed to load sharing information"
+msgstr "Failed to load sharing information"
+
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+msgid "Failed to remove collaborator"
+msgstr "Failed to remove collaborator"
+
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/useShoppingListActions.tsx
 msgid "Failed to remove item"
 msgstr "Failed to remove item"
@@ -864,6 +970,14 @@ msgstr "Failed to remove item"
 msgid "Failed to send invitation"
 msgstr "Failed to send invitation"
 
+#: src/applications/Profile/Ui/Settings/Avatar.tsx
+msgid "Failed to update avatar"
+msgstr "Failed to update avatar"
+
+#: src/applications/Profile/Ui/Settings/DisplayName.tsx
+msgid "Failed to update display name"
+msgstr "Failed to update display name"
+
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/useShoppingListActions.tsx
 msgid "Failed to update item"
 msgstr "Failed to update item"
@@ -871,6 +985,20 @@ msgstr "Failed to update item"
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/useShoppingListActions.tsx
 msgid "Failed to update item status"
 msgstr "Failed to update item status"
+
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+msgid "Failed to update link status"
+msgstr "Failed to update link status"
+
+#: src/applications/Profile/Ui/Settings/PhoneNumber.tsx
+msgid "Failed to update phone number"
+msgstr "Failed to update phone number"
+
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+msgid "Failed to update role"
+msgstr "Failed to update role"
 
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/CreateEditListModal.tsx
 msgid "Failed to update shopping list"
@@ -904,10 +1032,6 @@ msgstr "Founded in 2024, Deazl is the result of a collaboration between technolo
 #: src/app/[locale]/pricing/page.tsx
 msgid "Frequently Asked Questions"
 msgstr "Frequently Asked Questions"
-
-#: src/applications/Profile/Ui/Settings/DisplayName.tsx
-msgid "Fullname updated"
-msgstr "Fullname updated"
 
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step1/PriceDetails.tsx
 msgid "Gallery"
@@ -1028,14 +1152,6 @@ msgstr "Install Our App for a Better Experience!"
 msgid "Instantly compare prices between different stores. Our database is updated daily by our active community."
 msgstr "Instantly compare prices between different stores. Our database is updated daily by our active community."
 
-#: src/applications/Profile/Ui/Settings/DisplayName.tsx
-msgid "Invalid display name."
-msgstr "Invalid display name."
-
-#: src/applications/Profile/Ui/Settings/PhoneNumber.tsx
-msgid "Invalid phone number."
-msgstr "Invalid phone number."
-
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/useShareList.tsx
 msgid "Invitation sent"
 msgstr "Invitation sent"
@@ -1051,6 +1167,10 @@ msgstr "Invite"
 #: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModal.tsx
 msgid "Invite People"
 msgstr "Invite People"
+
+#: src/app/[locale]/settings/page.tsx
+msgid "Irreversible and destructive actions"
+msgstr "Irreversible and destructive actions"
 
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/useQuickAdd.tsx
 msgid "Item added"
@@ -1138,6 +1258,21 @@ msgstr "Light"
 msgid "Link copied"
 msgstr "Link copied"
 
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+msgid "Link copied to clipboard"
+msgstr "Link copied to clipboard"
+
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+msgid "Link is now private"
+msgstr "Link is now private"
+
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+msgid "Link is now public"
+msgstr "Link is now public"
+
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/CreateEditListModal.tsx
 msgid "List created"
 msgstr "List created"
@@ -1181,6 +1316,10 @@ msgstr "Make Public"
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/ShoppingListsView.tsx
 msgid "Manage and organize your shopping lists"
 msgstr "Manage and organize your shopping lists"
+
+#: src/app/[locale]/settings/page.tsx
+msgid "Manage your contact details"
+msgstr "Manage your contact details"
 
 #: src/applications/Products/Ui/NewProduct/NewProduct.tsx
 #: src/core/pwa/Install.tsx
@@ -1255,6 +1394,11 @@ msgstr "New list name"
 msgid "Next"
 msgstr "Next"
 
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+msgid "No account exists with this email address. Please invite them to create an account first."
+msgstr "No account exists with this email address. Please invite them to create an account first."
+
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/EmptyState.tsx
 msgid "No active shopping lists"
 msgstr "No active shopping lists"
@@ -1299,6 +1443,11 @@ msgstr "Nutri-Score"
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/EmptyState.tsx
 msgid "Once you complete a shopping list, it will appear here for your reference."
 msgstr "Once you complete a shopping list, it will appear here for your reference."
+
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+msgid "Only the owner can add collaborators."
+msgstr "Only the owner can add collaborators."
 
 #: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
 msgid "Optimization Preferences"
@@ -1352,14 +1501,28 @@ msgstr "Our values"
 msgid "Our vision"
 msgstr "Our vision"
 
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalBody.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalBody.tsx
+msgid "Owner"
+msgstr "Owner"
+
 #: src/views/Home/components/HomeStats.tsx
 #: src/views/Home/components/Stats/StatsSection.tsx
 msgid "Partner stores"
 msgstr "Partner stores"
 
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalBody.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalBody.tsx
+msgid "People with access"
+msgstr "People with access"
+
+#: src/applications/Profile/Ui/Settings/DeleteAccount.tsx
+msgid "Permanently remove your Personal Account and all of its contents from the Deazl platform. This action is not reversible, so please continue with caution."
+msgstr "Permanently remove your Personal Account and all of its contents from the Deazl platform. This action is not reversible, so please continue with caution."
+
 #: src/applications/Profile/Ui/Settings/PhoneNumber.tsx
-msgid "Phone Number"
-msgstr "Phone Number"
+msgid "Phone number"
+msgstr "Phone number"
 
 #: src/applications/Profile/Ui/Settings/PhoneNumber.tsx
 msgid "Phone number updated"
@@ -1381,9 +1544,14 @@ msgstr "Please enter a list name"
 msgid "Please enter a name for your list"
 msgstr "Please enter a name for your list"
 
-#: src/applications/Profile/Ui/Settings/DisplayName.tsx
-msgid "Please enter your full name, or a display name you are comfortable with."
-msgstr "Please enter your full name, or a display name you are comfortable with."
+#: src/applications/Profile/Ui/Settings/PhoneNumber.tsx
+msgid "Please enter a valid phone number format."
+msgstr "Please enter a valid phone number format."
+
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+msgid "Please enter an email address"
+msgstr "Please enter an email address"
 
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
 msgid "Please select a shopping list"
@@ -1393,14 +1561,13 @@ msgstr "Please select a shopping list"
 msgid "Please select at least one ingredient"
 msgstr "Please select at least one ingredient"
 
-#: src/applications/Profile/Ui/Settings/DisplayName.tsx
-#: src/applications/Profile/Ui/Settings/PhoneNumber.tsx
-msgid "Please use 32 characters at maximum."
-msgstr "Please use 32 characters at maximum."
-
 #: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
 msgid "PNG, JPG up to 10MB"
 msgstr "PNG, JPG up to 10MB"
+
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListDetailsHeader.tsx
+msgid "Preferences"
+msgstr "Preferences"
 
 #: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
 msgid "Preferences Reset"
@@ -1496,6 +1663,10 @@ msgstr "Prices verified by the community"
 msgid "Pricing"
 msgstr "Pricing"
 
+#: src/applications/Recipes/Ui/RecipeDetails.tsx
+msgid "Print"
+msgstr "Print"
+
 #: src/components/Footer/Footer.tsx
 msgid "Privacy"
 msgstr "Privacy"
@@ -1544,6 +1715,14 @@ msgstr "Product not found"
 msgid "Product Not Found"
 msgstr "Product Not Found"
 
+#: src/app/[locale]/settings/page.tsx
+msgid "Profile Information"
+msgstr "Profile Information"
+
+#: src/applications/Profile/Ui/Settings/Avatar.tsx
+msgid "Profile Picture"
+msgstr "Profile Picture"
+
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step1/PriceDetails.tsx
 msgid "Proof photo (optional)"
 msgstr "Proof photo (optional)"
@@ -1570,6 +1749,11 @@ msgstr "Quantity"
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListQuickAddBar.tsx
 msgid "Quick Add"
 msgstr "Quick Add"
+
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalBody.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalBody.tsx
+msgid "Quick Share"
+msgstr "Quick Share"
 
 #: src/app/[locale]/features/page.tsx
 msgid "Ready to save on your groceries?"
@@ -1601,6 +1785,10 @@ msgstr "Recipe Name"
 msgid "Recipes"
 msgstr "Recipes"
 
+#: src/applications/Profile/Ui/Settings/Avatar.tsx
+msgid "Recommended: Square image, at least 200x200px. Max size: 5MB. Formats: PNG, JPG, WEBP"
+msgstr "Recommended: Square image, at least 200x200px. Max size: 5MB. Formats: PNG, JPG, WEBP"
+
 #: src/app/[locale]/auth/signin/page.tsx
 msgid "Redirecting..."
 msgstr "Redirecting..."
@@ -1619,6 +1807,7 @@ msgstr "Remove all from recipe"
 msgid "Removed {0}"
 msgstr "Removed {0}"
 
+#: src/applications/Profile/Ui/Settings/Avatar.tsx
 #: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
 msgid "Reset"
 msgstr "Reset"
@@ -1627,12 +1816,20 @@ msgstr "Reset"
 msgid "Return to the app"
 msgstr "Return to the app"
 
-#: src/applications/Profile/Ui/Settings/DisplayName.tsx
-#: src/applications/Profile/Ui/Settings/PhoneNumber.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+msgid "Role updated"
+msgstr "Role updated"
+
 #: src/packages/applications/shopping-lists/src/Ui/components/OptimizationPreferencesModal.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListItemCard/ShoppingListItemCard.tsx
 msgid "Save"
 msgstr "Save"
+
+#: src/applications/Profile/Ui/Settings/DisplayName.tsx
+#: src/applications/Profile/Ui/Settings/PhoneNumber.tsx
+msgid "Save changes"
+msgstr "Save changes"
 
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/CreateEditListModal.tsx
 msgid "Save Changes"
@@ -1706,7 +1903,26 @@ msgstr "servings"
 msgid "Settings"
 msgstr "Settings"
 
+#: src/applications/Recipes/Ui/RecipeDetails.tsx
+#: src/applications/Recipes/Ui/RecipeDetails.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalBody.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalBody.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListDetailsHeader.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListDetailsHeader.tsx
+msgid "Share"
+msgstr "Share"
+
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+msgid "Share \"{listName}\""
+msgstr "Share \"{listName}\""
+
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+msgid "Share \"{recipeName}\""
+msgstr "Share \"{recipeName}\""
+
 #: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModal.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalBody.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalBody.tsx
 msgid "Share Link"
 msgstr "Share Link"
 
@@ -1725,6 +1941,11 @@ msgstr "Share Recipe"
 #: src/applications/Recipes/Ui/RecipeForm/RecipeFormCreate.tsx
 msgid "Share your favorite recipe with the community"
 msgstr "Share your favorite recipe with the community"
+
+#: src/applications/Recipes/Ui/RecipeDetails.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShoppingListDetailsHeader.tsx
+msgid "Shared"
+msgstr "Shared"
 
 #: src/views/Home/components/HowItWorks/HowItWorksSection.tsx
 msgid "Shop at the best prices"
@@ -1830,9 +2051,22 @@ msgstr "Store Name"
 msgid "Store network"
 msgstr "Store network"
 
+#: src/applications/Profile/Ui/Settings/Avatar.tsx
+#: src/applications/Profile/Ui/Settings/DisplayName.tsx
+#: src/applications/Profile/Ui/Settings/PhoneNumber.tsx
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
 #: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/useRecipeShare.tsx
 #: src/applications/Recipes/Ui/RecipeForm/CreateProductModal.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/useShoppingListShare.tsx
 msgid "Success"
 msgstr "Success"
@@ -1873,6 +2107,10 @@ msgstr "Technology at the service of your purchasing power."
 msgid "Terms of Service"
 msgstr "Terms of Service"
 
+#: src/applications/Profile/Ui/Settings/DeleteAccount.tsx
+msgid "Text doesn't match. Please type exactly: {expectedText}"
+msgstr "Text doesn't match. Please type exactly: {expectedText}"
+
 #: src/views/Home/components/Testimonials/TestimonialsSection.tsx
 msgid "Thanks to Deazl, I save an average of €20 per week on my groceries. The app is very easy to use!"
 msgstr "Thanks to Deazl, I save an average of €20 per week on my groceries. The app is very easy to use!"
@@ -1909,18 +2147,30 @@ msgstr "This action <0>CANNOT be undone</0>. Please be certain about your decisi
 msgid "This action cannot be undone."
 msgstr "This action cannot be undone."
 
+#: src/applications/Profile/Ui/Settings/DeleteAccount.tsx
+msgid "This action will permanently delete your account and all associated data."
+msgstr "This action will permanently delete your account and all associated data."
+
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step3/Proof.tsx
 msgid "This helps verify the price and improves data quality"
 msgstr "This helps verify the price and improves data quality"
 
-#: src/applications/Profile/Ui/Settings/Avatar.tsx
-msgid "This is your avatar."
-msgstr "This is your avatar."
+#: src/applications/Profile/Ui/Settings/DisplayName.tsx
+msgid "This is the name that will be displayed across the application."
+msgstr "This is the name that will be displayed across the application."
 
 #. placeholder {0}: list.totalItems
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/DeleteListModal.tsx
 msgid "This list contains <0>{0} item(s)</0>. All items will be permanently deleted."
 msgstr "This list contains <0>{0} item(s)</0>. All items will be permanently deleted."
+
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+msgid "This user is already a collaborator on this list."
+msgstr "This user is already a collaborator on this list."
+
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+msgid "This user is already a collaborator on this recipe."
+msgstr "This user is already a collaborator on this recipe."
 
 #: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
 msgid "Time"
@@ -1929,6 +2179,10 @@ msgstr "Time"
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/CreateEditListModal.tsx
 msgid "Tip: You can add items to your list after creating it"
 msgstr "Tip: You can add items to your list after creating it"
+
+#: src/applications/Profile/Ui/Settings/DeleteAccount.tsx
+msgid "To verify, type <0>{expectedText}</0> below:"
+msgstr "To verify, type <0>{expectedText}</0> below:"
 
 #: src/app/[locale]/about/page.tsx
 msgid "Together, we build a collaborative and reliable database."
@@ -1996,6 +2250,11 @@ msgstr "Unable to reset preferences"
 msgid "Unable to save preferences"
 msgstr "Unable to save preferences"
 
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+msgid "Unauthorized"
+msgstr "Unauthorized"
+
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step1/PriceDetails.tsx
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step2/Price.tsx
 #: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
@@ -2017,6 +2276,10 @@ msgstr "Update Recipe"
 msgid "Update the name of your shopping list"
 msgstr "Update the name of your shopping list"
 
+#: src/app/[locale]/settings/page.tsx
+msgid "Update your profile information and avatar"
+msgstr "Update your profile information and avatar"
+
 #: src/applications/Recipes/Ui/RecipeForm/RecipeFormEdit.tsx
 msgid "Update your recipe information"
 msgstr "Update your recipe information"
@@ -2029,6 +2292,10 @@ msgstr "Updating..."
 msgid "Upload from gallery"
 msgstr "Upload from gallery"
 
+#: src/applications/Profile/Ui/Settings/Avatar.tsx
+msgid "Upload new"
+msgstr "Upload new"
+
 #: src/views/Home/components/Testimonials/TestimonialsSection.tsx
 msgid "User for 1 year"
 msgstr "User for 1 year"
@@ -2040,6 +2307,11 @@ msgstr "User for 3 months"
 #: src/views/Home/components/Testimonials/TestimonialsSection.tsx
 msgid "User for 6 months"
 msgstr "User for 6 months"
+
+#: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalNew.tsx
+#: src/packages/applications/shopping-lists/src/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
+msgid "User Not Found"
+msgstr "User Not Found"
 
 #: src/views/Home/components/Dashboard/DashboardView.tsx
 msgid "View All"
@@ -2056,6 +2328,10 @@ msgstr "View price trends over time. Monitor changes and find the best deals."
 #: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModal.tsx
 msgid "Viewer"
 msgstr "Viewer"
+
+#: src/applications/Profile/Ui/Settings/DeleteAccount.tsx
+msgid "Warning: This action cannot be undone"
+msgstr "Warning: This action cannot be undone"
 
 #: src/app/[locale]/error.tsx
 msgid "We apologize, but something went wrong. Our team has been notified and is working to resolve the issue."
@@ -2107,6 +2383,10 @@ msgstr "You have view-only access to this list. Contact the owner to make change
 msgid "You must add more than {minFile} files"
 msgstr "You must add more than {minFile} files"
 
+#: src/applications/Profile/Ui/Settings/DeleteAccount.tsx
+msgid "Your account has been permanently deleted"
+msgstr "Your account has been permanently deleted"
+
 #: src/applications/Prices/Ui/ListPrices/CardPrice/SeeMoreMenu/SeeMoreModal.tsx
 msgid "Your criteria"
 msgstr "Your criteria"
@@ -2126,6 +2406,10 @@ msgstr "Your optimization preferences have been updated"
 #: src/components/Inputs/Phone/Phone.tsx
 msgid "Your phone number is not valid"
 msgstr "Your phone number is not valid"
+
+#: src/applications/Profile/Ui/Settings/PhoneNumber.tsx
+msgid "Your phone number will be used for account recovery and notifications."
+msgstr "Your phone number will be used for account recovery and notifications."
 
 #: src/packages/applications/shopping-lists/src/Ui/ShoppingLists/CreateEditListModal.tsx
 msgid "Your shopping list has been created successfully"
