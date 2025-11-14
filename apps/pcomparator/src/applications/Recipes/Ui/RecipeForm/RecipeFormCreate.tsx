@@ -158,7 +158,6 @@ export const RecipeFormCreate = () => {
   };
 
   const canGoToNextStep = () => {
-    console.log("Validating step", formData.ingredients);
     if (currentStep === 1) {
       return formData.name.trim().length > 0;
     }

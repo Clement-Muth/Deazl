@@ -126,8 +126,6 @@ export const AddRecipeToListModal = ({ recipe, isOpen, onClose }: AddRecipeToLis
       return;
     }
 
-    console.log(selectedListId, selectedIngredients.length);
-
     setIsSubmitting(true);
 
     try {

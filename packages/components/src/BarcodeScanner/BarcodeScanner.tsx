@@ -18,14 +18,6 @@ export const BarcodeScanner = ({
   description = "Positionnez le code-barres dans le cadre",
   continuous = false
 }: BarcodeScannerProps) => {
-  // Debug des props reçues
-  console.log("🔧 BarcodeScanner props:", {
-    onScanned: typeof onScanned,
-    onClose: typeof onClose,
-    title,
-    description,
-    continuous
-  });
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -126,7 +118,6 @@ export const BarcodeScanner = ({
 
         try {
           await videoRef.current.play();
-          console.log("✅ Vidéo démarrée avec succès");
 
           // Wait for video to be actually playing
           await new Promise<void>((resolve) => {
@@ -146,7 +137,6 @@ export const BarcodeScanner = ({
             }, 5000);
           });
 
-          console.log("✅ Vidéo prête, démarrage du scan");
           setIsLoading(false);
 
           // Démarrer le scan après que la vidéo soit vraiment prête
@@ -194,32 +184,21 @@ export const BarcodeScanner = ({
   };
 
   const startScanning = useCallback(() => {
-    console.log("🔍 Tentative démarrage scan...", {
-      hasCodeReader: !!codeReaderRef.current,
-      hasVideo: !!videoRef.current,
-      videoReadyState: videoRef.current?.readyState,
-      alreadyScanning: isScanningRef.current
-    });
-
     if (!codeReaderRef.current || !videoRef.current) {
       console.error("❌ Impossible de démarrer le scan: codeReader ou video manquant");
       return;
     }
 
     if (isScanningRef.current) {
-      console.log("⚠️ Scan déjà en cours, skip");
       return;
     }
 
-    console.log("✅ Démarrage du scan...");
     isScanningRef.current = true;
     setIsScanning(true);
 
     try {
       codeReaderRef.current.decodeFromVideoDevice(null, videoRef.current, (result, error) => {
         if (result) {
-          console.log("🎉 Code-barres détecté:", result.getText());
-
           if (typeof onScannedRef.current === "function") {
             onScannedRef.current(result.getText());
           } else {
@@ -245,7 +224,6 @@ export const BarcodeScanner = ({
           console.error("Erreur de scan:", error);
         }
       });
-      console.log("✅ decodeFromVideoDevice lancé avec succès");
     } catch (err) {
       console.error("❌ Erreur lors du démarrage du scan:", err);
       isScanningRef.current = false;
@@ -254,7 +232,6 @@ export const BarcodeScanner = ({
   }, [continuous]);
 
   const stopScanning = () => {
-    console.log("🛑 Arrêt du scan");
     isScanningRef.current = false;
     setIsScanning(false);
     if (scanTimeoutRef.current) {
@@ -284,7 +261,6 @@ export const BarcodeScanner = ({
   const handleManualInput = () => {
     const barcode = prompt("Entrez le code-barres manuellement:");
     if (barcode?.trim()) {
-      console.log("✏️ Saisie manuelle:", barcode.trim());
       if (typeof onScannedRef.current === "function") {
         onScannedRef.current(barcode.trim());
       }
@@ -296,8 +272,6 @@ export const BarcodeScanner = ({
 
   const simulateScanning = () => {
     const testBarcode = "3017620422003"; // Code-barres Nutella
-    console.log("🧪 Test scan simulé:", testBarcode);
-    console.log("🧪 onScannedRef type:", typeof onScannedRef.current);
 
     if (typeof onScannedRef.current === "function") {
       onScannedRef.current(testBarcode);

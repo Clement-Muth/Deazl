@@ -409,7 +409,6 @@ const MyList = () => {
 ```typescript
 // Vérifier le cache
 import { productCache } from "~/Domain/Utils/productCache";
-console.log(productCache.has(`product-${id}`));
 
 // Forcer le rechargement
 productCache.remove(`product-${id}`);

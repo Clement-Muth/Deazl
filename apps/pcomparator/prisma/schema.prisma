@@ -223,6 +223,11 @@ model Recipe {
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
 
+  // Cost and quality estimates
+  estimatedCostTotal     Float?
+  estimatedCostPerServing Float?
+  estimatedQualityScore   Int?
+
   ingredients       RecipeIngredient[]
   steps             RecipeStep[]
   collaborators     RecipeCollaborator[]

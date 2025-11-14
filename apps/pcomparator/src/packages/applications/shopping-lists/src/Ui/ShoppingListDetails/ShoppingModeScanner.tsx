@@ -35,10 +35,7 @@ export const ShoppingModeScanner = ({
             await onItemToggleAction(existingItem.id, true);
             setLastScannedItem(existingItem.product?.name || "Item");
             setScanCount((prev) => prev + 1);
-
-            console.log(`✅ Item "${existingItem.product?.name}" marqué comme complété!`);
           } else {
-            console.log(`ℹ️ Item "${existingItem.product?.name}" déjà complété`);
             setLastScannedItem(`${existingItem.product?.name} (déjà complété)`);
           }
         } else {

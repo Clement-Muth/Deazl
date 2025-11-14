@@ -117,7 +117,6 @@ export const SmartConversionSection = ({
       const response = await fetch(`/api/shopping-lists/items/${itemId}/conversion-suggestions`);
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
         setSuggestions(data);
         setShowModal(data?.suggestedProducts?.length > 0);
       }

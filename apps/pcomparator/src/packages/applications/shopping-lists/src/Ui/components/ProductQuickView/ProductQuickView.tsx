@@ -285,7 +285,6 @@ export const ProductQuickView = ({ productId, isOpen, onClose, onSelectProduct }
           }}
           onAddToList={(id) => {
             // TODO: Implement add to list
-            console.log("Add to list:", id);
           }}
           onCompare={(id) => {
             setShowFullDetails(false);
@@ -293,7 +292,6 @@ export const ProductQuickView = ({ productId, isOpen, onClose, onSelectProduct }
           }}
           onViewAlternatives={(id) => {
             // TODO: Implement view alternatives
-            console.log("View alternatives:", id);
           }}
         />
       )}
