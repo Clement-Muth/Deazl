@@ -232,7 +232,8 @@ export class PrismaRecipeRepository implements RecipeRepository {
         userId: recipeData.userId,
         isPublic: recipeData.isPublic,
         ingredients,
-        steps
+        steps,
+        estimatedQualityScore: recipeData.estimatedQualityScore ?? undefined
       },
       recipeData.id
     );
