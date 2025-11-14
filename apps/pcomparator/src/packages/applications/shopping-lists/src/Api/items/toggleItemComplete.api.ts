@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { ShoppingListItemApplicationService } from "../../Application/Services/ShoppingListItem.service";
 import { PrismaShoppingListRepository } from "../../Infrastructure/Repositories/PrismaShoppingList.infrastructure";
@@ -21,9 +22,13 @@ export const toggleItemComplete = async (itemId: string, isCompleted: boolean): 
   try {
     const payload = ToggleItemCompleteSchema.parse({ itemId, isCompleted });
 
-    await shoppingListItemService.updateShoppingListItem(payload.itemId, {
+    const updatedItem = await shoppingListItemService.updateShoppingListItem(payload.itemId, {
       isCompleted: payload.isCompleted
     });
+
+    // Invalider le cache pour la liste de courses
+    revalidatePath("/[locale]/shopping-lists/[id]", "page");
+    revalidatePath(`/fr/shopping-lists/${updatedItem.shoppingListId}`);
   } catch (error) {
     throw new Error("Failed to update item status", { cause: error });
   }

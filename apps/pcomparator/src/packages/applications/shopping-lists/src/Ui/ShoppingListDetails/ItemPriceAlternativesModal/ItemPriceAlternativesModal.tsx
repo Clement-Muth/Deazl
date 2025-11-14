@@ -3,6 +3,7 @@
 import { Button, Chip } from "@heroui/react";
 import { Trans } from "@lingui/react/macro";
 import { CheckIcon, MapPinIcon, ShoppingBagIcon, TrendingDownIcon, TrendingUpIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Modal } from "~/components/Modal/Modal";
 import { selectItemPrice } from "~/packages/applications/shopping-lists/src/Api/items/selectItemPrice.api";
@@ -40,6 +41,7 @@ export const ItemPriceAlternativesModal = ({
   alternatives,
   onPriceSelected
 }: ItemPriceAlternativesModalProps) => {
+  const router = useRouter();
   const [selectedPriceId, setSelectedPriceId] = useState<string | null>(currentPriceId || null);
   const [sortBy, setSortBy] = useState<SortOption>("price-asc");
   const [isLoading, setIsLoading] = useState(false);
@@ -70,6 +72,8 @@ export const ItemPriceAlternativesModal = ({
     try {
       const result = await selectItemPrice(itemId, priceId);
       if (result.success) {
+        // Recharger les données depuis le serveur
+        router.refresh();
         onPriceSelected?.(priceId);
         onClose();
       } else {

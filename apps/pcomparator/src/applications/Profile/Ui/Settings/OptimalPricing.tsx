@@ -32,28 +32,27 @@ export const SettingsOptimalPricing = ({ userId }: SettingsOptimalPricingProps) 
     loadPreferences();
   }, []);
 
-  const loadPreferences = useCallback(async () => {
-    setIsLoading(true);
+  const loadPreferences = async () => {
     try {
       const prefs = await getUserOptimizationPreferences();
-
-      // Adapter le format de OptimizationPreferences vers UserOptimizationPreferences
-      const adapted: UserOptimizationPreferences = {
-        userLocation: undefined, // Sera défini par la géolocalisation
+      const adapted = {
         maxRadiusKm: prefs.maxDistance || 10,
         priceWeight: prefs.priceWeight || 0.7,
-        favoriteStoreIds: [], // TODO: À implémenter
-        showSavingSuggestions: true
+        showSavingSuggestions: true,
+        favoriteStoreIds: prefs.favoriteStoreIds || [],
+        userLocation: prefs.userLocation
       };
-
       setPreferences(adapted);
       setHasGeolocation(!!adapted.userLocation);
     } catch (error) {
-      console.error("Error loading preferences:", error);
-    } finally {
-      setIsLoading(false);
+      addToast({
+        title: <Trans>Error loading preferences</Trans>,
+        description: <Trans>Unable to load your settings</Trans>,
+        color: "danger",
+        variant: "solid"
+      });
     }
-  }, []);
+  };
 
   const requestGeolocation = useCallback(async () => {
     if (!navigator.geolocation) {
@@ -269,21 +268,16 @@ export const SettingsOptimalPricing = ({ userId }: SettingsOptimalPricingProps) 
                     <Trans>Enable location to find nearby stores</Trans>
                   </p>
                 </div>
-                {hasGeolocation ? (
-                  <Chip color="success" variant="flat" size="sm">
-                    <Trans>Active</Trans>
-                  </Chip>
-                ) : (
-                  <Button
-                    size="sm"
-                    color="primary"
-                    variant="flat"
-                    onPress={requestGeolocation}
-                    isLoading={isRequestingLocation}
-                  >
-                    <Trans>Enable</Trans>
-                  </Button>
-                )}
+                <Button
+                  size="sm"
+                  color={hasGeolocation ? "success" : "primary"}
+                  variant={hasGeolocation ? "flat" : "solid"}
+                  onPress={requestGeolocation}
+                  isLoading={isRequestingLocation}
+                  startContent={hasGeolocation ? undefined : <MapPinIcon className="h-3.5 w-3.5" />}
+                >
+                  {hasGeolocation ? <Trans>Update Location</Trans> : <Trans>Enable</Trans>}
+                </Button>
               </div>
               {hasGeolocation && preferences.userLocation && (
                 <div className="p-2 bg-success-50 rounded border border-success-200 text-xs text-success-700">
@@ -332,20 +326,20 @@ export const SettingsOptimalPricing = ({ userId }: SettingsOptimalPricingProps) 
               </div>
               <Slider
                 size="sm"
-                step={0.05}
+                step={0.01}
                 minValue={0}
                 maxValue={1}
-                value={(preferences.priceWeight || 0.7) * 100}
+                value={preferences.priceWeight || 0.7}
                 onChange={(value) => {
                   const numValue = Array.isArray(value) ? value[0] : value;
-                  setPreferences({ ...preferences, priceWeight: numValue / 100 });
+                  setPreferences({ ...preferences, priceWeight: numValue });
                 }}
                 className="max-w-md"
                 getValue={(value) => {
                   const val = Array.isArray(value) ? value[0] : value;
-                  if (val > 80) return "💰 Price priority";
-                  if (val < 30) return "📍 Distance priority";
-                  return "⚖️ Balanced";
+                  const pricePct = Math.round(val * 100);
+                  const distPct = 100 - pricePct;
+                  return `💰 ${pricePct}% / 🚗 ${distPct}%`;
                 }}
               />
               <div className="flex justify-between text-xs text-gray-500">
@@ -356,6 +350,15 @@ export const SettingsOptimalPricing = ({ userId }: SettingsOptimalPricingProps) 
                   <Trans>Price</Trans> ({Math.round((preferences.priceWeight || 0.7) * 100)}%)
                 </span>
               </div>
+              <p className="text-xs text-gray-500 mt-1">
+                {(preferences.priceWeight ?? 0.7) >= 0.7 ? (
+                  <Trans>Prioritize low prices, even if the store is further away</Trans>
+                ) : (preferences.priceWeight ?? 0.7) >= 0.5 ? (
+                  <Trans>Balance between price and proximity</Trans>
+                ) : (
+                  <Trans>Prioritize nearby stores, even if prices are higher</Trans>
+                )}
+              </p>
             </div>
 
             {/* Info box */}

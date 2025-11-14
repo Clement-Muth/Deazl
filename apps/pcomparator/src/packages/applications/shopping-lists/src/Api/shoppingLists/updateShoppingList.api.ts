@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { ShoppingListApplicationService } from "../../Application/Services/ShoppingList.service";
 import {
   type UpdateShoppingListPayload,
@@ -13,6 +14,11 @@ export const updateShoppingList = async (shoppingListId: string, params: UpdateS
   try {
     const payload = UpdateShoppingListSchema.parse(params);
     const list = await shoppingListApplicationService.updateShoppingList(shoppingListId, payload);
+
+    // Invalider le cache pour la liste mise à jour
+    revalidatePath("/[locale]/shopping-lists/[id]", "page");
+    revalidatePath("/[locale]/shopping-lists", "page");
+    revalidatePath(`/fr/shopping-lists/${shoppingListId}`);
 
     return list.toObject();
   } catch (error) {

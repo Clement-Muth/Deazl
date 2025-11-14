@@ -2,6 +2,7 @@
 
 import { AuthenticationService } from "@deazl/shared";
 import { prisma } from "@deazl/system";
+import { revalidatePath } from "next/cache";
 import {
   PriceOptimizationService,
   type UserPreferences
@@ -133,6 +134,10 @@ export async function optimizeShoppingList(listId: string, preferences?: Partial
     }
 
     await Promise.all(updates);
+
+    // Invalider le cache pour la liste de courses
+    revalidatePath("/[locale]/shopping-lists/[id]", "page");
+    revalidatePath(`/fr/shopping-lists/${listId}`);
 
     // Retourner les résultats avec les explications
     const results = Array.from(optimizationResults.entries()).map(([itemId, result]) => ({

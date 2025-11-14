@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { ShoppingListItemApplicationService } from "../../Application/Services/ShoppingListItem.service";
 import { PrismaShoppingListRepository } from "../../Infrastructure/Repositories/PrismaShoppingList.infrastructure";
@@ -19,6 +20,10 @@ export const removeItemFromList = async (itemId: RemoveItemFromListPayload): Pro
     const payload = RemoveItemFromListSchema.parse(itemId);
 
     await shoppingListItemService.removeShoppingListItem(payload);
+
+    // Invalider le cache pour toutes les listes de courses
+    revalidatePath("/[locale]/shopping-lists/[id]", "page");
+    revalidatePath("/[locale]/shopping-lists", "page");
   } catch (error) {
     throw new Error("Failed to remove item from list", { cause: error });
   }

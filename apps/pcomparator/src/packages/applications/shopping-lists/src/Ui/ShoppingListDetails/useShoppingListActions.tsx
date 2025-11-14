@@ -1,5 +1,6 @@
 import { addToast } from "@heroui/react";
 import { Trans } from "@lingui/react/macro";
+import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { removeItemFromList } from "../../Api/items/removeItemFromList.api";
 import { toggleItemComplete } from "../../Api/items/toggleItemComplete.api";
@@ -9,6 +10,7 @@ import type { ShoppingListPayload } from "../../Domain/Schemas/ShoppingList.sche
 import { useSmartConversionNotifications } from "../../Ui/Hooks/useSmartConversionNotifications";
 
 export const useShoppingListActions = (initialList: ShoppingListPayload) => {
+  const router = useRouter();
   const [items, setItems] = useState<ShoppingListItemPayload[]>(initialList.items || []);
 
   // Intégration des notifications de conversion intelligente
@@ -27,6 +29,8 @@ export const useShoppingListActions = (initialList: ShoppingListPayload) => {
 
   const handleAddItem = (newItem: ShoppingListItemPayload) => {
     setItems((prevItems) => [...prevItems, newItem]);
+    // Recharger les données depuis le serveur pour obtenir les calculs de prix
+    router.refresh();
   };
 
   const handleToggleComplete = useCallback(
@@ -43,6 +47,9 @@ export const useShoppingListActions = (initialList: ShoppingListPayload) => {
 
         await toggleItemComplete(itemId, isCompleted);
         console.log("✅ API call completed successfully");
+
+        // Recharger les données depuis le serveur
+        router.refresh();
 
         if (isCompleted) {
           // Déclencher la notification de conversion intelligente
@@ -85,6 +92,9 @@ export const useShoppingListActions = (initialList: ShoppingListPayload) => {
 
       await updateShoppingListItem(itemId, data);
 
+      // Recharger les données depuis le serveur
+      router.refresh();
+
       addToast({
         title: <Trans>Item updated</Trans>,
         description: <Trans>Item details have been updated</Trans>,
@@ -111,6 +121,9 @@ export const useShoppingListActions = (initialList: ShoppingListPayload) => {
       setItems((currentItems) => currentItems.filter((item) => item.id !== itemId));
 
       await removeItemFromList(itemId);
+
+      // Recharger les données depuis le serveur
+      router.refresh();
 
       addToast({
         title: <Trans>Item removed</Trans>,

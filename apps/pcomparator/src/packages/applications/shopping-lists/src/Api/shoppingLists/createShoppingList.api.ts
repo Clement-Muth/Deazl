@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { ShoppingListApplicationService } from "../../Application/Services/ShoppingList.service";
 import {
   type CreateShoppingListPayload,
@@ -15,6 +16,10 @@ export const createShoppingList = async (params: CreateShoppingListPayload): Pro
     const payload = CreateShoppingListSchema.parse(params);
 
     const list = await shoppingListApplicationService.createShoppingList(payload);
+
+    // Invalider le cache pour la liste des listes
+    revalidatePath("/[locale]/shopping-lists", "page");
+    revalidatePath("/fr/shopping-lists");
 
     return list.toObject();
   } catch (error) {

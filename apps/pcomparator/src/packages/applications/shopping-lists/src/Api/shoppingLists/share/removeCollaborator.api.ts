@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { ShoppingListSharingApplicationService } from "../../../Application/Services/ShoppingListSharing.service";
 import {
   type RemoveCollaboratorPayload,
@@ -18,6 +19,10 @@ export async function removeCollaborator(params: RemoveCollaboratorPayload): Pro
     const { listId, userId } = RemoveCollaboratorSchema.parse(params);
 
     await shoppingListSharingService.removeCollaborator(listId, userId);
+
+    // Invalider le cache pour la liste partagée
+    revalidatePath("/[locale]/shopping-lists/[id]", "page");
+    revalidatePath(`/fr/shopping-lists/${listId}`);
   } catch (error) {
     throw new Error("Failed to remove collaborator", { cause: error });
   }
