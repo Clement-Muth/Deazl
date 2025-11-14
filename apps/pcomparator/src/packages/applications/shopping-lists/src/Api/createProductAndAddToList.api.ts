@@ -58,12 +58,10 @@ export const createProductAndAddToList = async (params: CreateProductAndAddToLis
             // Use Open Food Facts name (more accurate and consistent)
             if (data.product.product_name) {
               productName = data.product.product_name;
-              console.log(`Using Open Food Facts name: "${productName}" instead of "${productData.name}"`);
             }
 
             // Extract quality data from OpenFoodFacts
             qualityData = parseOpenFoodFactsQuality(data.product);
-            console.log("Parsed quality data:", JSON.stringify(qualityData, null, 2));
           }
         }
       } catch (error) {

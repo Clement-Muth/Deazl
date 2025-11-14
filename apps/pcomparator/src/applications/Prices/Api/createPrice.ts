@@ -33,8 +33,6 @@ export const createPrice = async (params: CreatePriceParams): Promise<CreatePric
   try {
     const paramsPayload = ParamsSchema.parse(params);
 
-    console.log("Creating price with params:", paramsPayload);
-
     // Use repositories directly instead of HTTP call (we're already server-side)
     const categoryRepository = new PrismaCategoryRepository();
     const brandRepository = new PrismaBrandRepository();
@@ -47,13 +45,10 @@ export const createPrice = async (params: CreatePriceParams): Promise<CreatePric
 
     // If productId is provided, use it directly
     if (paramsPayload.productId) {
-      console.log("Using existing product with ID:", paramsPayload.productId);
       product = { id: paramsPayload.productId, name: paramsPayload.productName };
     }
     // Otherwise, create/find product by barcode from Open Food Facts
     else if (paramsPayload.barcode) {
-      console.log("Fetching product from Open Food Facts:", paramsPayload.barcode);
-
       // Utiliser l'API v2 d'OpenFoodFacts directement
       const offResponse = await fetch(
         `https://world.openfoodfacts.org/api/v2/product/${paramsPayload.barcode}.json`
@@ -64,7 +59,6 @@ export const createPrice = async (params: CreatePriceParams): Promise<CreatePric
       }
 
       const offData = await offResponse.json();
-      console.log("OFF API Response:", JSON.stringify(offData, null, 2));
 
       if (!offData.product) {
         throw new Error(`Product not found in OpenFoodFacts: ${paramsPayload.barcode}`);
@@ -75,7 +69,6 @@ export const createPrice = async (params: CreatePriceParams): Promise<CreatePric
 
       // Extract quality data from OpenFoodFacts
       const qualityData = parseOpenFoodFactsQuality(offProduct);
-      console.log("Parsed quality data:", JSON.stringify(qualityData, null, 2));
 
       const category = await categoryRepository.findOrCreate("N/A", {
         description: "",
@@ -126,8 +119,6 @@ export const createPrice = async (params: CreatePriceParams): Promise<CreatePric
       priceProofImage: proofImage
     });
 
-    console.log("Price created successfully for product:", product.name);
-
     // Auto-select this price for all shopping list items that have this product but no selected price yet
     try {
       await prisma.shoppingListItem.updateMany({
@@ -139,7 +130,6 @@ export const createPrice = async (params: CreatePriceParams): Promise<CreatePric
           selectedPriceId: createdPrice.id
         }
       });
-      console.log("Auto-selected price for shopping list items without a selected price");
     } catch (error) {
       console.warn("Failed to auto-select price for shopping list items:", error);
       // Non-blocking error - price is still created

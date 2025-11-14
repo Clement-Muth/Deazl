@@ -48,13 +48,12 @@ applications/{Domain}/
 ## Development Workflow
 
 ### Essential Commands
+- always run commands from the pcomparator directory: `cd apps/pcomparator`
 ```bash
 # Development (uses Turbo)
 yarn dev:pcomparator              # Start pcomparator on port 3001
-yarn build:pcomparator            # Production build
-yarn test:pcomparator             # Run Jest tests
 
-# Database
+# Database – always run with schema parameter
 yarn prisma:generate              # Generate Prisma client
 yarn prisma:migrate              # Run migrations
 yarn prisma:studio               # Open Prisma Studio
@@ -88,16 +87,11 @@ yarn translation:extract         # Extract i18n strings (Lingui)
 ### React + Next.js
 - **Server Components by default** - use `"use client"` only when necessary (client state, hooks, events)
 - **Server Actions** for mutations - defined in `Api/` folders with `"use server"`
-- **i18n**: Use `@lingui/macro` - `import { Trans, t } from "@lingui/macro"` for all user-facing text
+- **i18n**: Use `@lingui/react/macro` - `import { Trans } from "@lingui/react/macro"` for all client user-facing text
+- **i18n**: Use `import { useLingui } from "@lingui/react/macro"` for all string translation using `t` as `const { t } = useLingui()`
 - **UI Library**: HeroUI (beta) - prefer existing components over custom implementations
-- **Styling**: Tailwind CSS 4 - utility-first, responsive design
-
-### Testing
-- **Extension**: `*.spec.ts` for unit tests
-- **Framework**: Jest with Testing Library
-- **Coverage**: Target 80%+ for domain logic
-- **Mock**: Use `jest-mock-extended` for Prisma in unit tests
-- Example: `apps/pcomparator/src/applications/Profile/Infrastructure/PrismaUserRepository.spec.ts`
+- **Styling**: Tailwind CSS 4 - utility-first, responsive design, mobile-first
+- **SRP**: Each React component should have a single responsibility and be small (max ~200 lines)
 
 ## Database Schema (Prisma)
 Located in `apps/pcomparator/prisma/schema.prisma`:
@@ -131,3 +125,8 @@ Located in `apps/pcomparator/prisma/schema.prisma`:
 - **Storage**: Vercel Blob for images (price proofs, avatars)
 - **Search**: Algolia for product search
 - **External API**: Open Food Facts for product data enrichment
+
+## General information
+
+- **Comment**: Never add comments in the code.
+- **I18n**: All user-facing strings must be in english – Never use french words.

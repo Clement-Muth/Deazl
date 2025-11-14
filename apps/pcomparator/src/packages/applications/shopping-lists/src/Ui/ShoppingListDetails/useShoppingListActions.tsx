@@ -22,9 +22,7 @@ export const useShoppingListActions = (initialList: ShoppingListPayload) => {
     hasOpportunities
   } = useSmartConversionNotifications({
     listId: initialList.id,
-    onItemCompleted: (itemId, itemName) => {
-      console.log(`Item completed for smart conversion: ${itemName} (${itemId})`);
-    }
+    onItemCompleted: (itemId, itemName) => {}
   });
 
   const handleAddItem = (newItem: ShoppingListItemPayload) => {
@@ -36,17 +34,13 @@ export const useShoppingListActions = (initialList: ShoppingListPayload) => {
   const handleToggleComplete = useCallback(
     async (itemId: string, isCompleted: boolean) => {
       try {
-        console.log("🔄 useShoppingListActions.handleToggleComplete called:", { itemId, isCompleted });
         const item = items.find((item) => item.id === itemId);
-        console.log("📦 Found item:", item);
 
         setItems((currentItems) =>
           currentItems.map((item) => (item.id === itemId ? { ...item, isCompleted } : item))
         );
-        console.log("🔄 UI updated, calling API...");
 
         await toggleItemComplete(itemId, isCompleted);
-        console.log("✅ API call completed successfully");
 
         // Recharger les données depuis le serveur
         router.refresh();
@@ -82,7 +76,6 @@ export const useShoppingListActions = (initialList: ShoppingListPayload) => {
 
   const handleUpdateItem = useCallback(async (itemId: string, data: Partial<ShoppingListItemPayload>) => {
     try {
-      console.log("Updating item with ID:", itemId, "with data:", data);
       const currentItem = items.find((item) => item.id === itemId);
       if (!currentItem) return;
 

@@ -109,7 +109,6 @@ export async function enrichAllStores() {
             }
           });
           enriched++;
-          console.log(`✓ Enriched: ${store.name} @ ${store.location}`);
         } else {
           failed++;
           console.warn(`✗ Failed: ${store.name} @ ${store.location}`);

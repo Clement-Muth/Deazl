@@ -92,16 +92,7 @@ export class OptimalPricingService {
     options: PriceSelectionOptions = {},
     selectedPriceId?: string | null
   ): ItemOptimalPrice {
-    console.log(`\n[OptimalPricing] ===== Selecting price for item ${itemId} =====`);
-    console.log(`[OptimalPricing] - Product: ${productId}`);
-    console.log(`[OptimalPricing] - Quantity: ${quantity} ${unit}`);
-    console.log(`[OptimalPricing] - selectedPriceId: ${selectedPriceId || "none"}`);
-    console.log(`[OptimalPricing] - Available prices: ${availablePrices.length}`);
-    console.log("[OptimalPricing] - Selected store IDs:", options.selectedStoreIds);
-    console.log("[OptimalPricing] - Favorite store IDs:", options.userPreferences?.favoriteStoreIds);
-
     if (availablePrices.length === 0) {
-      console.log(`[OptimalPricing] ❌ No prices available for item ${itemId}`);
       return {
         itemId,
         productId,
@@ -115,17 +106,8 @@ export class OptimalPricingService {
 
     // PRIORITÉ 0 : Si l'utilisateur a manuellement sélectionné un prix, le respecter
     if (selectedPriceId) {
-      console.log(`[OptimalPricing] Item ${itemId}: Looking for selectedPriceId="${selectedPriceId}"`);
-      console.log(
-        "[OptimalPricing] Available price IDs:",
-        availablePrices.map((p) => ({ id: p.id, storeId: p.storeId, storeName: p.storeName }))
-      );
-
       const manuallySelected = availablePrices.find((p) => p.id === selectedPriceId);
       if (manuallySelected) {
-        console.log(
-          `[OptimalPricing] ✅ Found selectedPrice: ${manuallySelected.storeName} - ${manuallySelected.amount}€`
-        );
         const bestPriceResult = findBestPrice([manuallySelected]);
         if (bestPriceResult) {
           const selectedPrice = this.enrichPriceWithDistance(bestPriceResult, options.userPreferences);
@@ -250,35 +232,16 @@ export class OptimalPricingService {
     availablePrices: PriceData[],
     userPreferences?: UserOptimizationPreferences
   ): ItemOptimalPrice {
-    console.log(`[OptimalPricing] 📍 Auto-optimization mode for item ${itemId}`);
-    console.log("[OptimalPricing] - User location:", userPreferences?.userLocation ? "YES" : "NO");
-    console.log("[OptimalPricing] - Max radius:", userPreferences?.maxRadiusKm || "N/A");
-    console.log(
-      "[OptimalPricing] - All available stores:",
-      availablePrices.map((p) => ({ id: p.storeId, name: p.storeName, amount: p.amount }))
-    );
-
     // PRIORITY 1: Vérifier si un magasin favori a un prix (AVANT filtrage géographique)
     if (userPreferences?.favoriteStoreIds && userPreferences.favoriteStoreIds.length > 0) {
-      console.log(
-        `[OptimalPricing] 🌟 Checking favorite stores for item ${itemId} (before geo-filter):`,
-        userPreferences.favoriteStoreIds
-      );
       const favoritePrices = availablePrices.filter((p) =>
         userPreferences.favoriteStoreIds!.includes(p.storeId)
-      );
-      console.log(
-        `[OptimalPricing] Found ${favoritePrices.length} prices in favorite stores:`,
-        favoritePrices.map((p) => ({ storeName: p.storeName, amount: p.amount, storeId: p.storeId }))
       );
 
       if (favoritePrices.length > 0) {
         // Sélectionner le meilleur prix parmi les favoris
         const bestFavorite = findBestPrice(favoritePrices);
         if (bestFavorite) {
-          console.log(
-            `[OptimalPricing] ✅ Selected FAVORITE store: ${bestFavorite.price.storeName} - ${bestFavorite.price.amount}€ (ignoring geo-filter for favorites)`
-          );
           const selectedPrice = this.enrichPriceWithDistance(bestFavorite, userPreferences);
 
           return {
@@ -300,9 +263,6 @@ export class OptimalPricingService {
     let candidatePrices = availablePrices;
 
     if (userPreferences?.userLocation && userPreferences?.maxRadiusKm) {
-      console.log(
-        `[OptimalPricing] 🌍 Filtering by radius: ${userPreferences.maxRadiusKm}km (no favorite store found)`
-      );
       const storesWithCoords = this.extractStoreCoordinates(availablePrices);
       const nearbyStores = filterStoresByRadius(
         storesWithCoords,
@@ -312,10 +272,6 @@ export class OptimalPricingService {
 
       const nearbyStoreIds = new Set(nearbyStores.map((s) => s.id));
       candidatePrices = availablePrices.filter((p) => nearbyStoreIds.has(p.storeId));
-      console.log(
-        `[OptimalPricing] After radius filter: ${candidatePrices.length} prices remain`,
-        candidatePrices.map((p) => ({ storeName: p.storeName, amount: p.amount }))
-      );
 
       if (candidatePrices.length === 0) {
         // Aucun magasin dans le rayon

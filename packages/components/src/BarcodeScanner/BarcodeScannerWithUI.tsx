@@ -26,7 +26,6 @@ export const BarcodeScannerWithUI = ({
     if (!barcodes || barcodes.length === 0) return;
 
     const barcode = barcodes[0];
-    console.log("🎉 Code-barres détecté:", barcode.rawValue);
 
     // Éviter de rescanner le même code immédiatement
     if (lastScanned === barcode.rawValue && !continuous) {

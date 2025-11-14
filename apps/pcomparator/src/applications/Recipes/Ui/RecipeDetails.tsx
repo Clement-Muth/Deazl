@@ -31,13 +31,16 @@ import { PageHeader } from "~/components/Header/PageHeader";
 import { ProductDetailPage } from "~/packages/applications/shopping-lists/src/Ui/components/ProductDetailPage";
 import type { RecipePayload } from "../Domain/Schemas/Recipe.schema";
 import { AddRecipeToListModal } from "./RecipeDetails/AddRecipeToListModal";
+import { RecipeIngredientsWithPricing } from "./RecipeDetails/RecipeIngredientsWithPricing";
 import { ShareRecipeModalNew } from "./RecipeDetails/ShareRecipeModal/ShareRecipeModalNew";
+import { RecipeQualitySection } from "./RecipeQualitySection";
 
 interface RecipeDetailsProps {
   recipe: RecipePayload;
+  userId?: string;
 }
 
-export default function RecipeDetails({ recipe }: RecipeDetailsProps) {
+export default function RecipeDetails({ recipe, userId }: RecipeDetailsProps) {
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isOpen: isAddToListOpen, onOpen: onAddToListOpen, onClose: onAddToListClose } = useDisclosure();
@@ -237,39 +240,12 @@ export default function RecipeDetails({ recipe }: RecipeDetailsProps) {
             // @ts-ignore
             className="lg:col-span-1"
           >
-            <Card>
-              <CardHeader className="border-b border-divider p-4 sm:p-6">
-                <h2 className="text-lg sm:text-xl font-semibold flex items-center gap-2">
-                  <ChefHat className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-                  <Trans>Ingredients</Trans>
-                </h2>
-              </CardHeader>
-              <CardBody className="p-4 sm:p-6">
-                <ul className="sm:space-y-3">
-                  {recipe.ingredients?.map((ingredient, index) => (
-                    <motion.li
-                      key={ingredient.id}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.3, delay: 0.3 + index * 0.05 }}
-                      // @ts-ignore
-                      className="flex gap-2 sm:gap-3 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm sm:text-base cursor-pointer items-baseline"
-                      onClick={() => ingredient.productId && setSelectedProductId(ingredient.productId)}
-                    >
-                      <span className="text-primary mt-1 font-bold">•</span>
-                      <span className="flex-1">
-                        <span className="font-semibold text-gray-900 dark:text-gray-100">
-                          {ingredient.quantity} {ingredient.unit}
-                        </span>{" "}
-                        <span className="text-gray-600 dark:text-gray-400 hover:text-primary transition-colors">
-                          {ingredient.productName || "Product"}
-                        </span>
-                      </span>
-                    </motion.li>
-                  ))}
-                </ul>
-              </CardBody>
-            </Card>
+            <RecipeIngredientsWithPricing
+              recipeId={recipe.id}
+              ingredients={recipe.ingredients || []}
+              userId={userId}
+              onProductClick={(productId) => setSelectedProductId(productId)}
+            />
           </motion.div>
 
           <motion.div
@@ -323,6 +299,17 @@ export default function RecipeDetails({ recipe }: RecipeDetailsProps) {
             </Card>
           </motion.div>
         </div>
+
+        {/* Quality section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.5 }}
+          // @ts-ignore
+          className="mt-6"
+        >
+          <RecipeQualitySection recipeId={recipe.id} />
+        </motion.div>
 
         {/* Modals */}
         <AddRecipeToListModal isOpen={isAddToListOpen} onClose={onAddToListClose} recipe={recipe} />

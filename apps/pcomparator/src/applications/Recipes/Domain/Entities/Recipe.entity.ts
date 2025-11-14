@@ -21,6 +21,7 @@ interface RecipeProps {
   steps: RecipeStep[];
   createdAt?: Date;
   updatedAt?: Date;
+  estimatedQualityScore?: number;
 }
 
 export class Recipe extends Entity<RecipeProps> {
@@ -43,6 +44,7 @@ export class Recipe extends Entity<RecipeProps> {
       collaborators?: RecipeCollaborator[];
       ingredients?: RecipeIngredient[];
       steps?: RecipeStep[];
+      estimatedQualityScore?: number;
     },
     id?: string
   ): Recipe {
@@ -62,7 +64,8 @@ export class Recipe extends Entity<RecipeProps> {
         ingredients: props.ingredients || [],
         steps: props.steps || [],
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        estimatedQualityScore: props.estimatedQualityScore
       },
       id
     );
@@ -348,7 +351,8 @@ export class Recipe extends Entity<RecipeProps> {
       steps: this.steps.map((step) => step.toObject()),
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
-      totalTime: this.totalTime
+      totalTime: this.totalTime,
+      estimatedQualityScore: this.props.estimatedQualityScore
     };
   }
 }

@@ -33,7 +33,8 @@ export const RecipeSchema = z.object({
   ingredients: z.array(RecipeIngredientSchema).optional(),
   steps: z.array(RecipeStepSchema).optional(),
   createdAt: z.date().optional(),
-  updatedAt: z.date().optional()
+  updatedAt: z.date().optional(),
+  estimatedQualityScore: z.number().int().optional()
 });
 
 export const CreateRecipeSchema = z.object({

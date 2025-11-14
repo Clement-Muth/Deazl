@@ -38,7 +38,6 @@ export async function createStore(params: CreateStoreParams) {
       if (coordinates) {
         latitude = coordinates.latitude;
         longitude = coordinates.longitude;
-        console.log(`[GPS Enrichment] ${params.name} @ ${params.location}:`, coordinates);
       }
     }
 

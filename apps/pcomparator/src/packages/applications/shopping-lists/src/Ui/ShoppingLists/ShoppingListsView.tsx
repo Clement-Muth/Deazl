@@ -31,8 +31,6 @@ export const ShoppingListsView = ({ lists }: ShoppingListViewProps) => {
     return progress === 100;
   });
 
-  console.log(lists);
-
   return !lists || !activeLists ? (
     <div className="col-span-full">
       <EmptyState type="active" onCreateList={createModal.onOpen} />

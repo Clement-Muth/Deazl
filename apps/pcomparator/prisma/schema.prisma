@@ -223,6 +223,9 @@ model Recipe {
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
 
+  // Quality estimate (dynamic pricing computed on-demand)
+  estimatedQualityScore   Int?
+
   ingredients       RecipeIngredient[]
   steps             RecipeStep[]
   collaborators     RecipeCollaborator[]
