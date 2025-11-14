@@ -61,32 +61,45 @@ export const Location = ({ onNextStep, onPrevious }: LocationProps) => {
               <Trans>Nearby stores</Trans>
             </div>
             <RadioGroup
-              value={choosenLocation?.storeName}
+              value={
+                choosenLocation ? `${choosenLocation.storeName}::${choosenLocation.location}` : undefined
+              }
               onValueChange={(value) => {
-                const selected = location.find((loc) => loc.name === value);
-                if (selected) {
-                  setChoosenLocation({ storeName: selected.name, location: selected.address });
-                }
+                const [storeName, location] = value.split("::");
+                setChoosenLocation({ storeName, location });
               }}
             >
-              {location.map(({ name, address }) => (
-                <Card
-                  key={name}
-                  className={`cursor-pointer transition-all ${
-                    choosenLocation?.storeName === name
-                      ? "border-2 border-primary shadow-md"
-                      : "border border-gray-200 hover:border-gray-300"
-                  }`}
-                  isPressable
-                  onPress={() => setChoosenLocation({ storeName: name, location: address })}
-                >
-                  <CardBody className="p-3">
-                    <Radio value={name} description={address} classNames={{ base: "m-0 max-w-full" }}>
-                      <span className="font-medium">{name}</span>
-                    </Radio>
-                  </CardBody>
-                </Card>
-              ))}
+              {location.map(({ name, address }, i) => {
+                const uniqueKey = `${name}::${address}`;
+                const isSelected =
+                  choosenLocation &&
+                  choosenLocation.storeName === name &&
+                  choosenLocation.location === address;
+
+                return (
+                  <Card
+                    key={uniqueKey}
+                    isPressable
+                    onPress={() => setChoosenLocation({ storeName: name, location: address })}
+                    className={`cursor-pointer transition-all ${
+                      isSelected
+                        ? "border-2 border-primary shadow-md"
+                        : "border border-gray-200 hover:border-gray-300"
+                    }`}
+                  >
+                    <CardBody className="p-3">
+                      <Radio
+                        value={uniqueKey}
+                        // is={isSelected} // 👈 force la synchro visuelle
+                        description={address}
+                        classNames={{ base: "m-0 max-w-full" }}
+                      >
+                        <span className="font-medium">{name}</span>
+                      </Radio>
+                    </CardBody>
+                  </Card>
+                );
+              })}
             </RadioGroup>
           </div>
         ) : null}

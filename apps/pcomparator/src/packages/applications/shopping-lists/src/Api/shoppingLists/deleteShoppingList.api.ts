@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { ShoppingListApplicationService } from "../../Application/Services/ShoppingList.service";
 import {
   type DeleteShoppingListPayload,
@@ -14,6 +15,11 @@ export const deleteShoppingList = async (shoppingListId: DeleteShoppingListPaylo
     const payload = DeleteShoppingListSchema.parse(shoppingListId);
 
     await shoppingListApplicationService.deleteShoppingList(payload);
+
+    // Invalider le cache pour la liste des listes et la liste supprimée
+    revalidatePath("/[locale]/shopping-lists", "page");
+    revalidatePath("/fr/shopping-lists");
+    revalidatePath(`/fr/shopping-lists/${payload}`);
   } catch (error) {
     throw new Error("Failed to delete shopping list", { cause: error });
   }

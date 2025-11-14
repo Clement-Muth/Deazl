@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { ShoppingListItemApplicationService } from "../Application/Services/ShoppingListItem.service";
 import { ItemQuantity } from "../Domain/ValueObjects/ItemQuantity.vo";
 import { Unit } from "../Domain/ValueObjects/Unit.vo";
@@ -30,6 +31,10 @@ export const addProductItemToList = async (listId: string, itemData: AddProductI
       unit: unit.value,
       isCompleted: itemData.isCompleted || false
     });
+
+    // Invalider le cache pour la liste de courses
+    revalidatePath("/[locale]/shopping-lists/[id]", "page");
+    revalidatePath(`/fr/shopping-lists/${listId}`);
 
     return item.toObject();
   } catch (error) {

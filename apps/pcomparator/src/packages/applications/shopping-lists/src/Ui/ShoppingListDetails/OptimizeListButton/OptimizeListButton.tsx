@@ -3,6 +3,7 @@
 import { Button, addToast } from "@heroui/react";
 import { Trans } from "@lingui/react/macro";
 import { Sparkles } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { optimizeShoppingList } from "~/packages/applications/shopping-lists/src/Api/shoppingLists/optimizeShoppingList.api";
 
@@ -12,6 +13,7 @@ interface OptimizeListButtonProps {
 }
 
 export const OptimizeListButton = ({ listId, onOptimizationComplete }: OptimizeListButtonProps) => {
+  const router = useRouter();
   const [isOptimizing, setIsOptimizing] = useState(false);
 
   const handleOptimize = async () => {
@@ -21,6 +23,8 @@ export const OptimizeListButton = ({ listId, onOptimizationComplete }: OptimizeL
       const result = await optimizeShoppingList(listId);
 
       if (result.success) {
+        // Recharger les données depuis le serveur
+        router.refresh();
         addToast({
           title: <Trans>Optimization successful</Trans>,
           description: `${result.optimizedItems} items optimized!`,

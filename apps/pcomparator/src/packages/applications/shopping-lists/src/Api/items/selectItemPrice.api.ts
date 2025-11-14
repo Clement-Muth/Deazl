@@ -1,6 +1,7 @@
 "use server";
 
 import { AuthenticationService } from "@deazl/shared";
+import { revalidatePath } from "next/cache";
 import { PrismaShoppingListRepository } from "../../Infrastructure/Repositories/PrismaShoppingList.infrastructure";
 import { PrismaShoppingListItemRepository } from "../../Infrastructure/Repositories/PrismaShoppingListItem.infrastructure";
 
@@ -40,6 +41,10 @@ export async function selectItemPrice(itemId: string, priceId: string | null) {
     // Mettre à jour l'item avec le prix sélectionné
     const updatedItem = item.withSelectedPrice(priceId);
     await itemRepository.updateItem(updatedItem);
+
+    // Invalider le cache pour la liste de courses
+    revalidatePath("/[locale]/shopping-lists/[id]", "page");
+    revalidatePath(`/fr/shopping-lists/${updatedItem.shoppingListId}`);
 
     return {
       success: true,

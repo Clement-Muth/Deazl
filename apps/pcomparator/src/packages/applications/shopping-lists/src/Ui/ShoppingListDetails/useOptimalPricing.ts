@@ -88,7 +88,8 @@ export function useOptimalPricing(
         productId: item.productId as string,
         quantity: item.quantity,
         unit: item.unit,
-        availablePrices: rawPrices[item.productId as string]
+        availablePrices: rawPrices[item.productId as string],
+        selectedPriceId: item.selectedPriceId
       }));
 
     if (itemsWithPrices.length === 0) {

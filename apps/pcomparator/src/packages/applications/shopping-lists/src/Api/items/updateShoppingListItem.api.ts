@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { ShoppingListItemApplicationService } from "../../Application/Services/ShoppingListItem.service";
 import type { ShoppingListItemPayload } from "../../Domain/Entities/ShoppingListItem.entity";
@@ -66,6 +67,10 @@ export const updateShoppingListItem = async (
     }
 
     const updatedItem = await shoppingListItemService.updateShoppingListItem(payload.itemId, validatedData);
+
+    // Invalider le cache pour la liste de courses
+    revalidatePath("/[locale]/shopping-lists/[id]", "page");
+    revalidatePath(`/fr/shopping-lists/${updatedItem.shoppingListId}`);
 
     return updatedItem.toObject();
   } catch (error) {

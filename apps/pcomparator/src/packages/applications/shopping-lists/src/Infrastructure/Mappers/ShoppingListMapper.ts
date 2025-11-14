@@ -18,6 +18,8 @@ export class ShoppingListMapper {
             quantity: item.quantity,
             unit: item.unit,
             isCompleted: item.isCompleted,
+            selectedPriceId: item.selectedPriceId ?? null,
+            notes: item.notes ?? null,
             product: item.product
               ? {
                   id: item.product.id,
@@ -25,7 +27,16 @@ export class ShoppingListMapper {
                   barcode: item.product.barcode,
                   description: item.product.description
                 }
-              : undefined
+              : undefined,
+            selectedPrice: item.selectedPrice
+              ? {
+                  id: item.selectedPrice.id,
+                  amount: item.selectedPrice.amount,
+                  currency: item.selectedPrice.currency,
+                  unit: item.selectedPrice.unit,
+                  store: item.selectedPrice.store
+                }
+              : null
           },
           item.id
         )

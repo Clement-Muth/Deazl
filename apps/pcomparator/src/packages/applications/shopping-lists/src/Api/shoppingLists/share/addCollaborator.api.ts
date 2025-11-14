@@ -1,6 +1,7 @@
 "use server";
 
 import { auth } from "@deazl/system";
+import { revalidatePath } from "next/cache";
 import {
   type AddCollaboratorPayload,
   AddCollaboratorSchema
@@ -59,6 +60,10 @@ export async function addCollaborator(params: AddCollaboratorPayload): Promise<{
 
     // Add collaborator
     await sharingRepository.addCollaborator(payload.shoppingListId, payload.email, payload.role as any);
+
+    // Invalider le cache pour la liste partagée
+    revalidatePath("/[locale]/shopping-lists/[id]", "page");
+    revalidatePath(`/fr/shopping-lists/${payload.shoppingListId}`);
 
     return { success: true };
   } catch (error) {
