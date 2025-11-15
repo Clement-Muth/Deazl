@@ -104,8 +104,7 @@ Located in `apps/pcomparator/prisma/schema.prisma`:
 1. **Don't break layer boundaries**: Domain entities should never import from Infrastructure
 2. **Server Actions must be isolated**: Each file in `Api/` should export a single async function
 3. **Immutable entities**: Never mutate entity props directly, always use `with*` methods
-4. **Translation keys**: Always add to both `en.po` and `fr.po` in `src/translations/messages/`
-5. **Turbo cache**: If builds act strangely, run `yarn turbo clean`
+4. **Turbo cache**: If builds act strangely, run `yarn turbo clean`
 
 ## Key Files to Reference
 - **Architecture example**: `apps/pcomparator/src/packages/applications/shopping-lists/`
