@@ -7,17 +7,20 @@ import { ChefHat, Info, List } from "lucide-react";
 import { useState } from "react";
 import { createRecipe } from "../../Api";
 import type { CreateRecipePayload } from "../../Domain/Schemas/Recipe.schema";
+import { PhotoImportStep } from "./PhotoImportStep";
 import { RecipeBasicInfoStep } from "./RecipeBasicInfoStep";
+import { type RecipeCreationMode, RecipeCreationModeSelection } from "./RecipeCreationModeSelection";
 import { RecipeFormLayout } from "./RecipeFormLayout";
 import { RecipeFormNavigation } from "./RecipeFormNavigation";
 import { RecipeIngredientsStep } from "./RecipeIngredientsStep";
 import { RecipeStepsStep } from "./RecipeStepsStep";
 
-type Step = 1 | 2 | 3;
+type Step = 0 | 1 | 2 | 3;
 
 export const RecipeFormCreate = () => {
   const { t } = useLingui();
-  const [currentStep, setCurrentStep] = useState<Step>(1);
+  const [currentStep, setCurrentStep] = useState<Step>(0);
+  const [selectedMode, setSelectedMode] = useState<RecipeCreationMode | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -106,6 +109,32 @@ export const RecipeFormCreate = () => {
     setFormData({ ...formData, ...data });
   };
 
+  const handleModeSelected = (mode: RecipeCreationMode) => {
+    setSelectedMode(mode);
+    if (mode === "manual") {
+      setCurrentStep(1);
+    } else if (mode === "photo") {
+      // Stay on step 0 but show photo import
+    }
+  };
+
+  const handlePhotoRecipeExtracted = (extractedRecipe: Partial<CreateRecipePayload>) => {
+    console.log("Extracted recipe data:", extractedRecipe);
+    console.log("Extracted ingredients:", extractedRecipe.ingredients);
+    setFormData({
+      ...formData,
+      ...extractedRecipe,
+      ingredients: extractedRecipe.ingredients || formData.ingredients,
+      steps: extractedRecipe.steps || formData.steps
+    });
+    setCurrentStep(1);
+  };
+
+  const handleBackToModeSelection = () => {
+    setSelectedMode(null);
+    setCurrentStep(0);
+  };
+
   const addIngredient = () => {
     setFormData({
       ...formData,
@@ -158,6 +187,7 @@ export const RecipeFormCreate = () => {
   };
 
   const canGoToNextStep = () => {
+    if (currentStep === 0) return false;
     if (currentStep === 1) {
       return formData.name.trim().length > 0;
     }
@@ -176,15 +206,35 @@ export const RecipeFormCreate = () => {
   const prevStep = () => {
     if (currentStep > 1) {
       setCurrentStep((currentStep - 1) as Step);
+    } else if (currentStep === 1) {
+      handleBackToModeSelection();
     }
   };
+
+  // Mode selection view (step 0)
+  if (currentStep === 0 && !selectedMode) {
+    return (
+      <div className="max-w-4xl mx-auto">
+        <RecipeCreationModeSelection onModeSelected={handleModeSelected} />
+      </div>
+    );
+  }
+
+  // Photo import view (step 0 with photo mode)
+  if (currentStep === 0 && selectedMode === "photo") {
+    return (
+      <div className="max-w-4xl mx-auto">
+        <PhotoImportStep onRecipeExtracted={handlePhotoRecipeExtracted} onBack={handleBackToModeSelection} />
+      </div>
+    );
+  }
 
   return (
     <RecipeFormLayout
       title={<Trans>Create a New Recipe</Trans>}
       description={<Trans>Share your favorite recipe with the community</Trans>}
       steps={steps}
-      currentStep={currentStep}
+      currentStep={currentStep as 1 | 2 | 3}
       error={error}
     >
       <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
@@ -243,7 +293,7 @@ export const RecipeFormCreate = () => {
         </AnimatePresence>
 
         <RecipeFormNavigation
-          currentStep={currentStep}
+          currentStep={currentStep as 1 | 2 | 3}
           canGoToNextStep={canGoToNextStep()}
           isSubmitting={isSubmitting}
           onPrevStep={prevStep}

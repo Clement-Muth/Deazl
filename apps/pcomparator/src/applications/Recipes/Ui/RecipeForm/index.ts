@@ -5,4 +5,6 @@ export { RecipeBasicInfoStep } from "./RecipeBasicInfoStep";
 export { RecipeIngredientsStep } from "./RecipeIngredientsStep";
 export { RecipeStepsStep } from "./RecipeStepsStep";
 export { RecipeFormNavigation } from "./RecipeFormNavigation";
+export { RecipeCreationModeSelection, type RecipeCreationMode } from "./RecipeCreationModeSelection";
+export { PhotoImportStep } from "./PhotoImportStep";
 export type { FormStep } from "./RecipeFormLayout";

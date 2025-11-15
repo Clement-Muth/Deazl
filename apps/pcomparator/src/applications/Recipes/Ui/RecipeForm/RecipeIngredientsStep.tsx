@@ -65,9 +65,9 @@ export const RecipeIngredientsStep = ({
                   productId={ingredient.productId}
                   // @ts-ignore
                   value={
-                    ingredient.productId && ingredient.productName
+                    ingredient.productName
                       ? {
-                          id: ingredient.productId,
+                          id: ingredient.productId || "",
                           name: ingredient.productName,
                           brand: null,
                           category: null
