@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getRecipeByShareToken } from "~/applications/Recipes/Api/recipes/share/getRecipeByShareToken.api";
-import RecipeDetails from "~/applications/Recipes/Ui/RecipeDetails";
+import { RecipeDetailsContainer } from "~/applications/Recipes/Ui/RecipeDetailsContainer";
 
 interface SharedRecipePageProps {
   params: {
@@ -16,12 +16,8 @@ export default async function SharedRecipePage({ params }: SharedRecipePageProps
       notFound();
     }
 
-    return (
-      <div className="container mx-auto p-4 sm:p-6 max-w-5xl">
-        {/* @ts-ignore */}
-        <RecipeDetails recipe={recipe} />
-      </div>
-    );
+    // @ts-ignore
+    return <RecipeDetailsContainer recipe={recipe} />;
   } catch (error) {
     console.error("Error loading shared recipe:", error);
     notFound();

@@ -298,7 +298,7 @@ export const MultiProductComparison = ({
             icon={<FlaskConicalIcon className="h-4 w-4" />}
             getValue={(p: ProductForComparison) => {
               const count = p.qualityData?.additives?.length || 0;
-              const hasHigh = p.qualityData?.additives?.some((a) => a.riskLevel === "high");
+              const hasHigh = p.qualityData?.additives?.some((a) => a.riskLevel === "high_risk");
               return (
                 <Chip
                   size="sm"

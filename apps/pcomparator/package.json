@@ -67,6 +67,7 @@
     "react-hook-form": "^7.53.1",
     "react-phone-number-input": "^3.4.9",
     "react-spring-bottom-sheet": "3.5.0-alpha.0",
+    "react-swipeable": "^7.0.2",
     "react-toastify": "^10.0.6",
     "react-wrap-balancer": "^1.0.0",
     "storybook": "^8.3.6",

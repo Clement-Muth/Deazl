@@ -1,6 +1,6 @@
 // Recipe list and details views
 export { default as RecipesList } from "./RecipesList";
-export { default as RecipeDetails } from "./RecipeDetails";
+export { RecipeDetailsContainer as RecipeDetails } from "./RecipeDetailsContainer";
 
 // Recipe forms (create/edit)
 export {
