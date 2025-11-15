@@ -8,23 +8,25 @@ interface AdditivesSectionProps {
 }
 
 /**
- * Get risk color
+ * Get risk color - 4 level system like Yuka
  */
 function getRiskColor(riskLevel: string): "success" | "warning" | "danger" | "default" {
-  if (riskLevel === "low") return "success";
+  if (riskLevel === "safe") return "success";
   if (riskLevel === "moderate") return "warning";
-  if (riskLevel === "high") return "danger";
+  if (riskLevel === "high_risk") return "warning";
+  if (riskLevel === "dangerous") return "danger";
   return "default";
 }
 
 /**
- * Get risk label in French
+ * Get risk label
  */
 function getRiskLabel(riskLevel: string): string {
-  if (riskLevel === "low") return "Faible";
-  if (riskLevel === "moderate") return "Modéré";
-  if (riskLevel === "high") return "Élevé";
-  return "Inconnu";
+  if (riskLevel === "safe") return "Safe";
+  if (riskLevel === "moderate") return "Moderate";
+  if (riskLevel === "high_risk") return "High risk";
+  if (riskLevel === "dangerous") return "Dangerous";
+  return "Unknown";
 }
 
 /**
@@ -32,9 +34,10 @@ function getRiskLabel(riskLevel: string): string {
  */
 export function AdditivesSection({ additives, compact = false }: AdditivesSectionProps) {
   const hasAdditives = additives && additives.length > 0;
-  const highRiskCount = additives?.filter((a) => a.riskLevel === "high").length ?? 0;
+  const dangerousCount = additives?.filter((a) => a.riskLevel === "dangerous").length ?? 0;
+  const highRiskCount = additives?.filter((a) => a.riskLevel === "high_risk").length ?? 0;
   const moderateRiskCount = additives?.filter((a) => a.riskLevel === "moderate").length ?? 0;
-  const hasWarnings = highRiskCount > 0 || moderateRiskCount > 0;
+  const hasWarnings = dangerousCount > 0 || highRiskCount > 0 || moderateRiskCount > 0;
 
   if (compact) {
     return (
@@ -54,7 +57,15 @@ export function AdditivesSection({ additives, compact = false }: AdditivesSectio
               <Chip
                 size="sm"
                 variant="flat"
-                color={highRiskCount > 0 ? "danger" : moderateRiskCount > 0 ? "warning" : "success"}
+                color={
+                  dangerousCount > 0
+                    ? "danger"
+                    : highRiskCount > 0
+                      ? "warning"
+                      : moderateRiskCount > 0
+                        ? "warning"
+                        : "success"
+                }
               >
                 {additives.length}
               </Chip>
@@ -68,14 +79,41 @@ export function AdditivesSection({ additives, compact = false }: AdditivesSectio
           ) : (
             <>
               {hasWarnings && (
-                <div className="mb-3 p-3 bg-warning-50 border-l-4 border-warning rounded">
+                <div
+                  className={`mb-3 p-3 border-l-4 rounded ${
+                    dangerousCount > 0
+                      ? "bg-red-50 border-red-500"
+                      : highRiskCount > 0
+                        ? "bg-orange-50 border-orange-500"
+                        : "bg-yellow-50 border-yellow-500"
+                  }`}
+                >
                   <div className="flex items-start gap-2">
-                    <AlertCircle size={16} className="text-warning mt-0.5" />
+                    <AlertCircle
+                      size={16}
+                      className={`mt-0.5 ${
+                        dangerousCount > 0
+                          ? "text-red-600"
+                          : highRiskCount > 0
+                            ? "text-orange-600"
+                            : "text-yellow-600"
+                      }`}
+                    />
                     <div>
-                      <p className="text-sm font-semibold text-warning-700">
-                        {highRiskCount > 0
-                          ? `${highRiskCount} additif(s) à risque élevé`
-                          : `${moderateRiskCount} additif(s) à risque modéré`}
+                      <p
+                        className={`text-sm font-semibold ${
+                          dangerousCount > 0
+                            ? "text-red-700"
+                            : highRiskCount > 0
+                              ? "text-orange-700"
+                              : "text-yellow-700"
+                        }`}
+                      >
+                        {dangerousCount > 0
+                          ? `${dangerousCount} dangerous additive(s)`
+                          : highRiskCount > 0
+                            ? `${highRiskCount} high risk additive(s)`
+                            : `${moderateRiskCount} moderate risk additive(s)`}
                       </p>
                     </div>
                   </div>
@@ -152,26 +190,34 @@ export function AdditivesSection({ additives, compact = false }: AdditivesSectio
                 }
               >
                 <div className="space-y-3 pb-4">
-                  {highRiskCount > 0 && (
-                    <div className="p-3 bg-danger-50 border-l-4 border-danger rounded">
-                      <p className="text-sm font-semibold text-danger-700 mb-1">
-                        {highRiskCount} additif{highRiskCount > 1 ? "s" : ""} à risque élevé
+                  {dangerousCount > 0 && (
+                    <div className="p-3 bg-red-50 border-l-4 border-red-500 rounded">
+                      <p className="text-sm font-semibold text-red-700 mb-1">
+                        {dangerousCount} dangerous additive{dangerousCount > 1 ? "s" : ""}
                       </p>
-                      <p className="text-xs text-danger-600">
-                        Ces additifs peuvent présenter des risques pour certaines personnes. Consultez la
-                        liste détaillée ci-dessous.
+                      <p className="text-xs text-red-600">
+                        These additives may pose significant risks. Consider avoiding them.
+                      </p>
+                    </div>
+                  )}
+
+                  {highRiskCount > 0 && (
+                    <div className="p-3 bg-orange-50 border-l-4 border-orange-500 rounded">
+                      <p className="text-sm font-semibold text-orange-700 mb-1">
+                        {highRiskCount} high risk additive{highRiskCount > 1 ? "s" : ""}
+                      </p>
+                      <p className="text-xs text-orange-600">
+                        These additives may present risks for some people. Check the detailed list below.
                       </p>
                     </div>
                   )}
 
                   {moderateRiskCount > 0 && (
-                    <div className="p-3 bg-warning-50 border-l-4 border-warning rounded">
-                      <p className="text-sm font-semibold text-warning-700 mb-1">
-                        {moderateRiskCount} additif{moderateRiskCount > 1 ? "s" : ""} à risque modéré
+                    <div className="p-3 bg-yellow-50 border-l-4 border-yellow-500 rounded">
+                      <p className="text-sm font-semibold text-yellow-700 mb-1">
+                        {moderateRiskCount} moderate risk additive{moderateRiskCount > 1 ? "s" : ""}
                       </p>
-                      <p className="text-xs text-warning-600">
-                        Ces additifs nécessitent une consommation modérée.
-                      </p>
+                      <p className="text-xs text-yellow-600">These additives require moderate consumption.</p>
                     </div>
                   )}
                 </div>
@@ -193,13 +239,15 @@ export function AdditivesSection({ additives, compact = false }: AdditivesSectio
                   <div
                     key={additive.id}
                     className={`p-3 rounded-lg border-l-4 ${
-                      additive.riskLevel === "high"
-                        ? "bg-danger-50 border-danger"
-                        : additive.riskLevel === "moderate"
-                          ? "bg-warning-50 border-warning"
-                          : additive.riskLevel === "low"
-                            ? "bg-success-50 border-success"
-                            : "bg-default-50 border-default"
+                      additive.riskLevel === "dangerous"
+                        ? "bg-red-50 border-red-500"
+                        : additive.riskLevel === "high_risk"
+                          ? "bg-orange-50 border-orange-500"
+                          : additive.riskLevel === "moderate"
+                            ? "bg-yellow-50 border-yellow-500"
+                            : additive.riskLevel === "safe"
+                              ? "bg-green-50 border-green-500"
+                              : "bg-default-50 border-default"
                     }`}
                   >
                     <div className="flex items-start justify-between gap-2">
@@ -240,28 +288,34 @@ export function AdditivesSection({ additives, compact = false }: AdditivesSectio
 
                 <div className="space-y-2">
                   <div className="flex items-start gap-2">
-                    <div className="w-3 h-3 rounded bg-success mt-1" />
+                    <div className="w-3 h-3 rounded bg-green-500 mt-1" />
                     <div>
-                      <p className="font-semibold text-success-700">Risque faible</p>
-                      <p className="text-success-600">Généralement considérés comme sûrs</p>
+                      <p className="font-semibold text-green-700">Safe</p>
+                      <p className="text-green-600">Generally considered safe</p>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-2">
-                    <div className="w-3 h-3 rounded bg-warning mt-1" />
+                    <div className="w-3 h-3 rounded bg-yellow-500 mt-1" />
                     <div>
-                      <p className="font-semibold text-warning-700">Risque modéré</p>
-                      <p className="text-warning-600">À consommer avec modération</p>
+                      <p className="font-semibold text-yellow-700">Moderate risk</p>
+                      <p className="text-yellow-600">Should be consumed in moderation</p>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-2">
-                    <div className="w-3 h-3 rounded bg-danger mt-1" />
+                    <div className="w-3 h-3 rounded bg-orange-500 mt-1" />
                     <div>
-                      <p className="font-semibold text-danger-700">Risque élevé</p>
-                      <p className="text-danger-600">
-                        Peuvent présenter des risques pour certaines personnes
-                      </p>
+                      <p className="font-semibold text-orange-700">High risk</p>
+                      <p className="text-orange-600">May present risks for some people</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-2">
+                    <div className="w-3 h-3 rounded bg-red-500 mt-1" />
+                    <div>
+                      <p className="font-semibold text-red-700">Dangerous</p>
+                      <p className="text-red-600">May pose significant health risks</p>
                     </div>
                   </div>
                 </div>

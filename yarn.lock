@@ -2287,6 +2287,7 @@ __metadata:
     react-hook-form: "npm:^7.53.1"
     react-phone-number-input: "npm:^3.4.9"
     react-spring-bottom-sheet: "npm:3.5.0-alpha.0"
+    react-swipeable: "npm:^7.0.2"
     react-toastify: "npm:^10.0.6"
     react-wrap-balancer: "npm:^1.0.0"
     sharp: "npm:^0.33.5"
@@ -19243,6 +19244,15 @@ __metadata:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
   checksum: 10/d46930f6e5cd0ec2d9af3e790ac90f85919d11c3f568f142d2b240e6aaa1c92b5766de834a05f07b3c89548919a4669be916c8727886ddefb9d8a41a03518a01
+  languageName: node
+  linkType: hard
+
+"react-swipeable@npm:^7.0.2":
+  version: 7.0.2
+  resolution: "react-swipeable@npm:7.0.2"
+  peerDependencies:
+    react: ^16.8.3 || ^17 || ^18 || ^19.0.0 || ^19.0.0-rc
+  checksum: 10/c142190244865c321751b0ca5f14ac186cf8a5d49bd577b16b1d22ea4f673d1e85cd7ad1962736be4575df320a6081c2b2b36799236c777b1a3ffb8682f4993c
   languageName: node
   linkType: hard
 

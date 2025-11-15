@@ -29,7 +29,7 @@ const nextConfig = (): NextConfig => {
     },
     trailingSlash: false,
     reactStrictMode: true,
-    compress: true,
+    compress: true,    
     images: {
       remotePatterns: [
         {
@@ -56,7 +56,7 @@ const nextConfig = (): NextConfig => {
     },
     experimental: {
       serverActions: {
-        bodySizeLimit: "3mb",
+        bodySizeLimit: "10mb",
       },
       swcPlugins: [["@lingui/swc-plugin", {}]],
     },

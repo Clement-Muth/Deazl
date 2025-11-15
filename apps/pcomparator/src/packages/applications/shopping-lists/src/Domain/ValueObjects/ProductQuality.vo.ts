@@ -53,7 +53,7 @@ export const ProductQualityDataSchema = z.object({
       z.object({
         id: z.string(),
         name: z.string(),
-        riskLevel: z.enum(["low", "moderate", "high", "unknown"]).optional()
+        riskLevel: z.enum(["safe", "moderate", "high_risk", "dangerous"]).optional()
       })
     )
     .optional(),
@@ -237,23 +237,40 @@ export function parseOpenFoodFactsQuality(offData: any): ProductQualityData {
     };
   }
 
-  // Additifs
+  // Additifs avec noms et niveaux de risque
   if (offData.additives_tags && Array.isArray(offData.additives_tags)) {
     data.additives = offData.additives_tags.map((tag: string) => {
-      const name = offData.additives_names?.[tag] || tag.replace("en:", "");
-      let riskLevel: "low" | "moderate" | "high" | "unknown" = "unknown";
+      // Extraire le code E (ex: "en:e330" -> "e330")
+      const cleanTag = tag.replace("en:", "").toLowerCase();
 
-      // Déterminer le niveau de risque basé sur les données OFF
-      if (offData.additives_old_tags?.includes(tag) || tag.includes("e1")) {
-        riskLevel = "low";
-      } else if (tag.includes("e2") || tag.includes("e3")) {
+      // Récupérer le nom depuis OpenFoodFacts ou utiliser le tag
+      const name =
+        offData.additives_original_tags?.[tag] ||
+        offData.additives_names?.[tag] ||
+        tag.replace("en:", "").replace("-", " ");
+
+      // Déterminer le niveau de risque depuis OFF ou base de données
+      let riskLevel: "safe" | "moderate" | "high_risk" | "dangerous" = "safe";
+
+      // Utiliser les données OFF sur les risques si disponibles
+      if (
+        offData.additives_prev_tags?.includes(tag) ||
+        offData.additives_that_may_be_from_palm_oil_tags?.includes(tag)
+      ) {
         riskLevel = "moderate";
-      } else if (tag.includes("e4") || tag.includes("e5")) {
-        riskLevel = "high";
+      }
+
+      // Logique basée sur les catégories OFF
+      if (tag.includes("sulphite") || tag.includes("benzoate") || tag.includes("nitrite")) {
+        riskLevel = "high_risk";
+      }
+
+      if (tag.includes("tartrazine") || tag.includes("carmine") || tag.includes("aspartame")) {
+        riskLevel = "dangerous";
       }
 
       return {
-        id: tag,
+        id: cleanTag,
         name,
         riskLevel
       };

@@ -25,34 +25,36 @@ export const ProductAdditives = ({ qualityData }: ProductAdditivesProps) => {
   }
 
   const getRiskColor = (
-    risk: "low" | "moderate" | "high" | "unknown"
+    risk: "safe" | "moderate" | "high_risk" | "dangerous" | "unknown"
   ): "success" | "warning" | "danger" | "default" => {
     switch (risk) {
-      case "low":
+      case "safe":
         return "success";
       case "moderate":
         return "warning";
-      case "high":
+      case "high_risk":
+      case "dangerous":
         return "danger";
       default:
         return "default";
     }
   };
 
-  const getRiskLabel = (risk: "low" | "moderate" | "high" | "unknown"): string => {
+  const getRiskLabel = (risk: "safe" | "moderate" | "high_risk" | "dangerous" | "unknown"): string => {
     switch (risk) {
-      case "low":
+      case "safe":
         return "Faible";
       case "moderate":
         return "Modéré";
-      case "high":
+      case "high_risk":
+      case "dangerous":
         return "Élevé";
       default:
         return "Inconnu";
     }
   };
 
-  const highRiskCount = additives.filter((a) => a.riskLevel === "high").length;
+  const highRiskCount = additives.filter((a) => a.riskLevel === "high_risk").length;
   const moderateRiskCount = additives.filter((a) => a.riskLevel === "moderate").length;
 
   return (

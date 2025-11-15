@@ -30,7 +30,7 @@ export const ProductQuickSummary = ({
     return "danger";
   };
 
-  const hasHighRiskAdditives = additives?.some((a) => a.riskLevel === "high");
+  const hasHighRiskAdditives = additives?.some((a) => a.riskLevel === "high_risk");
   const hasModerateRiskAdditives = additives?.some((a) => a.riskLevel === "moderate");
   const hasAllergens = allergens && allergens.length > 0;
   const hasLabels = labels && labels.length > 0;

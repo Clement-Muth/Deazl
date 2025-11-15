@@ -250,7 +250,7 @@ export const ProductComparison = ({ isOpen, onClose, currentProduct }: ProductCo
                         size="sm"
                         variant="flat"
                         color={
-                          product.qualityData.additives.some((a) => a.riskLevel === "high")
+                          product.qualityData.additives.some((a) => a.riskLevel === "high_risk")
                             ? "danger"
                             : "warning"
                         }
