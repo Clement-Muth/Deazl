@@ -28,8 +28,15 @@ export interface ProductSearchResult {
   createdAt: Date;
 }
 
-export async function searchProducts(filters: ProductSearchFilters = {}): Promise<ProductSearchResult[]> {
-  const { searchTerm, categoryId, brandId, sortBy = "popular", limit = 24, offset = 0 } = filters;
+export interface ProductSearchResponse {
+  products: ProductSearchResult[];
+  total: number;
+  page: number;
+  totalPages: number;
+}
+
+export async function searchProducts(filters: ProductSearchFilters = {}): Promise<ProductSearchResponse> {
+  const { searchTerm, categoryId, brandId, sortBy = "popular", limit = 12, offset = 0 } = filters;
 
   const where: any = {};
 
@@ -62,52 +69,63 @@ export async function searchProducts(filters: ProductSearchFilters = {}): Promis
       break;
   }
 
-  const products = await prisma.product.findMany({
-    where,
-    include: {
-      category: {
-        select: {
-          id: true,
-          name: true
+  const [products, total] = await Promise.all([
+    prisma.product.findMany({
+      where,
+      include: {
+        category: {
+          select: {
+            id: true,
+            name: true
+          }
+        },
+        brand: {
+          select: {
+            id: true,
+            name: true
+          }
+        },
+        _count: {
+          select: {
+            prices: true
+          }
         }
       },
-      brand: {
-        select: {
-          id: true,
-          name: true
-        }
-      },
-      _count: {
-        select: {
-          prices: true
-        }
-      }
-    },
-    orderBy,
-    take: limit,
-    skip: offset
-  });
+      orderBy,
+      take: limit,
+      skip: offset
+    }),
+    prisma.product.count({ where })
+  ]);
 
-  return products.map((product) => ({
-    id: product.id,
-    barcode: product.barcode,
-    name: product.name,
-    description: product.description ?? undefined,
-    category: product.category
-      ? {
-          id: product.category.id,
-          name: product.category.name
-        }
-      : undefined,
-    brand: product.brand
-      ? {
-          id: product.brand.id,
-          name: product.brand.name
-        }
-      : undefined,
-    priceCount: product._count.prices,
-    createdAt: product.created_at
-  }));
+  const page = Math.floor(offset / limit) + 1;
+  const totalPages = Math.ceil(total / limit);
+
+  return {
+    products: products.map((product) => ({
+      id: product.id,
+      barcode: product.barcode,
+      name: product.name,
+      description: product.description ?? undefined,
+      category: product.category
+        ? {
+            id: product.category.id,
+            name: product.category.name
+          }
+        : undefined,
+      brand: product.brand
+        ? {
+            id: product.brand.id,
+            name: product.brand.name
+          }
+        : undefined,
+      priceCount: product._count.prices,
+      createdAt: product.created_at
+    })),
+    total,
+    page,
+    totalPages
+  };
 }
 
 export async function getCategories() {

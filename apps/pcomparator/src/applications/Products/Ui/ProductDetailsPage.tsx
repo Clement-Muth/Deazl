@@ -22,6 +22,8 @@ import { useEffect, useState } from "react";
 import { getAllStores } from "../Api/getAllStores";
 import type { ProductDetail } from "../Api/getProductById";
 import { AddPriceModal } from "./AddPriceModal";
+import { AddToListModal } from "./AddToListModal";
+import { AddToPantryModal } from "./AddToPantryModal";
 
 interface ProductDetailsPageProps {
   product: ProductDetail;
@@ -38,6 +40,8 @@ export function ProductDetailsPage({ product, stats, onRefresh }: ProductDetails
   const router = useRouter();
   const { t } = useLingui();
   const [isAddPriceModalOpen, setIsAddPriceModalOpen] = useState(false);
+  const [isAddToPantryModalOpen, setIsAddToPantryModalOpen] = useState(false);
+  const [isAddToListModalOpen, setIsAddToListModalOpen] = useState(false);
   const [stores, setStores] = useState<Array<{ id: string; name: string; location: string }>>([]);
 
   useEffect(() => {
@@ -107,7 +111,7 @@ export function ProductDetailsPage({ product, stats, onRefresh }: ProductDetails
 
   return (
     <>
-      <div className="flex min-h-screen flex-col bg-default-50">
+      <div className="flex min-h-screen flex-col bg-default-50 w-full">
         <div className="sticky top-0 z-10 border-b border-divider bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="flex items-center gap-2 px-4 py-3">
             <Button isIconOnly variant="light" onPress={() => router.back()} aria-label={t`Go back`}>
@@ -148,7 +152,7 @@ export function ProductDetailsPage({ product, stats, onRefresh }: ProductDetails
                     <p className="text-sm leading-relaxed text-default-600">{product.description}</p>
                   )}
                 </div>
-                {nutritionScore && (
+                {nutritionScore && typeof nutritionScore === "string" && (
                   <Chip
                     variant="flat"
                     color={
@@ -336,10 +340,21 @@ export function ProductDetailsPage({ product, stats, onRefresh }: ProductDetails
 
         <div className="sticky bottom-0 border-t border-divider bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="flex gap-2">
-            <Button color="primary" variant="flat" startContent={<Package className="h-4 w-4" />} fullWidth>
+            <Button
+              color="primary"
+              variant="flat"
+              startContent={<Package className="h-4 w-4" />}
+              onPress={() => setIsAddToPantryModalOpen(true)}
+              fullWidth
+            >
               <Trans>Add to Pantry</Trans>
             </Button>
-            <Button color="primary" startContent={<ShoppingCart className="h-4 w-4" />} fullWidth>
+            <Button
+              color="primary"
+              startContent={<ShoppingCart className="h-4 w-4" />}
+              onPress={() => setIsAddToListModalOpen(true)}
+              fullWidth
+            >
               <Trans>Add to List</Trans>
             </Button>
           </div>
@@ -352,6 +367,20 @@ export function ProductDetailsPage({ product, stats, onRefresh }: ProductDetails
         productId={product.id}
         stores={stores}
         onPriceAdded={handlePriceAdded}
+      />
+
+      <AddToPantryModal
+        isOpen={isAddToPantryModalOpen}
+        onClose={() => setIsAddToPantryModalOpen(false)}
+        productId={product.id}
+        productName={product.name}
+      />
+
+      <AddToListModal
+        isOpen={isAddToListModalOpen}
+        onClose={() => setIsAddToListModalOpen(false)}
+        productId={product.id}
+        productName={product.name}
       />
     </>
   );
