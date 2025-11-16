@@ -32,7 +32,9 @@ export class PrismaRecipeRepository implements RecipeRepository {
   async findManyByUserId(userId: string): Promise<Recipe[]> {
     try {
       const recipesData = await prisma.recipe.findMany({
-        where: { userId },
+        where: {
+          OR: [{ userId }, { collaborators: { some: { userId } } }]
+        },
         include: {
           ingredients: {
             include: { product: true },
@@ -73,6 +75,56 @@ export class PrismaRecipeRepository implements RecipeRepository {
     }
   }
 
+  async searchPublicRecipes(filters: any): Promise<Recipe[]> {
+    try {
+      const where: any = { isPublic: true };
+
+      if (filters.searchTerm) {
+        where.OR = [
+          { name: { contains: filters.searchTerm, mode: "insensitive" } },
+          { description: { contains: filters.searchTerm, mode: "insensitive" } }
+        ];
+      }
+
+      if (filters.category) {
+        where.category = filters.category;
+      }
+
+      if (filters.cuisine) {
+        where.cuisine = filters.cuisine;
+      }
+
+      if (filters.difficulty) {
+        where.difficulty = filters.difficulty;
+      }
+
+      let orderBy: any = { createdAt: "desc" };
+      if (filters.sortBy === "popular") {
+        orderBy = { viewsCount: "desc" };
+      } else if (filters.sortBy === "favorites") {
+        orderBy = { favoritesCount: "desc" };
+      }
+
+      const recipesData = await prisma.recipe.findMany({
+        where,
+        include: {
+          ingredients: {
+            include: { product: true },
+            orderBy: { order: "asc" }
+          },
+          steps: {
+            orderBy: { stepNumber: "asc" }
+          }
+        },
+        orderBy
+      });
+
+      return recipesData.map((recipeData) => this.mapToDomain(recipeData));
+    } catch (error) {
+      throw new Error("Failed to search public recipes");
+    }
+  }
+
   async save(recipe: Recipe): Promise<Recipe> {
     try {
       console.log("test", prisma);
@@ -101,6 +153,8 @@ export class PrismaRecipeRepository implements RecipeRepository {
               cookingTime: recipe.cookingTime,
               servings: recipe.servings,
               imageUrl: recipe.imageUrl ?? null,
+              category: recipe.toObject().category ?? null,
+              cuisine: recipe.toObject().cuisine ?? null,
               isPublic: recipe.isPublic,
               updatedAt: new Date()
             }
@@ -143,6 +197,8 @@ export class PrismaRecipeRepository implements RecipeRepository {
               cookingTime: recipe.cookingTime,
               servings: recipe.servings,
               imageUrl: recipe.imageUrl ?? null,
+              category: recipe.toObject().category ?? null,
+              cuisine: recipe.toObject().cuisine ?? null,
               userId: recipe.userId,
               isPublic: recipe.isPublic,
               createdAt: recipe.createdAt,
@@ -229,6 +285,10 @@ export class PrismaRecipeRepository implements RecipeRepository {
         cookingTime: recipeData.cookingTime,
         servings: recipeData.servings,
         imageUrl: recipeData.imageUrl ?? undefined,
+        category: recipeData.category ?? undefined,
+        cuisine: recipeData.cuisine ?? undefined,
+        viewsCount: recipeData.viewsCount ?? 0,
+        favoritesCount: recipeData.favoritesCount ?? 0,
         userId: recipeData.userId,
         isPublic: recipeData.isPublic,
         ingredients,

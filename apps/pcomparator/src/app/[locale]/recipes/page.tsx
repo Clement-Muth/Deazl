@@ -1,11 +1,11 @@
-import { listUserRecipes } from "~/applications/Recipes/Api";
+import { getRecipeHubData } from "~/applications/Recipes/Api";
+import { RecipeHubContent } from "~/applications/Recipes/Ui/RecipeHubContent";
 import { withLinguiPage } from "~/core/withLinguiLayout";
-import { RecipesContent } from "./content";
 
 async function RecipesPage() {
-  const recipes = await listUserRecipes();
+  const hubData = await getRecipeHubData();
 
-  return <RecipesContent recipes={recipes} />;
+  return <RecipeHubContent hubData={hubData} />;
 }
 
 export default withLinguiPage(RecipesPage);

@@ -30,6 +30,11 @@ export const RecipeSchema = z.object({
   imageUrl: z.string().url().nullable().optional(),
   userId: z.string(),
   isPublic: z.boolean().default(false),
+  category: z.string().nullable().optional(),
+  cuisine: z.string().nullable().optional(),
+  tags: z.array(z.string()).optional(),
+  viewsCount: z.number().int().default(0),
+  favoritesCount: z.number().int().default(0),
   ingredients: z.array(RecipeIngredientSchema).optional(),
   steps: z.array(RecipeStepSchema).optional(),
   createdAt: z.date().optional(),
@@ -45,7 +50,9 @@ export const CreateRecipeSchema = z.object({
   cookingTime: z.number().int().positive({ message: "Le temps de cuisson doit être supérieur à 0" }),
   servings: z.number().int().positive().default(4),
   imageUrl: z.string().url().nullable().optional(),
-  isPublic: z.boolean().default(false),
+  category: z.string().optional(),
+  cuisine: z.string().optional(),
+  isPublic: z.boolean().default(true),
   ingredients: z
     .array(
       z.object({
@@ -76,6 +83,8 @@ export const UpdateRecipeSchema = z.object({
   cookingTime: z.number().int().positive().optional(),
   servings: z.number().int().positive().optional(),
   imageUrl: z.string().url().nullable().optional(),
+  category: z.string().nullable().optional(),
+  cuisine: z.string().nullable().optional(),
   isPublic: z.boolean().optional(),
   ingredients: z
     .array(

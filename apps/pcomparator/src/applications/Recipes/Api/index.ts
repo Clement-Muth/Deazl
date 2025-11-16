@@ -5,4 +5,35 @@ export { generateRecipeDescription } from "./recipes/generateDescription.api";
 export { getRecipe } from "./recipes/getRecipe.api";
 export { listPublicRecipes } from "./recipes/listPublicRecipes.api";
 export { listUserRecipes } from "./recipes/listUserRecipes.api";
+export { searchPublicRecipes } from "./recipes/searchPublicRecipes.api";
 export { updateRecipe } from "./recipes/updateRecipe.api";
+export { incrementRecipeViews } from "./recipes/incrementRecipeViews.api";
+
+export { addRecipeFavorite } from "./favorites/addRecipeFavorite.api";
+export { removeRecipeFavorite } from "./favorites/removeRecipeFavorite.api";
+export { getUserFavoriteRecipes } from "./favorites/getUserFavoriteRecipes.api";
+export { getUserFavoriteRecipesDetails } from "./favorites/getUserFavoriteRecipesDetails.api";
+
+export { getRecipeHubData } from "./hub/getRecipeHubData.api";
+
+export {
+  searchRecipes,
+  getPopularRecipes,
+  getQuickRecipes,
+  getHealthyRecipes,
+  getNewRecipes,
+  getRecipesByCategory
+} from "./search/searchRecipes.api";
+
+export { getCheapRecipes, calculateRecipePrice, compareStoresForRecipe } from "./pricing/recipePricing.api";
+
+export {
+  getRecipesFeasibleWithCellar,
+  checkRecipeFeasibility,
+  suggestRecipesBasedOnExpiringItems
+} from "./cellar/recipeCellar.api";
+
+export {
+  getRecommendedRecipes,
+  getRecipesBasedOnPurchases
+} from "./recommendations/recipeRecommendations.api";

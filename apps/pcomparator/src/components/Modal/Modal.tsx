@@ -44,6 +44,9 @@ export const Modal = ({
         onDismiss={onClose}
         header={header}
         footer={footer}
+        blocking={false}
+        // skipInitialTransition
+        // expandOnContentDrag={false}
         snapPoints={({ maxHeight, minHeight }) => {
           switch (sheetHeight) {
             case "sm":

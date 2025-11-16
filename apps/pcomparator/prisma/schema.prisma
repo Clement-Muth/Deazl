@@ -24,6 +24,8 @@ model User {
   shoppingLists         ShoppingList[]
   collaborations        ShoppingListCollaborator[]
   recipeCollaborations  RecipeCollaborator[]
+  pantryItems           PantryItem[]
+  recipeFavorites       RecipeFavorite[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -84,6 +86,7 @@ model Product {
   prices           Price[]
   ShoppingListItem ShoppingListItem[]
   recipeIngredient RecipeIngredient[]
+  pantryItems      PantryItem[]
 }
 
 model Category {
@@ -218,8 +221,13 @@ model Recipe {
   servings        Int              @default(4)
   imageUrl        String?
   userId          String
-  isPublic        Boolean          @default(false)
+  isPublic        Boolean          @default(true)
   shareToken      String?          @unique
+  category        String?
+  cuisine         String?
+  tags            String[]         @default([])
+  viewsCount      Int              @default(0)
+  favoritesCount  Int              @default(0)
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
 
@@ -231,6 +239,16 @@ model Recipe {
   collaborators     RecipeCollaborator[]
   shoppingListItems ShoppingListItem[]
   tips              RecipeTip[]
+  favorites         RecipeFavorite[]
+  trending          RecipeTrending?
+
+  @@index([isPublic])
+  @@index([category])
+  @@index([cuisine])
+  @@index([difficulty])
+  @@index([createdAt])
+  @@index([viewsCount])
+  @@index([favoritesCount])
 }
 
 model RecipeIngredient {
@@ -280,4 +298,81 @@ model RecipeTip {
   recipe    Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
 
   @@index([recipeId])
+}
+
+model RecipeFavorite {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String
+  recipeId  String   @db.Uuid
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  recipe Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, recipeId])
+  @@index([userId])
+  @@index([recipeId])
+}
+
+model PantryItem {
+  id         String    @id @default(uuid()) @db.Uuid
+  userId     String
+  productId  String?   @db.Uuid
+  name       String
+  quantity   Float
+  unit       String
+  expiration DateTime?
+  location   String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product? @relation(fields: [productId], references: [id])
+
+  @@index([userId])
+  @@index([expiration])
+}
+
+model RecipeCategory {
+  id          String   @id @default(uuid()) @db.Uuid
+  name        String
+  slug        String   @unique
+  description String?
+  icon        String?
+  parentId    String?  @db.Uuid
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  parent   RecipeCategory?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children RecipeCategory[] @relation("CategoryHierarchy")
+
+  @@index([slug])
+  @@index([parentId])
+}
+
+model RecipeTag {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String   @unique
+  slug      String   @unique
+  color     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([slug])
+}
+
+model RecipeTrending {
+  id         String   @id @default(uuid()) @db.Uuid
+  recipeId   String   @unique @db.Uuid
+  score      Float    @default(0)
+  viewsLast7Days      Int      @default(0)
+  favoritesLast7Days  Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  recipe Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+
+  @@index([score])
+  @@index([updatedAt])
 }

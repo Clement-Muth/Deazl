@@ -144,6 +144,24 @@ export const RecipeBasicInfoStep = ({
           />
         </div>
 
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Input
+            label={<Trans>Category</Trans>}
+            placeholder={t`Ex: Appetizer, Main Course, Dessert`}
+            value={formData.category || ""}
+            onValueChange={(value) => onFormDataChange({ category: value || undefined })}
+            variant="bordered"
+          />
+
+          <Input
+            label={<Trans>Cuisine</Trans>}
+            placeholder={t`Ex: Italian, French, Asian`}
+            value={formData.cuisine || ""}
+            onValueChange={(value) => onFormDataChange({ cuisine: value || undefined })}
+            variant="bordered"
+          />
+        </div>
+
         <div className="flex items-center gap-4">
           <Input
             label={<Trans>Number of Servings</Trans>}
@@ -157,11 +175,11 @@ export const RecipeBasicInfoStep = ({
           />
 
           <Checkbox
-            isSelected={formData.isPublic}
-            onValueChange={(checked) => onFormDataChange({ isPublic: checked })}
+            isSelected={!formData.isPublic}
+            onValueChange={(checked) => onFormDataChange({ isPublic: !checked })}
             className="mt-6"
           >
-            <Trans>Make Public</Trans>
+            <Trans>Make Private</Trans>
           </Checkbox>
         </div>
       </CardBody>

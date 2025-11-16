@@ -16,6 +16,11 @@ interface RecipeProps {
   userId: string;
   isPublic: boolean;
   shareToken?: string;
+  category?: string;
+  cuisine?: string;
+  tags?: string[];
+  viewsCount?: number;
+  favoritesCount?: number;
   collaborators?: RecipeCollaborator[];
   ingredients: RecipeIngredient[];
   steps: RecipeStep[];
@@ -41,6 +46,11 @@ export class Recipe extends Entity<RecipeProps> {
       userId: string;
       isPublic?: boolean;
       shareToken?: string;
+      category?: string;
+      cuisine?: string;
+      tags?: string[];
+      viewsCount?: number;
+      favoritesCount?: number;
       collaborators?: RecipeCollaborator[];
       ingredients?: RecipeIngredient[];
       steps?: RecipeStep[];
@@ -60,6 +70,11 @@ export class Recipe extends Entity<RecipeProps> {
         userId: props.userId,
         isPublic: props.isPublic ?? false,
         shareToken: props.shareToken,
+        category: props.category,
+        cuisine: props.cuisine,
+        tags: props.tags || [],
+        viewsCount: props.viewsCount ?? 0,
+        favoritesCount: props.favoritesCount ?? 0,
         collaborators: props.collaborators || [],
         ingredients: props.ingredients || [],
         steps: props.steps || [],
@@ -227,6 +242,28 @@ export class Recipe extends Entity<RecipeProps> {
     );
   }
 
+  public withCategory(category?: string): Recipe {
+    return new Recipe(
+      {
+        ...this.props,
+        category,
+        updatedAt: new Date()
+      },
+      this._id.toValue()
+    );
+  }
+
+  public withCuisine(cuisine?: string): Recipe {
+    return new Recipe(
+      {
+        ...this.props,
+        cuisine,
+        updatedAt: new Date()
+      },
+      this._id.toValue()
+    );
+  }
+
   public withIngredients(ingredients: RecipeIngredient[]): Recipe {
     return new Recipe(
       {
@@ -282,6 +319,14 @@ export class Recipe extends Entity<RecipeProps> {
 
     if (updates.isPublic !== undefined) {
       updatedRecipe = updatedRecipe.withIsPublic(updates.isPublic);
+    }
+
+    if (updates.category !== undefined) {
+      updatedRecipe = updatedRecipe.withCategory(updates.category);
+    }
+
+    if (updates.cuisine !== undefined) {
+      updatedRecipe = updatedRecipe.withCuisine(updates.cuisine);
     }
 
     if (updates.ingredients !== undefined) {
@@ -347,6 +392,11 @@ export class Recipe extends Entity<RecipeProps> {
       imageUrl: this.imageUrl,
       userId: this.userId,
       isPublic: this.isPublic,
+      category: this.props.category,
+      cuisine: this.props.cuisine,
+      tags: this.props.tags,
+      viewsCount: this.props.viewsCount ?? 0,
+      favoritesCount: this.props.favoritesCount ?? 0,
       ingredients: this.ingredients.map((ingredient) => ingredient.toObject()),
       steps: this.steps.map((step) => step.toObject()),
       createdAt: this.createdAt,

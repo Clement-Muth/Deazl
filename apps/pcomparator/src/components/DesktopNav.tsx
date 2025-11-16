@@ -2,7 +2,7 @@
 
 import { Button } from "@heroui/react";
 import { Trans } from "@lingui/react/macro";
-import { BookOpen, LineChart, type LucideIcon, Plus, ReceiptText, Settings } from "lucide-react";
+import { BookOpen, Heart, LineChart, type LucideIcon, Plus, ReceiptText, Settings, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -12,6 +12,7 @@ interface NavItem {
   label: React.ReactNode;
   icon: LucideIcon;
   exact?: boolean;
+  subItems?: NavItem[];
 }
 
 const navigationItems: NavItem[] = [
@@ -28,7 +29,19 @@ const navigationItems: NavItem[] = [
   {
     path: "/recipes",
     label: <Trans>Recipes</Trans>,
-    icon: BookOpen
+    icon: BookOpen,
+    subItems: [
+      {
+        path: "/recipes/my-recipes",
+        label: <Trans>My Recipes</Trans>,
+        icon: User
+      },
+      {
+        path: "/recipes/favorites",
+        label: <Trans>Favorites</Trans>,
+        icon: Heart
+      }
+    ]
   }
 ];
 
@@ -48,33 +61,66 @@ export const DesktopNav = () => {
     return pathname.startsWith(itemPath);
   };
 
-  const renderNavItem = ({ path, label, icon: Icon, exact }: NavItem) => {
+  const renderNavItem = ({ path, label, icon: Icon, exact, subItems }: NavItem) => {
     const active = isActive(path, exact);
 
     return (
-      <Button
-        key={path}
-        as={Link}
-        href={path}
-        variant="light"
-        className={`justify-start h-9 w-full transition-all duration-200 group ${
-          active
-            ? "bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 font-medium"
-            : "hover:bg-gray-50 dark:hover:bg-gray-800/50"
-        }`}
-        startContent={
-          <Icon
-            className={`w-4 h-4 ${
-              active ? "text-primary-600 dark:text-primary-400" : "text-gray-600 dark:text-gray-400"
-            }`}
-          />
-        }
-      >
-        <span className="text-sm">{label}</span>
-        {active && (
-          <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-primary-600 dark:bg-primary-400" />
+      <div key={path}>
+        <Button
+          as={Link}
+          href={path}
+          variant="light"
+          className={`justify-start h-9 w-full transition-all duration-200 group ${
+            active
+              ? "bg-primary-50 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 font-medium"
+              : "hover:bg-gray-50 dark:hover:bg-gray-800/50"
+          }`}
+          startContent={
+            <Icon
+              className={`w-4 h-4 ${
+                active ? "text-primary-600 dark:text-primary-400" : "text-gray-600 dark:text-gray-400"
+              }`}
+            />
+          }
+        >
+          <span className="text-sm">{label}</span>
+          {active && (
+            <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-primary-600 dark:bg-primary-400" />
+          )}
+        </Button>
+        {subItems && subItems.length > 0 && (
+          <div className="ml-6 mt-1 space-y-0.5">
+            {subItems.map((subItem) => {
+              const subActive = isActive(subItem.path, subItem.exact);
+              return (
+                <Button
+                  key={subItem.path}
+                  as={Link}
+                  href={subItem.path}
+                  variant="light"
+                  size="sm"
+                  className={`justify-start h-8 w-full transition-all duration-200 ${
+                    subActive
+                      ? "text-primary-600 dark:text-primary-400 font-medium"
+                      : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
+                  }`}
+                  startContent={
+                    <subItem.icon
+                      className={`w-3.5 h-3.5 ${
+                        subActive
+                          ? "text-primary-600 dark:text-primary-400"
+                          : "text-gray-500 dark:text-gray-500"
+                      }`}
+                    />
+                  }
+                >
+                  <span className="text-xs">{subItem.label}</span>
+                </Button>
+              );
+            })}
+          </div>
         )}
-      </Button>
+      </div>
     );
   };
 

@@ -10,6 +10,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Clock,
+  Edit,
   Eye,
   EyeOff,
   Flame,
@@ -27,6 +28,7 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { addRecipeFavorite, getUserFavoriteRecipes, removeRecipeFavorite } from "../Api";
 import type { RecipePayload } from "../Domain/Schemas/Recipe.schema";
 import { scaleQuantity } from "../Domain/Utilities/UnitConversion";
 import { useRecipeData } from "./hooks/useRecipeData";
@@ -81,12 +83,38 @@ export default function RecipeDetailsMobile({
   const { t } = useLingui();
   const router = useRouter();
   const [isFavorite, setIsFavorite] = useState(false);
+  const [loadingFavorite, setLoadingFavorite] = useState(false);
   const [hideNoPriceIngredients, setHideNoPriceIngredients] = useState(false);
   const [stepByStepMode, setStepByStepMode] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [stepsCompleted, setStepsCompleted] = useState<StepProgress>({});
   const [showNutritionDetails, setShowNutritionDetails] = useState(false);
   const [adjustedServings, setAdjustedServings] = useState(recipe.servings);
+
+  useEffect(() => {
+    getUserFavoriteRecipes()
+      .then((favorites) => {
+        setIsFavorite(favorites.includes(recipe.id));
+      })
+      .catch(console.error);
+  }, [recipe.id]);
+
+  const handleFavoriteToggle = async () => {
+    setLoadingFavorite(true);
+    try {
+      if (isFavorite) {
+        await removeRecipeFavorite(recipe.id);
+        setIsFavorite(false);
+      } else {
+        await addRecipeFavorite(recipe.id);
+        setIsFavorite(true);
+      }
+    } catch (error) {
+      console.error("Failed to toggle favorite:", error);
+    } finally {
+      setLoadingFavorite(false);
+    }
+  };
 
   // Calculate scale factor for ingredient quantities
   const scaleFactor = adjustedServings / recipe.servings;
@@ -236,11 +264,22 @@ export default function RecipeDetailsMobile({
           </Button>
 
           <div className="flex items-center gap-2">
+            {userId && recipe.userId === userId && (
+              <Button
+                isIconOnly
+                variant="light"
+                size="sm"
+                onPress={() => router.push(`/recipes/${recipe.id}/edit`)}
+              >
+                <Edit className="w-5 h-5" />
+              </Button>
+            )}
             <Button
               isIconOnly
               variant="light"
               size="sm"
-              onPress={() => setIsFavorite(!isFavorite)}
+              onPress={handleFavoriteToggle}
+              isLoading={loadingFavorite}
               color={isFavorite ? "danger" : "default"}
             >
               <Heart className={`w-5 h-5 ${isFavorite ? "fill-current" : ""}`} />

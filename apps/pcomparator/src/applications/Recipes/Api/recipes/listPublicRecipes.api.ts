@@ -6,11 +6,11 @@ import { PrismaRecipeRepository } from "../../Infrastructure/Repositories/Prisma
 
 const recipeApplicationService = new RecipeApplicationService(new PrismaRecipeRepository());
 
-export const listPublicRecipes = async (): Promise<RecipePayload[]> => {
+export const listPublicRecipes = async (limit = 6): Promise<RecipePayload[]> => {
   try {
     const recipes = await recipeApplicationService.listPublicRecipes();
 
-    return recipes.map((recipe) => recipe.toObject());
+    return recipes.slice(0, limit).map((recipe) => recipe.toObject());
   } catch (error) {
     throw new Error("Failed to list public recipes", { cause: error });
   }

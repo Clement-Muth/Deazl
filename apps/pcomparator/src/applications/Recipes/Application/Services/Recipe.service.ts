@@ -2,7 +2,7 @@ import { AuthenticationService, DataAccessError, DomainError } from "@deazl/shar
 import { Recipe } from "../../Domain/Entities/Recipe.entity";
 import { RecipeIngredient } from "../../Domain/Entities/RecipeIngredient.entity";
 import { RecipeStep } from "../../Domain/Entities/RecipeStep.entity";
-import type { RecipeRepository } from "../../Domain/Repositories/RecipeRepository";
+import type { RecipeRepository, RecipeSearchFilters } from "../../Domain/Repositories/RecipeRepository";
 import type {
   CreateRecipePayload,
   DeleteRecipePayload,
@@ -49,6 +49,21 @@ export class RecipeApplicationService {
     }
   }
 
+  async searchPublicRecipes(filters: RecipeSearchFilters): Promise<Recipe[]> {
+    try {
+      const recipes = await this.repository.searchPublicRecipes(filters);
+
+      return recipes;
+    } catch (error) {
+      if (error instanceof DomainError) throw error;
+
+      throw new DataAccessError(
+        "Failed to search public recipes",
+        error instanceof Error ? error : new Error(String(error))
+      );
+    }
+  }
+
   async getRecipe(recipeId: GetRecipePayload): Promise<Recipe | null> {
     try {
       const currentUser: any = await this.authService.getCurrentUser();
@@ -83,6 +98,8 @@ export class RecipeApplicationService {
         cookingTime: data.cookingTime,
         servings: data.servings,
         imageUrl: data.imageUrl ?? undefined,
+        category: data.category,
+        cuisine: data.cuisine,
         userId: currentUser.id,
         isPublic: data.isPublic
       });
@@ -157,6 +174,8 @@ export class RecipeApplicationService {
         cookingTime: data.cookingTime,
         servings: data.servings,
         imageUrl: data.imageUrl === null ? undefined : data.imageUrl,
+        category: data.category === null ? undefined : data.category,
+        cuisine: data.cuisine === null ? undefined : data.cuisine,
         isPublic: data.isPublic
       };
 
