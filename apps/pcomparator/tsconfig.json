@@ -1,0 +1,54 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "target": "es2022",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": [
+      "@testing-library/jest-dom"
+    ],
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "~/Shared/*": [
+        "src/applications/Shared/*"
+      ],
+      "~/*": [
+        "src/*"
+      ],
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/next-env.d.ts",
+    ".next/types/**/*.ts",
+    "src/libraries/openapi-fetch/index.d.ts",
+    "src/libraries/openapi-fetch/index.js"
+  ],
+  "exclude": [
+    "node_modules",
+    ".next",
+    "__mocks__"
+  ]
+}

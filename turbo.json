@@ -1,0 +1,51 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["tsconfig.json"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "dist/**", "lib/**", "storybook-static/**"]
+    },
+    "build:fast": {
+      "outputs": ["dist/**"],
+      "dependsOn": ["^build:fast"]
+    },
+    "typescript:check": {
+      "cache": false,
+      "dependsOn": ["^typescript:check"]
+    },
+    "start": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "test": {
+      "dependsOn": ["build"],
+      "outputs": []
+    },
+    "clean": {
+      "cache": false,
+      "outputs": []
+    },
+    "check:all": {
+      "outputs": []
+    },
+    "check:fix": {
+      "outputs": []
+    },
+    "dev": {
+      "cache": false
+    },
+    "sb": {
+      "cache": false
+    },
+    "prisma:generate": {
+      "outputs": ["node_modules/.prisma/**", "prisma/generated/**"]
+    },
+    "prisma:migrate": {
+      "outputs": []
+    },
+    "prisma:studio": {
+      "outputs": []
+    }
+  }
+}

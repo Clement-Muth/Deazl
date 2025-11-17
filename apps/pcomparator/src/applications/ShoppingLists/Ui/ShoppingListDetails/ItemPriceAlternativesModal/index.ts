@@ -1,0 +1,1 @@
+export { ItemPriceAlternativesModal } from "./ItemPriceAlternativesModal";

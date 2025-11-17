@@ -1,0 +1,7 @@
+{
+  "extends": ["../../biome.json"],
+  "files": {
+    "ignore": ["build/*", "node_modules"],
+    "include": [".storybook", "src/*"]
+  }
+}

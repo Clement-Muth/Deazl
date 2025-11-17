@@ -1,27 +1,37 @@
-# [4.10.0](https://github.com/Deazl-Comparator/deazl/compare/v4.9.0...v4.10.0) (2025-05-26)
-
-
-### Bug Fixes
-
-* add DATABASE_URL environment variable for Validate Prisma Schema job ([c5f6dca](https://github.com/Deazl-Comparator/deazl/commit/c5f6dcacc8e48bbe3b2b4fdebcfc78c6f1bcd1f3))
-* add environment specification for Quality Checks job in CI workflow ([98aacdb](https://github.com/Deazl-Comparator/deazl/commit/98aacdb9fa88ea7b4aa8818b0b68cbc808d019ae))
-* add missing cache-dependency-path for Node.js setup in CI workflow ([#88](https://github.com/Deazl-Comparator/deazl/issues/88)) ([65f9b82](https://github.com/Deazl-Comparator/deazl/commit/65f9b820d8961481ac7238ad15048e39ce9b7f6c))
-* **readme:** deazl logo url ([5d9a467](https://github.com/Deazl-Comparator/deazl/commit/5d9a467611d3d14bff39d5374a8e8d73c970a372))
-* update environment variables for build steps in CI workflow ([643f6c4](https://github.com/Deazl-Comparator/deazl/commit/643f6c4f134b7923b22bc23fad787062907c7163))
-* update service worker script for improved module registration and caching ([886048c](https://github.com/Deazl-Comparator/deazl/commit/886048c28dfef726a0a144ff30d94ea67fe34bc4))
+# [4.10.0-beta.6](https://github.com/Deazl-Comparator/deazl/compare/v4.10.0-beta.5...v4.10.0-beta.6) (2025-05-30)
 
 
 ### Features
 
-* add CI workflows for deployment, security scanning, and testing ([db8f59d](https://github.com/Deazl-Comparator/deazl/commit/db8f59d386a825bf5d1efc7b2e709a5b88dd5818))
-* add community readme ([#91](https://github.com/Deazl-Comparator/deazl/issues/91)) ([437ceac](https://github.com/Deazl-Comparator/deazl/commit/437ceac8b1adfc16a9fd2ebd13176083f9b9d663))
-* create dependabot.yml ([debd0cc](https://github.com/Deazl-Comparator/deazl/commit/debd0ccdea6bb49fa187cecd74b25d3b0c9b8fd8))
-* create landing page and public pages ([#89](https://github.com/Deazl-Comparator/deazl/issues/89)) ([fc437be](https://github.com/Deazl-Comparator/deazl/commit/fc437be8c19f8d7a6e7d59265daa7334e52e024b))
-* Enhance Shopping List functionality with product creation and s… ([#84](https://github.com/Deazl-Comparator/deazl/issues/84)) ([0f3a6e6](https://github.com/Deazl-Comparator/deazl/commit/0f3a6e6eb6809009de36e176668a914f16a220d0))
-* enhance Tabbar component with sign-in functionality and modal ([#85](https://github.com/Deazl-Comparator/deazl/issues/85)) ([56798da](https://github.com/Deazl-Comparator/deazl/commit/56798dabe82b3316d7857a7f6b9d919ea354927c))
-* implement automated release management workflow and scripts ([#93](https://github.com/Deazl-Comparator/deazl/issues/93)) ([ab41508](https://github.com/Deazl-Comparator/deazl/commit/ab41508247f3e7ca0aa47fe912daebf16a376eb8))
-* implement collaborators system ([#87](https://github.com/Deazl-Comparator/deazl/issues/87)) ([9b078a5](https://github.com/Deazl-Comparator/deazl/commit/9b078a53c34bbf86397ff5925880a45158635a3f))
-* test release ([#95](https://github.com/Deazl-Comparator/deazl/issues/95)) ([668bb85](https://github.com/Deazl-Comparator/deazl/commit/668bb85b51c8d6a0d3f5c12fc9a0e1a64e8aa987))
+* create FUNDING.yml ([05d5496](https://github.com/Deazl-Comparator/deazl/commit/05d54964c7b7fef4e1bcb8d36a0a10d5d72cdb3d))
+
+# [4.10.0-beta.5](https://github.com/Deazl-Comparator/deazl/compare/v4.10.0-beta.4...v4.10.0-beta.5) (2025-05-29)
+
+
+### Features
+
+* add smart conversion notif ([#102](https://github.com/Deazl-Comparator/deazl/issues/102)) ([05656cd](https://github.com/Deazl-Comparator/deazl/commit/05656cd589e1f63d575e6d3863c5861241de1596))
+
+# [4.10.0-beta.4](https://github.com/Deazl-Comparator/deazl/compare/v4.10.0-beta.3...v4.10.0-beta.4) (2025-05-27)
+
+
+### Features
+
+* Implement product search service and UI components for shopping… ([#101](https://github.com/Deazl-Comparator/deazl/issues/101)) ([a54ac23](https://github.com/Deazl-Comparator/deazl/commit/a54ac23a1eb5a7286848a6d091cb471ab0b1496d))
+
+# [4.10.0-beta.3](https://github.com/Deazl-Comparator/deazl/compare/v4.10.0-beta.2...v4.10.0-beta.3) (2025-05-26)
+
+
+### Bug Fixes
+
+* update Vercel deployment commands for staging and production environments ([50f0179](https://github.com/Deazl-Comparator/deazl/commit/50f01792c15a05ee354062c7b1173962ac6f800b))
+
+# [4.10.0-beta.2](https://github.com/Deazl-Comparator/deazl/compare/v4.10.0-beta.1...v4.10.0-beta.2) (2025-05-26)
+
+
+### Bug Fixes
+
+* correct syntax for Vercel token usage in deployment steps ([af5f9a0](https://github.com/Deazl-Comparator/deazl/commit/af5f9a0680876c662cb07a1393761788e127590b))
 
 # [4.10.0-beta.1](https://github.com/Deazl-Comparator/deazl/compare/v4.9.0...v4.10.0-beta.1) (2025-05-26)
 

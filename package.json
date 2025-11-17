@@ -1,19 +1,57 @@
 {
-  "name": "pcomparator",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/Clement-Muth/pcomparator",
-  "license": "MIT",
-  "scripts": {
-    "semantic-release": "semantic-release"
-  },
-  "dependencies": {
-    "semantic-release": "^24.0.0",
-    "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/commit-analyzer": "^13.0.0",
-    "@semantic-release/exec": "^6.0.3",
-    "@semantic-release/git": "^10.0.1",
-    "@semantic-release/github": "^11.0.1",
-    "@semantic-release/release-notes-generator": "^14.0.1"
-  }
+	"name": "deazl",
+	"private": true,
+	"version": "1.0.0",
+	"author": "Clément Muth <clementmuth@deazl.fr>",
+	"workspaces": [
+		"apps/**/*",
+		"packages/**/*"
+	],
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Deazl-Comparator/deazl.git"
+	},
+	"scripts": {
+		"build": "turbo build --filter='!@deazl/pcomparator'",
+		"build:fast": "turbo build:fast --filter='!@deazl/pcomparator'",
+		"dev:pcomparator": "turbo dev --filter=@deazl/pcomparator",
+		"build:pcomparator": "turbo build",
+		"test:pcomparator": "turbo test",
+		"prisma:generate": "prisma generate --schema=apps/pcomparator/prisma/schema.prisma",
+		"prisma:studio": "prisma studio --schema=apps/pcomparator/prisma/schema.prisma",
+		"prisma:migrate": "prisma migrate dev --schema=apps/pcomparator/prisma/schema.prisma",
+		"prisma:push": "turbo prisma:push",
+		"clean": "yarn turbo clean && yarn clean:jest && yarn clean:lock && yarn clean:node-modules && yarn install",
+		"clean:node-modules": "rimraf ./apps/**/node_modules && rimraf ./packages/**/**/node_modules && rimraf ./node_modules",
+		"clean:cache": "rimraf .yarn/cache .yarn/install-state.gz",
+		"clean:changelogs": "rimraf ./packages/**/**/CHANGELOG.md",
+		"clean:lock": "rimraf ./yarn.lock",
+		"clean:jest": "jest --clearCache",
+		"check:cache": "yarn install --check-cache",
+		"check:all": "turbo check:all",
+		"check:fix": "turbo check:fix",
+		"typescript:check": "turbo typescript:check",
+		"postinstall": "husky"
+	},
+	"dependencies": {
+		"prisma": "5.21.1",
+		"react-barcode-scanner": "^4.0.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"@commitlint/cli": "^19.8.1",
+		"@commitlint/config-conventional": "^19.8.1",
+		"@prisma/client": "5.21.1",
+		"clean-package": "^2.2.0",
+		"commitlint-plugin-function-rules": "^4.0.2",
+		"husky": "^9.1.7",
+		"rimraf": "^6.0.1",
+		"semantic-release": "^23.0.0",
+		"turbo": "^2.6.0"
+	},
+	"engines": {
+		"node": ">=20.x"
+	},
+	"packageManager": "yarn@4.11.0"
 }

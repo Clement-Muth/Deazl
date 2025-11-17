@@ -1,3 +1,78 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies (Zero-Install: node_modules is ignored, .yarn/cache is committed)
+node_modules
+/.pnp
+.pnp.js
+
+# Yarn Zero-Install - keep cache and releases, ignore unplugged and install state
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# testing
+/coverage
+coverage
+
+# next.js
+/.next/
+.next/
+/out/
+
+# production
+/build
+dist/
+storybook-static
+/packages/storybook/public/tailwind.css
+
+# misc
+.DS_Store
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.production
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.yarn-integrity
+.idea
+.now
+dist
+esm
+examples/**/yarn.lock
+examples/**/out
+examples/**/.next
+packages/**/*.backup
+packages/**/*.backup.ts
+
 .vercel
 
-node_modules
+# ignore sitemap
+apps/**/sitemap.xml
+apps/**/sitemap-0.xml
+
+# turbo
+.turbo
+packages/**/.turbo
+
+# content layer
+.contentlayer
+
+.github/runner
+
+.tsbuildinfo

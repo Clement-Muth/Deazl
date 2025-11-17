@@ -69,14 +69,16 @@ runs:
         echo "CURRENT_NODE_VERSION="node-$(node --version)"" >> $GITHUB_OUTPUT
         echo "CURRENT_BRANCH=$(echo ${GITHUB_REF#refs/heads/} | sed -r 's,/,-,g')" >> $GITHUB_OUTPUT
 
-    - name: ♻️ Restore yarn cache
+    - name: ♻️ Restore yarn cache (Zero-Install optimized)
       uses: actions/cache@v3
       id: yarn-download-cache
       with:
-        path: ${{ steps.yarn-config.outputs.CACHE_FOLDER }}
-        key: yarn-download-cache-${{ inputs.cache-prefix }}-${{ hashFiles(format('{0}/yarn.lock', inputs.cwd), format('{0}/.yarnrc.yml', inputs.cwd)) }}
+        path: |
+          ${{ steps.yarn-config.outputs.CACHE_FOLDER }}
+          ${{ inputs.cwd }}/.yarn/cache
+        key: yarn-cache-${{ inputs.cache-prefix }}-${{ hashFiles(format('{0}/yarn.lock', inputs.cwd), format('{0}/.yarnrc.yml', inputs.cwd)) }}
         restore-keys: |
-          yarn-download-cache-${{ inputs.cache-prefix }}-
+          yarn-cache-${{ inputs.cache-prefix }}-
 
     - name: ♻️ Restore node_modules
       if: inputs.cache-node-modules == 'true'
@@ -94,15 +96,22 @@ runs:
         path: ${{ inputs.cwd }}/.yarn/ci-cache
         key: yarn-install-state-cache-${{ inputs.cache-prefix }}-${{ runner.os }}-${{ steps.yarn-config.outputs.CURRENT_NODE_VERSION }}-${{ steps.yarn-config.outputs.CURRENT_BRANCH }}-${{ hashFiles(format('{0}/yarn.lock', inputs.cwd), format('{0}/.yarnrc.yml', inputs.cwd)) }}
 
+    - name: Setup Git User
+      shell: bash
+      run: |
+        git config --global user.email "clementmuth@gmail.com"
+        git config --global user.name "Clément Muth"
+
     - name: 📥 Install dependencies
       shell: bash
       working-directory: ${{ inputs.cwd }}
       run: yarn install --immutable --inline-builds
       env:
-        # Overrides/align yarnrc.yml options (v3, v4) for a CI context
-        YARN_ENABLE_GLOBAL_CACHE: 'false'  # Use local cache folder to keep downloaded archives
-        YARN_ENABLE_MIRROR: 'false'        # Prevent populating global cache for caches misses (local cache only)
-        YARN_NM_MODE: 'hardlinks-local'    # Reduce node_modules size
-        YARN_INSTALL_STATE_PATH: 'pcomparator/.yarn/ci-cache/install-state.gz' # Might speed up resolution step when node_modules present
+        # Zero-Install optimized configuration for CI
+        YARN_ENABLE_GLOBAL_CACHE: 'false'  # Use local cache folder (.yarn/cache)
+        YARN_CACHE_FOLDER: '.yarn/cache'    # Explicit cache folder
+        YARN_ENABLE_MIRROR: 'false'         # Prevent populating global cache
+        YARN_NM_MODE: 'hardlinks-local'     # Reduce node_modules size with hardlinks
+        YARN_INSTALL_STATE_PATH: '.yarn/install-state.gz' # Speed up resolution
         # Other environment variables
         HUSKY: '0' # By default do not run HUSKY install
