@@ -12,6 +12,7 @@
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)](https://postgresql.org/)
 [![Release](https://img.shields.io/github/v/release/Clement-Muth/pcomparator?style=for-the-badge)](https://github.com/Clement-Muth/pcomparator/releases)
 [![CI/CD](https://img.shields.io/github/actions/workflow/status/Clement-Muth/pcomparator/release.yaml?style=for-the-badge&label=CI/CD)](https://github.com/Clement-Muth/pcomparator/actions)
+![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/Deazl-Comparator/deazl?style=for-the-badge&utm_source=oss&utm_medium=github&utm_campaign=Deazl-Comparator%2Fdeazl&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
 
 [**🌐 Live Demo**](https://deazl.fr/en) • [**📖 Documentation**](docs/DEVELOPER.md) • [**🐛 Report Bug**](https://github.com/Deazl-Comparator/deazl/issues) • [**💡 Request Feature**](https://github.com/Deazl-Comparator/deazl/issues)
 

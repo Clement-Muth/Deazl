@@ -20,7 +20,6 @@
   },
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "typescript.preferences.importModuleSpecifier": "non-relative",
   "[svg]": {
     "editor.defaultFormatter": "jock.svg"
   },
@@ -54,5 +53,8 @@
   },
   "[ignore]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
-  }
+  },
+  "cSpell.words": [
+    "deazl"
+  ]
 }

@@ -1,0 +1,19 @@
+{
+  "extends": ["../../biome.json"],
+  "files": {
+    "ignore": [
+      "build/*",
+      ".vercel",
+      "node_modules",
+      ".next",
+      "public/*.js",
+      "amplify",
+      "src/infrastructures/api/*",
+      "src/aws-exports.js",
+      "cypress/plugins/*.json",
+      "en.ts",
+      "fr.ts"
+    ],
+    "include": [".storybook", "src/*"]
+  }
+}

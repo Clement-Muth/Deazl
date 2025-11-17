@@ -1,0 +1,55 @@
+{
+  "name": "@deazl/system",
+  "version": "0.0.2",
+  "description": "Deazl Comparator System Package",
+  "keywords": [
+    "deazl",
+    "system",
+    "comparator"
+  ],
+  "author": "Clément Muth <clementmuth@deazl.fr>",
+  "homepage": "https://deazl.fr",
+  "license": "MIT",
+  "main": "src/index.ts",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Deazl-Comparator/deazl.git",
+    "directory": "pcomparator/packages/core/system"
+  },
+  "bugs": {
+    "url": "https://github.com/Deazl-Comparator/deazl/issues"
+  },
+  "scripts": {
+    "build": "tsup src --dts",
+    "build:fast": "tsup src",
+    "dev": "pnpm build:fast --watch",
+    "clean": "rimraf dist .turbo",
+    "typecheck": "tsc --noEmit",
+    "prepack": "clean-package",
+    "postpack": "clean-package restore",
+    "check:all": "biome check .",
+    "check:fix": "biome check . --write",
+    "typescript:check": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": ">=18 || >=19.0.0-rc.0",
+    "react-dom": ">=18 || >=19.0.0-rc.0"
+  },
+  "clean-package": "../../../clean-package.config.json",
+  "devDependencies": {
+    "clean-package": "^2.2.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "ky": "^1.8.1",
+    "next-auth": "beta"
+  }
+}

@@ -1,0 +1,378 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+model User {
+  id                    String                     @id @default(uuid())
+  name                  String?
+  email                 String                     @unique
+  emailVerified         DateTime?
+  image                 String?
+  phone                 String?
+  
+  // Optimization preferences (stored as JSON)
+  optimizationPreferences Json? @db.JsonB
+  
+  accounts              Account[]
+  sessions              Session[]
+  shoppingLists         ShoppingList[]
+  collaborations        ShoppingListCollaborator[]
+  recipeCollaborations  RecipeCollaborator[]
+  pantryItems           PantryItem[]
+  recipeFavorites       RecipeFavorite[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+}
+
+model Product {
+  id              String   @id @default(uuid()) @db.Uuid
+  barcode         String   @unique
+  name            String
+  description     String?
+  category_id     String?  @db.Uuid
+  brand_id        String?  @db.Uuid
+  nutrition_score Json?    @db.JsonB
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+
+  category         Category?          @relation(fields: [category_id], references: [id])
+  brand            Brand?             @relation(fields: [brand_id], references: [id])
+  prices           Price[]
+  ShoppingListItem ShoppingListItem[]
+  recipeIngredient RecipeIngredient[]
+  pantryItems      PantryItem[]
+}
+
+model Category {
+  id                 String  @id @default(uuid()) @db.Uuid
+  name               String  @unique
+  description        String?
+  parent_category_id String? @db.Uuid
+  products Product[]
+}
+
+model Brand {
+  id          String  @id @default(uuid()) @db.Uuid
+  name        String  @unique
+  description String?
+  website_url String?
+  products Product[]
+}
+
+enum Currency {
+  AED
+  AUD
+  CAD
+  CHF
+  CNY
+  EUR
+  GBP
+  JPY
+  USD
+}
+
+model Price {
+  id                String   @id @default(uuid()) @db.Uuid
+  product_id        String   @db.Uuid
+  store_id          String   @db.Uuid
+  amount            Float
+  currency          Currency
+  unit              String   @default("kg")
+  date_recorded     DateTime @default(now())
+  price_proof_image String?
+
+  // Relations
+  product                 Product            @relation(fields: [product_id], references: [id])
+  store                   Store              @relation(fields: [store_id], references: [id])
+  shoppingListItem        ShoppingListItem[] @relation("SelectedPrice")
+}
+
+model Store {
+  id          String  @id @default(uuid()) @db.Uuid
+  name        String
+  location    String
+  latitude    Float?
+  longitude   Float?
+  website_url String?
+  prices Price[]
+
+  @@unique([name, location])
+}
+
+model ShoppingList {
+  id          String   @id @default(uuid()) @db.Uuid
+  name        String
+  description String?
+  userId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  isPublic    Boolean  @default(false)
+  shareToken  String?  @unique
+
+  user          User                       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items         ShoppingListItem[]
+  collaborators ShoppingListCollaborator[]
+}
+
+model ShoppingListItem {
+  id              String   @id @default(uuid()) @db.Uuid
+  shoppingListId  String   @db.Uuid
+  productId       String   @db.Uuid
+  recipeId        String?  @db.Uuid
+  quantity        Float    @default(1)
+  unit            String?  @default("unit")
+  isCompleted     Boolean  @default(false)
+  selectedPriceId String?  @db.Uuid
+  notes           String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  shoppingList  ShoppingList @relation(fields: [shoppingListId], references: [id], onDelete: Cascade)
+  product       Product      @relation(fields: [productId], references: [id])
+  recipe        Recipe?      @relation(fields: [recipeId], references: [id])
+  selectedPrice Price?       @relation("SelectedPrice", fields: [selectedPriceId], references: [id])
+}
+
+enum CollaboratorRole {
+  OWNER
+  EDITOR
+  VIEWER
+}
+
+model ShoppingListCollaborator {
+  id           String           @id @default(uuid()) @db.Uuid
+  shoppingList ShoppingList     @relation(fields: [listId], references: [id], onDelete: Cascade)
+  listId       String           @db.Uuid
+  userId       String
+  role         CollaboratorRole
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([listId, userId])
+}
+
+enum DifficultyLevel {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum RecipeRole {
+  OWNER
+  EDITOR
+  VIEWER
+}
+
+model Recipe {
+  id              String           @id @default(uuid()) @db.Uuid
+  name            String
+  description     String?
+  difficulty      DifficultyLevel  @default(EASY)
+  preparationTime Int
+  cookingTime     Int
+  servings        Int              @default(4)
+  imageUrl        String?
+  userId          String
+  isPublic        Boolean          @default(true)
+  shareToken      String?          @unique
+  category        String?
+  cuisine         String?
+  tags            String[]         @default([])
+  viewsCount      Int              @default(0)
+  favoritesCount  Int              @default(0)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  // Quality estimate (dynamic pricing computed on-demand)
+  estimatedQualityScore   Int?
+
+  ingredients       RecipeIngredient[]
+  steps             RecipeStep[]
+  collaborators     RecipeCollaborator[]
+  shoppingListItems ShoppingListItem[]
+  tips              RecipeTip[]
+  favorites         RecipeFavorite[]
+  trending          RecipeTrending?
+
+  @@index([isPublic])
+  @@index([category])
+  @@index([cuisine])
+  @@index([difficulty])
+  @@index([createdAt])
+  @@index([viewsCount])
+  @@index([favoritesCount])
+}
+
+model RecipeIngredient {
+  id        String @id @default(uuid()) @db.Uuid
+  recipeId  String @db.Uuid
+  productId String @db.Uuid
+  quantity  Float
+  unit      String
+  order     Int    @default(0)
+  recipe  Recipe  @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
+}
+
+model RecipeStep {
+  id          String @id @default(uuid()) @db.Uuid
+  recipeId    String @db.Uuid
+  stepNumber  Int
+  description String
+  duration    Int?
+  recipe Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+
+  @@unique([recipeId, stepNumber])
+}
+
+model RecipeCollaborator {
+  id        String     @id @default(uuid()) @db.Uuid
+  recipe    Recipe     @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  recipeId  String     @db.Uuid
+  userId    String
+  role      RecipeRole
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([recipeId, userId])
+}
+
+model RecipeTip {
+  id        String   @id @default(uuid()) @db.Uuid
+  recipeId  String   @db.Uuid
+  title     String?
+  content   String
+  category  String   @default("general")
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  recipe    Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+
+  @@index([recipeId])
+}
+
+model RecipeFavorite {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String
+  recipeId  String   @db.Uuid
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  recipe Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, recipeId])
+  @@index([userId])
+  @@index([recipeId])
+}
+
+model PantryItem {
+  id         String    @id @default(uuid()) @db.Uuid
+  userId     String
+  productId  String?   @db.Uuid
+  name       String
+  quantity   Float
+  unit       String
+  expiration DateTime?
+  location   String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product? @relation(fields: [productId], references: [id])
+
+  @@index([userId])
+  @@index([expiration])
+}
+
+model RecipeCategory {
+  id          String   @id @default(uuid()) @db.Uuid
+  name        String
+  slug        String   @unique
+  description String?
+  icon        String?
+  parentId    String?  @db.Uuid
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  parent   RecipeCategory?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children RecipeCategory[] @relation("CategoryHierarchy")
+
+  @@index([slug])
+  @@index([parentId])
+}
+
+model RecipeTag {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String   @unique
+  slug      String   @unique
+  color     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([slug])
+}
+
+model RecipeTrending {
+  id         String   @id @default(uuid()) @db.Uuid
+  recipeId   String   @unique @db.Uuid
+  score      Float    @default(0)
+  viewsLast7Days      Int      @default(0)
+  favoritesLast7Days  Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  recipe Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+
+  @@index([score])
+  @@index([updatedAt])
+}
