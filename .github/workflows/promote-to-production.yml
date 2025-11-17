@@ -39,8 +39,8 @@ jobs:
           # Create branch from master
           git checkout -b "$BRANCH_NAME" origin/master
           
-          # Merge the canary branch
-          git merge origin/canary --no-ff -m "chore: promote to production"
+          # Reset to canary's HEAD to avoid merge conflicts
+          git reset --hard origin/canary
           
           # Push branch
           git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/Clement-Muth/deazl.git "$BRANCH_NAME"
