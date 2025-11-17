@@ -50,6 +50,6 @@ jobs:
                        --body "Automated promotion of canary branch to production." \
                        --base master \
                        --head "$BRANCH_NAME" \
-                       --label "promotion"
+                       --label "release"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
