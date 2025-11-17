@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "next dev --turbo --port=3001",
     "dev:qr": "node scripts/dev-mobile.js",
-    "local-ip": "bash scripts/get-local-ip.sh",
     "build": "next build",
     "vercel-build": "npm run prepare && next build",
     "start": "next start --port=3001",
@@ -14,13 +13,12 @@
     "check:fix": "biome check . --write",
     "typescript:check": "tsc --noEmit",
     "translation:extract": "lingui extract --clean",
+    "translation:compile": "lingui compile --typescript",
     "storybook": "NODE_ENV=development storybook dev --ci --quiet --port 3001",
     "storybook:build": "storybook build",
-    "compile": "lingui compile --typescript",
     "test": "env-cmd -f ./.env.test jest --maxWorkers=100%",
     "prepare": "cd .. && husky ./pcomparator/.husky",
     "postinstall": "yarn prisma:generate",
-    "openapi:create": "npx tsx src/libraries/openAPI/index.ts --noEmit > public/openapi.yaml",
     "generate": "npx openapi-typescript ./public/openapi.yaml -o ./src/types/schema.d.ts"
   },
   "dependencies": {
