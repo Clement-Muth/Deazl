@@ -10,7 +10,7 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Deazl-Comparator/deazl.git"
+		"url": "https://github.com/Clement-Muth/deazl.git"
 	},
 	"scripts": {
 		"build": "turbo build --filter='!@deazl/pcomparator'",
