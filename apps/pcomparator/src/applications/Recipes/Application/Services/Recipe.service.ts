@@ -1,4 +1,6 @@
-import { AuthenticationService, DataAccessError, DomainError } from "@deazl/shared";
+import { AuthenticationService } from "~/applications/Shared/Application/Services/Authentication.service";
+import { DomainError } from "~/applications/Shared/Domain/Core/DomainError";
+import { DataAccessError } from "~/applications/Shared/Domain/Core/Errors/ApplicationErrors";
 import { Recipe } from "../../Domain/Entities/Recipe.entity";
 import { RecipeIngredient } from "../../Domain/Entities/RecipeIngredient.entity";
 import { RecipeStep } from "../../Domain/Entities/RecipeStep.entity";

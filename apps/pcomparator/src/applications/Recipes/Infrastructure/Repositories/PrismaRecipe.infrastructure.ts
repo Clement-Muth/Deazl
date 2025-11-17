@@ -249,7 +249,7 @@ export class PrismaRecipeRepository implements RecipeRepository {
     }
   }
 
-  private mapToDomain(recipeData: any): Recipe {
+  public mapToDomain(recipeData: any): Recipe {
     const ingredients = recipeData.ingredients.map((ing: any) =>
       RecipeIngredient.create(
         {

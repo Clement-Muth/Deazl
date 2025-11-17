@@ -3,7 +3,7 @@
 import { useDisclosure } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { ProductDetailPage } from "~/packages/applications/shopping-lists/src/Ui/components/ProductDetailPage";
+import { ProductDetailPage } from "~/applications/ShoppingLists/Ui/components/ProductDetailPage";
 import { incrementRecipeViews } from "../Api";
 import type { RecipePayload } from "../Domain/Schemas/Recipe.schema";
 import { AddRecipeToListModal } from "./RecipeDetails/AddRecipeToListModal";
@@ -60,7 +60,7 @@ export function RecipeDetailsContainer({ recipe, userId }: RecipeDetailsContaine
           // @ts-ignore
           fetchProduct={async (id) => {
             const { getProductWithPricesAndQuality } = await import(
-              "~/packages/applications/shopping-lists/src/Api/products/getProductWithPricesAndQuality.api"
+              "~/applications/ShoppingLists/Api/products/getProductWithPricesAndQuality.api"
             );
             const result = await getProductWithPricesAndQuality(id);
             if (!result.success || !result.product) {

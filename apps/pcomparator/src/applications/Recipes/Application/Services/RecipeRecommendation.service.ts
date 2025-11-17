@@ -69,7 +69,7 @@ export class RecipeRecommendationService {
       if (topCuisines.includes(recipe.cuisine || "")) score += 2;
 
       return {
-        recipe: this.repository["mapToDomain"](recipe),
+        recipe: this.repository.mapToDomain(recipe),
         score
       };
     });
@@ -110,7 +110,7 @@ export class RecipeRecommendationService {
       take: limit
     });
 
-    return recipes.map((r) => this.repository["mapToDomain"](r));
+    return recipes.map((r) => this.repository.mapToDomain(r));
   }
 
   private async getUserRecentPurchases(userId: string) {

@@ -4,12 +4,12 @@ import { Button, Chip, Slider, Spinner, addToast, useDisclosure } from "@heroui/
 import { Trans } from "@lingui/react/macro";
 import { MapPinIcon, SaveIcon, SettingsIcon, StoreIcon } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
-import { Modal } from "~/components/Modal/Modal";
 import {
   getUserOptimizationPreferences,
   updateUserOptimizationPreferences
-} from "~/packages/applications/shopping-lists/src/Api/preferences/optimizationPreferences.api";
-import type { UserOptimizationPreferences } from "~/packages/applications/shopping-lists/src/Domain/Services/OptimalPricingService";
+} from "~/applications/ShoppingLists/Api/preferences/optimizationPreferences.api";
+import type { UserOptimizationPreferences } from "~/applications/ShoppingLists/Domain/Services/OptimalPricingService";
+import { Modal } from "~/components/Modal/Modal";
 
 interface SettingsOptimalPricingProps {
   userId: string;

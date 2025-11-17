@@ -50,7 +50,7 @@ export class RecipeCellarService {
       const feasibilityScore = (availableIngredients / totalIngredients) * 100;
 
       return {
-        recipe: this.repository["mapToDomain"](recipe),
+        recipe: this.repository.mapToDomain(recipe),
         feasibilityScore,
         availableIngredients,
         totalIngredients,
@@ -157,6 +157,6 @@ export class RecipeCellarService {
       take: limit
     });
 
-    return recipes.map((r) => this.repository["mapToDomain"](r));
+    return recipes.map((r) => this.repository.mapToDomain(r));
   }
 }

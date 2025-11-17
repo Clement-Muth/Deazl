@@ -4,10 +4,10 @@ import { Button, Input, Select, SelectItem } from "@heroui/react";
 import { Trans, useLingui } from "@lingui/react/macro";
 import { Plus, ShoppingCart } from "lucide-react";
 import { useEffect, useState } from "react";
+import { addProductItemToList } from "~/applications/ShoppingLists/Api/addProductItemToList.api";
+import { listUserShoppingList } from "~/applications/ShoppingLists/Api/shoppingLists/listUserShoppingList.api";
+import type { ShoppingListPayload } from "~/applications/ShoppingLists/Domain/Schemas/ShoppingList.schema";
 import { Modal } from "~/components/Modal/Modal";
-import { addProductItemToList } from "~/packages/applications/shopping-lists/src/Api/addProductItemToList.api";
-import { listUserShoppingList } from "~/packages/applications/shopping-lists/src/Api/shoppingLists/listUserShoppingList.api";
-import type { ShoppingListPayload } from "~/packages/applications/shopping-lists/src/Domain/Schemas/ShoppingList.schema";
 
 interface AddToListModalProps {
   isOpen: boolean;

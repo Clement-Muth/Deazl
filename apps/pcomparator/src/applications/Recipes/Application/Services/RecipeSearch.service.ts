@@ -172,7 +172,7 @@ export class RecipeSearchService {
       }
     });
 
-    return recipes.map((r) => this.repository["mapToDomain"](r));
+    return recipes.map((r) => this.repository.mapToDomain(r));
   }
 
   async getPopularRecipes(limit = 10): Promise<Recipe[]> {
@@ -186,7 +186,7 @@ export class RecipeSearchService {
       }
     });
 
-    return recipes.map((r) => this.repository["mapToDomain"](r));
+    return recipes.map((r) => this.repository.mapToDomain(r));
   }
 
   async getQuickRecipes(maxMinutes = 30, limit = 10): Promise<Recipe[]> {
@@ -203,7 +203,7 @@ export class RecipeSearchService {
       }
     });
 
-    return recipes.map((r) => this.repository["mapToDomain"](r));
+    return recipes.map((r) => this.repository.mapToDomain(r));
   }
 
   async getHealthyRecipes(limit = 10): Promise<Recipe[]> {
@@ -220,7 +220,7 @@ export class RecipeSearchService {
       }
     });
 
-    return recipes.map((r) => this.repository["mapToDomain"](r));
+    return recipes.map((r) => this.repository.mapToDomain(r));
   }
 
   async getNewRecipes(limit = 10): Promise<Recipe[]> {
@@ -234,7 +234,7 @@ export class RecipeSearchService {
       }
     });
 
-    return recipes.map((r) => this.repository["mapToDomain"](r));
+    return recipes.map((r) => this.repository.mapToDomain(r));
   }
 
   async getRecipesByCategory(category: string, limit = 10): Promise<Recipe[]> {
@@ -251,6 +251,6 @@ export class RecipeSearchService {
       }
     });
 
-    return recipes.map((r) => this.repository["mapToDomain"](r));
+    return recipes.map((r) => this.repository.mapToDomain(r));
   }
 }

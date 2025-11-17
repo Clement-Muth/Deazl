@@ -1,63 +1,30 @@
 name: Release
 
 on:
-  workflow_dispatch:
   push:
-    paths:
-      - ".changeset/**"
-      - "packages/**"
-    branches:
-      - canary
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+    branches: [ master ]
 
 jobs:
   release:
-    name: Release
-    runs-on: self-hosted
-    timeout-minutes: 30
-    permissions:
-      contents: write
-      pull-requests: write
-      id-token: write
+    runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout branch
+      - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Install
-        uses: ./.github/actions/yarn-nm-install
-
-      - name: Create Release Pull Request or Publish
-        id: changesets
-        uses: changesets/action@v1
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          publish: yarn run release
-          title: "ci(changesets): :package: version packages"
-          commit: "ci(changesets): version packages"
-          setupGitUser: false
-          createGithubReleases: true
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Run semantic-release
+        run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create canary release
-        if: steps.changesets.outputs.published != 'true'
-        timeout-minutes: 15
-        run: |
-          git checkout canary
-          yarn version:canary
-          yarn release:canary
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: canary-build-artifacts-${{ github.sha }}
-          path: |
-            packages/*/dist/
-            packages/*/build/
-            packages/*/lib/
-          retention-days: 30
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

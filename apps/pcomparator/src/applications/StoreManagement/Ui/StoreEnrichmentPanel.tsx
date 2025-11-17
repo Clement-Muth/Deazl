@@ -8,7 +8,7 @@ import {
   enrichAllStores,
   enrichSingleStore,
   listStoresWithoutCoordinates
-} from "~/packages/applications/shopping-lists/src/Api/stores/enrichStores.api";
+} from "~/applications/ShoppingLists/Api/stores/enrichStores.api";
 
 interface StoreWithoutCoords {
   id: string;

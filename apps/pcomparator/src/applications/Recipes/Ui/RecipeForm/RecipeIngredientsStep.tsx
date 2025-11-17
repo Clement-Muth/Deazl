@@ -4,7 +4,7 @@ import { Button, Card, CardBody, CardHeader, Input, Select, SelectItem } from "@
 import { useLingui } from "@lingui/react/macro";
 import { Trans } from "@lingui/react/macro";
 import { Plus, X } from "lucide-react";
-import { UnitType } from "~/packages/applications/shopping-lists/src/Domain/ValueObjects/Unit.vo";
+import { UnitType } from "~/applications/ShoppingLists/Domain/ValueObjects/Unit.vo";
 import type { ProductSearchResult } from "../../Api/products/searchProducts.api";
 import type { CreateRecipePayload } from "../../Domain/Schemas/Recipe.schema";
 import { SmartIngredientInput } from "./SmartIngredientInput";

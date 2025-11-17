@@ -131,7 +131,7 @@ export class RecipePricingService {
         try {
           const pricing = await this.calculateRecipePrice(recipe.id);
           return {
-            recipe: this.repository["mapToDomain"](recipe),
+            recipe: this.repository.mapToDomain(recipe),
             pricePerServing: pricing.pricePerServing,
             priceQuality: pricing.priceQuality
           };

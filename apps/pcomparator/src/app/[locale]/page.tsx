@@ -1,6 +1,6 @@
+import { listUserShoppingList } from "~/applications/ShoppingLists/Api";
 import { withLinguiPage } from "~/core/withLinguiLayout";
 import { auth } from "~/libraries/nextauth/authConfig";
-import { listUserShoppingList } from "~/packages/applications/shopping-lists/src";
 import { HomeView } from "~/views/Home/HomeView";
 import { DashboardView } from "~/views/Home/components/Dashboard/DashboardView";
 

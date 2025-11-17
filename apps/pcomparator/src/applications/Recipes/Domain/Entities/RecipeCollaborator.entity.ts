@@ -1,5 +1,6 @@
-import { Entity, UniqueEntityID } from "@deazl/shared";
 import type { z } from "zod";
+import { Entity } from "~/applications/Shared/Domain/Core/Entity";
+import { UniqueEntityID } from "~/applications/Shared/Domain/Core/UniqueEntityId";
 import type { RecipeCollaboratorSchema } from "../Schemas/RecipeSharing.schema";
 
 export enum RecipeRole {

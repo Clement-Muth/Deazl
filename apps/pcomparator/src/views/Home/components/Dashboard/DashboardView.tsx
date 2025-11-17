@@ -14,7 +14,7 @@ import {
   TrendingDown
 } from "lucide-react";
 import Link from "next/link";
-import type { ShoppingListPayload } from "~/packages/applications/shopping-lists/src/Domain/Schemas/ShoppingList.schema";
+import type { ShoppingListPayload } from "~/applications/ShoppingLists/Domain/Schemas/ShoppingList.schema";
 
 interface DashboardViewProps {
   userName?: string;
