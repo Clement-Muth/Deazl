@@ -3,12 +3,8 @@ name: Promote to Production
 on:
   workflow_dispatch:
     inputs:
-      version:
-        description: 'Version to promote (e.g., 1.2.0-beta.1)'
-        required: true
-        type: string
       create_pr:
-        description: 'Create PR to merge into master'
+        description: 'Create PR to merge canary into master'
         required: false
         type: boolean
         default: true
@@ -32,19 +28,9 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Check version exists
+      - name: Create promotion branch and PR
         run: |
-          VERSION="${{ inputs.version }}"
-          if ! git tag | grep -q "^v$VERSION$"; then
-            echo "Version v$VERSION does not exist"
-            exit 1
-          fi
-
-      - name: Create PR to master (if requested)
-        if: ${{ inputs.create_pr }}
-        run: |
-          VERSION="${{ inputs.version }}"
-          BRANCH_NAME="promote-v$VERSION-to-production"
+          BRANCH_NAME="promote-to-production-$(date +%s)"
           
           # Configure git
           git config --global user.name "GitHub Actions"
@@ -53,17 +39,17 @@ jobs:
           # Create branch from master
           git checkout -b "$BRANCH_NAME" origin/master
           
-          # Merge the tag
-          git merge "v$VERSION" --no-ff -m "chore: promote v$VERSION to production"
+          # Merge the canary branch
+          git merge origin/canary --no-ff -m "chore: promote to production"
           
           # Push branch
           git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/Clement-Muth/deazl.git "$BRANCH_NAME"
           
           # Create PR
-          gh pr create --title "Promote v$VERSION to production" \
-                       --body "Automated promotion of version $VERSION to production." \
+          gh pr create --title "Promote to production" \
+                       --body "Automated promotion of canary branch to production." \
                        --base master \
                        --head "$BRANCH_NAME" \
-                       --label "release"
+                       --label "promotion"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
