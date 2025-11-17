@@ -46,6 +46,10 @@ jobs:
           VERSION="${{ inputs.version }}"
           BRANCH_NAME="promote-v$VERSION-to-production"
           
+          # Configure git
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          
           # Create branch from master
           git checkout -b "$BRANCH_NAME" origin/master
           
