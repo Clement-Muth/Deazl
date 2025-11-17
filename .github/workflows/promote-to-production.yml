@@ -57,7 +57,7 @@ jobs:
           git merge "v$VERSION" --no-ff -m "chore: promote v$VERSION to production"
           
           # Push branch
-          git push origin "$BRANCH_NAME"
+          git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/Clement-Muth/deazl.git "$BRANCH_NAME"
           
           # Create PR
           gh pr create --title "Promote v$VERSION to production" \
