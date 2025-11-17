@@ -57,9 +57,6 @@ function compressImage(file: File, maxSizeMB = 1.5, maxWidthOrHeight = 1600): Pr
               }
 
               const sizeMB = blob.size / 1024 / 1024;
-              console.log(
-                `Compression attempt - Quality: ${quality.toFixed(2)}, Size: ${sizeMB.toFixed(2)}MB`
-              );
 
               if (sizeMB > maxSizeMB && quality > 0.2) {
                 quality -= 0.05;
@@ -72,9 +69,6 @@ function compressImage(file: File, maxSizeMB = 1.5, maxWidthOrHeight = 1600): Pr
                   type: "image/jpeg",
                   lastModified: Date.now()
                 });
-                console.log(
-                  `Final compressed size: ${sizeMB.toFixed(2)}MB with quality ${quality.toFixed(2)}`
-                );
                 resolve(compressedFile);
               }
             },
@@ -123,11 +117,8 @@ export function useRecipeFromPhoto(): UseRecipeFromPhotoResult {
     setRecipe(null);
 
     try {
-      console.log(`Original file size: ${(file.size / 1024 / 1024).toFixed(2)}MB`);
       const compressedFile = await compressImage(file);
-      console.log(`Compressed file size: ${(compressedFile.size / 1024 / 1024).toFixed(2)}MB`);
       const base64 = await fileToBase64(compressedFile);
-      console.log(`Base64 length: ${base64.length} chars, ~${(base64.length / 1024 / 1024).toFixed(2)}MB`);
       const result = await analyzeRecipePhoto(base64);
 
       if (result.success && result.recipe) {

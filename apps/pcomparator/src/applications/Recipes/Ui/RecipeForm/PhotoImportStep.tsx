@@ -45,13 +45,10 @@ export function PhotoImportStep({ onRecipeExtracted, onBack }: PhotoImportStepPr
 
   const handleUseRecipe = async () => {
     if (recipe) {
-      console.log("Recipe from photo:", recipe);
-
       // Map ingredients to database products
       let mappedIngredients: CreateRecipePayload["ingredients"] = [];
 
       if (recipe.ingredients && recipe.ingredients.length > 0) {
-        console.log("Mapping ingredients to products...");
         const mappingResult = await mapIngredientsToProducts({
           ingredients: recipe.ingredients.map((ing) => ({
             productName: ing.productName,
@@ -61,7 +58,6 @@ export function PhotoImportStep({ onRecipeExtracted, onBack }: PhotoImportStepPr
         });
 
         if (mappingResult.success) {
-          console.log("Ingredient mappings:", mappingResult.mappings);
           mappedIngredients = mappingResult.mappings.map((mapping, idx) => ({
             productId: mapping.matchedProduct.id,
             productName: mapping.productName,
@@ -72,9 +68,6 @@ export function PhotoImportStep({ onRecipeExtracted, onBack }: PhotoImportStepPr
 
           const createdCount = mappingResult.mappings.filter((m) => m.confidence === "created").length;
           const matchedCount = mappingResult.mappings.filter((m) => m.confidence !== "created").length;
-          console.log(
-            `Products: ${matchedCount} matched, ${createdCount} created (${mappingResult.mappings.length} total)`
-          );
         } else {
           console.error("Ingredient mapping failed:", mappingResult.error);
           throw new Error("Failed to map ingredients to products");
@@ -99,8 +92,6 @@ export function PhotoImportStep({ onRecipeExtracted, onBack }: PhotoImportStepPr
           })) || []
       };
 
-      console.log("Mapped payload:", payload);
-      console.log("Mapped ingredients:", payload.ingredients);
       onRecipeExtracted(payload);
     }
   };

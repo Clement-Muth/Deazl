@@ -56,7 +56,6 @@ export const ShoppingModeScanner = ({
 
               setLastScannedItem(`${result.name} (ajouté)`);
               setScanCount((prev) => prev + 1);
-              console.log(`✅ Produit "${result.name}" ajouté et marqué complété!`);
             } else {
               // Ajouter un item générique
               onItemAddAction({
@@ -69,7 +68,6 @@ export const ShoppingModeScanner = ({
 
               setLastScannedItem(`Produit ${barcode} (ajouté)`);
               setScanCount((prev) => prev + 1);
-              console.log(`✅ Produit inconnu ajouté avec code-barres ${barcode}`);
             }
           } catch (error) {
             console.error("Erreur lors de la recherche OpenFoodFacts:", error);

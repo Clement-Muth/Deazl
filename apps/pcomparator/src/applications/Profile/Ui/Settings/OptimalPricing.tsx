@@ -103,7 +103,6 @@ export const SettingsOptimalPricing = ({ userId }: SettingsOptimalPricingProps) 
         } else if (error.code === 2) {
           // POSITION_UNAVAILABLE
           // Position unavailable
-          console.warn("Fallback: unable to detect precise location, using default");
           setPreferences((prev) => ({
             ...prev,
             userLocation: { latitude: 48.8566, longitude: 2.3522 } // exemple Paris

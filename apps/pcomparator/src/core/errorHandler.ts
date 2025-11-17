@@ -1,17 +1,12 @@
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
-import type { NextAuthRequest } from "next-auth/lib";
-import type { AppRouteHandlerFnContext } from "next-auth/lib/types";
-import { NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { HTTPError } from "~/types/error";
 
 export const errorHandler = (
-  callback: (request: NextAuthRequest, ctx: AppRouteHandlerFnContext) => Promise<NextResponse | Response>
+  callback: (request: NextRequest, ctx: any) => Promise<NextResponse | Response>
 ) => {
-  return async (
-    request: NextAuthRequest,
-    ctx: AppRouteHandlerFnContext
-  ): Promise<NextResponse | Response> => {
+  return async (request: NextRequest, ctx: any): Promise<NextResponse | Response> => {
     try {
       return await callback(request, ctx);
     } catch (error) {

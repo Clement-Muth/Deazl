@@ -119,8 +119,6 @@ export const RecipeFormCreate = () => {
   };
 
   const handlePhotoRecipeExtracted = (extractedRecipe: Partial<CreateRecipePayload>) => {
-    console.log("Extracted recipe data:", extractedRecipe);
-    console.log("Extracted ingredients:", extractedRecipe.ingredients);
     setFormData({
       ...formData,
       ...extractedRecipe,

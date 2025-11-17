@@ -131,7 +131,6 @@ export const createPrice = async (params: CreatePriceParams): Promise<CreatePric
         }
       });
     } catch (error) {
-      console.warn("Failed to auto-select price for shopping list items:", error);
       // Non-blocking error - price is still created
     }
 

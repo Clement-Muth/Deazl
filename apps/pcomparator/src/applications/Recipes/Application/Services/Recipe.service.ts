@@ -72,8 +72,6 @@ export class RecipeApplicationService {
 
       const recipe = await this.repository.findById(recipeId);
 
-      console.log("Fetched recipe:", recipe?.ingredients.at(0));
-
       if (!recipe) return null;
 
       if (!recipe.canUserView(currentUser.id)) {

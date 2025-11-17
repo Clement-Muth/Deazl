@@ -92,7 +92,6 @@ export async function analyzeRecipePhoto(imageBase64: string): Promise<AnalyzePh
     }
 
     const estimatedSizeMB = (imageBase64.length * 0.75) / 1024 / 1024;
-    console.log(`Received base64 image: ${imageBase64.length} chars, ~${estimatedSizeMB.toFixed(2)}MB`);
 
     if (estimatedSizeMB > 8) {
       return {
@@ -156,7 +155,6 @@ IMPORTANT: Use lowercase unit names exactly as specified above. Ensure quantitie
       }
 
       if (result.error === "RATE_LIMIT") {
-        console.log(`Model ${model} rate limited, trying next...`);
         lastError = "Rate limit reached. Please try again in a few moments.";
         continue;
       }

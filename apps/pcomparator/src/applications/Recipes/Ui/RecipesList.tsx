@@ -100,9 +100,7 @@ export default function RecipesList({ recipes, showFavorites = false }: RecipesL
                   label: "Share Recipe",
                   icon: <Share2 className="w-5 h-5" />,
                   color: "secondary",
-                  onAction: () => {
-                    console.log("Share recipe", recipe.id);
-                  }
+                  onAction: () => {}
                 },
                 {
                   key: "delete",
