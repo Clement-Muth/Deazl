@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import type { NextAuthRequest } from "next-auth/lib";
 import type { AppRouteHandlerFnContext } from "next-auth/lib/types";
 import { NextResponse } from "next/server";
@@ -30,8 +30,8 @@ export const errorHandler = (
         );
       }
 
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        switch (error.code) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        switch ((error as PrismaClientKnownRequestError).code) {
           case "P2002":
             return NextResponse.json({ error: "A similar entry already exists." }, { status: 409 });
           case "P2025":

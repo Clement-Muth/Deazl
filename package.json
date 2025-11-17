@@ -23,7 +23,7 @@
 		"prisma:migrate": "prisma migrate dev --schema=apps/pcomparator/prisma/schema.prisma",
 		"prisma:push": "turbo prisma:push",
 		"clean": "yarn turbo clean && yarn clean:jest && yarn clean:lock && yarn clean:node-modules && yarn install",
-		"clean:node-modules": "rimraf ./apps/**/node_modules && rimraf ./packages/**/**/node_modules && rimraf ./node_modules",
+		"clean:node-modules": "rimraf ./node_modules",
 		"clean:cache": "rimraf .yarn/cache .yarn/install-state.gz",
 		"clean:changelogs": "rimraf ./packages/**/**/CHANGELOG.md",
 		"clean:lock": "rimraf ./yarn.lock",
