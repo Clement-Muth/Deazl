@@ -8,7 +8,7 @@ import { PrismaCategoryRepository } from "~/applications/Prices/Infrastructure/R
 import { PrismaPriceRepository } from "~/applications/Prices/Infrastructure/Repositories/PrismaPriceRepository";
 import { PrismaProductRepository } from "~/applications/Prices/Infrastructure/Repositories/PrismaProductRepository";
 import { PrismaStoreRepository } from "~/applications/Prices/Infrastructure/Repositories/PrismaStoreRepository";
-import { parseOpenFoodFactsQuality } from "~/packages/applications/shopping-lists/src/Domain/ValueObjects/ProductQuality.vo";
+import { parseOpenFoodFactsQuality } from "~/applications/ShoppingLists/Domain/ValueObjects/ProductQuality.vo";
 
 const ParamsSchema = z.object({
   productId: z.string().optional(),

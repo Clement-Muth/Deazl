@@ -37,6 +37,15 @@
     },
     "sb": {
       "cache": false
+    },
+    "prisma:generate": {
+      "outputs": ["node_modules/.prisma/**", "prisma/generated/**"]
+    },
+    "prisma:migrate": {
+      "outputs": []
+    },
+    "prisma:studio": {
+      "outputs": []
     }
   }
 }

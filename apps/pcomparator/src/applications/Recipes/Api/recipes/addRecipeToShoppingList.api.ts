@@ -1,10 +1,10 @@
 "use server";
 
 import { z } from "zod";
+import { addItemToList } from "~/applications/ShoppingLists/Api/items/addItemToList.api";
+import { updateShoppingListItem } from "~/applications/ShoppingLists/Api/items/updateShoppingListItem.api";
+import { getShoppingList } from "~/applications/ShoppingLists/Api/shoppingLists/getShoppingList.api";
 import { normalizeUnit } from "~/core/shared/utils/unitNormalizer";
-import { addItemToList } from "~/packages/applications/shopping-lists/src/Api/items/addItemToList.api";
-import { updateShoppingListItem } from "~/packages/applications/shopping-lists/src/Api/items/updateShoppingListItem.api";
-import { getShoppingList } from "~/packages/applications/shopping-lists/src/Api/shoppingLists/getShoppingList.api";
 import { getRecipe } from "./getRecipe.api";
 
 const AddRecipeToShoppingListSchema = z.object({

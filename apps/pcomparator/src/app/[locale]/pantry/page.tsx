@@ -1,8 +1,8 @@
 import { auth } from "@deazl/system";
 import { redirect } from "next/navigation";
+import { getPantryItems } from "~/applications/Pantry/Api/pantryItems/getPantryItems.api";
+import { PantryPage } from "~/applications/Pantry/Ui/PantryPage";
 import { withLinguiPage } from "~/core/withLinguiLayout";
-import { getPantryItems } from "~/packages/applications/pantry/src/Api/pantryItems/getPantryItems.api";
-import { PantryPage } from "~/packages/applications/pantry/src/Ui/PantryPage";
 
 export const metadata = {
   title: "My Pantry | Deazl",

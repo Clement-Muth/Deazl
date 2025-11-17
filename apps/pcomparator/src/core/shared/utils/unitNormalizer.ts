@@ -1,4 +1,4 @@
-import { UnitType } from "~/packages/applications/shopping-lists/src/Domain/ValueObjects/Unit.vo";
+import { UnitType } from "~/applications/ShoppingLists/Domain/ValueObjects/Unit.vo";
 
 /**
  * Normalise une unité en chaîne de caractères vers le type UnitType

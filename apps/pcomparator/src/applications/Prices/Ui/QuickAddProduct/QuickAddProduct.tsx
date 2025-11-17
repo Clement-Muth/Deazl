@@ -17,9 +17,9 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { createPrice } from "~/applications/Prices/Api/createPrice";
 import { Currency } from "~/applications/Prices/Domain/ValueObjects/Currency";
+import { createStore } from "~/applications/ShoppingLists/Api/createStore.api";
+import { getStores } from "~/applications/ShoppingLists/Api/getStores.api";
 import { Modal } from "~/components/Modal/Modal";
-import { createStore } from "~/packages/applications/shopping-lists/src/Api/createStore.api";
-import { getStores } from "~/packages/applications/shopping-lists/src/Api/getStores.api";
 
 interface StoreInfo {
   id: string;

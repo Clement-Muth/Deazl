@@ -4,13 +4,13 @@ import { Button, Chip, Spinner, addToast, useDisclosure } from "@heroui/react";
 import { Trans } from "@lingui/react/macro";
 import { PlusIcon, StoreIcon } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
-import { Modal } from "~/components/Modal/Modal";
-import { getStores } from "~/packages/applications/shopping-lists/src/Api/getStores.api";
-import type { StoreInfo } from "~/packages/applications/shopping-lists/src/Api/getStores.api";
+import { getStores } from "~/applications/ShoppingLists/Api/getStores.api";
+import type { StoreInfo } from "~/applications/ShoppingLists/Api/getStores.api";
 import {
   getUserOptimizationPreferences,
   updateUserOptimizationPreferences
-} from "~/packages/applications/shopping-lists/src/Api/preferences/optimizationPreferences.api";
+} from "~/applications/ShoppingLists/Api/preferences/optimizationPreferences.api";
+import { Modal } from "~/components/Modal/Modal";
 
 interface SettingsFavoriteStoresProps {
   userId: string;

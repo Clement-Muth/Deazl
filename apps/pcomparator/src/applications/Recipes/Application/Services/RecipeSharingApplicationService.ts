@@ -1,5 +1,6 @@
-import { AuthenticationService, DomainError } from "@deazl/shared";
 import { auth } from "@deazl/system";
+import { AuthenticationService } from "~/applications/Shared/Application/Services/Authentication.service";
+import { DomainError } from "~/applications/Shared/Domain/Core/DomainError";
 import type { RecipeRole } from "../../Domain/Entities/RecipeCollaborator.entity";
 import type { RecipeRepository } from "../../Domain/Repositories/RecipeRepository";
 import type { RecipeSharingRepository } from "../../Domain/Repositories/RecipeSharingRepository";

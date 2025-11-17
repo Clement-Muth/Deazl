@@ -1,5 +1,4 @@
-import { t } from "@lingui/macro";
-import { useLingui } from "@lingui/react";
+import { useLingui } from "@lingui/react/macro";
 import { type ChangeEvent, type DragEvent, useCallback, useState } from "react";
 import FormError from "../..//Form/FormError";
 
@@ -27,7 +26,7 @@ export const useFileHandler = (
   onError: (message: string) => void,
   isMultiple: boolean
 ) => {
-  const { i18n } = useLingui();
+  const { t } = useLingui();
   const [filePreviews, setFilePreviews] = useState<string[]>([]);
 
   const onChangeFile = useCallback(

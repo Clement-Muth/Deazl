@@ -21,8 +21,8 @@ import { Trans, useLingui } from "@lingui/react/macro";
 import { Check, Minus, Package, Plus, ShoppingCart, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import { createShoppingList } from "~/packages/applications/shopping-lists/src/Api/shoppingLists/createShoppingList.api";
-import { listUserShoppingList } from "~/packages/applications/shopping-lists/src/Api/shoppingLists/listUserShoppingList.api";
+import { createShoppingList } from "~/applications/ShoppingLists/Api/shoppingLists/createShoppingList.api";
+import { listUserShoppingList } from "~/applications/ShoppingLists/Api/shoppingLists/listUserShoppingList.api";
 import { addRecipeToShoppingList } from "../../Api";
 import type { RecipePayload } from "../../Domain/Schemas/Recipe.schema";
 

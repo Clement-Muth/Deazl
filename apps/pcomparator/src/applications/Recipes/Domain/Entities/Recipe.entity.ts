@@ -1,4 +1,5 @@
-import { Entity, UniqueEntityID } from "@deazl/shared";
+import { Entity } from "~/applications/Shared/Domain/Core/Entity";
+import { UniqueEntityID } from "~/applications/Shared/Domain/Core/UniqueEntityId";
 import type { DifficultyLevel } from "../Schemas/Recipe.schema";
 import type { RecipePayload } from "../Schemas/Recipe.schema";
 import type { RecipeCollaborator } from "./RecipeCollaborator.entity";

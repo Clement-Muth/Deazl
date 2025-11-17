@@ -4,8 +4,8 @@ import { Button, Input, Select, SelectItem } from "@heroui/react";
 import { Trans, useLingui } from "@lingui/react/macro";
 import { Package, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
+import { createPantryItem } from "~/applications/Pantry/Api/pantryItems/createPantryItem.api";
 import { Modal } from "~/components/Modal/Modal";
-import { createPantryItem } from "~/packages/applications/pantry";
 
 interface AddToPantryModalProps {
   isOpen: boolean;

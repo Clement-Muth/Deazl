@@ -54,7 +54,7 @@ export class RecipeQualityService {
     const warnings: string[] = [];
     const healthBadges: string[] = [];
 
-    recipe.ingredients.forEach((ingredient) => {
+    for (const ingredient of recipe.ingredients) {
       const nutritionData = ingredient.product.nutrition_score as any;
 
       if (nutritionData) {
@@ -78,7 +78,7 @@ export class RecipeQualityService {
           isOrganic = false;
         }
       }
-    });
+    }
 
     const avgNutritionScore =
       ingredientsWithNutrition > 0 ? totalNutritionScore / ingredientsWithNutrition : 50;
@@ -150,7 +150,7 @@ export class RecipeQualityService {
         try {
           const quality = await this.calculateRecipeQuality(recipe.id);
           return {
-            recipe: this.repository["mapToDomain"](recipe),
+            recipe: this.repository.mapToDomain(recipe),
             qualityScore: quality.overallScore
           };
         } catch {

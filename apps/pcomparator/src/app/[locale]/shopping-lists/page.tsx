@@ -1,5 +1,6 @@
+import { listUserShoppingList } from "~/applications/ShoppingLists/Api";
+import { ShoppingListsView } from "~/applications/ShoppingLists/Ui";
 import { withLinguiPage } from "~/core/withLinguiLayout";
-import { ShoppingListsView, listUserShoppingList } from "~/packages/applications/shopping-lists/src";
 
 export const metadata = {
   title: "Shopping Lists | PComparator",

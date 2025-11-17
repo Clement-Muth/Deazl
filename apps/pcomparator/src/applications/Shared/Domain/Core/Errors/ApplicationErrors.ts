@@ -1,4 +1,4 @@
-import { DomainError } from "@deazl/shared";
+import { DomainError } from "../DomainError";
 
 export class ApplicationError extends Error {
   constructor(message: string) {
