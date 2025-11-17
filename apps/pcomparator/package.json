@@ -18,7 +18,6 @@
     "storybook:build": "storybook build",
     "test": "env-cmd -f ./.env.test jest --maxWorkers=100%",
     "prepare": "cd .. && husky ./pcomparator/.husky",
-    "postinstall": "yarn prisma:generate",
     "prisma:generate": "prisma generate --schema=./prisma/schema.prisma",
     "generate": "npx openapi-typescript ./public/openapi.yaml -o ./src/types/schema.d.ts"
   },
