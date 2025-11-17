@@ -127,8 +127,6 @@ export class PrismaRecipeRepository implements RecipeRepository {
 
   async save(recipe: Recipe): Promise<Recipe> {
     try {
-      console.log("test", prisma);
-
       const existingRecipe = await prisma.recipe.findUnique({
         where: { id: recipe.id }
       });

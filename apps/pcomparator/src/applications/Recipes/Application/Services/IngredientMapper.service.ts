@@ -40,7 +40,6 @@ export class IngredientMapperService {
       const products = await this.productRepository.searchProducts(productName, 5);
 
       if (products.length === 0) {
-        console.log(`No product found for "${productName}", creating new product...`);
         const createdProduct = await this.createProductFromIngredient(productName);
         return {
           productName,
@@ -54,9 +53,6 @@ export class IngredientMapperService {
       const bestMatch = this.findBestMatch(productName, products);
 
       if (bestMatch.confidence === "low") {
-        console.log(
-          `Low confidence match for "${productName}" (matched: "${bestMatch.product.name}"), creating new product...`
-        );
         const createdProduct = await this.createProductFromIngredient(productName);
         return {
           productName,
@@ -100,7 +96,6 @@ export class IngredientMapperService {
         description: "Product created from recipe photo import"
       });
 
-      console.log(`Created new product: ${product.name} (ID: ${product.id})`);
       return product;
     } catch (error) {
       console.error("Error creating product:", error);

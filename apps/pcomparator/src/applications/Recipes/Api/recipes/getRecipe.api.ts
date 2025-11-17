@@ -13,7 +13,6 @@ export const getRecipe = async (recipeId: GetRecipePayload): Promise<RecipePaylo
 
     const recipe = await recipeApplicationService.getRecipe(validatedId);
 
-    console.log("recipe ingredients", recipe?.ingredients);
     return recipe ? recipe.toObject() : null;
   } catch (error) {
     throw new Error("Failed to get recipe", { cause: error });

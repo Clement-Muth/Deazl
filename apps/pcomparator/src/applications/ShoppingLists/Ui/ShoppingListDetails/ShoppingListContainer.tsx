@@ -44,7 +44,6 @@ export const ShoppingListContainer = ({ initialList, user }: ShoppingListContain
     }
   }, [items, filter]);
 
-  console.warn("Rendering ShoppingListContainer with items:", items);
   // Optimal pricing hook - prix intelligents selon magasin sélectionné et préférences
   const {
     itemPrices,

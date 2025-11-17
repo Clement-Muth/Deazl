@@ -14,7 +14,7 @@ export class AuthenticationService {
   async getCurrentUser(): Promise<Session["user"]> {
     const session = await auth();
 
-    if (!session?.user?.id) throw new Error("User not authenticated");
+    if (!session?.user) throw new Error("User not authenticated");
 
     return session.user;
   }

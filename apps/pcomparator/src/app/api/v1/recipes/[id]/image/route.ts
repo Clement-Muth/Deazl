@@ -15,7 +15,7 @@ export const PATCH = withAuthentication(
     if (!(filename && request.body)) throw new Error("filename or body empty.");
 
     // Get current user
-    const userId = request.auth?.user?.id;
+    const userId = (request as any).auth?.user?.id;
     if (!userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: HttpStatus.UNAUTHORIZED });
     }
@@ -62,7 +62,7 @@ export const DELETE = withAuthentication(
     const { id } = await (ctx.params as unknown as Promise<{ id: string }>);
 
     // Get current user
-    const userId = request.auth?.user?.id;
+    const userId = (request as any).auth?.user?.id;
     if (!userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: HttpStatus.UNAUTHORIZED });
     }

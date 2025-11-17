@@ -52,7 +52,6 @@ export function RecipeCard({
     <Card
       isPressable
       onPress={() => {
-        console.log("clicked");
         router.push(`/recipes/${recipe.id}`);
       }}
       className="w-full active:scale-[0.98] sm:hover:scale-[1.02] transition-transform touch-manipulation"

@@ -30,7 +30,7 @@ const priceRepository = new PrismaPriceRepository();
 const brandRepository = new PrismaBrandRepository();
 
 export const POST = withAuthentication(
-  errorHandler(async (request): Promise<NextResponse> => {
+  errorHandler(async (request, _ctx): Promise<NextResponse> => {
     const paramsPayload = ParamsSchema.parse(await request.json());
 
     const category = await categoryRepository.findOrCreate(paramsPayload.categoryName, {

@@ -124,8 +124,6 @@ export async function addRecipeToShoppingList(data: AddRecipeToShoppingListPaylo
     }
     const existingItems = list.items || [];
 
-    console.log("Merge result:", mergeResult);
-
     // Mettre à jour les items existants (fusion)
     for (const merge of mergeResult.merged) {
       const existingItem = existingItems.find(
@@ -133,15 +131,6 @@ export async function addRecipeToShoppingList(data: AddRecipeToShoppingListPaylo
           item.productId === merge.productId &&
           normalizeUnit(item.unit || "unit") === normalizeUnit(merge.unit)
       );
-
-      console.log("Merging item:", {
-        productId: merge.productId,
-        productName: merge.productName,
-        existingQuantity: merge.existingQuantity,
-        newQuantity: merge.newQuantity,
-        totalQuantity: merge.totalQuantity,
-        unit: merge.unit
-      });
 
       if (existingItem) {
         await updateShoppingListItem(existingItem.id, {

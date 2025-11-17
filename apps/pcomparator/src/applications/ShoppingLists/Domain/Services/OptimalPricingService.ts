@@ -255,7 +255,6 @@ export class OptimalPricingService {
           };
         }
       } else {
-        console.warn("[OptimalPricing] ⚠️ No prices found in favorite stores");
       }
     }
 
@@ -275,7 +274,6 @@ export class OptimalPricingService {
 
       if (candidatePrices.length === 0) {
         // Aucun magasin dans le rayon
-        console.warn("[OptimalPricing] ⚠️ No stores within radius, no prices available");
         return {
           itemId,
           productId,

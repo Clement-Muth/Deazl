@@ -7,7 +7,7 @@ import { HttpStatus } from "~/types/httpError";
 const SearchRepository = new PrismaSearchRepository();
 
 export const GET = withAuthentication(
-  errorHandler(async (request) => {
+  errorHandler(async (request, _ctx) => {
     const { searchParams } = new URL(request.url);
     const search = searchParams.get("q") as string;
 

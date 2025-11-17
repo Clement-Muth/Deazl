@@ -34,12 +34,9 @@ export function PhotoImportFlow() {
     reset();
   };
 
-  const handleEdit = () => {
-    console.log("Edit recipe:", recipe);
-  };
+  const handleEdit = () => {};
 
   const handleSave = () => {
-    console.log("Save recipe:", recipe);
     router.push("/recipes");
   };
 
