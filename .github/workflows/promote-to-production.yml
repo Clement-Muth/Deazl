@@ -40,13 +40,6 @@ jobs:
             exit 1
           fi
 
-      - name: Create production release
-        run: |
-          VERSION="${{ inputs.version }}"
-          gh release create "v$VERSION" --title "Release v$VERSION" --generate-notes --latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Create PR to master (if requested)
         if: ${{ inputs.create_pr }}
         run: |
