@@ -9,7 +9,6 @@ import type { ShoppingListPayload } from "../../Domain/Schemas/ShoppingList.sche
 import { CreateEditListModal } from "../ShoppingLists/CreateEditListModal";
 import { DeleteListModal } from "../ShoppingLists/DeleteListModal";
 import { OptimizationPreferencesModal } from "../components/OptimizationPreferencesModal.simple";
-import { OptimizeListButton } from "./OptimizeListButton";
 import { ShareModalNew } from "./ShareListModal/ShareModalNew";
 
 interface ShoppingListPageHeaderProps {
@@ -132,7 +131,7 @@ export const ShoppingListDetailsHeader = ({
         }
       >
         {/* Optimize List Button */}
-        {list.items && list.items.length > 0 && (
+        {/* {list.items && list.items.length > 0 && (
           <div className="flex justify-end">
             <OptimizeListButton
               listId={shoppingListId}
@@ -141,7 +140,7 @@ export const ShoppingListDetailsHeader = ({
               }}
             />
           </div>
-        )}
+        )} */}
       </PageHeader>
 
       <ShareModalNew

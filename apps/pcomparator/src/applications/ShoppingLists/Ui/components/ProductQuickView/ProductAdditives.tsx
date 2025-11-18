@@ -101,10 +101,17 @@ export const ProductAdditives = ({ qualityData }: ProductAdditivesProps) => {
 
         <div className="space-y-2">
           {additives.map((additive, index) => (
-            <div key={index} className="flex items-start justify-between gap-2 p-2 rounded-lg bg-gray-50">
+            <div
+              key={index}
+              className="flex items-start justify-between gap-2 p-2 rounded-lg bg-gray-50 dark:bg-gray-800"
+            >
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium truncate">{additive.name}</p>
-                <p className="text-xs text-gray-500">{additive.id}</p>
+                <p className="text-sm font-medium truncate">
+                  {additive.name}{" "}
+                  <span className="text-xs font-mono text-gray-500 dark:text-gray-400">
+                    ({additive.id.toUpperCase()})
+                  </span>
+                </p>
               </div>
               <Chip size="sm" color={getRiskColor(additive.riskLevel || "unknown")} variant="flat">
                 {getRiskLabel(additive.riskLevel || "unknown")}

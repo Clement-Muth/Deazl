@@ -131,7 +131,7 @@ export const StoreEnrichmentPanel = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-semibold text-gray-900">
+          <h2 className="text-xl font-semibold text-foreground">
             <Trans>Store GPS Enrichment</Trans>
           </h2>
           <p className="text-sm text-gray-600 mt-1">
@@ -160,7 +160,7 @@ export const StoreEnrichmentPanel = () => {
               <p className="text-xs text-gray-500">
                 <Trans>Without coordinates</Trans>
               </p>
-              <p className="text-2xl font-bold text-gray-900">{stores.length}</p>
+              <p className="text-2xl font-bold text-foreground">{stores.length}</p>
             </div>
           </CardBody>
         </Card>
@@ -174,7 +174,7 @@ export const StoreEnrichmentPanel = () => {
               <p className="text-xs text-gray-500">
                 <Trans>In progress</Trans>
               </p>
-              <p className="text-2xl font-bold text-gray-900">{enrichingIds.size}</p>
+              <p className="text-2xl font-bold text-foreground">{enrichingIds.size}</p>
             </div>
           </CardBody>
         </Card>
@@ -188,7 +188,7 @@ export const StoreEnrichmentPanel = () => {
               <p className="text-xs text-gray-500">
                 <Trans>Total prices</Trans>
               </p>
-              <p className="text-2xl font-bold text-gray-900">
+              <p className="text-2xl font-bold text-foreground">
                 {stores.reduce((sum, s) => sum + s._count.prices, 0)}
               </p>
             </div>
@@ -201,7 +201,7 @@ export const StoreEnrichmentPanel = () => {
         <Card>
           <CardBody className="text-center py-12">
             <CheckCircle2Icon className="h-16 w-16 text-green-500 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+            <h3 className="text-lg font-semibold text-foreground mb-2">
               <Trans>All stores enriched!</Trans>
             </h3>
             <p className="text-sm text-gray-600">
@@ -225,7 +225,7 @@ export const StoreEnrichmentPanel = () => {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
-                        <h3 className="text-sm font-semibold text-gray-900 truncate">{store.name}</h3>
+                        <h3 className="text-sm font-semibold text-foreground truncate">{store.name}</h3>
                         {hasPartialCoords && (
                           <Chip size="sm" color="warning" variant="flat">
                             <Trans>Partial</Trans>
@@ -281,7 +281,7 @@ export const StoreEnrichmentPanel = () => {
       {/* Info Panel */}
       <Card>
         <CardHeader>
-          <h3 className="text-sm font-semibold text-gray-900">
+          <h3 className="text-sm font-semibold text-foreground">
             <Trans>How does it work?</Trans>
           </h3>
         </CardHeader>

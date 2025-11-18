@@ -1,4 +1,3 @@
-import "react-spring-bottom-sheet/dist/style.css";
 import {
   ModalBody,
   ModalContent,
@@ -46,7 +45,6 @@ export const Modal = ({
         header={header}
         footer={footer}
         blocking={false}
-        style={{ backgroundColor: "red" }}
         // skipInitialTransition
         // expandOnContentDrag={false}
         snapPoints={({ maxHeight, minHeight }) => {

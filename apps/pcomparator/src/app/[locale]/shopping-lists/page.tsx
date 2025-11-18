@@ -1,5 +1,6 @@
 import { listUserShoppingList } from "~/applications/ShoppingLists/Api";
 import { ShoppingListsView } from "~/applications/ShoppingLists/Ui";
+import { PageHeader } from "~/components/Header/PageHeader";
 import { withLinguiPage } from "~/core/withLinguiLayout";
 
 export const metadata = {
@@ -11,7 +12,8 @@ const ShoppingListsPage = async () => {
   const lists = await listUserShoppingList();
 
   return (
-    <main className="flex w-full justify-center p-4">
+    <main className="flex flex-col w-full">
+      <PageHeader title="Shopping Lists" href="/" />
       <div className="flex flex-col gap-y-8 max-w-4xl w-full">
         <div className="max-w-3xl mx-auto w-full pb-8">
           <ShoppingListsView lists={lists} />

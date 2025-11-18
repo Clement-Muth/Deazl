@@ -20,7 +20,21 @@ export const ADDITIVES_DATABASE: Record<string, Additive> = {
   // SAFE (Vert)
   E100: { code: "E100", name: "Curcumine", riskLevel: "safe", description: "Colorant jaune naturel" },
   E140: { code: "E140", name: "Chlorophylle", riskLevel: "safe", description: "Colorant vert naturel" },
+  E160: { code: "E160", name: "Caroténoïdes", riskLevel: "safe", description: "Colorant orange naturel" },
+  "EN:E160": {
+    code: "E160",
+    name: "Caroténoïdes",
+    riskLevel: "safe",
+    description: "Colorant orange naturel"
+  },
   E160a: { code: "E160a", name: "Bêta-carotène", riskLevel: "safe", description: "Colorant orange naturel" },
+  E296: { code: "E296", name: "Acide malique", riskLevel: "safe", description: "Acidifiant naturel" },
+  E160C: {
+    code: "E160C",
+    name: "Extrait de paprika",
+    riskLevel: "safe",
+    description: "Colorant rouge naturel"
+  },
   E300: {
     code: "E300",
     name: "Acide ascorbique (Vitamine C)",
@@ -29,6 +43,20 @@ export const ADDITIVES_DATABASE: Record<string, Additive> = {
   },
   E306: { code: "E306", name: "Vitamine E", riskLevel: "safe", description: "Antioxydant naturel" },
   E330: { code: "E330", name: "Acide citrique", riskLevel: "safe", description: "Acidifiant naturel" },
+  E331: { code: "E331", name: "Citrate de sodium", riskLevel: "safe", description: "Régulateur d'acidité" },
+  E333: { code: "E333", name: "Citrate de calcium", riskLevel: "safe", description: "Régulateur d'acidité" },
+  "EN:E331": {
+    code: "E331",
+    name: "Citrate de sodium",
+    riskLevel: "safe",
+    description: "Régulateur d'acidité"
+  },
+  "EN:E333": {
+    code: "E333",
+    name: "Citrate de calcium",
+    riskLevel: "safe",
+    description: "Régulateur d'acidité"
+  },
   E322: { code: "E322", name: "Lécithine", riskLevel: "safe", description: "Émulsifiant naturel" },
   E414: { code: "E414", name: "Gomme arabique", riskLevel: "safe", description: "Épaississant naturel" },
   E440: { code: "E440", name: "Pectine", riskLevel: "safe", description: "Gélifiant naturel" },
@@ -42,7 +70,16 @@ export const ADDITIVES_DATABASE: Record<string, Additive> = {
 
   // MODERATE (Jaune)
   E150: { code: "E150", name: "Caramel", riskLevel: "moderate", description: "Colorant" },
+  "EN:E150": { code: "E150", name: "Caramel", riskLevel: "moderate", description: "Colorant" },
   E202: { code: "E202", name: "Sorbate de potassium", riskLevel: "moderate", description: "Conservateur" },
+  E385: { code: "E385", name: "Sorbate de calcium", riskLevel: "moderate", description: "Conservateur" },
+  "EN:E385": { code: "E385", name: "Sorbate de calcium", riskLevel: "moderate", description: "Conservateur" },
+  "EN:E202": {
+    code: "E202",
+    name: "Sorbate de potassium",
+    riskLevel: "moderate",
+    description: "Conservateur"
+  },
   E211: { code: "E211", name: "Benzoate de sodium", riskLevel: "moderate", description: "Conservateur" },
   E220: {
     code: "E220",
@@ -53,7 +90,9 @@ export const ADDITIVES_DATABASE: Record<string, Additive> = {
   E301: { code: "E301", name: "Ascorbate de sodium", riskLevel: "moderate", description: "Antioxydant" },
   E407: { code: "E407", name: "Carraghénane", riskLevel: "moderate", description: "Épaississant" },
   E412: { code: "E412", name: "Gomme guar", riskLevel: "moderate", description: "Épaississant" },
+  "EN:E412": { code: "E412", name: "Gomme guar", riskLevel: "moderate", description: "Épaississant" },
   E415: { code: "E415", name: "Gomme xanthane", riskLevel: "moderate", description: "Épaississant" },
+  "EN:E415": { code: "E415", name: "Gomme xanthane", riskLevel: "moderate", description: "Épaississant" },
   E450: { code: "E450", name: "Diphosphates", riskLevel: "moderate", description: "Émulsifiant" },
   E471: {
     code: "E471",

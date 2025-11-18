@@ -192,8 +192,8 @@ export const SettingsOptimalPricing = ({ userId }: SettingsOptimalPricingProps) 
               <SettingsIcon className="h-5 w-5 text-primary-600" />
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-gray-900">
-                <Trans>Price Optimization</Trans>
+              <h3 className="text-sm font-semibold text-foreground">
+                <Trans>Optimal pricing settings</Trans>
               </h3>
               <p className="text-xs text-gray-500">
                 <Trans>Configure how prices are selected</Trans>
@@ -213,7 +213,7 @@ export const SettingsOptimalPricing = ({ userId }: SettingsOptimalPricingProps) 
               <p className="text-xs text-gray-500">
                 <Trans>Geolocation</Trans>
               </p>
-              <p className="text-sm font-medium text-gray-900 truncate">
+              <p className="text-sm font-medium text-foreground truncate">
                 {hasGeolocation ? <Trans>Active</Trans> : <Trans>Not configured</Trans>}
               </p>
             </div>
@@ -230,7 +230,7 @@ export const SettingsOptimalPricing = ({ userId }: SettingsOptimalPricingProps) 
               <p className="text-xs text-gray-500">
                 <Trans>Max radius</Trans>
               </p>
-              <p className="text-sm font-medium text-gray-900 truncate">{preferences.maxRadiusKm}km</p>
+              <p className="text-sm font-medium text-foreground truncate">{preferences.maxRadiusKm}km</p>
             </div>
           </div>
 
@@ -240,7 +240,7 @@ export const SettingsOptimalPricing = ({ userId }: SettingsOptimalPricingProps) 
               <p className="text-xs text-gray-500">
                 <Trans>Price weight</Trans>
               </p>
-              <p className="text-sm font-medium text-gray-900 truncate">
+              <p className="text-sm font-medium text-foreground truncate">
                 {Math.round((preferences.priceWeight || 0.7) * 100)}%
               </p>
             </div>
@@ -259,7 +259,7 @@ export const SettingsOptimalPricing = ({ userId }: SettingsOptimalPricingProps) 
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <div>
-                  <h4 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
+                  <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
                     <MapPinIcon className="h-4 w-4" />
                     <Trans>Geolocation</Trans>
                   </h4>
@@ -291,7 +291,7 @@ export const SettingsOptimalPricing = ({ userId }: SettingsOptimalPricingProps) 
             {/* Max Radius */}
             <div className="space-y-3">
               <div>
-                <h4 className="text-sm font-semibold text-gray-900">
+                <h4 className="text-sm font-semibold text-foreground">
                   <Trans>Maximum radius</Trans>
                 </h4>
                 <p className="text-xs text-gray-500 mt-1">
@@ -316,7 +316,7 @@ export const SettingsOptimalPricing = ({ userId }: SettingsOptimalPricingProps) 
             {/* Price vs Distance Weight */}
             <div className="space-y-3">
               <div>
-                <h4 className="text-sm font-semibold text-gray-900">
+                <h4 className="text-sm font-semibold text-foreground">
                   <Trans>Price vs Distance priority</Trans>
                 </h4>
                 <p className="text-xs text-gray-500 mt-1">

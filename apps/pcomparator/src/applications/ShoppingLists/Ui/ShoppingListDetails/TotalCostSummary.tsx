@@ -29,7 +29,7 @@ export const TotalCostSummary = ({
   const bestStoreName = storeSummary.length > 0 ? storeSummary[0].storeName : undefined;
 
   return (
-    <Card shadow="none" className="border border-gray-200">
+    <Card shadow="none" className="border border-content3">
       <CardBody className="p-4">
         <div className="flex items-center justify-between gap-4">
           {/* Left side - Total */}
