@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { getAdditiveInfo } from "~/applications/Recipes/Domain/Services/AdditiveDatabase";
 
 /**
  * Schema pour les données de qualité d'un produit (OpenFoodFacts)
@@ -237,42 +238,23 @@ export function parseOpenFoodFactsQuality(offData: any): ProductQualityData {
     };
   }
 
-  // Additifs avec noms et niveaux de risque
+  // Additifs avec noms et niveaux de risque depuis notre base de données
   if (offData.additives_tags && Array.isArray(offData.additives_tags)) {
     data.additives = offData.additives_tags.map((tag: string) => {
-      // Extraire le code E (ex: "en:e330" -> "e330")
-      const cleanTag = tag.replace("en:", "").toLowerCase();
+      // Extraire le code E (ex: "en:e330" -> "e330" ou "en:e150a" -> "e150a")
+      // Supprimer les préfixes de langue et normaliser
+      const cleanTag = tag
+        .replace(/^(en|fr|de|es|it):/i, "") // Supprimer préfixe langue
+        .toLowerCase()
+        .replace(/-/g, ""); // Supprimer tirets
 
-      // Récupérer le nom depuis OpenFoodFacts ou utiliser le tag
-      const name =
-        offData.additives_original_tags?.[tag] ||
-        offData.additives_names?.[tag] ||
-        tag.replace("en:", "").replace("-", " ");
-
-      // Déterminer le niveau de risque depuis OFF ou base de données
-      let riskLevel: "safe" | "moderate" | "high_risk" | "dangerous" = "safe";
-
-      // Utiliser les données OFF sur les risques si disponibles
-      if (
-        offData.additives_prev_tags?.includes(tag) ||
-        offData.additives_that_may_be_from_palm_oil_tags?.includes(tag)
-      ) {
-        riskLevel = "moderate";
-      }
-
-      // Logique basée sur les catégories OFF
-      if (tag.includes("sulphite") || tag.includes("benzoate") || tag.includes("nitrite")) {
-        riskLevel = "high_risk";
-      }
-
-      if (tag.includes("tartrazine") || tag.includes("carmine") || tag.includes("aspartame")) {
-        riskLevel = "dangerous";
-      }
+      // Utiliser notre base de données d'additifs qui contient noms + niveaux de risque
+      const additiveInfo = getAdditiveInfo(cleanTag);
 
       return {
-        id: cleanTag,
-        name,
-        riskLevel
+        id: additiveInfo.code,
+        name: additiveInfo.name,
+        riskLevel: additiveInfo.riskLevel
       };
     });
   }

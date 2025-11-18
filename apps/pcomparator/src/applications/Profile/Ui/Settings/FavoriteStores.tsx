@@ -105,7 +105,7 @@ export const SettingsFavoriteStores = ({ userId }: SettingsFavoriteStoresProps) 
               <StoreIcon className="h-5 w-5 text-primary-600" />
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-gray-900">
+              <h3 className="text-sm font-semibold text-foreground">
                 <Trans>Favorite Stores</Trans>
               </h3>
               <p className="text-xs text-gray-500">
@@ -180,7 +180,7 @@ export const SettingsFavoriteStores = ({ userId }: SettingsFavoriteStoresProps) 
                         />
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-gray-900">{store.name}</p>
+                        <p className="text-sm font-medium text-foreground">{store.name}</p>
                         <p className="text-xs text-gray-500">{store.location}</p>
                       </div>
                     </div>

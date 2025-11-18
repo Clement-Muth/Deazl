@@ -12,13 +12,12 @@ import {
   ModalBody,
   ModalContent,
   ModalFooter,
-  ModalHeader,
-  Select,
-  SelectItem
+  ModalHeader
 } from "@heroui/react";
 import { Trans } from "@lingui/react/macro";
 import { CalendarIcon, PackageIcon, StoreIcon, TagIcon, TrendingDownIcon } from "lucide-react";
 import { useEffect, useState } from "react";
+import { UnitSelector } from "~/components/UnitSelector";
 import type { ProductSearchResult } from "../../Api/searchProducts.api";
 
 interface ProductSelectionModalProps {
@@ -139,18 +138,7 @@ export const ProductSelectionModal = ({
                 step="0.1"
                 placeholder="1"
               />
-              <Select
-                label={<Trans>Unit</Trans>}
-                selectedKeys={[unit]}
-                onSelectionChange={(keys) => setUnit(Array.from(keys)[0] as string)}
-              >
-                <SelectItem key="unit">Unit</SelectItem>
-                <SelectItem key="g">Grams (g)</SelectItem>
-                <SelectItem key="kg">Kilograms (kg)</SelectItem>
-                <SelectItem key="ml">Milliliters (ml)</SelectItem>
-                <SelectItem key="l">Liters (l)</SelectItem>
-                <SelectItem key="cl">Centiliters (cl)</SelectItem>
-              </Select>
+              <UnitSelector value={unit} onValueChange={setUnit} includeUnits="all" />
             </div>
 
             {/* Sélection de prix */}

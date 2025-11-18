@@ -12,22 +12,32 @@ import type { RecipePayload } from "../Domain/Schemas/Recipe.schema";
 interface RecipesListProps {
   recipes: RecipePayload[];
   showFavorites?: boolean;
+  isAuthenticated?: boolean;
 }
 
-export default function RecipesList({ recipes, showFavorites = false }: RecipesListProps) {
+export default function RecipesList({
+  recipes,
+  showFavorites = false,
+  isAuthenticated = true
+}: RecipesListProps) {
   const router = useRouter();
   const [favorites, setFavorites] = useState<string[]>([]);
   const [loadingFavorites, setLoadingFavorites] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
-    if (showFavorites) {
+    if (showFavorites && isAuthenticated) {
       getUserFavoriteRecipes().then(setFavorites).catch(console.error);
     }
-  }, [showFavorites]);
+  }, [showFavorites, isAuthenticated]);
 
   const handleFavoriteToggle = async (recipeId: string, e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+
+    if (!isAuthenticated) {
+      router.push("/auth/signin");
+      return;
+    }
 
     setLoadingFavorites((prev) => ({ ...prev, [recipeId]: true }));
 

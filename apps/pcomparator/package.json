@@ -19,7 +19,8 @@
     "test": "env-cmd -f ./.env.test jest --maxWorkers=100%",
     "prepare": "cd .. && husky ./pcomparator/.husky",
     "prisma:generate": "prisma generate --schema=./prisma/schema.prisma",
-    "generate": "npx openapi-typescript ./public/openapi.yaml -o ./src/types/schema.d.ts"
+    "generate": "npx openapi-typescript ./public/openapi.yaml -o ./src/types/schema.d.ts",
+    "migrate:additives": "tsx scripts/migrate-additives.ts"
   },
   "dependencies": {
     "@asteasolutions/zod-to-openapi": "^7.2.0",
@@ -105,6 +106,7 @@
     "sharp": "^0.33.5",
     "ts-node": "^10.9.2",
     "tsup": "^8.5.1",
+    "tsx": "^4.20.6",
     "webpack": "^5.95.0",
     "zod": "^3.23.8"
   },

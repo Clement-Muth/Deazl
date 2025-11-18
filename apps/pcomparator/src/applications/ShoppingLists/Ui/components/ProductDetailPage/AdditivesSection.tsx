@@ -252,17 +252,15 @@ export function AdditivesSection({ additives, compact = false }: AdditivesSectio
                   >
                     <div className="flex items-start justify-between gap-2">
                       <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="text-xs font-mono text-foreground-500">{additive.id}</span>
-                          <Chip
-                            size="sm"
-                            variant="flat"
-                            color={getRiskColor(additive.riskLevel || "unknown")}
-                          >
-                            {getRiskLabel(additive.riskLevel || "unknown")}
-                          </Chip>
-                        </div>
-                        <p className="text-sm font-semibold text-foreground">{additive.name}</p>
+                        <p className="text-sm font-semibold text-foreground mb-1">
+                          {additive.name}{" "}
+                          <span className="text-xs font-mono text-foreground-500">
+                            ({additive.id.toUpperCase()})
+                          </span>
+                        </p>
+                        <Chip size="sm" variant="flat" color={getRiskColor(additive.riskLevel || "unknown")}>
+                          {getRiskLabel(additive.riskLevel || "unknown")}
+                        </Chip>
                       </div>
                     </div>
                   </div>

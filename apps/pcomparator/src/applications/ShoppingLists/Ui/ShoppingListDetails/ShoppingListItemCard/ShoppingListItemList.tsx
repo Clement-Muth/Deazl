@@ -134,8 +134,8 @@ export const ShoppingListItemList = ({
                     isDeleting
                       ? "bg-gray-50 opacity-50"
                       : item.isCompleted
-                        ? "border-gray-200 bg-white"
-                        : "border-primary-100 bg-white"
+                        ? "bg-content2"
+                        : "border-content3 bg-content2"
                   }`}
                 >
                   <div className="flex items-center gap-2 flex-1 min-w-0">

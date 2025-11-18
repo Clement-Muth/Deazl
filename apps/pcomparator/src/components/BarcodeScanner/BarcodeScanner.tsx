@@ -1,7 +1,8 @@
-import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@heroui/react";
+import { Button } from "@heroui/react";
 import { BrowserMultiFormatReader, NotFoundException } from "@zxing/library";
 import { Camera, X, Zap } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { Modal } from "../Modal/Modal";
 
 interface BarcodeScannerProps {
   onScanned: (barcode: string) => void;
@@ -288,15 +289,13 @@ export const BarcodeScanner = ({
     <Modal
       isOpen={true}
       onClose={() => onCloseRef.current?.()}
-      size="full"
-      classNames={{
-        base: "m-0 max-h-screen",
-        wrapper: "w-full h-full",
-        backdrop: "bg-black/80"
-      }}
-    >
-      <ModalContent className="h-full flex flex-col">
-        <ModalHeader className="flex justify-between items-center bg-black text-white">
+      // classNames={{
+      //   base: "m-0 max-h-screen",
+      //   wrapper: "w-full h-full",
+      //   backdrop: "bg-black/80"
+      // }}
+      header={
+        <div className="flex justify-between items-center bg-black text-white">
           <div>
             <h2 className="text-lg font-semibold">{title}</h2>
             <p className="text-sm text-gray-300">{description}</p>
@@ -304,9 +303,10 @@ export const BarcodeScanner = ({
           <Button isIconOnly variant="light" onPress={() => onCloseRef.current?.()} className="text-white">
             <X className="h-6 w-6" />
           </Button>
-        </ModalHeader>
-
-        <ModalBody className="flex-1 p-0 bg-black relative">
+        </div>
+      }
+      body={
+        <div className="flex-1 p-0 bg-black relative">
           {isLoading && (
             <div className="absolute inset-0 flex items-center justify-center bg-black text-white">
               <div className="text-center">
@@ -363,9 +363,10 @@ export const BarcodeScanner = ({
               </div>
             </>
           )}
-        </ModalBody>
-
-        <ModalFooter className="bg-black">
+        </div>
+      }
+      footer={
+        <footer className="bg-black">
           <div className="flex justify-center gap-4 w-full">
             <Button variant="bordered" onPress={handleManualInput} className="text-white border-white">
               Saisie manuelle
@@ -383,8 +384,8 @@ export const BarcodeScanner = ({
               </Button>
             )}
           </div>
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
+        </footer>
+      }
+    />
   );
 };

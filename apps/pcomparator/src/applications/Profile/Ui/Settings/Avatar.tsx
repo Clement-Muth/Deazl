@@ -78,7 +78,7 @@ export const SettingsAvatar = ({ defaultValue }: SettingsAvatarProps) => {
 
         {/* Info and Upload Button */}
         <div className="flex-1 text-center sm:text-left">
-          <h4 className="text-base md:text-lg font-semibold text-gray-900 mb-1">
+          <h4 className="text-base md:text-lg font-semibold text-foreground mb-1">
             <Trans>Profile Picture</Trans>
           </h4>
           <p className="text-xs md:text-sm text-gray-600 mb-3">

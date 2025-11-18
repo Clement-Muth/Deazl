@@ -1,7 +1,7 @@
 "use client";
 
 import { Trans } from "@lingui/react/macro";
-import { LineChart, ScanBarcode, ShoppingCart } from "lucide-react";
+import { ChefHat, LineChart, ScanBarcode, ShoppingCart, Sparkles } from "lucide-react";
 import Link from "next/link";
 import type { JSX } from "react";
 
@@ -43,7 +43,7 @@ export function FeaturesSection() {
             </Link>
           </Trans>
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <FeatureCard
             icon={<ShoppingCart className="w-8 h-8 text-primary-600 dark:text-primary-400" />}
             title={<Trans>Smart shopping lists</Trans>}
@@ -54,15 +54,45 @@ export function FeaturesSection() {
             }
           />
           <FeatureCard
+            icon={<ChefHat className="w-8 h-8 text-primary-600 dark:text-primary-400" />}
+            title={<Trans>Recipe management</Trans>}
+            description={
+              <Trans>
+                Create and share public or private recipes. Get automatic pricing and quality analysis.
+              </Trans>
+            }
+          />
+          <FeatureCard
+            icon={<Sparkles className="w-8 h-8 text-primary-600 dark:text-primary-400" />}
+            title={<Trans>Price optimization</Trans>}
+            description={
+              <Trans>Get optimal pricing suggestions for your recipes across multiple stores.</Trans>
+            }
+          />
+          <FeatureCard
             icon={<LineChart className="w-8 h-8 text-primary-600 dark:text-primary-400" />}
             title={<Trans>Price tracking</Trans>}
             description={<Trans>Monitor price changes over time and find the best deals.</Trans>}
           />
-          <FeatureCard
-            icon={<ScanBarcode className="w-8 h-8 text-primary-600 dark:text-primary-400" />}
-            title={<Trans>Community contribution</Trans>}
-            description={<Trans>Help enrich the database by adding new prices.</Trans>}
-          />
+        </div>
+        <div className="mt-8 text-center">
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            <Trans>And much more:</Trans>
+          </p>
+          <div className="flex flex-wrap justify-center gap-2 mt-4">
+            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
+              <ScanBarcode className="w-3 h-3" />
+              <Trans>Community pricing</Trans>
+            </span>
+            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
+              <ChefHat className="w-3 h-3" />
+              <Trans>Public recipe hub</Trans>
+            </span>
+            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
+              <Sparkles className="w-3 h-3" />
+              <Trans>Quality analysis</Trans>
+            </span>
+          </div>
         </div>
       </div>
     </div>

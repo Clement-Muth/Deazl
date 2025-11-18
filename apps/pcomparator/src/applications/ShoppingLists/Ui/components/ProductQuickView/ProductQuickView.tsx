@@ -2,27 +2,21 @@
 
 import { Button, Chip, Divider, Spinner } from "@heroui/react";
 import {
-  ArrowRightIcon,
-  BarChart3Icon,
   CheckCircleIcon,
   ExternalLinkIcon,
+  FlaskConicalIcon,
   PackageIcon,
-  StoreIcon
+  StoreIcon,
+  TrendingUpIcon
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Modal } from "~/components/Modal/Modal";
 import { getProductWithPricesAndQuality } from "../../../Api/products/getProductWithPricesAndQuality.api";
 import type { ProductQualityData } from "../../../Domain/ValueObjects/ProductQuality.vo";
-import { formatQualitySummary } from "../../../Domain/ValueObjects/ProductQuality.vo";
 import { ProductDetailPage } from "../ProductDetailPage";
 import { EmptyState } from "./EmptyState";
-import { ProductAdditives } from "./ProductAdditives";
 import { ProductComparison } from "./ProductComparison";
-import { ProductLabelsAndIngredients } from "./ProductLabelsAndIngredients";
-import { ProductNutrition } from "./ProductNutrition";
-import { ProductPriceList } from "./ProductPriceList";
-import { ProductQualityBadges } from "./ProductQualityBadges";
 
 interface ProductQuickViewProps {
   productId: string;
@@ -110,7 +104,7 @@ export const ProductQuickView = ({ productId, isOpen, onClose, onSelectProduct }
           <h2 className="text-xl font-bold truncate">{product?.name}</h2>
           {product?.brand && <p className="text-sm text-gray-500">{product.brand.name}</p>}
         </div>
-        <PackageIcon className="h-6 w-6 text-gray-400 flex-shrink-0" />
+        <PackageIcon className="h-6 w-6 text-gray-400 shrink-0" />
       </div>
 
       <div className="flex flex-wrap gap-2">
@@ -133,6 +127,47 @@ export const ProductQuickView = ({ productId, isOpen, onClose, onSelectProduct }
     </div>
   );
 
+  // Helper functions for quality display
+  const getScoreColor = (score: number): "success" | "warning" | "danger" => {
+    if (score >= 70) return "success";
+    if (score >= 40) return "warning";
+    return "danger";
+  };
+
+  const getGradeColor = (
+    grade: "A" | "B" | "C" | "D" | "E" | "unknown"
+  ): "success" | "warning" | "danger" | "default" => {
+    switch (grade) {
+      case "A":
+        return "success";
+      case "B":
+        return "success";
+      case "C":
+        return "warning";
+      case "D":
+        return "danger";
+      case "E":
+        return "danger";
+      default:
+        return "default";
+    }
+  };
+
+  const getAdditiveRiskLevel = (qualityData: ProductQualityData | null) => {
+    if (!qualityData?.additives || qualityData.additives.length === 0) {
+      return { level: "none" as const, count: 0 };
+    }
+
+    const dangerous = qualityData.additives.filter((a) => a.riskLevel === "dangerous").length;
+    const highRisk = qualityData.additives.filter((a) => a.riskLevel === "high_risk").length;
+    const moderate = qualityData.additives.filter((a) => a.riskLevel === "moderate").length;
+
+    if (dangerous > 0) return { level: "danger" as const, count: dangerous };
+    if (highRisk > 0) return { level: "warning" as const, count: highRisk };
+    if (moderate > 0) return { level: "moderate" as const, count: moderate };
+    return { level: "safe" as const, count: qualityData.additives.length };
+  };
+
   const bodyContent = loading ? (
     <div className="flex justify-center py-8">
       <Spinner size="lg" />
@@ -140,86 +175,188 @@ export const ProductQuickView = ({ productId, isOpen, onClose, onSelectProduct }
   ) : error ? (
     <div className="text-center py-8 text-danger">{error}</div>
   ) : product ? (
-    <div className="flex flex-col gap-6">
-      {/* Qualité & Nutrition */}
-      {product.qualityData && (
-        <section className="space-y-3">
-          <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
-            <BarChart3Icon className="h-4 w-4" />
-            Qualité & Nutrition
-          </h3>
-          <ProductQualityBadges qualityData={product.qualityData} />
-          {product.qualityData.overallQualityScore && (
-            <p className="text-sm text-gray-600 mt-2">{formatQualitySummary(product.qualityData)}</p>
-          )}
-
-          {/* Détails nutritionnels */}
-          <ProductNutrition qualityData={product.qualityData} />
-
-          {/* Additifs */}
-          <ProductAdditives qualityData={product.qualityData} />
-
-          {/* Labels et ingrédients */}
-          <ProductLabelsAndIngredients qualityData={product.qualityData} />
-        </section>
+    <div className="flex flex-col gap-4">
+      {/* Score global - Grande carte centrale comme Yuka */}
+      {product.qualityData?.overallQualityScore !== undefined && (
+        <div className="flex flex-col items-center justify-center py-8 bg-linear-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl">
+          <div className="relative">
+            <div className="text-6xl font-bold text-foreground">
+              {Math.round(product.qualityData.overallQualityScore)}
+            </div>
+            <div className="text-2xl font-medium text-foreground-500">/100</div>
+          </div>
+          <Chip
+            size="lg"
+            color={getScoreColor(product.qualityData.overallQualityScore)}
+            variant="flat"
+            className="mt-3"
+          >
+            {product.qualityData.overallQualityScore >= 70
+              ? "Excellente qualité"
+              : product.qualityData.overallQualityScore >= 40
+                ? "Qualité moyenne"
+                : "Qualité médiocre"}
+          </Chip>
+        </div>
       )}
+
+      {/* Badges compacts - Nutri, Eco, Nova */}
+      {product.qualityData && (
+        <div className="grid grid-cols-3 gap-2">
+          {product.qualityData.nutriScore?.grade && product.qualityData.nutriScore.grade !== "unknown" && (
+            <div className="flex flex-col items-center p-3 bg-gray-50 dark:bg-gray-800 rounded-xl">
+              <span className="text-xs text-foreground-500 mb-1">Nutri-Score</span>
+              <Chip size="lg" color={getGradeColor(product.qualityData.nutriScore.grade)} variant="solid">
+                {product.qualityData.nutriScore.grade}
+              </Chip>
+            </div>
+          )}
+          {product.qualityData.ecoScore?.grade && product.qualityData.ecoScore.grade !== "unknown" && (
+            <div className="flex flex-col items-center p-3 bg-gray-50 dark:bg-gray-800 rounded-xl">
+              <span className="text-xs text-foreground-500 mb-1">Eco-Score</span>
+              <Chip size="lg" color={getGradeColor(product.qualityData.ecoScore.grade)} variant="solid">
+                {product.qualityData.ecoScore.grade}
+              </Chip>
+            </div>
+          )}
+          {product.qualityData.novaGroup?.group && (
+            <div className="flex flex-col items-center p-3 bg-gray-50 dark:bg-gray-800 rounded-xl">
+              <span className="text-xs text-foreground-500 mb-1">Nova</span>
+              <Chip
+                size="lg"
+                color={
+                  product.qualityData.novaGroup.group <= 2
+                    ? "success"
+                    : product.qualityData.novaGroup.group === 3
+                      ? "warning"
+                      : "danger"
+                }
+                variant="solid"
+              >
+                {product.qualityData.novaGroup.group}
+              </Chip>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Additifs - Alerte visuelle comme Yuka */}
+      {(() => {
+        const additiveRisk = getAdditiveRiskLevel(product.qualityData);
+        return (
+          <div
+            className={`flex items-center justify-between p-4 rounded-xl ${
+              additiveRisk.level === "danger"
+                ? "bg-red-50 dark:bg-red-950 border-2 border-red-500"
+                : additiveRisk.level === "warning"
+                  ? "bg-orange-50 dark:bg-orange-950 border-2 border-orange-500"
+                  : additiveRisk.level === "moderate"
+                    ? "bg-yellow-50 dark:bg-yellow-950 border-2 border-yellow-500"
+                    : additiveRisk.level === "safe"
+                      ? "bg-green-50 dark:bg-green-950 border-2 border-green-500"
+                      : "bg-green-50 dark:bg-green-950 border-2 border-green-500"
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <FlaskConicalIcon
+                className={`h-6 w-6 ${
+                  additiveRisk.level === "danger"
+                    ? "text-red-600"
+                    : additiveRisk.level === "warning"
+                      ? "text-orange-600"
+                      : additiveRisk.level === "moderate"
+                        ? "text-yellow-600"
+                        : "text-green-600"
+                }`}
+              />
+              <div>
+                <p className="font-semibold text-foreground">
+                  {additiveRisk.level === "none"
+                    ? "Aucun additif"
+                    : `${additiveRisk.count} additif${additiveRisk.count > 1 ? "s" : ""}`}
+                </p>
+                <p className="text-sm text-foreground-500">
+                  {additiveRisk.level === "none"
+                    ? "Produit sans additifs"
+                    : additiveRisk.level === "danger"
+                      ? "Additifs dangereux détectés"
+                      : additiveRisk.level === "warning"
+                        ? "Additifs à risque élevé"
+                        : additiveRisk.level === "moderate"
+                          ? "Additifs à consommer avec modération"
+                          : "Additifs sans risque connu"}
+                </p>
+              </div>
+            </div>
+            <Button size="sm" variant="light" onPress={handleViewFullDetails} className="shrink-0">
+              Détails
+            </Button>
+          </div>
+        );
+      })()}
 
       <Divider />
 
-      {/* Prix par magasin */}
-      <section>
-        <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
-          <StoreIcon className="h-4 w-4" />
-          Prix par magasin
-        </h3>
+      {/* Prix - Top 3 meilleurs prix */}
+      <div>
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
+            <StoreIcon className="h-4 w-4" />
+            Meilleurs prix
+          </h3>
+          {product.prices.length > 3 && (
+            <Button size="sm" variant="light" onPress={handleViewFullDetails}>
+              Voir tout ({product.prices.length})
+            </Button>
+          )}
+        </div>
         {product.prices.length > 0 ? (
-          <ProductPriceList prices={product.prices} />
+          <div className="space-y-2">
+            {product.prices
+              .sort((a, b) => a.amount - b.amount)
+              .slice(0, 3)
+              .map((price, idx) => (
+                <div
+                  key={price.id}
+                  className={`flex items-center justify-between p-3 rounded-lg ${
+                    idx === 0
+                      ? "bg-green-50 dark:bg-green-950 border-2 border-green-500"
+                      : "bg-gray-50 dark:bg-gray-800"
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    {idx === 0 && <TrendingUpIcon className="h-4 w-4 text-green-600" />}
+                    <div>
+                      <p className="font-semibold text-foreground">{price.store.name}</p>
+                      <p className="text-xs text-foreground-500">{price.store.location}</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className={`font-bold ${idx === 0 ? "text-green-600 text-lg" : "text-foreground"}`}>
+                      {price.amount.toFixed(2)} {price.currency}
+                    </p>
+                    <p className="text-xs text-foreground-500">/{price.unit}</p>
+                  </div>
+                </div>
+              ))}
+          </div>
         ) : (
           <EmptyState type="no-prices" productId={product.barcode} />
         )}
-      </section>
+      </div>
 
       <Divider />
 
-      {/* Comparaison intelligente */}
-      <section>
-        <Button
-          variant="flat"
-          color="primary"
-          size="lg"
-          onPress={() => setShowComparison(true)}
-          endContent={<ArrowRightIcon className="h-4 w-4" />}
-          className="w-full"
-        >
-          Comparer avec d'autres produits similaires
-        </Button>
-      </section>
-
-      <Divider />
-
-      {/* Métadonnées */}
-      <section className="text-xs text-gray-500 space-y-1">
-        <p>
-          Dernière mise à jour :{" "}
-          {daysSinceUpdate === 0
-            ? "Aujourd'hui"
-            : `Il y a ${daysSinceUpdate} jour${daysSinceUpdate > 1 ? "s" : ""}`}
-        </p>
-        <p>Source : {product.isOpenFoodFacts ? "OpenFoodFacts" : "Ajouté manuellement"}</p>
-        {product.barcode && <p>Code-barres : {product.barcode}</p>}
-      </section>
-
-      {/* Actions */}
-      <div className="flex flex-col gap-2 pt-4">
+      {/* Actions principales */}
+      <div className="flex flex-col gap-2">
         <Button
           color="primary"
-          variant="flat"
           size="lg"
           onPress={handleViewFullDetails}
           endContent={<ExternalLinkIcon className="h-4 w-4" />}
           className="w-full"
         >
-          Voir la fiche complète
+          Voir tous les détails
         </Button>
         {onSelectProduct && (
           <Button
@@ -230,12 +367,15 @@ export const ProductQuickView = ({ productId, isOpen, onClose, onSelectProduct }
             startContent={<CheckCircleIcon className="h-5 w-5" />}
             className="w-full"
           >
-            Choisir ce produit
+            Sélectionner ce produit
           </Button>
         )}
-        <Button variant="light" onPress={onClose} className="w-full">
-          Fermer
-        </Button>
+      </div>
+
+      {/* Info source */}
+      <div className="text-xs text-center text-foreground-500 pt-2">
+        Source : {product.isOpenFoodFacts ? "OpenFoodFacts" : "Ajouté manuellement"}
+        {daysSinceUpdate > 0 && ` • Mis à jour il y a ${daysSinceUpdate}j`}
       </div>
     </div>
   ) : null;

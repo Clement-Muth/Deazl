@@ -68,7 +68,7 @@ export const ShoppingListCard = ({ list, userRole }: ShoppingListCardProps) => {
         className="group relative p-4 transition duration-200 hover:bg-gray-50"
       >
         <div className="flex items-center justify-between">
-          <h2 className="font-semibold text-lg text-gray-900 line-clamp-1 group-hover:text-primary-600 transition-colors">
+          <h2 className="font-semibold text-lg line-clamp-1 group-hover:text-primary-600 transition-colors">
             {list.name}
           </h2>
           <div className="flex items-center gap-2">
@@ -150,7 +150,7 @@ export const ShoppingListCard = ({ list, userRole }: ShoppingListCardProps) => {
               {list.completedItems}/{list.totalItems}
             </motion.span>
           </div>
-          <div className="h-2 overflow-hidden rounded-full bg-gray-100">
+          <div className="h-2 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
             <motion.div
               style={{
                 height: "100%",

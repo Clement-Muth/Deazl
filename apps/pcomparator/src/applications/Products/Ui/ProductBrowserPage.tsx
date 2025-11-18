@@ -122,7 +122,7 @@ export function ProductBrowserPage() {
           Back to Home
         </Button>
 
-        <h1 className="text-3xl font-bold text-gray-900">Browse Products</h1>
+        <h1 className="text-3xl font-bold text-foreground">Browse Products</h1>
 
         <div className="flex gap-2">
           <div className="flex-1">
@@ -231,7 +231,7 @@ export function ProductBrowserPage() {
             <div className="mb-4">
               <Package className="w-16 h-16 text-gray-300 mx-auto" />
             </div>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-2">No products found</h2>
+            <h2 className="text-2xl font-semibold text-foreground mb-2">No products found</h2>
             <p className="text-gray-500 mb-6">Try adjusting your search criteria</p>
             <Button color="primary" onPress={() => setIsFiltersOpen(true)}>
               Modify Filters

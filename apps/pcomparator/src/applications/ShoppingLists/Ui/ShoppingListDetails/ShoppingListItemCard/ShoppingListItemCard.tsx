@@ -134,7 +134,7 @@ export const ShoppingListItemCard = ({
 
   return (
     <>
-      <Card className="shadow-sm border border-gray-100 hover:border-gray-200 transition-colors">
+      <Card className="shadow-sm border border-content3 hover:border-gray-200 transition-colors">
         <CardHeader className="pb-2">
           <div className="flex flex-col gap-4 w-full">
             <StoreSelector />

@@ -1,16 +1,7 @@
 "use client";
 
 import { BarcodeScannerWithUI } from "@deazl/components";
-import {
-  Autocomplete,
-  AutocompleteItem,
-  Button,
-  Input,
-  Select,
-  SelectItem,
-  addToast,
-  useDisclosure
-} from "@heroui/react";
+import { Autocomplete, AutocompleteItem, Button, Input, addToast, useDisclosure } from "@heroui/react";
 import { Trans, useLingui } from "@lingui/react/macro";
 import { MapPinIcon, ScanBarcode, StoreIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -20,6 +11,7 @@ import { Currency } from "~/applications/Prices/Domain/ValueObjects/Currency";
 import { createStore } from "~/applications/ShoppingLists/Api/createStore.api";
 import { getStores } from "~/applications/ShoppingLists/Api/getStores.api";
 import { Modal } from "~/components/Modal/Modal";
+import { UnitSelector } from "~/components/UnitSelector";
 
 interface StoreInfo {
   id: string;
@@ -370,7 +362,7 @@ export const QuickAddProduct = () => {
                 {stores.map((store) => (
                   <AutocompleteItem key={store.id} textValue={`${store.name} ${store.location}`}>
                     <div className="flex items-start gap-2 py-1">
-                      <div className="h-6 w-6 rounded bg-primary-50 flex items-center justify-center flex-shrink-0">
+                      <div className="h-6 w-6 rounded bg-primary-50 flex items-center justify-center shrink-0">
                         <StoreIcon className="h-3.5 w-3.5 text-primary-600" />
                       </div>
                       <div>
@@ -409,19 +401,13 @@ export const QuickAddProduct = () => {
                 isRequired
                 className="flex-1"
               />
-              <Select
-                label={t`Unit`}
-                selectedKeys={[unit]}
+              <UnitSelector
+                value={unit}
+                onValueChange={setUnit}
                 size="lg"
-                onSelectionChange={(keys) => setUnit(Array.from(keys)[0] as string)}
                 className="flex-1"
-              >
-                <SelectItem key="unit">{t`unit(s)`}</SelectItem>
-                <SelectItem key="kg">kg</SelectItem>
-                <SelectItem key="g">g</SelectItem>
-                <SelectItem key="l">l</SelectItem>
-                <SelectItem key="ml">ml</SelectItem>
-              </Select>
+                includeUnits="basic"
+              />
             </div>
 
             <Input

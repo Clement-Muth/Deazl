@@ -1,12 +1,14 @@
 "use client";
 
 import { BarcodeScannerWithUI } from "@deazl/components";
-import { Button, Input, Select, SelectItem, addToast, useDisclosure } from "@heroui/react";
+import { Autocomplete, AutocompleteItem, Button, Input, addToast, useDisclosure } from "@heroui/react";
 import { Trans, useLingui } from "@lingui/react/macro";
-import { ScanBarcode } from "lucide-react";
+import { MapPinIcon, ScanBarcode, StoreIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Modal } from "~/components/Modal/Modal";
+import { UnitSelector } from "~/components/UnitSelector";
 import { createProductAndAddToList } from "../../../Api/createProductAndAddToList.api";
+import { getStores } from "../../../Api/getStores.api";
 
 interface CreateProductModalProps {
   isOpen: boolean;
@@ -18,6 +20,12 @@ interface CreateProductModalProps {
   initialPrice?: number;
   initialBarcode?: string;
   onProductCreated?: (item: any) => void;
+}
+
+interface StoreInfo {
+  id: string;
+  name: string;
+  location: string;
 }
 
 export const CreateProductModal = ({
@@ -38,9 +46,29 @@ export const CreateProductModal = ({
   const [unit, setUnit] = useState(initialUnit);
   const [price, setPrice] = useState<number | undefined>(initialPrice);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [stores, setStores] = useState<StoreInfo[]>([]);
+  const [selectedStore, setSelectedStore] = useState<StoreInfo | null>(null);
+  const [isLoadingStores, setIsLoadingStores] = useState(false);
 
   const { isOpen: isScannerOpen, onOpen: openScanner, onClose: closeScanner } = useDisclosure();
   const [isFetchingProductInfo, setIsFetchingProductInfo] = useState(false);
+
+  // Load stores when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      setIsLoadingStores(true);
+      getStores()
+        .then((storesData) => {
+          setStores(storesData);
+        })
+        .catch((error) => {
+          console.error("Failed to load stores:", error);
+        })
+        .finally(() => {
+          setIsLoadingStores(false);
+        });
+    }
+  }, [isOpen]);
 
   // Update form when modal opens with new data
   useEffect(() => {
@@ -113,7 +141,15 @@ export const CreateProductModal = ({
         itemData: {
           quantity,
           unit
-        }
+        },
+        priceData:
+          price && selectedStore
+            ? {
+                amount: price,
+                storeName: selectedStore.name,
+                location: selectedStore.location
+              }
+            : undefined
       });
 
       addToast({
@@ -204,19 +240,13 @@ export const CreateProductModal = ({
                 isRequired
                 className="flex-1"
               />
-              <Select
-                label={t`Unit`}
-                selectedKeys={[unit]}
+              <UnitSelector
+                value={unit}
+                onValueChange={setUnit}
                 size="lg"
-                onSelectionChange={(keys) => setUnit(Array.from(keys)[0] as string)}
                 className="flex-1"
-              >
-                <SelectItem key="unit">{t`unit(s)`}</SelectItem>
-                <SelectItem key="kg">kg</SelectItem>
-                <SelectItem key="g">g</SelectItem>
-                <SelectItem key="l">l</SelectItem>
-                <SelectItem key="ml">ml</SelectItem>
-              </Select>
+                includeUnits="all"
+              />
             </div>
 
             {/* Price (Optional) */}
@@ -229,12 +259,42 @@ export const CreateProductModal = ({
               step="0.01"
               size="lg"
               placeholder="0.00"
+              description={price && !selectedStore ? t`Select a store to save the price` : undefined}
               startContent={
                 <div className="pointer-events-none flex items-center">
                   <span className="text-default-400 text-small">€</span>
                 </div>
               }
             />
+
+            {/* Store selection (shown only if price is entered) */}
+            {price && price > 0 && (
+              <Autocomplete
+                label={t`Store`}
+                placeholder={t`Select a store for this price`}
+                isLoading={isLoadingStores}
+                selectedKey={selectedStore?.id}
+                onSelectionChange={(key) => {
+                  const store = stores.find((s) => s.id === key);
+                  setSelectedStore(store || null);
+                }}
+                startContent={<StoreIcon className="h-4 w-4" />}
+                size="lg"
+              >
+                {stores.map((store) => (
+                  <AutocompleteItem
+                    key={store.id}
+                    textValue={`${store.name} - ${store.location}`}
+                    startContent={<MapPinIcon className="h-4 w-4" />}
+                  >
+                    <div className="flex flex-col">
+                      <span className="text-sm font-medium">{store.name}</span>
+                      <span className="text-xs text-gray-500">{store.location}</span>
+                    </div>
+                  </AutocompleteItem>
+                ))}
+              </Autocomplete>
+            )}
           </>
         }
         header={

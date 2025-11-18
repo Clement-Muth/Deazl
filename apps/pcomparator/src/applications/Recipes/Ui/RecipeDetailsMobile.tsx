@@ -38,9 +38,10 @@ interface RecipeDetailsMobileProps {
   recipe: RecipePayload;
   userId?: string;
   onBack: () => void;
-  onAddToList: () => void;
-  onShare: () => void;
+  onAddToList?: () => void;
+  onShare?: () => void;
   onProductClick: (productId: string) => void;
+  accessMode?: "public" | "authenticated" | "shared" | "restricted";
 }
 
 interface IngredientWithPrice {
@@ -100,6 +101,11 @@ export default function RecipeDetailsMobile({
   }, [recipe.id]);
 
   const handleFavoriteToggle = async () => {
+    if (!userId) {
+      router.push("/auth/signin");
+      return;
+    }
+
     setLoadingFavorite(true);
     try {
       if (isFavorite) {
@@ -284,12 +290,16 @@ export default function RecipeDetailsMobile({
             >
               <Heart className={`w-5 h-5 ${isFavorite ? "fill-current" : ""}`} />
             </Button>
-            <Button isIconOnly variant="light" size="sm" onPress={onShare}>
-              <Share2 className="w-5 h-5" />
-            </Button>
-            <Button isIconOnly color="primary" size="sm" onPress={onAddToList}>
-              <ShoppingCart className="w-5 h-5" />
-            </Button>
+            {onShare && (
+              <Button isIconOnly variant="light" size="sm" onPress={onShare}>
+                <Share2 className="w-5 h-5" />
+              </Button>
+            )}
+            {onAddToList && (
+              <Button isIconOnly color="primary" size="sm" onPress={onAddToList}>
+                <ShoppingCart className="w-5 h-5" />
+              </Button>
+            )}
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
+import { BarcodeScannerWithUI } from "@deazl/components";
 import { Button, useDisclosure } from "@heroui/react";
 import { ScanBarcode } from "lucide-react";
 import { useState } from "react";
-import { BarcodeScannerModal } from "~/applications/Searchbar/Ui/SearchBarcode/BarcodeScannerModal";
 import { SearchResultModal } from "~/applications/Searchbar/Ui/SearchResult/SearchResultModal";
 
 interface SearchBarcodeProps {
@@ -14,21 +14,25 @@ export const SearchBarcode = ({ onNewProduct, onNoPrices }: SearchBarcodeProps) 
   const [step, setStep] = useState(1);
   const [search, setSearch] = useState<string | null>(null);
 
+  const handleBarcodeScanned = (barcode: string) => {
+    setSearch(barcode);
+    setStep(2);
+    onClose();
+  };
+
   return (
     <>
-      {step === 1 ? (
-        <BarcodeScannerModal
-          isOpen={isOpen}
+      {step === 1 && isOpen && (
+        <BarcodeScannerWithUI
           onClose={onClose}
-          onBarcodeDetected={(barcode) => {
-            setSearch(barcode.barcode);
-            setStep(2);
-            onClose();
-          }}
+          onScanned={handleBarcodeScanned}
+          title="Scan Product"
+          description="Scan a barcode to search for products and prices"
         />
-      ) : search ? (
+      )}
+      {step === 2 && search && (
         <SearchResultModal search={search} onNewProduct={onNewProduct} onNoPrices={onNoPrices} />
-      ) : null}
+      )}
       <Button
         startContent={<ScanBarcode />}
         onPress={onOpen}
