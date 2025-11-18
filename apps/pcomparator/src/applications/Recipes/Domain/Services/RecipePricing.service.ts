@@ -480,6 +480,53 @@ export class RecipePricingService {
       return ingredientQty * 100 * priceAmount;
     }
 
+    // Conversions ml/cl
+    if (normalizedIngredientUnit === "ml" && normalizedPriceUnit === "cl") {
+      return (ingredientQty / 10) * priceAmount;
+    }
+    if (normalizedIngredientUnit === "cl" && normalizedPriceUnit === "ml") {
+      return ingredientQty * 10 * priceAmount;
+    }
+
+    // Cooking units to volume conversions
+    // Convert cooking unit to ml first, then to price unit
+    const cookingToMl: Record<string, number> = {
+      teaspoon: 5,
+      tablespoon: 15,
+      cup: 240,
+      pinch: 0.5
+    };
+
+    if (cookingToMl[normalizedIngredientUnit]) {
+      const ingredientInMl = ingredientQty * cookingToMl[normalizedIngredientUnit];
+
+      // Now convert ml to price unit
+      if (normalizedPriceUnit === "l") {
+        return (ingredientInMl / 1000) * priceAmount;
+      }
+      if (normalizedPriceUnit === "cl") {
+        return (ingredientInMl / 10) * priceAmount;
+      }
+      if (normalizedPriceUnit === "ml") {
+        return ingredientInMl * priceAmount;
+      }
+      // If price is in kg (oil, etc.), approximate 1ml = 1g
+      if (normalizedPriceUnit === "kg") {
+        return (ingredientInMl / 1000) * priceAmount;
+      }
+      if (normalizedPriceUnit === "g") {
+        return ingredientInMl * priceAmount;
+      }
+    }
+
+    // Handle cl conversions with other units
+    if (normalizedIngredientUnit === "cl" && normalizedPriceUnit === "kg") {
+      return ((ingredientQty * 10) / 1000) * priceAmount; // cl → ml → g → kg
+    }
+    if (normalizedIngredientUnit === "cl" && normalizedPriceUnit === "g") {
+      return ingredientQty * 10 * priceAmount; // cl → ml → g
+    }
+
     // Fallback 1:1
     return ingredientQty * priceAmount;
   }
@@ -490,12 +537,16 @@ export class RecipePricingService {
   private static normalizeUnit(unit: string): string {
     const normalized = unit.toLowerCase().trim();
     const unitMap: Record<string, string> = {
+      // Weight
       kilogram: "kg",
       kilograms: "kg",
+      kilo: "kg",
+      kilos: "kg",
       gram: "g",
       grams: "g",
       gramme: "g",
       grammes: "g",
+      // Volume
       liter: "l",
       liters: "l",
       litre: "l",
@@ -508,12 +559,40 @@ export class RecipePricingService {
       centiliters: "cl",
       centilitre: "cl",
       centilitres: "cl",
+      // Units
       piece: "unit",
       pieces: "unit",
       unité: "unit",
       unités: "unit",
       pièce: "unit",
-      pièces: "unit"
+      pièces: "unit",
+      // Cooking units - English
+      tsp: "teaspoon",
+      t: "teaspoon",
+      tbsp: "tablespoon",
+      T: "tablespoon",
+      c: "cup",
+      // Cooking units - French
+      "cuillère à café": "teaspoon",
+      "cuillères à café": "teaspoon",
+      "cuillere a cafe": "teaspoon",
+      "cuilleres a cafe": "teaspoon",
+      "c. à café": "teaspoon",
+      "c à café": "teaspoon",
+      cac: "teaspoon",
+      cc: "teaspoon",
+      "cuillère à soupe": "tablespoon",
+      "cuillères à soupe": "tablespoon",
+      "cuillere a soupe": "tablespoon",
+      "cuilleres a soupe": "tablespoon",
+      "c. à soupe": "tablespoon",
+      "c à soupe": "tablespoon",
+      cas: "tablespoon",
+      cs: "tablespoon",
+      tasse: "cup",
+      tasses: "cup",
+      pincée: "pinch",
+      pincées: "pinch"
     };
     return unitMap[normalized] || normalized;
   }

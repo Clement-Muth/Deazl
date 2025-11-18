@@ -37,3 +37,23 @@ export {
   getRecommendedRecipes,
   getRecipesBasedOnPurchases
 } from "./recommendations/recipeRecommendations.api";
+
+export {
+  getPublicHubData,
+  getTrendingRecipes,
+  getRecentRecipes,
+  getRecipesByCategory as getPublicRecipesByCategory,
+  getRecipesByCuisine,
+  getRecipesByTag,
+  searchPublicRecipes as searchPublicRecipesV2,
+  getPublicCategories,
+  getPublicCuisines,
+  getPopularTags
+} from "./hub/getPublicHubData.api";
+
+export {
+  getRecipeWithAccess,
+  getRecipeByShareToken,
+  checkRecipeAccess,
+  canUserModifyRecipe
+} from "./recipes/getRecipeWithAccess.api";

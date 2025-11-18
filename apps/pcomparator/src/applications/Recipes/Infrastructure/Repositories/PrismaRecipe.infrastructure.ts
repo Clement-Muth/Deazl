@@ -2,7 +2,12 @@ import { prisma } from "@deazl/system";
 import { Recipe } from "../../Domain/Entities/Recipe.entity";
 import { RecipeIngredient } from "../../Domain/Entities/RecipeIngredient.entity";
 import { RecipeStep } from "../../Domain/Entities/RecipeStep.entity";
-import type { RecipeRepository } from "../../Domain/Repositories/RecipeRepository";
+import type {
+  RecipeAccessContext,
+  RecipeRepository,
+  RecipeSearchFilters,
+  RecipeTrendingData
+} from "../../Domain/Repositories/RecipeRepository";
 import type { DifficultyLevel } from "../../Domain/Schemas/Recipe.schema";
 
 export class PrismaRecipeRepository implements RecipeRepository {
@@ -244,6 +249,349 @@ export class PrismaRecipeRepository implements RecipeRepository {
       });
     } catch (error) {
       throw new Error("Failed to remove recipe");
+    }
+  }
+
+  async findByShareToken(token: string): Promise<Recipe | null> {
+    try {
+      const recipeData = await prisma.recipe.findUnique({
+        where: { shareToken: token },
+        include: {
+          ingredients: {
+            include: { product: true },
+            orderBy: { order: "asc" }
+          },
+          steps: {
+            orderBy: { stepNumber: "asc" }
+          }
+        }
+      });
+
+      if (!recipeData) return null;
+
+      return this.mapToDomain(recipeData);
+    } catch (error) {
+      throw new Error("Failed to find recipe by share token");
+    }
+  }
+
+  async findPublicRecipes(filters: RecipeSearchFilters): Promise<Recipe[]> {
+    return this.searchPublicRecipes(filters);
+  }
+
+  async findTrendingPublicRecipes(limit = 12): Promise<RecipeTrendingData[]> {
+    try {
+      const trendingData = await prisma.recipeTrending.findMany({
+        where: {
+          recipe: { isPublic: true }
+        },
+        include: {
+          recipe: {
+            include: {
+              ingredients: {
+                include: { product: true },
+                orderBy: { order: "asc" }
+              },
+              steps: {
+                orderBy: { stepNumber: "asc" }
+              }
+            }
+          }
+        },
+        orderBy: { score: "desc" },
+        take: limit
+      });
+
+      return trendingData.map((item) => ({
+        recipe: this.mapToDomain(item.recipe).toObject(),
+        trendingScore: item.score,
+        viewsLast7Days: item.viewsLast7Days,
+        favoritesLast7Days: item.favoritesLast7Days
+      }));
+    } catch (error) {
+      throw new Error("Failed to find trending public recipes");
+    }
+  }
+
+  async findRecentPublicRecipes(limit = 12): Promise<Recipe[]> {
+    try {
+      const recipesData = await prisma.recipe.findMany({
+        where: { isPublic: true },
+        include: {
+          ingredients: {
+            include: { product: true },
+            orderBy: { order: "asc" }
+          },
+          steps: {
+            orderBy: { stepNumber: "asc" }
+          }
+        },
+        orderBy: { createdAt: "desc" },
+        take: limit
+      });
+
+      return recipesData.map((recipeData) => this.mapToDomain(recipeData));
+    } catch (error) {
+      throw new Error("Failed to find recent public recipes");
+    }
+  }
+
+  async findPublicRecipesByCategory(category: string, limit = 20): Promise<Recipe[]> {
+    try {
+      const recipesData = await prisma.recipe.findMany({
+        where: {
+          isPublic: true,
+          category
+        },
+        include: {
+          ingredients: {
+            include: { product: true },
+            orderBy: { order: "asc" }
+          },
+          steps: {
+            orderBy: { stepNumber: "asc" }
+          }
+        },
+        orderBy: { createdAt: "desc" },
+        take: limit
+      });
+
+      return recipesData.map((recipeData) => this.mapToDomain(recipeData));
+    } catch (error) {
+      throw new Error("Failed to find public recipes by category");
+    }
+  }
+
+  async findPublicRecipesByCuisine(cuisine: string, limit = 20): Promise<Recipe[]> {
+    try {
+      const recipesData = await prisma.recipe.findMany({
+        where: {
+          isPublic: true,
+          cuisine
+        },
+        include: {
+          ingredients: {
+            include: { product: true },
+            orderBy: { order: "asc" }
+          },
+          steps: {
+            orderBy: { stepNumber: "asc" }
+          }
+        },
+        orderBy: { createdAt: "desc" },
+        take: limit
+      });
+
+      return recipesData.map((recipeData) => this.mapToDomain(recipeData));
+    } catch (error) {
+      throw new Error("Failed to find public recipes by cuisine");
+    }
+  }
+
+  async findPublicRecipesByTag(tag: string, limit = 20): Promise<Recipe[]> {
+    try {
+      const recipesData = await prisma.recipe.findMany({
+        where: {
+          isPublic: true,
+          tags: {
+            has: tag
+          }
+        },
+        include: {
+          ingredients: {
+            include: { product: true },
+            orderBy: { order: "asc" }
+          },
+          steps: {
+            orderBy: { stepNumber: "asc" }
+          }
+        },
+        orderBy: { createdAt: "desc" },
+        take: limit
+      });
+
+      return recipesData.map((recipeData) => this.mapToDomain(recipeData));
+    } catch (error) {
+      throw new Error("Failed to find public recipes by tag");
+    }
+  }
+
+  async checkUserAccess(
+    recipeId: string,
+    context: RecipeAccessContext
+  ): Promise<{
+    hasAccess: boolean;
+    recipe: Recipe | null;
+    reason?: "public" | "owner" | "collaborator" | "share_token" | "private" | "not_found";
+  }> {
+    try {
+      const recipeData = await prisma.recipe.findUnique({
+        where: { id: recipeId },
+        include: {
+          ingredients: {
+            include: { product: true },
+            orderBy: { order: "asc" }
+          },
+          steps: {
+            orderBy: { stepNumber: "asc" }
+          },
+          collaborators: true
+        }
+      });
+
+      if (!recipeData) {
+        return {
+          hasAccess: false,
+          recipe: null,
+          reason: "not_found"
+        };
+      }
+
+      const recipe = this.mapToDomain(recipeData);
+
+      if (recipeData.isPublic) {
+        return {
+          hasAccess: true,
+          recipe,
+          reason: "public"
+        };
+      }
+
+      if (context.userId) {
+        if (recipeData.userId === context.userId) {
+          return {
+            hasAccess: true,
+            recipe,
+            reason: "owner"
+          };
+        }
+
+        const isCollaborator = recipeData.collaborators.some((collab) => collab.userId === context.userId);
+
+        if (isCollaborator) {
+          return {
+            hasAccess: true,
+            recipe,
+            reason: "collaborator"
+          };
+        }
+      }
+
+      if (context.shareToken && recipeData.shareToken === context.shareToken) {
+        return {
+          hasAccess: true,
+          recipe,
+          reason: "share_token"
+        };
+      }
+
+      return {
+        hasAccess: false,
+        recipe,
+        reason: "private"
+      };
+    } catch (error) {
+      throw new Error("Failed to check user access");
+    }
+  }
+
+  async incrementViews(recipeId: string): Promise<void> {
+    try {
+      await prisma.recipe.update({
+        where: { id: recipeId },
+        data: {
+          viewsCount: {
+            increment: 1
+          }
+        }
+      });
+    } catch (error) {
+      throw new Error("Failed to increment views");
+    }
+  }
+
+  async countPublicRecipes(): Promise<number> {
+    try {
+      return await prisma.recipe.count({
+        where: { isPublic: true }
+      });
+    } catch (error) {
+      throw new Error("Failed to count public recipes");
+    }
+  }
+
+  async getPublicCategories(): Promise<Array<{ category: string; count: number }>> {
+    try {
+      const categories = await prisma.recipe.groupBy({
+        by: ["category"],
+        where: {
+          isPublic: true,
+          category: {
+            not: null
+          }
+        },
+        _count: true
+      });
+
+      return categories.map((cat) => ({
+        category: cat.category as string,
+        count: cat._count
+      }));
+    } catch (error) {
+      throw new Error("Failed to get public categories");
+    }
+  }
+
+  async getPublicCuisines(): Promise<Array<{ cuisine: string; count: number }>> {
+    try {
+      const cuisines = await prisma.recipe.groupBy({
+        by: ["cuisine"],
+        where: {
+          isPublic: true,
+          cuisine: {
+            not: null
+          }
+        },
+        _count: true
+      });
+
+      return cuisines.map((cui) => ({
+        cuisine: cui.cuisine as string,
+        count: cui._count
+      }));
+    } catch (error) {
+      throw new Error("Failed to get public cuisines");
+    }
+  }
+
+  async getPopularTags(limit = 20): Promise<Array<{ tag: string; count: number }>> {
+    try {
+      const recipes = await prisma.recipe.findMany({
+        where: {
+          isPublic: true,
+          tags: {
+            isEmpty: false
+          }
+        },
+        select: {
+          tags: true
+        }
+      });
+
+      const tagCounts = new Map<string, number>();
+
+      for (const recipe of recipes) {
+        for (const tag of recipe.tags) {
+          tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
+        }
+      }
+
+      return Array.from(tagCounts.entries())
+        .map(([tag, count]) => ({ tag, count }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, limit);
+    } catch (error) {
+      throw new Error("Failed to get popular tags");
     }
   }
 

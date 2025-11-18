@@ -148,7 +148,7 @@ export const SmartIngredientInput = forwardRef<HTMLInputElement, SmartIngredient
                 startContent={
                   <Avatar
                     icon={<Package className="h-4 w-4" />}
-                    className="flex-shrink-0 bg-default-100"
+                    className="shrink-0 bg-default-100"
                     size="sm"
                   />
                 }

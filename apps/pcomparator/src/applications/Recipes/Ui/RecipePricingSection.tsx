@@ -226,6 +226,10 @@ function IngredientPricingItem({ item }: { item: IngredientPricingBreakdown }) {
           <p className="text-sm text-gray-600">
             {item.quantity} {item.unit} • {item.selected.storeName}
           </p>
+          <p className="text-xs text-gray-500 mt-1">
+            {item.selected.price.toFixed(2)}€/{item.selected.unit} × {item.quantity} {item.unit} ={" "}
+            {item.estimatedCost.toFixed(2)}€
+          </p>
         </div>
         <div className="text-right">
           <p className="font-bold">{item.estimatedCost.toFixed(2)} €</p>

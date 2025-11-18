@@ -2,6 +2,8 @@ import { Entity } from "~/applications/Shared/Domain/Core/Entity";
 import { UniqueEntityID } from "~/applications/Shared/Domain/Core/UniqueEntityId";
 import type { DifficultyLevel } from "../Schemas/Recipe.schema";
 import type { RecipePayload } from "../Schemas/Recipe.schema";
+import { RecipeVisibility, RecipeVisibilityStatus } from "../ValueObjects/RecipeVisibility.vo";
+import { ShareToken } from "../ValueObjects/ShareToken.vo";
 import type { RecipeCollaborator } from "./RecipeCollaborator.entity";
 import type { RecipeIngredient } from "./RecipeIngredient.entity";
 import type { RecipeStep } from "./RecipeStep.entity";
@@ -366,6 +368,93 @@ export class Recipe extends Entity<RecipeProps> {
 
   public canUserShare(userId: string): boolean {
     return this.isOwner(userId);
+  }
+
+  public getVisibility(): RecipeVisibility {
+    return RecipeVisibility.fromBooleans(this.isPublic, !!this.shareToken);
+  }
+
+  public canBeAccessedByAnonymous(): boolean {
+    const visibility = this.getVisibility();
+    return visibility.isPublic();
+  }
+
+  public canBeAccessedWithToken(token: string): boolean {
+    if (!this.shareToken) return false;
+    return this.shareToken === token;
+  }
+
+  public requiresAuthenticationToView(): boolean {
+    const visibility = this.getVisibility();
+    return visibility.isPrivate();
+  }
+
+  public isVisibleInPublicHub(): boolean {
+    return this.isPublic;
+  }
+
+  public isVisibleInAuthenticatedHub(userId: string): boolean {
+    return this.isPublic || this.isOwner(userId) || this.isUserCollaborator(userId);
+  }
+
+  public canBeIndexedBySEO(): boolean {
+    return this.isPublic;
+  }
+
+  public generateShareToken(): Recipe {
+    const token = ShareToken.generate();
+    return new Recipe(
+      {
+        ...this.props,
+        shareToken: token.value,
+        isPublic: false,
+        updatedAt: new Date()
+      },
+      this._id.toValue()
+    );
+  }
+
+  public removeShareToken(): Recipe {
+    return new Recipe(
+      {
+        ...this.props,
+        shareToken: undefined,
+        updatedAt: new Date()
+      },
+      this._id.toValue()
+    );
+  }
+
+  public withVisibility(visibility: RecipeVisibilityStatus): Recipe {
+    let isPublic = false;
+    let shareToken = this.shareToken;
+
+    switch (visibility) {
+      case RecipeVisibilityStatus.PUBLIC:
+        isPublic = true;
+        shareToken = undefined;
+        break;
+      case RecipeVisibilityStatus.PRIVATE:
+        isPublic = false;
+        shareToken = undefined;
+        break;
+      case RecipeVisibilityStatus.UNLISTED:
+        isPublic = false;
+        if (!shareToken) {
+          shareToken = ShareToken.generate().value;
+        }
+        break;
+    }
+
+    return new Recipe(
+      {
+        ...this.props,
+        isPublic,
+        shareToken,
+        updatedAt: new Date()
+      },
+      this._id.toValue()
+    );
   }
 
   public getUserRole(userId: string): string | null {

@@ -60,14 +60,25 @@ export function RecipeIngredientsWithPricing({
 
   const getIngredientPrice = (
     ingredientId: string
-  ): { price: string; store: string; distance?: number } | null => {
+  ): { price: string; formula: string; store: string; distance?: number } | null => {
     if (!pricingData) return null;
 
     const breakdown = pricingData.breakdown.find((b) => b.ingredientId === ingredientId);
     if (!breakdown || !breakdown.selected) return null;
 
+    // Display the calculated cost with conversion formula
+    const unitPrice = breakdown.selected.price;
+    const quantity = breakdown.quantity;
+    const unit = breakdown.unit;
+    const priceUnit = breakdown.selected.unit;
+    const totalCost = breakdown.estimatedCost;
+
+    // Create formula display: "11.09€/kg × 2 tablespoon = 0.33€"
+    const formula = `${unitPrice.toFixed(2)}€/${priceUnit} × ${quantity} ${unit} = ${totalCost.toFixed(2)}€`;
+
     return {
-      price: `${breakdown.selected.price.toFixed(2)}€`,
+      price: `${totalCost.toFixed(2)}€`,
+      formula,
       store: breakdown.selected.storeName,
       distance: breakdown.selected.distanceKm
     };
@@ -155,7 +166,7 @@ export function RecipeIngredientsWithPricing({
                   >
                     {/* Ligne 1: Quantité + Nom */}
                     <div className="flex items-baseline gap-2">
-                      <span className="text-primary font-bold flex-shrink-0">•</span>
+                      <span className="text-primary font-bold shrink-0">•</span>
                       <div className="flex-1 min-w-0">
                         <span className="font-semibold text-gray-900 dark:text-gray-100 text-sm sm:text-base">
                           {ingredient.quantity} {ingredient.unit}
@@ -168,31 +179,34 @@ export function RecipeIngredientsWithPricing({
 
                     {/* Ligne 2: Prix + Magasin (si disponible) */}
                     {priceInfo && (
-                      <div className="flex items-center gap-2 ml-5 flex-wrap">
-                        <Chip
-                          size="sm"
-                          color="success"
-                          variant="flat"
-                          startContent={<DollarSign className="w-3 h-3" />}
-                          className="text-xs"
-                        >
-                          {priceInfo.price}
-                        </Chip>
-
-                        <Chip size="sm" variant="flat" className="text-xs">
-                          {priceInfo.store}
-                        </Chip>
-
-                        {priceInfo.distance !== undefined && (
+                      <div className="flex flex-col items-end gap-1">
+                        <div className="flex items-center gap-2 flex-wrap">
                           <Chip
                             size="sm"
+                            color="success"
                             variant="flat"
-                            startContent={<MapPin className="w-3 h-3" />}
+                            startContent={<DollarSign className="w-3 h-3" />}
                             className="text-xs"
                           >
-                            {priceInfo.distance.toFixed(1)} km
+                            {priceInfo.price}
                           </Chip>
-                        )}
+
+                          <Chip size="sm" variant="flat" className="text-xs">
+                            {priceInfo.store}
+                          </Chip>
+
+                          {priceInfo.distance !== undefined && (
+                            <Chip
+                              size="sm"
+                              variant="flat"
+                              startContent={<MapPin className="w-3 h-3" />}
+                              className="text-xs"
+                            >
+                              {priceInfo.distance.toFixed(1)} km
+                            </Chip>
+                          )}
+                        </div>
+                        <span className="text-xs text-gray-500 dark:text-gray-400">{priceInfo.formula}</span>
                       </div>
                     )}
                   </div>

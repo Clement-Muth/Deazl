@@ -1,7 +1,7 @@
 "use client";
 
 import { Trans } from "@lingui/react/macro";
-import { CheckCircle2, Clock, Globe2, Heart, Users } from "lucide-react";
+import { CheckCircle2, ChefHat, Clock, Globe2, Heart, Sparkles, Users } from "lucide-react";
 import Link from "next/link";
 import { Balancer } from "react-wrap-balancer";
 import { GridBackground } from "~/views/Home/components/GridBackground";
@@ -88,7 +88,7 @@ export default function FeaturesPage() {
 
             <div className="group bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-gray-200 dark:border-gray-800 rounded-2xl p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
               <div className="flex items-center gap-4 mb-4">
-                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-primary-50 dark:bg-primary-900/50 flex items-center justify-center text-primary-600 dark:text-primary-400 group-hover:scale-110 transition-transform duration-300">
+                <div className="shrink-0 w-12 h-12 rounded-xl bg-primary-50 dark:bg-primary-900/50 flex items-center justify-center text-primary-600 dark:text-primary-400 group-hover:scale-110 transition-transform duration-300">
                   <Globe2 className="w-6 h-6" />
                 </div>
                 <div>
@@ -97,6 +97,38 @@ export default function FeaturesPage() {
                   </h3>
                   <p className="text-gray-600 dark:text-gray-400">
                     <Trans>A wide coverage of stores</Trans>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="group bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-gray-200 dark:border-gray-800 rounded-2xl p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="shrink-0 w-12 h-12 rounded-xl bg-primary-50 dark:bg-primary-900/50 flex items-center justify-center text-primary-600 dark:text-primary-400 group-hover:scale-110 transition-transform duration-300">
+                  <ChefHat className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold">
+                    <Trans>Recipe management</Trans>
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400">
+                    <Trans>Create and share recipes</Trans>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="group bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-gray-200 dark:border-gray-800 rounded-2xl p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="shrink-0 w-12 h-12 rounded-xl bg-primary-50 dark:bg-primary-900/50 flex items-center justify-center text-primary-600 dark:text-primary-400 group-hover:scale-110 transition-transform duration-300">
+                  <Sparkles className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold">
+                    <Trans>Optimal pricing</Trans>
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400">
+                    <Trans>Get best prices for recipes</Trans>
                   </p>
                 </div>
               </div>
