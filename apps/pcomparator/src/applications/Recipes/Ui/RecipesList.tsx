@@ -35,9 +35,7 @@ export default function RecipesList({
     e.stopPropagation();
 
     if (!isAuthenticated) {
-      router.push(
-        `/login?redirect=${encodeURIComponent(window.location.pathname)}&message=${encodeURIComponent("Connectez-vous pour ajouter des recettes à vos favoris")}`
-      );
+      router.push("/auth/signin");
       return;
     }
 

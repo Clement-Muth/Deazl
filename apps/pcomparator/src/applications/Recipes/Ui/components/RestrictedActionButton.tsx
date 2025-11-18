@@ -31,7 +31,7 @@ export function RestrictedActionButton({
 
   const handleClick = () => {
     if (!isAuthenticated) {
-      router.push("/auth/login");
+      router.push("/auth/signin");
       return;
     }
 

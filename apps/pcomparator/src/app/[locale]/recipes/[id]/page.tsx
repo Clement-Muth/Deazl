@@ -4,97 +4,49 @@ import { notFound } from "next/navigation";
 import { getRecipeWithAccess } from "~/applications/Recipes/Api/recipes/getRecipeWithAccess.api";
 import { RecipeDetailsContainer } from "~/applications/Recipes/Ui/RecipeDetailsContainer";
 import { PrivateRecipeBanner } from "~/applications/Recipes/Ui/components/PrivateRecipeBanner";
+import {
+  getRecipeDefaultMetadata,
+  getRecipeMetadata,
+  getRecipeNotFoundMetadata
+} from "~/applications/Recipes/Ui/metadata";
 
 export async function generateMetadata({
   params,
   searchParams
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string; locale: string }>;
   searchParams: Promise<{ share?: string }>;
 }): Promise<Metadata> {
-  const recipeId = (await params).id;
+  const { id: recipeId, locale } = await params;
   const { share: shareToken } = await searchParams;
+  const localeStr = (locale || "en") as "en" | "fr";
 
   try {
     const accessResult = await getRecipeWithAccess(recipeId, shareToken);
 
     if (!accessResult.recipe) {
-      return {
-        title: "Recipe Not Found",
-        description: "The requested recipe could not be found."
-      };
+      return getRecipeNotFoundMetadata(localeStr);
     }
 
     const recipe = accessResult.recipe;
     const isPublic = accessResult.mode === "public";
 
-    const title = `${recipe.name} - Deazl Recipe`;
-    const description =
-      recipe.description ||
-      `${recipe.name}: ${recipe.difficulty} difficulty, ${recipe.servings} servings, ${recipe.totalTime} minutes total time.`;
-    const url = `https://deazl.app/recipes/${recipeId}`;
-
-    return {
-      title,
-      description,
-      openGraph: {
-        title,
-        description,
-        url,
-        siteName: "Deazl",
-        images: recipe.imageUrl
-          ? [
-              {
-                url: recipe.imageUrl,
-                width: 1200,
-                height: 630,
-                alt: recipe.name
-              }
-            ]
-          : [],
-        type: "article",
-        ...(isPublic && {
-          locale: "en_US",
-          publishedTime: recipe.createdAt?.toISOString(),
-          modifiedTime: recipe.updatedAt?.toISOString(),
-          tags: recipe.tags || []
-        })
-      },
-      twitter: {
-        card: "summary_large_image",
-        title,
-        description,
-        images: recipe.imageUrl ? [recipe.imageUrl] : [],
-        creator: "@deazl_app"
-      },
-      ...(isPublic && {
-        robots: {
-          index: true,
-          follow: true,
-          googleBot: {
-            index: true,
-            follow: true,
-            "max-video-preview": -1,
-            "max-image-preview": "large",
-            "max-snippet": -1
-          }
-        },
-        alternates: {
-          canonical: url
-        }
-      }),
-      ...(!isPublic && {
-        robots: {
-          index: false,
-          follow: false
-        }
-      })
-    };
+    return getRecipeMetadata({
+      recipeName: recipe.name,
+      recipeDescription: recipe.description || undefined,
+      difficulty: recipe.difficulty,
+      servings: recipe.servings,
+      totalTime: recipe.totalTime,
+      recipeId,
+      imageUrl: recipe.imageUrl || undefined,
+      isPublic,
+      createdAt: recipe.createdAt,
+      updatedAt: recipe.updatedAt,
+      tags: recipe.tags,
+      locale: localeStr
+    });
   } catch (error) {
-    return {
-      title: "Recipe",
-      description: "View recipe details on Deazl"
-    };
+    return getRecipeDefaultMetadata(localeStr);
   }
 }
 
@@ -102,10 +54,10 @@ export default async function RecipeDetailPage({
   params,
   searchParams
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string; locale: string }>;
   searchParams: Promise<{ share?: string }>;
 }) {
-  const recipeId = (await params).id;
+  const { id: recipeId } = await params;
   const { share: shareToken } = await searchParams;
   const session = await auth();
 

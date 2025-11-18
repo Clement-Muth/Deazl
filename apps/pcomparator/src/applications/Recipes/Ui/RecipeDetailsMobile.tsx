@@ -102,9 +102,7 @@ export default function RecipeDetailsMobile({
 
   const handleFavoriteToggle = async () => {
     if (!userId) {
-      router.push(
-        `/login?redirect=${encodeURIComponent(window.location.pathname)}&message=${encodeURIComponent("Connectez-vous pour ajouter cette recette à vos favoris")}`
-      );
+      router.push("/auth/signin");
       return;
     }
 

@@ -5,6 +5,7 @@ import { SettingsDisplayName } from "~/applications/Profile/Ui/Settings/DisplayN
 import { SettingsFavoriteStores } from "~/applications/Profile/Ui/Settings/FavoriteStores";
 import { SettingsOptimalPricing } from "~/applications/Profile/Ui/Settings/OptimalPricing";
 import { SettingsPhoneNumber } from "~/applications/Profile/Ui/Settings/PhoneNumber";
+import { SettingsTheme } from "~/applications/Profile/Ui/Settings/Theme";
 import { withLinguiPage } from "~/core/withLinguiLayout";
 import { auth } from "~/libraries/nextauth/authConfig";
 import { SettingsHeader } from "./Header";
@@ -33,6 +34,21 @@ const SettingsPage = async () => {
             <div className="p-4 md:p-6 space-y-4 md:space-y-6">
               <SettingsAvatar defaultValue={session?.user?.image!} />
               <SettingsDisplayName defaultValue={session?.user?.name!} />
+            </div>
+          </div>
+
+          {/* Appearance Section */}
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+            <div className="px-4 py-3 md:px-6 md:py-4 border-b border-gray-200 bg-gradient-to-r from-purple-50 to-purple-100">
+              <h2 className="text-base md:text-lg font-semibold text-gray-900">
+                <Trans>Appearance</Trans>
+              </h2>
+              <p className="text-xs md:text-sm text-gray-600 mt-1">
+                <Trans>Customize the look and feel</Trans>
+              </p>
+            </div>
+            <div className="p-4 md:p-6">
+              <SettingsTheme />
             </div>
           </div>
 

@@ -14,11 +14,7 @@ export function LoginCTA({ message, variant = "default", className = "" }: Login
   const router = useRouter();
 
   const handleLogin = () => {
-    router.push("/auth/login");
-  };
-
-  const handleSignup = () => {
-    router.push("/auth/signup");
+    router.push("/auth/signin");
   };
 
   if (variant === "banner") {
@@ -32,9 +28,6 @@ export function LoginCTA({ message, variant = "default", className = "" }: Login
         <div className="flex gap-3">
           <Button color="primary" onPress={handleLogin}>
             <Trans>Se connecter</Trans>
-          </Button>
-          <Button variant="bordered" onPress={handleSignup}>
-            <Trans>Créer un compte</Trans>
           </Button>
         </div>
       </div>
@@ -62,9 +55,6 @@ export function LoginCTA({ message, variant = "default", className = "" }: Login
       <div className="flex gap-3">
         <Button color="primary" onPress={handleLogin}>
           <Trans>Se connecter</Trans>
-        </Button>
-        <Button variant="flat" onPress={handleSignup}>
-          <Trans>Créer un compte</Trans>
         </Button>
       </div>
     </div>

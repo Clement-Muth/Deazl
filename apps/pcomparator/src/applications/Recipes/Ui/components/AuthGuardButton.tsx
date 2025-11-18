@@ -24,9 +24,7 @@ export function AuthGuardButton({
 
   const handleClick = async () => {
     if (!isAuthenticated) {
-      router.push(
-        `/login?redirect=${encodeURIComponent(window.location.pathname)}&message=${encodeURIComponent(loginMessage)}`
-      );
+      router.push("/auth/signin");
       return;
     }
 
