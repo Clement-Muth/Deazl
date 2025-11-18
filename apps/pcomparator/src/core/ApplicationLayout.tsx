@@ -15,7 +15,7 @@ const ApplicationLayout = async ({ children }: ApplicationLayoutProps) => {
 
   return (
     <>
-      <div className="flex flex-1 w-full pb-6">{children}</div>
+      <main className="flex flex-1 w-full pb-6">{children}</main>
       {device === "mobile" && session?.user ? <Tabbar isSignedIn={!!session?.user} /> : null}
       {!session?.user ? <Footer /> : null}
       <Toast />

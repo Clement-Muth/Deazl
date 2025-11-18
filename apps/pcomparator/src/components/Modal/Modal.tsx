@@ -18,7 +18,7 @@ export interface ModalProps {
   header?: React.ReactNode;
   footer?: React.ReactNode;
   onOpenChange?: (isOpen: boolean) => void;
-  sheetHeight?: "sm" | "md" | "lg" | "fit" | "full";
+  sheetHeight?: "sm" | "md" | "lg" | "xl" | "fit" | "full";
   modalProps?: Omit<ModalNextUiProps, "children">;
   isForm?: boolean;
   fullwidth?: boolean;
@@ -45,16 +45,14 @@ export const Modal = ({
         onDismiss={onClose}
         header={header}
         footer={footer}
-        blocking={false}
-        style={{ backgroundColor: "red" }}
-        // skipInitialTransition
-        // expandOnContentDrag={false}
         snapPoints={({ maxHeight, minHeight }) => {
           switch (sheetHeight) {
             case "sm":
               return maxHeight / 4;
             case "full":
               return maxHeight;
+            case "xl":
+              return (maxHeight * 3.5) / 4;
             case "lg":
               return maxHeight / 1.5;
             case "md":
