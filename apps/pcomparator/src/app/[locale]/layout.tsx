@@ -8,6 +8,7 @@ import { type NextPageProps, withLinguiLayout } from "~/core/withLinguiLayout";
 import "react-toastify/dist/ReactToastify.css";
 import "react-spring-bottom-sheet/dist/style.css";
 import "./globals.css";
+import clsx from "clsx";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,12 +19,9 @@ export const generateStaticParams = () => locales.map((locale) => ({ lang: local
 const RootLayout = ({ children, locale }: NextPageProps) => {
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body className={`${inter.className} min-h-dvh flex flex-col bg-gray-50 dark:bg-gray-900`}>
+      <body className={clsx(inter.className, "min-h-dvh flex flex-col")}>
         <ApplicationKernel locale={locale}>
-          <ApplicationLayout>
-            {/* <InstallPWA /> */}
-            {children}
-          </ApplicationLayout>
+          <ApplicationLayout>{children}</ApplicationLayout>
         </ApplicationKernel>
       </body>
     </html>

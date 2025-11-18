@@ -8,20 +8,17 @@ const HomePage = async () => {
   const session = await auth();
 
   if (session?.user) {
-    // Get user's recent lists
     const lists = await listUserShoppingList();
-    const recentLists = lists?.slice(0, 5);
 
-    // Calculate stats
     const stats = {
       totalLists: lists?.length || 0,
       completedItems:
         lists?.reduce((sum, list) => sum + (list.items?.filter((item) => item.isCompleted).length || 0), 0) ||
         0,
-      totalSavings: 0 // TODO: Calculate from price comparisons
+      totalSavings: 0
     };
 
-    return <DashboardView userName={session.user.name} recentLists={recentLists || []} stats={stats} />;
+    return <DashboardView userName={session.user.name} stats={stats} />;
   }
 
   return <HomeView isLoggedIn={false} />;
