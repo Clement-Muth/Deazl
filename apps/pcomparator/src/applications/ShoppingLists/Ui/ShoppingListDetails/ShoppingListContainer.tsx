@@ -23,16 +23,12 @@ export const ShoppingListContainer = ({ initialList, user }: ShoppingListContain
   const { handleAddItem, handleDeleteItem, handleToggleComplete, handleUpdateItem, items, smartConversion } =
     useShoppingListActions(initialList);
 
-  // Get selected store from context
   const { selectedStore } = useStore();
 
-  // Get user optimization preferences
   const { preferences: userPreferences } = useUserOptimizationPreferences();
 
-  // Filter state for completed items
   const [filter, setFilter] = useState<"all" | "active" | "completed">("all");
 
-  // Filter items based on completion status
   const filteredItems = useMemo(() => {
     switch (filter) {
       case "active":
@@ -44,7 +40,6 @@ export const ShoppingListContainer = ({ initialList, user }: ShoppingListContain
     }
   }, [items, filter]);
 
-  // Optimal pricing hook - prix intelligents selon magasin sélectionné et préférences
   const {
     itemPrices,
     totalCost,
@@ -70,25 +65,6 @@ export const ShoppingListContainer = ({ initialList, user }: ShoppingListContain
 
   return (
     <div className="flex flex-col gap-6 animate-fadeIn w-full">
-      {/* Filter Tabs */}
-      {/* <div className="flex justify-end">
-        <ButtonGroup size="sm" variant="flat">
-          <Button color={filter === "all" ? "primary" : "default"} onPress={() => setFilter("all")}>
-            <Trans>All</Trans> ({items.length})
-          </Button>
-          <Button color={filter === "active" ? "primary" : "default"} onPress={() => setFilter("active")}>
-            <Trans>Active</Trans> ({items.filter((i) => !i.isCompleted).length})
-          </Button>
-          <Button
-            color={filter === "completed" ? "primary" : "default"}
-            onPress={() => setFilter("completed")}
-          >
-            <Trans>Completed</Trans> ({items.filter((i) => i.isCompleted).length})
-          </Button>
-        </ButtonGroup>
-      </div> */}
-
-      {/* UI */}
       <>
         {canEdit ? (
           <SmartQuickAddBar listId={initialList.id} onItemAdded={handleAddItem} className="min-w-[260px]" />
@@ -100,7 +76,6 @@ export const ShoppingListContainer = ({ initialList, user }: ShoppingListContain
           </div>
         )}
 
-        {/* Render item list */}
         <ShoppingListItemCard
           list={{ ...initialList, items: filteredItems }}
           onToggleItem={canEdit ? handleToggleComplete : noopPromise}
@@ -114,7 +89,6 @@ export const ShoppingListContainer = ({ initialList, user }: ShoppingListContain
           storeSummary={storeSummary}
         />
 
-        {/* Smart Conversion Section */}
         {canEdit && smartConversion.activeNotification && (
           <SmartConversionSection
             itemId={smartConversion.activeNotification.itemId}

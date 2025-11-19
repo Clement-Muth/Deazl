@@ -1,8 +1,19 @@
+import type { Metadata } from "next";
 import { listUserShoppingList } from "~/applications/ShoppingLists/Api";
 import { withLinguiPage } from "~/core/withLinguiLayout";
 import { auth } from "~/libraries/nextauth/authConfig";
 import { HomeView } from "~/views/Home/HomeView";
 import { DashboardView } from "~/views/Home/components/Dashboard/DashboardView";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: process.env.PCOMPARATOR_PUBLIC_URL,
+    languages: {
+      en: `${process.env.PCOMPARATOR_PUBLIC_URL}/en`,
+      fr: `${process.env.PCOMPARATOR_PUBLIC_URL}/fr`
+    }
+  }
+};
 
 const HomePage = async () => {
   const session = await auth();

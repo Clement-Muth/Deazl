@@ -2,6 +2,7 @@
 
 import { animate, motion, useMotionValue, useTransform } from "framer-motion";
 import { CheckIcon, TrashIcon } from "lucide-react";
+import { useTheme } from "next-themes";
 import { type ReactNode, useEffect, useState } from "react";
 
 interface SwipeableItemProps {
@@ -10,6 +11,7 @@ interface SwipeableItemProps {
   onSwipeRight: () => void;
   isCompleted: boolean;
   disabled?: boolean;
+  onPress?: (e: any) => void;
 }
 
 const SWIPE_THRESHOLD = 100;
@@ -20,70 +22,76 @@ export const SwipeableItem = ({
   onSwipeLeft,
   onSwipeRight,
   isCompleted,
-  disabled = false
+  disabled = false,
+  onPress
 }: SwipeableItemProps) => {
+  const { theme } = useTheme();
   const x = useMotionValue(0);
   const [isDragging, setIsDragging] = useState(false);
   const [lastTap, setLastTap] = useState(0);
+  const [hasSwiped, setHasSwiped] = useState(false);
 
-  // Background color that transitions based on swipe direction
   const backgroundColor = useTransform(
     x,
     [-200, -50, 0, 50, 200],
-    ["#ef4444", "#ef4444", "#f3f4f6", "#22c55e", "#22c55e"]
+    ["#ef4444", "#ef4444", theme === "light" ? "#fff" : "#000", "#22c55e", "#22c55e"]
   );
 
-  // Icon opacity
   const leftIconOpacity = useTransform(x, [-100, -50, 0], [1, 0.5, 0]);
   const rightIconOpacity = useTransform(x, [0, 50, 100], [0, 0.5, 1]);
 
-  // Handle drag end
   const handleDragEnd = (_event: any, info: { offset: { x: number }; velocity: { x: number } }) => {
+    _event.stopPropagation();
     setIsDragging(false);
     const offset = info.offset.x;
     const velocity = info.velocity.x;
 
-    // Check if action should trigger
     const shouldSwipeLeft = offset < -SWIPE_THRESHOLD || velocity < -SWIPE_VELOCITY;
     const shouldSwipeRight = offset > SWIPE_THRESHOLD || velocity > SWIPE_VELOCITY;
 
-    // Reset position with animation
     animate(x, 0, { type: "spring", stiffness: 300, damping: 30 });
 
-    // Trigger actions after reset animation starts
     if (shouldSwipeLeft) {
-      setTimeout(() => onSwipeLeft(), 100);
+      setTimeout(() => {
+        setHasSwiped(true);
+        onSwipeLeft();
+        setTimeout(() => setHasSwiped(false), 100);
+      }, 100);
     } else if (shouldSwipeRight) {
-      setTimeout(() => onSwipeRight(), 100);
+      setTimeout(() => {
+        setHasSwiped(true);
+        onSwipeRight();
+        setTimeout(() => setHasSwiped(false), 100);
+      }, 100);
     }
   };
 
-  // Handle double tap
   const handleTap = () => {
     const now = Date.now();
     const timeSinceLastTap = now - lastTap;
 
     if (timeSinceLastTap < 300 && timeSinceLastTap > 0) {
-      // Double tap detected
       onSwipeRight();
     }
 
     setLastTap(now);
   };
 
-  // Reset position when item state changes (completed/uncompleted)
+  const handlePress = (e: React.MouseEvent | React.TouchEvent) => {
+    if (hasSwiped || isDragging) {
+      return;
+    }
+    onPress?.(e);
+  };
+
   useEffect(() => {
     x.set(0);
   }, [isCompleted, x]);
 
-  // Add haptic feedback on iOS/Android
   useEffect(() => {
     const unsubscribe = x.on("change", (latest) => {
       if (Math.abs(latest) > 80 && !isDragging) {
-        // Trigger haptic feedback at threshold
-        if ("vibrate" in navigator) {
-          navigator.vibrate(10);
-        }
+        if ("vibrate" in navigator) navigator.vibrate(10);
       }
     });
 
@@ -95,8 +103,7 @@ export const SwipeableItem = ({
   }
 
   return (
-    <div className="relative overflow-hidden rounded-large">
-      {/* Colored background layer */}
+    <div className="relative overflow-hidden rounded-large" onClick={handlePress}>
       <motion.div
         style={{
           position: "absolute",
@@ -147,7 +154,10 @@ export const SwipeableItem = ({
         drag="x"
         dragConstraints={{ left: -200, right: 200 }}
         dragElastic={0.2}
-        onDragStart={() => setIsDragging(true)}
+        onDragStart={(e) => {
+          e.stopImmediatePropagation();
+          setIsDragging(true);
+        }}
         onDragEnd={handleDragEnd}
         onTap={handleTap}
         style={{

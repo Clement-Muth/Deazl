@@ -75,7 +75,6 @@ export const PressableCard = ({
 
     const pressDuration = pressStart ? Date.now() - pressStart : 0;
 
-    // Si c'est un tap rapide, qu'on n'a pas bougé ET qu'on n'a pas déclenché un long press
     if (pressDuration < longPressDuration && !hasMoved.current && !longPressTriggered.current && onPress) {
       onPress();
     }
@@ -83,6 +82,16 @@ export const PressableCard = ({
     setPressStart(null);
     startPosition.current = null;
   }, [pressStart, longPressDuration, onPress]);
+
+  const handleMouseLeave = useCallback(() => {
+    if (longPressTimeout.current) {
+      clearTimeout(longPressTimeout.current);
+      longPressTimeout.current = null;
+    }
+
+    setPressStart(null);
+    startPosition.current = null;
+  }, []);
 
   const handleMove = useCallback((e: React.TouchEvent | React.MouseEvent) => {
     if (!startPosition.current) return;
@@ -126,10 +135,7 @@ export const PressableCard = ({
     <>
       <div
         onTouchStartCapture={(e) => {
-          // Empêcher le comportement par défaut uniquement en mode capture pour éviter l'erreur passive
-          if ("touches" in e) {
-            e.preventDefault();
-          }
+          if ("touches" in e) e.preventDefault();
         }}
         style={{ display: "contents" }}
       >
@@ -142,11 +148,11 @@ export const PressableCard = ({
           onMouseDown={handlePressStart}
           onMouseUp={handlePressEnd}
           onMouseMove={handleMove}
-          onMouseLeave={handlePressEnd}
+          onMouseLeave={handleMouseLeave}
           onContextMenu={(e) => e.preventDefault()}
-          fullWidth
           style={{ touchAction: "manipulation", userSelect: "none", WebkitTouchCallout: "none" }}
           className={`transition-transform active:scale-[0.98] ${cardProps.className || ""}`}
+          fullWidth
         >
           <CardBody>{children}</CardBody>
         </Card>

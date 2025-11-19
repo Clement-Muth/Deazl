@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 declare type Locale = string;
 
 interface Meta {
@@ -22,25 +24,26 @@ interface Meta {
 
 export const meta: Meta = {
   URL: process.env.PCOMPARATOR_PUBLIC_URL,
-  siteName: "PComparator",
-  title: "PComparator - Compare prices of many products",
-  description: "PComparator is the price comparator for foods, cosmetic and more",
-  backgroundColor: "#000",
-  theme_color: "#000",
+  siteName: "Deazl",
+  title: "Deazl - Compare Prices & Find the Best Deals",
+  description:
+    "Compare prices for food, cosmetics, and more across multiple stores. Create smart shopping lists, discover recipes, and save money on your everyday purchases.",
+  backgroundColor: "#eef2ff",
+  theme_color: "#eef2ff",
   og: {
-    locale: "fr",
+    locale: "en",
     type: "website",
-    ogImage: "/ogimage.jpg",
-    width: 1200,
-    height: 630
+    ogImage: "/static/manifest/screenshots/home-page.png",
+    width: 895,
+    height: 2040
   },
   twitter: {
     card: "summary_large_image",
-    site: "@pcomparator"
+    site: "@deazl"
   }
 };
 
-export const pcomparatorMetadata = {
+export const pcomparatorMetadata: Metadata = {
   title: {
     default: `${meta.title}`,
     template: `%s – ${meta.siteName}`
@@ -65,9 +68,20 @@ export const pcomparatorMetadata = {
   robots: {
     index: true,
     follow: true,
-    noarchive: true,
-    nosnippet: true,
-    noimageindex: true,
-    nocache: true
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1
+    }
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: meta.twitter.site,
+    creator: meta.twitter.site
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
   }
 };

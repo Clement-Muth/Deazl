@@ -17,8 +17,6 @@ interface ShoppingListItemListProps {
   handleToggleComplete: (itemId: string, isCompleted: boolean) => Promise<void>;
   onOpenEditModal: (item: ShoppingListItemPayload) => void;
   onDeleteItem: (itemId: string) => void;
-  onUndoDelete?: (itemId: string) => void;
-  isPendingDelete?: (itemId: string) => boolean;
   itemPrices: Record<string, ItemOptimalPrice>;
   isStoreSelected?: boolean;
   selectedStore?: { id: string; name: string; location: string } | null;
@@ -30,8 +28,6 @@ export const ShoppingListItemList = ({
   handleToggleComplete,
   onOpenEditModal,
   onDeleteItem,
-  onUndoDelete,
-  isPendingDelete,
   itemPrices,
   isStoreSelected = false,
   selectedStore
@@ -48,6 +44,8 @@ export const ShoppingListItemList = ({
     isOpen: boolean;
     productId: string | null;
   }>({ isOpen: false, productId: null });
+
+  const [animatingDeletes, setAnimatingDeletes] = useState<Set<string>>(new Set());
 
   // Utiliser useCallback pour éviter des re-rendus inutiles
   const onCheckboxClick = useCallback(
@@ -89,6 +87,27 @@ export const ShoppingListItemList = ({
     setProductQuickViewState({ isOpen: false, productId: null });
   }, []);
 
+  const handleDeleteItem = useCallback(
+    async (itemId: string) => {
+      // Ajouter l'item aux animations en cours
+      setAnimatingDeletes((prev) => new Set(prev).add(itemId));
+
+      // Attendre la fin de l'animation (300ms)
+      await new Promise((resolve) => setTimeout(resolve, 300));
+
+      // Retirer de l'animation et supprimer vraiment
+      setAnimatingDeletes((prev) => {
+        const newSet = new Set(prev);
+        newSet.delete(itemId);
+        return newSet;
+      });
+
+      // Appeler la vraie fonction de suppression
+      await onDeleteItem(itemId);
+    },
+    [onDeleteItem]
+  );
+
   return (
     <>
       <ul className="space-y-1.5 animate-fadeIn">
@@ -110,32 +129,33 @@ export const ShoppingListItemList = ({
             totalPrice = unitPrice * item.quantity;
           }
 
-          const isDeleting = isPendingDelete?.(item.id) || false;
+          const isAnimatingDelete = animatingDeletes.has(item.id);
 
           return (
-            <li key={`item-${item.id}-${item.isCompleted ? "completed" : "active"}`} className="relative">
-              {isDeleting && (
-                <div className="absolute inset-0 bg-red-50 border border-red-200 rounded-md z-20 flex items-center justify-between px-4 animate-fadeIn">
-                  <span className="text-sm text-red-700">Deleting...</span>
-                  <Button size="sm" color="danger" variant="flat" onPress={() => onUndoDelete?.(item.id)}>
-                    Undo
-                  </Button>
-                </div>
-              )}
+            <li
+              key={`item-${item.id}-${item.isCompleted ? "completed" : "active"}`}
+              className={`relative transition-all duration-300 ease-in-out ${
+                isAnimatingDelete
+                  ? "opacity-0 transform -translate-x-full scale-95"
+                  : "opacity-100 transform translate-x-0 scale-100"
+              }`}
+            >
               <SwipeableItem
                 key={`swipe-${item.id}-${item.isCompleted}`}
-                onSwipeLeft={() => onDeleteItem(item.id)}
+                onSwipeLeft={() => handleDeleteItem(item.id)}
                 onSwipeRight={() => handleToggleComplete(item.id, !item.isCompleted)}
                 isCompleted={item.isCompleted}
-                disabled={loading[item.id] || isDeleting}
+                disabled={loading[item.id] || isAnimatingDelete}
+                onPress={(e) => {
+                  if (item.productId) {
+                    e.preventDefault();
+                    handleOpenProductQuickView(item.productId);
+                  }
+                }}
               >
                 <div
                   className={`flex items-center justify-between p-2 border rounded-large transition-colors ${
-                    isDeleting
-                      ? "bg-gray-50 opacity-50"
-                      : item.isCompleted
-                        ? "bg-content2"
-                        : "border-content3 bg-content2"
+                    item.isCompleted ? "bg-content2" : "border-content3 bg-content2"
                   }`}
                 >
                   <div className="flex items-center gap-2 flex-1 min-w-0">
@@ -156,12 +176,6 @@ export const ShoppingListItemList = ({
                         className={`${
                           item.isCompleted ? "line-through text-gray-400" : "font-medium"
                         } cursor-pointer bg-transparent truncate`}
-                        onClick={(e) => {
-                          if (item.productId) {
-                            e.preventDefault();
-                            handleOpenProductQuickView(item.productId);
-                          }
-                        }}
                       >
                         {item.product?.name ||
                           item.recipeName ||

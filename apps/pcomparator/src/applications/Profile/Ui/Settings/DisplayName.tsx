@@ -50,18 +50,8 @@ export const SettingsDisplayName = ({ defaultValue }: SettingsDisplayNameProps) 
           placeholder={t`Enter your display name`}
           value={displayName}
           onValueChange={setDisplayName}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-          startContent={
-            <UserIcon
-              className={`h-4 w-4 ${isFocused ? "text-primary" : "text-gray-400"} transition-colors`}
-            />
-          }
-          variant="bordered"
-          size="sm"
-          classNames={{
-            inputWrapper: "border-gray-300 hover:border-primary-400 focus-within:border-primary-500"
-          }}
+          startContent={<UserIcon />}
+          size="lg"
           isDisabled={isLoading}
           errorMessage={
             displayName.trim().length === 0
@@ -71,11 +61,8 @@ export const SettingsDisplayName = ({ defaultValue }: SettingsDisplayNameProps) 
                 : undefined
           }
           isInvalid={displayName.trim().length > 0 && !isValid}
+          description={<Trans>This is the name that will be displayed across the application.</Trans>}
         />
-
-        <p className="text-xs text-gray-500">
-          <Trans>This is the name that will be displayed across the application.</Trans>
-        </p>
       </div>
 
       <div className="flex gap-2">
