@@ -23,11 +23,16 @@ interface CreateProductAndAddToListParams {
     quantity: number;
     unit: string;
   };
+  priceData?: {
+    amount: number;
+    storeName: string;
+    location: string;
+  };
 }
 
 export const createProductAndAddToList = async (params: CreateProductAndAddToListParams) => {
   try {
-    const { listId, productData, itemData } = params;
+    const { listId, productData, itemData, priceData } = params;
 
     // Validation
     const quantity = ItemQuantity.create(itemData.quantity);
@@ -80,7 +85,32 @@ export const createProductAndAddToList = async (params: CreateProductAndAddToLis
       nutritionScore: qualityData // Store enriched quality data
     });
 
-    // 4. Create shopping list item linked to the product
+    // 4. Create price if provided
+    if (priceData && priceData.amount > 0) {
+      const { createPrice } = await import("~/applications/Prices/Api/createPrice");
+      const { Currency } = await import("~/applications/Prices/Domain/ValueObjects/Currency");
+
+      try {
+        const priceResult = await createPrice({
+          productId: createdProduct.id,
+          productName: productName,
+          barcode: productBarcode,
+          storeName: priceData.storeName,
+          location: priceData.location,
+          amount: priceData.amount,
+          unit: itemData.unit,
+          currency: Currency.Euro
+        });
+        console.log("Price created successfully:", priceResult);
+      } catch (error) {
+        console.error("Failed to create price:", error);
+        throw new Error(
+          `Failed to create price: ${error instanceof Error ? error.message : "Unknown error"}`
+        );
+      }
+    }
+
+    // 5. Create shopping list item linked to the product
     const item = await shoppingListItemService.addItemToList(listId, {
       productId: createdProduct.id,
       quantity: quantity.value,

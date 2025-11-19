@@ -94,7 +94,7 @@ export const PantryItemCard = ({ item, onEdit, onDelete }: PantryItemCardProps) 
       >
         <div className="flex items-start justify-between gap-2 mb-3">
           <div className="flex-1 min-w-0">
-            <h2 className="font-semibold text-lg text-gray-900 line-clamp-1 group-hover:text-primary-600 transition-colors">
+            <h2 className="font-semibold text-lg text-foreground line-clamp-1 group-hover:text-primary-600 transition-colors">
               {item.name}
             </h2>
           </div>

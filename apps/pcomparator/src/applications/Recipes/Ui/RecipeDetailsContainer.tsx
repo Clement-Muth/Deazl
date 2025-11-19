@@ -13,12 +13,18 @@ import RecipeDetailsMobile from "./RecipeDetailsMobile";
 interface RecipeDetailsContainerProps {
   recipe: RecipePayload;
   userId?: string;
+  accessMode?: "public" | "authenticated" | "shared" | "restricted";
 }
 
 /**
  * Container qui connecte RecipeDetailsMobile aux hooks et données réelles
  */
-export function RecipeDetailsContainer({ recipe, userId }: RecipeDetailsContainerProps) {
+export function RecipeDetailsContainer({
+  recipe,
+  userId,
+  accessMode = "public"
+}: RecipeDetailsContainerProps) {
+  const isAuthenticated = !!userId;
   const router = useRouter();
   const { isOpen: isShareOpen, onOpen: onShareOpen, onClose: onShareClose } = useDisclosure();
   const { isOpen: isAddToListOpen, onOpen: onAddToListOpen, onClose: onAddToListClose } = useDisclosure();
@@ -28,27 +34,35 @@ export function RecipeDetailsContainer({ recipe, userId }: RecipeDetailsContaine
     incrementRecipeViews(recipe.id);
   }, [recipe.id]);
 
+  const canShare = isAuthenticated && recipe.userId === userId;
+  const canAddToList = isAuthenticated;
+
   return (
     <>
       <RecipeDetailsMobile
         recipe={recipe}
         userId={userId}
         onBack={() => router.push("/recipes")}
-        onAddToList={onAddToListOpen}
-        onShare={onShareOpen}
+        onAddToList={canAddToList ? onAddToListOpen : undefined}
+        onShare={canShare ? onShareOpen : undefined}
         onProductClick={(productId) => setSelectedProductId(productId)}
+        accessMode={accessMode}
       />
 
       {/* Modals */}
-      <ShareRecipeModalNew
-        isOpen={isShareOpen}
-        onClose={onShareClose}
-        recipeId={recipe.id}
-        recipeName={recipe.name}
-        ownerId={recipe.userId}
-      />
+      {canShare && (
+        <ShareRecipeModalNew
+          isOpen={isShareOpen}
+          onClose={onShareClose}
+          recipeId={recipe.id}
+          recipeName={recipe.name}
+          ownerId={recipe.userId}
+        />
+      )}
 
-      <AddRecipeToListModal isOpen={isAddToListOpen} onClose={onAddToListClose} recipe={recipe} />
+      {canAddToList && (
+        <AddRecipeToListModal isOpen={isAddToListOpen} onClose={onAddToListClose} recipe={recipe} />
+      )}
 
       {/* Product Detail Modal */}
       {selectedProductId && (

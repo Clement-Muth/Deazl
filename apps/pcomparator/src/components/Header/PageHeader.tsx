@@ -12,7 +12,7 @@ interface PageHeaderProps {
 
 export const PageHeader = ({ title, href, extra, children }: PageHeaderProps) => {
   return (
-    <header className="flex flex-col sticky top-0 z-20 gap-3 mb-4 sm:mb-6 p-4 border-b border-gray-200 backdrop-blur-lg dark:bg-gray-900/70">
+    <header className="flex flex-col sticky top-0 z-20 gap-3 mb-4 sm:mb-6 p-4 border-b border-content3 backdrop-blur-lg">
       <div className="flex items-center justify-between gap-2">
         <Button
           variant="light"

@@ -72,11 +72,13 @@ export function RecipeCard({
             </Chip>
           </div>
 
-          {showFavorite && onFavoriteToggle && (
+          {showFavorite && (
             <div
               onClick={(e) => {
                 e.stopPropagation();
-                onFavoriteToggle(recipe.id);
+                if (onFavoriteToggle) {
+                  onFavoriteToggle(recipe.id);
+                }
               }}
               className="absolute top-2 sm:top-3 left-2 sm:left-3 z-10 touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
             >

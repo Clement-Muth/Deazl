@@ -5,6 +5,7 @@ import { Trans } from "@lingui/react/macro";
 import Logo from "public/static/logo.png";
 import type { ReactNode } from "react";
 import Link from "~/components/Link/Link";
+import { ThemeToggle } from "~/components/ThemeToggle";
 import useDevice from "~/hooks/useDevice";
 
 interface HeaderProps {
@@ -34,10 +35,8 @@ export const Header = ({ rightArea }: HeaderProps) => {
         </NavbarContent>
       ) : null}
 
-      <NavbarContent justify="end">
-        {/* <NavbarItem>
-          <ThemeSwitcher />
-        </NavbarItem> */}
+      <NavbarContent justify="end" className="gap-2">
+        <ThemeToggle />
         {device === "desktop" ? rightArea : null}
       </NavbarContent>
     </Navbar>

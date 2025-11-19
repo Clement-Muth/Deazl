@@ -1,27 +1,35 @@
+import type { Metadata } from "next";
 import { listUserShoppingList } from "~/applications/ShoppingLists/Api";
 import { withLinguiPage } from "~/core/withLinguiLayout";
 import { auth } from "~/libraries/nextauth/authConfig";
 import { HomeView } from "~/views/Home/HomeView";
 import { DashboardView } from "~/views/Home/components/Dashboard/DashboardView";
 
+export const metadata: Metadata = {
+  alternates: {
+    canonical: process.env.PCOMPARATOR_PUBLIC_URL,
+    languages: {
+      en: `${process.env.PCOMPARATOR_PUBLIC_URL}/en`,
+      fr: `${process.env.PCOMPARATOR_PUBLIC_URL}/fr`
+    }
+  }
+};
+
 const HomePage = async () => {
   const session = await auth();
 
   if (session?.user) {
-    // Get user's recent lists
     const lists = await listUserShoppingList();
-    const recentLists = lists?.slice(0, 5);
 
-    // Calculate stats
     const stats = {
       totalLists: lists?.length || 0,
       completedItems:
         lists?.reduce((sum, list) => sum + (list.items?.filter((item) => item.isCompleted).length || 0), 0) ||
         0,
-      totalSavings: 0 // TODO: Calculate from price comparisons
+      totalSavings: 0
     };
 
-    return <DashboardView userName={session.user.name} recentLists={recentLists || []} stats={stats} />;
+    return <DashboardView userName={session.user.name} stats={stats} />;
   }
 
   return <HomeView isLoggedIn={false} />;

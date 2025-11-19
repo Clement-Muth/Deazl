@@ -1,6 +1,6 @@
 "use client";
 
-import { Avatar, Button, Spinner, addToast } from "@heroui/react";
+import { Avatar, Button, Card, CardBody, Spinner, addToast } from "@heroui/react";
 import { Trans } from "@lingui/react/macro";
 import { CameraIcon, UploadIcon } from "lucide-react";
 import { useRef, useState } from "react";
@@ -44,7 +44,6 @@ export const SettingsAvatar = ({ defaultValue }: SettingsAvatarProps) => {
   return (
     <div className="space-y-4">
       <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6">
-        {/* Avatar with loading overlay */}
         <div className="relative">
           <label htmlFor="avatar" className="cursor-pointer group">
             <Avatar
@@ -78,7 +77,7 @@ export const SettingsAvatar = ({ defaultValue }: SettingsAvatarProps) => {
 
         {/* Info and Upload Button */}
         <div className="flex-1 text-center sm:text-left">
-          <h4 className="text-base md:text-lg font-semibold text-gray-900 mb-1">
+          <h4 className="text-base md:text-lg font-semibold text-foreground mb-1">
             <Trans>Profile Picture</Trans>
           </h4>
           <p className="text-xs md:text-sm text-gray-600 mb-3">
@@ -110,9 +109,15 @@ export const SettingsAvatar = ({ defaultValue }: SettingsAvatarProps) => {
         </div>
       </div>
 
-      <div className="text-xs text-gray-500 bg-gray-50 p-3 rounded-lg border border-gray-200">
-        <Trans>Recommended: Square image, at least 200x200px. Max size: 5MB. Formats: PNG, JPG, WEBP</Trans>
-      </div>
+      <Card>
+        <CardBody>
+          <p className="text-sm">
+            <Trans>
+              Recommended: Square image, at least 200x200px. Max size: 5MB. Formats: PNG, JPG, WEBP
+            </Trans>
+          </p>
+        </CardBody>
+      </Card>
     </div>
   );
 };

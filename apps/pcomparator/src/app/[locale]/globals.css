@@ -1,17 +1,16 @@
 @import "tailwindcss";
-@plugin '../../hero';
+@plugin '../../hero.ts';
 
 @source '../../../../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
 @custom-variant dark (&:is(.dark *));
 
-body,
+/* body,
 html {
-  @apply !bg-[#eef2ff];
-}
+  @apply bg-contain;
+} */
 
 div[data-overlay-container="true"] {
   @apply flex flex-col flex-1;
-  @apply min-h-dvh w-full bg-gradient-to-b dark:from-[#1f121b] dark:via-[#0c1820] dark:via-80% dark:to-[#081917] from-indigo-50 via-white to-primary-200;
 }
 
 .PhoneInput {
@@ -116,4 +115,12 @@ reach-portal {
 
 main {
   @apply flex flex-1;
+}
+
+div[data-rsbs-overlay="true"] {
+  @apply bg-content1;
+}
+
+div[data-rsbs-root]::after {
+  background: hsl(var(--heroui-content1) / 1) !important;
 }

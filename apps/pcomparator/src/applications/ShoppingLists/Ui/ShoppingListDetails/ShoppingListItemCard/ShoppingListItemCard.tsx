@@ -9,7 +9,6 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-  addToast,
   useDisclosure
 } from "@heroui/react";
 import { Trans } from "@lingui/react/macro";
@@ -21,7 +20,6 @@ import type { ItemOptimalPrice } from "../../../Domain/Services/OptimalPricingSe
 import { StoreSelector } from "../StoreSelector";
 import { TotalCostSummary } from "../TotalCostSummary";
 import { ShoppingListItemList } from "./ShoppingListItemList";
-import { useUndoDelete } from "./useUndoDelete";
 
 export const ShoppingListItemCard = ({
   list,
@@ -51,7 +49,6 @@ export const ShoppingListItemCard = ({
   const [quantity, setQuantity] = useState("1");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [loading, setLoading] = useState<Record<string, boolean>>({});
-  const { scheduleDelete, undoDelete, isPendingDelete } = useUndoDelete();
 
   const handleOpenEditModal = (item: ShoppingListItemPayload) => {
     setSelectedItem(item);
@@ -84,45 +81,13 @@ export const ShoppingListItemCard = ({
     }
   };
 
-  const handleDeleteItem = (itemId: string) => {
-    const item = list.items?.find((i) => i.id === itemId);
-    const itemName = item?.product?.name || `Product #${item?.productId?.substring(0, 8) || "Unknown"}`;
-
-    // Schedule deletion immediately
-    scheduleDelete(
-      itemId,
-      item,
-      async () => {
-        try {
-          await onDeleteItem(itemId);
-        } catch (error) {
-          console.error("Error deleting item:", error);
-        }
-      },
-      5000
-    );
-
-    // Show toast notification
-    addToast({
-      title: "Item deleted",
-      description: itemName,
-      color: "default",
-      variant: "solid"
-    });
-  };
-
-  const handleUndoDelete = (itemId: string) => {
-    const item = list.items?.find((i) => i.id === itemId);
-    const itemName = item?.product?.name || `Product #${item?.productId?.substring(0, 8) || "Unknown"}`;
-
-    undoDelete(itemId);
-
-    addToast({
-      title: "Deletion cancelled",
-      description: itemName,
-      color: "success",
-      variant: "solid"
-    });
+  const handleDeleteItem = async (itemId: string) => {
+    setLoading((prev) => ({ ...prev, [itemId]: true }));
+    try {
+      await onDeleteItem(itemId);
+    } finally {
+      setLoading((prev) => ({ ...prev, [itemId]: false }));
+    }
   };
 
   const stats = {
@@ -134,12 +99,11 @@ export const ShoppingListItemCard = ({
 
   return (
     <>
-      <Card className="shadow-sm border border-gray-100 hover:border-gray-200 transition-colors">
-        <CardHeader className="pb-2">
+      <Card>
+        <CardHeader>
           <div className="flex flex-col gap-4 w-full">
             <StoreSelector />
 
-            {/* Total Cost Summary after Store Selector */}
             {totalCost > 0 && (
               <TotalCostSummary
                 totalCost={totalCost}
@@ -154,15 +118,19 @@ export const ShoppingListItemCard = ({
 
         <CardBody>
           {list.items?.length === 0 ? (
-            <div className="text-center py-8 bg-gray-50 rounded-lg">
-              <ShoppingCartIcon className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-              <p className="text-gray-600 font-medium">
-                <Trans>Your shopping list is empty</Trans>
-              </p>
-              <p className="text-sm text-gray-400 mt-1">
-                <Trans>Add items using the quick add bar above</Trans>
-              </p>
-            </div>
+            <Card>
+              <CardBody className="text-center py-8 space-y-4">
+                <ShoppingCartIcon className="mx-auto h-12 w-12 text-gray-400" />
+                <div>
+                  <h3 className="text-foreground font-medium">
+                    <Trans>Your shopping list is empty</Trans>
+                  </h3>
+                  <p className="text-sm text-gray-400 mt-1">
+                    <Trans>Add items using the quick add bar above</Trans>
+                  </p>
+                </div>
+              </CardBody>
+            </Card>
           ) : (
             <ShoppingListItemList
               items={list.items as any}
@@ -170,8 +138,6 @@ export const ShoppingListItemCard = ({
               handleToggleComplete={handleItemToggle}
               onOpenEditModal={handleOpenEditModal}
               onDeleteItem={handleDeleteItem}
-              onUndoDelete={handleUndoDelete}
-              isPendingDelete={isPendingDelete}
               itemPrices={itemPrices}
               isStoreSelected={isStoreSelected}
               selectedStore={selectedStore}

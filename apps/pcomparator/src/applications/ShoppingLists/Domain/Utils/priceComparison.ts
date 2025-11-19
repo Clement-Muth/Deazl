@@ -10,15 +10,120 @@ export interface PriceData {
 }
 
 /**
+ * Normalizes unit names to standard English equivalents
+ * Handles French variants, abbreviations, and common aliases
+ */
+function normalizeUnit(unit: string): string {
+  const normalized = unit.toLowerCase().trim();
+  const unitMap: Record<string, string> = {
+    // Weight
+    kilogram: "kg",
+    kilograms: "kg",
+    kilo: "kg",
+    kilos: "kg",
+    gram: "g",
+    grams: "g",
+    gramme: "g",
+    grammes: "g",
+    // Volume
+    liter: "l",
+    liters: "l",
+    litre: "l",
+    litres: "l",
+    milliliter: "ml",
+    milliliters: "ml",
+    millilitre: "ml",
+    millilitres: "ml",
+    centiliter: "cl",
+    centiliters: "cl",
+    centilitre: "cl",
+    centilitres: "cl",
+    // Units
+    piece: "unit",
+    pieces: "unit",
+    unité: "unit",
+    unités: "unit",
+    pièce: "unit",
+    pièces: "unit",
+    // Cooking units - English
+    tsp: "teaspoon",
+    t: "teaspoon",
+    tbsp: "tablespoon",
+    T: "tablespoon",
+    c: "cup",
+    // Cooking units - French
+    "cuillère à café": "teaspoon",
+    "cuillères à café": "teaspoon",
+    "cuillere a cafe": "teaspoon",
+    "cuilleres a cafe": "teaspoon",
+    "c. à café": "teaspoon",
+    "c à café": "teaspoon",
+    cac: "teaspoon",
+    cc: "teaspoon",
+    "cuillère à soupe": "tablespoon",
+    "cuillères à soupe": "tablespoon",
+    "cuillere a soupe": "tablespoon",
+    "cuilleres a soupe": "tablespoon",
+    "c. à soupe": "tablespoon",
+    "c à soupe": "tablespoon",
+    cas: "tablespoon",
+    cs: "tablespoon",
+    tasse: "cup",
+    tasses: "cup",
+    pincée: "pinch",
+    pincées: "pinch"
+  };
+  return unitMap[normalized] || normalized;
+}
+
+/**
  * Converts a quantity from one unit to another
- * Supports: kg, g, l, ml, unit
+ * Supports: kg, g, l, ml, cl, unit, teaspoon, tablespoon, cup, pinch
  */
 function convertUnit(quantity: number, fromUnit: string, toUnit: string): number {
-  const from = fromUnit.toLowerCase();
-  const to = toUnit.toLowerCase();
+  const from = normalizeUnit(fromUnit);
+  const to = normalizeUnit(toUnit);
 
   // Same unit, no conversion needed
   if (from === to) return quantity;
+
+  // Cooking units to ml first
+  const cookingToMl: Record<string, number> = {
+    teaspoon: 5,
+    tablespoon: 15,
+    cup: 240,
+    pinch: 0.5
+  };
+
+  // If fromUnit is a cooking unit, convert to ml first, then to target
+  if (cookingToMl[from]) {
+    const inMl = quantity * cookingToMl[from];
+    // If target is ml, return directly
+    if (to === "ml") return inMl;
+    // If target is cl, convert ml → cl
+    if (to === "cl") return inMl / 10;
+    // If target is l, convert ml → l
+    if (to === "l") return inMl / 1000;
+    // If target is kg (assume 1ml = 1g for liquids), convert ml → g → kg
+    if (to === "kg") return inMl / 1000;
+    // If target is g, convert ml → g
+    if (to === "g") return inMl;
+    // Otherwise return the ml value
+    return inMl;
+  }
+
+  // If toUnit is a cooking unit, convert from ml first
+  if (cookingToMl[to]) {
+    let inMl = quantity;
+    // Convert source to ml first
+    if (from === "l") inMl = quantity * 1000;
+    else if (from === "kg")
+      inMl = quantity * 1000; // Assume 1g = 1ml for liquids
+    else if (from === "g") inMl = quantity;
+    else if (from === "cl") inMl = quantity * 10;
+    // Then convert ml to target cooking unit
+    return inMl / cookingToMl[to];
+  }
 
   // Weight conversions
   if (from === "kg" && to === "g") return quantity * 1000;
@@ -27,6 +132,26 @@ function convertUnit(quantity: number, fromUnit: string, toUnit: string): number
   // Volume conversions
   if (from === "l" && to === "ml") return quantity * 1000;
   if (from === "ml" && to === "l") return quantity / 1000;
+  if (from === "l" && to === "cl") return quantity * 100;
+  if (from === "cl" && to === "l") return quantity / 100;
+  if (from === "cl" && to === "ml") return quantity * 10;
+  if (from === "ml" && to === "cl") return quantity / 10;
+
+  // Volume to weight conversions (approximate 1ml = 1g for liquids)
+  if (from === "cl" && to === "kg") return (quantity * 10) / 1000; // cl → ml → g → kg
+  if (from === "cl" && to === "g") return quantity * 10; // cl → ml → g
+  if (from === "ml" && to === "kg") return quantity / 1000; // ml → g → kg
+  if (from === "ml" && to === "g") return quantity; // ml → g
+  if (from === "l" && to === "kg") return quantity; // l → ml → g → kg (1l = 1kg)
+  if (from === "l" && to === "g") return quantity * 1000; // l → ml → g
+
+  // Weight to volume conversions (approximate 1g = 1ml for liquids)
+  if (from === "kg" && to === "l") return quantity; // kg → g → ml → l
+  if (from === "kg" && to === "cl") return quantity * 100; // kg → g → ml → cl
+  if (from === "kg" && to === "ml") return quantity * 1000; // kg → g → ml
+  if (from === "g" && to === "l") return quantity / 1000; // g → ml → l
+  if (from === "g" && to === "cl") return quantity / 10; // g → ml → cl
+  if (from === "g" && to === "ml") return quantity; // g → ml
 
   // If units are incompatible or "unit", return original quantity
   return quantity;
@@ -220,8 +345,12 @@ export function getUnitPriceInDisplayUnit(
   priceUnit: string,
   displayUnit: string
 ): number {
+  // Normalize units for accurate comparison
+  const normalizedPriceUnit = normalizeUnit(priceUnit);
+  const normalizedDisplayUnit = normalizeUnit(displayUnit);
+
   // If units are the same, return as is
-  if (priceUnit.toLowerCase() === displayUnit.toLowerCase()) {
+  if (normalizedPriceUnit === normalizedDisplayUnit) {
     return priceAmount;
   }
 
