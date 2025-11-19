@@ -2,10 +2,10 @@ import type { MetadataRoute } from "next";
 
 export default (): MetadataRoute.Manifest => {
   return {
-    name: "Daizl - Compare Prices Easily",
+    name: "Deazl - Compare Prices Easily",
     short_name: "Deazl",
     description:
-      "Daizl is a web app that helps you compare prices for food, cosmetics, and more to find the best deals near you.",
+      "Deazl is a web app that helps you compare prices for food, cosmetics, and more to find the best deals near you.",
     start_url: "/",
     display: "standalone",
     background_color: "#eef2ff",
@@ -13,7 +13,8 @@ export default (): MetadataRoute.Manifest => {
     orientation: "portrait",
     dir: "ltr",
     lang: "en",
-    id: "/",
+    id: "/?source=pwa",
+    scope: "/",
     screenshots: [
       {
         src: "/static/logo.png",
@@ -32,7 +33,7 @@ export default (): MetadataRoute.Manifest => {
     related_applications: [
       {
         platform: "webapp",
-        url: "https://daizl.fr/manifest.webmanifest"
+        url: "https://daezl.fr/manifest.webmanifest"
       }
     ],
     prefer_related_applications: true
