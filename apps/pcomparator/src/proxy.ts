@@ -36,5 +36,7 @@ export default async (request: NextRequest) => {
 };
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|manifest|static/*|robots|sw|workbox-*).*)"]
+  matcher: [
+    "/((?!api|_next/static|_next/image|favicon.ico|manifest|sitemap|opengraph-image|static/*|robots|sw|workbox-*).*)"
+  ]
 };

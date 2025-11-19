@@ -1,87 +1,62 @@
+// meta-config.ts
+export const locales = ["fr", "en"] as const;
+export type Locale = (typeof locales)[number];
+
+export const metaConfig = {
+  fr: {
+    title: "Deazl – Comparez les prix facilement",
+    description:
+      "Comparez les prix alimentaires, trouvez les meilleurs deals, gérez vos courses et découvrez des recettes.",
+    ogLocale: "fr_FR"
+  },
+  en: {
+    title: "Deazl – Compare Prices Easily",
+    description: "Compare food prices, find the best deals, manage your shopping lists and discover recipes.",
+    ogLocale: "en_US"
+  }
+};
+
 import type { Metadata } from "next";
 
-declare type Locale = string;
+export function getMetadataForLocale(locale: Locale): Metadata {
+  const meta = metaConfig[locale];
 
-interface Meta {
-  URL: string | URL;
-  siteName: string;
-  title?: string;
-  description?: string;
-  backgroundColor?: string;
-  theme_color?: string;
-  og: {
-    locale?: Locale;
-    type?: "website";
-    ogImage: string | URL;
-    width?: number;
-    height?: number;
-  };
-  twitter: {
-    card?: string;
-    site?: string;
+  return {
+    title: {
+      default: meta.title,
+      template: "%s – Deazl"
+    },
+    description: meta.description,
+    metadataBase: new URL(process.env.PCOMPARATOR_PUBLIC_URL!),
+
+    openGraph: {
+      title: meta.title,
+      description: meta.description,
+      url: process.env.PCOMPARATOR_PUBLIC_URL!,
+      siteName: "Deazl",
+      locale: meta.ogLocale,
+      type: "website",
+      images: [
+        {
+          url: `/static/og/${locale}.png`, // ← OG image locale
+          width: 1200,
+          height: 630
+        }
+      ]
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      site: "@deazl",
+      creator: "@deazl"
+    },
+
+    alternates: {
+      canonical: `/${locale}`,
+      languages: {
+        en: "/en",
+        fr: "/fr"
+      }
+    }
   };
 }
-
-export const meta: Meta = {
-  URL: process.env.PCOMPARATOR_PUBLIC_URL,
-  siteName: "Deazl",
-  title: "Deazl - Compare Prices & Find the Best Deals",
-  description:
-    "Compare prices for food, cosmetics, and more across multiple stores. Create smart shopping lists, discover recipes, and save money on your everyday purchases.",
-  backgroundColor: "#eef2ff",
-  theme_color: "#eef2ff",
-  og: {
-    locale: "en",
-    type: "website",
-    ogImage: "/static/manifest/screenshots/home-page.png",
-    width: 895,
-    height: 2040
-  },
-  twitter: {
-    card: "summary_large_image",
-    site: "@deazl"
-  }
-};
-
-export const pcomparatorMetadata: Metadata = {
-  title: {
-    default: `${meta.title}`,
-    template: `%s – ${meta.siteName}`
-  },
-  metadataBase: new URL(meta.URL),
-  description: meta.description,
-  openGraph: {
-    title: meta.title,
-    description: meta.description,
-    url: meta.URL,
-    siteName: meta.siteName,
-    images: [
-      {
-        url: meta.og.ogImage,
-        width: meta.og.width,
-        height: meta.og.height
-      }
-    ],
-    locale: meta.og.locale,
-    type: meta.og.type
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1
-    }
-  },
-  twitter: {
-    card: "summary_large_image",
-    site: meta.twitter.site,
-    creator: meta.twitter.site
-  },
-  verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
-  }
-};

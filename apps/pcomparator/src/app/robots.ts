@@ -8,9 +8,34 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/private/"]
+        disallow: [
+          "/api/",
+          "/private/",
+          "/auth/",
+          "/account/",
+          "/dashboard/",
+          "/shopping-list/*?private=true",
+          "/_next/static/",
+          "/_next/image/",
+          "/server-sitemap.xml" // si tu en génères un
+        ]
+      },
+
+      // Facultatif : bloquer les scrapers IA
+      {
+        userAgent: "GPTBot",
+        disallow: "/"
+      },
+      {
+        userAgent: "ClaudeBot",
+        disallow: "/"
+      },
+      {
+        userAgent: "Google-Extended",
+        disallow: "/"
       }
     ],
-    sitemap: [`${baseUrl}/sitemap.xml`, `${baseUrl}/recipes-sitemap.xml`]
+
+    sitemap: [`${baseUrl}/sitemap.xml`]
   };
 }

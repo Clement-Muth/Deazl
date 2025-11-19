@@ -1,41 +1,39 @@
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import ApplicationKernel from "~/core/ApplicationKernel";
 import ApplicationLayout from "~/core/ApplicationLayout";
 import { locales } from "~/core/locale";
-import { pcomparatorMetadata } from "~/core/metadata";
+import { getMetadataForLocale } from "~/core/metadata";
 import { type NextPageProps, withLinguiLayout } from "~/core/withLinguiLayout";
 import "react-toastify/dist/ReactToastify.css";
 import "react-spring-bottom-sheet/dist/style.css";
 import "./globals.css";
 import clsx from "clsx";
+import type { Metadata } from "next";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = pcomparatorMetadata;
+export async function generateStaticParams() {
+  return locales.map((l) => ({ locale: l }));
+}
 
-export const generateStaticParams = () => locales.map((locale) => ({ lang: locale }));
+export async function generateMetadata({ params }: NextPageProps): Promise<Metadata> {
+  const locale = (await params).locale;
 
-const RootLayout = ({ children, locale }: NextPageProps) => {
+  return getMetadataForLocale(locale as any);
+}
+
+const RootLayout = async ({ children, params }: NextPageProps) => {
+  const locale = (await params).locale;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     name: "Deazl",
     description:
       "Compare prices for food, cosmetics, and more across multiple stores. Create smart shopping lists, discover recipes, and save money on your everyday purchases.",
-    url: process.env.PCOMPARATOR_PUBLIC_URL || "https://deazl.app",
+    url: process.env.PCOMPARATOR_PUBLIC_URL,
     applicationCategory: "LifestyleApplication",
-    operatingSystem: "Any",
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "USD"
-    },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.8",
-      ratingCount: "1200"
-    }
+    operatingSystem: "Any"
   };
 
   return (
