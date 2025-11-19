@@ -38,14 +38,6 @@ export const ShoppingListsView = ({ lists }: ShoppingListViewProps) => {
   ) : (
     <div className="mx-auto max-w-5xl md:max-w-6xl px-3 md:px-4">
       <div className="mb-4 md:mb-6 flex items-center justify-between gap-3">
-        <div className="flex-1 min-w-0">
-          <h1 className="text-xl md:text-3xl font-bold mb-0.5 md:mb-1 truncate">
-            <Trans>Your Lists</Trans>
-          </h1>
-          <p className="text-gray-600 text-xs md:text-base">
-            <Trans>Manage and organize your shopping lists</Trans>
-          </p>
-        </div>
         <FloatingButton
           className="md:hidden"
           onPress={createModal.onOpen}
@@ -66,21 +58,18 @@ export const ShoppingListsView = ({ lists }: ShoppingListViewProps) => {
       <Tabs
         selectedKey={filter}
         onSelectionChange={(key) => setFilter(key as EmptyStateProps["type"])}
-        variant="solid"
         color="primary"
         size="lg"
-        classNames={{
-          tabList: "w-full md:w-auto",
-          tab: "flex-1 md:flex-initial md:px-6 h-12",
-          cursor: "w-full"
-        }}
+        fullWidth
       >
         <Tab
           key="active"
           title={
             <div className="flex items-center gap-2 px-2">
               <ShoppingCartIcon className="h-4 w-4" />
-              <span>Active</span>
+              <span>
+                <Trans>Active</Trans>
+              </span>
               <Chip size="sm" variant="flat" color="primary">
                 {activeLists.length}
               </Chip>
@@ -92,7 +81,9 @@ export const ShoppingListsView = ({ lists }: ShoppingListViewProps) => {
           title={
             <div className="flex items-center gap-2 px-2">
               <ArchiveIcon className="h-4 w-4" />
-              <span>Completed</span>
+              <span>
+                <Trans>Completed</Trans>
+              </span>
               <Chip size="sm" variant="flat" color="default">
                 {completedLists?.length}
               </Chip>

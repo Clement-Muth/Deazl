@@ -1,22 +1,10 @@
 "use client";
 
-import {
-  Avatar,
-  Button,
-  Card,
-  CardBody,
-  Chip,
-  Divider,
-  Input,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader
-} from "@heroui/react";
+import { Avatar, Button, Card, CardBody, Chip, Divider, Input, ScrollShadow } from "@heroui/react";
 import { Trans } from "@lingui/react/macro";
 import { CalendarIcon, PackageIcon, StoreIcon, TagIcon, TrendingDownIcon } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Modal } from "~/components/Modal/Modal";
 import { UnitSelector } from "~/components/UnitSelector";
 import type { ProductSearchResult } from "../../Api/searchProducts.api";
 
@@ -26,7 +14,6 @@ interface ProductSelectionModalProps {
   product: ProductSearchResult | null;
   defaultQuantity?: number;
   defaultUnit?: string;
-  defaultPrice?: number;
   onConfirm: (data: {
     productId: string;
     quantity: number;
@@ -46,21 +33,18 @@ export const ProductSelectionModal = ({
   product,
   defaultQuantity = 1,
   defaultUnit = "unit",
-  defaultPrice,
   onConfirm
 }: ProductSelectionModalProps) => {
   const [quantity, setQuantity] = useState(defaultQuantity.toString());
   const [unit, setUnit] = useState(defaultUnit);
   const [selectedPriceId, setSelectedPriceId] = useState("");
 
-  // Reset form when product changes
   useEffect(() => {
     if (product) {
       setQuantity(defaultQuantity.toString());
       setUnit(defaultUnit);
       setSelectedPriceId("");
 
-      // Auto-select best price if available
       if (product.bestPrice) {
         const bestPriceEntry = product.prices.find((p) => p.amount === product.bestPrice?.amount);
         if (bestPriceEntry) {
@@ -101,13 +85,15 @@ export const ProductSelectionModal = ({
   const totalPrice = selectedPrice ? selectedPrice.amount * (Number.parseFloat(quantity) || 1) : undefined;
 
   return (
-    <Modal isOpen={isOpen} onClose={handleClose} size="2xl" scrollBehavior="inside">
-      <ModalContent>
-        <ModalHeader className="flex flex-col gap-1">
+    <Modal
+      isOpen={isOpen}
+      onClose={handleClose}
+      header={
+        <div className="flex flex-col gap-1">
           <div className="flex items-center gap-3">
             {product.brand && <Avatar size="sm" name={product.brand.name} className="w-10 h-10" />}
             <div>
-              <h3 className="text-lg font-semibold">{product.name}</h3>
+              <h3 className="text-lg font-semibold capitalize">{product.name}</h3>
               <div className="flex items-center gap-2 text-sm text-gray-500">
                 {product.brand && (
                   <span className="flex items-center gap-1">
@@ -124,9 +110,10 @@ export const ProductSelectionModal = ({
               </div>
             </div>
           </div>
-        </ModalHeader>
-
-        <ModalBody>
+        </div>
+      }
+      body={
+        <div>
           <div className="space-y-6">
             <div className="grid grid-cols-2 gap-4">
               <Input
@@ -135,13 +122,10 @@ export const ProductSelectionModal = ({
                 onChange={(e) => setQuantity(e.target.value)}
                 type="number"
                 min="0"
-                step="0.1"
-                placeholder="1"
               />
               <UnitSelector value={unit} onValueChange={setUnit} includeUnits="all" />
             </div>
 
-            {/* Sélection de prix */}
             {sortedPrices.length > 0 && (
               <div>
                 <h4 className="text-md font-medium mb-3 flex items-center gap-2">
@@ -149,18 +133,16 @@ export const ProductSelectionModal = ({
                   <Trans>Select a price and store</Trans>
                 </h4>
 
-                <div className="space-y-2 max-h-64 overflow-y-auto">
+                <ScrollShadow orientation="vertical" className="p-2 space-y-4 h-64">
                   {sortedPrices.map((price, index) => (
                     <Card
                       key={price.id}
-                      isPressable
-                      isHoverable
                       className={`cursor-pointer transition-all ${
-                        selectedPriceId === price.id
-                          ? "ring-2 ring-primary-500 bg-primary-50"
-                          : "hover:bg-gray-50"
+                        selectedPriceId === price.id ? "ring-1 ring-primary-500 bg-primary-50" : ""
                       }`}
                       onPress={() => setSelectedPriceId(price.id)}
+                      isPressable
+                      fullWidth
                     >
                       <CardBody className="py-3">
                         <div className="flex items-center justify-between">
@@ -184,13 +166,13 @@ export const ProductSelectionModal = ({
                               )}
                             </div>
 
-                            <div className="text-sm text-gray-600 mt-1">
-                              <div className="font-medium">{price.store.name}</div>
-                              <div className="text-xs text-gray-500">{price.store.location}</div>
+                            <div className="text-sm mt-1">
+                              <div className="font-medium text-foreground">{price.store.name}</div>
+                              <div className="text-xs text-gray-400">{price.store.location}</div>
                             </div>
                           </div>
 
-                          <div className="text-right text-sm text-gray-500">
+                          <div className="text-right text-sm text-foreground">
                             <div className="flex items-center gap-1">
                               <CalendarIcon size={12} />
                               {new Date(price.dateRecorded).toLocaleDateString()}
@@ -201,26 +183,27 @@ export const ProductSelectionModal = ({
                       </CardBody>
                     </Card>
                   ))}
-                </div>
+                </ScrollShadow>
 
-                {/* Résumé du prix total */}
                 {totalPrice && (
                   <>
                     <Divider className="my-4" />
-                    <div className="bg-gray-50 rounded-lg p-4">
-                      <div className="flex justify-between items-center">
-                        <span className="text-medium">
-                          <Trans>Total Price</Trans>
-                        </span>
-                        <span className="text-xl font-bold text-primary-600">{totalPrice.toFixed(2)}€</span>
-                      </div>
-                      {selectedPrice && (
-                        <div className="text-sm text-gray-500 mt-1">
-                          {quantity} {unit} × {selectedPrice.amount.toFixed(2)}€{" • "}
-                          {selectedPrice.store.name}
+                    <Card>
+                      <CardBody>
+                        <div className="flex justify-between items-center">
+                          <span className="text-medium">
+                            <Trans>Total Price</Trans>
+                          </span>
+                          <span className="text-xl font-bold text-primary-600">{totalPrice.toFixed(2)}€</span>
                         </div>
-                      )}
-                    </div>
+                        {selectedPrice && (
+                          <div className="text-sm text-gray-500 mt-1">
+                            {quantity} {unit} × {selectedPrice.amount.toFixed(2)}€{" • "}
+                            {selectedPrice.store.name}
+                          </div>
+                        )}
+                      </CardBody>
+                    </Card>
                   </>
                 )}
               </div>
@@ -243,17 +226,18 @@ export const ProductSelectionModal = ({
               </Card>
             )}
           </div>
-        </ModalBody>
-
-        <ModalFooter>
-          <Button variant="light" onPress={handleClose}>
+        </div>
+      }
+      footer={
+        <div className="flex gap-4">
+          <Button variant="light" onPress={handleClose} size="lg">
             <Trans>Cancel</Trans>
           </Button>
-          <Button color="primary" onPress={handleConfirm}>
+          <Button color="primary" onPress={handleConfirm} size="lg" fullWidth>
             <Trans>Add to list</Trans>
           </Button>
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
+        </div>
+      }
+    />
   );
 };

@@ -63,7 +63,6 @@ export const StoreSelector = () => {
           <Autocomplete
             defaultItems={stores}
             selectedKey={selectedStore?.id}
-            className="min-w-[250px] max-w-[350px]"
             onSelectionChange={(key) => {
               if (key === null) {
                 setSelectedStore(null);
@@ -82,12 +81,6 @@ export const StoreSelector = () => {
                 </Button>
               )
             }
-            inputProps={{
-              classNames: {
-                input: "text-sm",
-                inputWrapper: "h-9 shadow-sm bg-white"
-              }
-            }}
             placeholder="Search stores..."
           >
             {(store) => (

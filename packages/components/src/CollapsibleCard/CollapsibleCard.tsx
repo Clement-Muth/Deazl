@@ -22,11 +22,11 @@ export const CollapsibleCard = ({
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
 
   return (
-    <div className={`bg-content-2 rounded-large border border-content3 ${className}`}>
+    <div className={`bg-content-2 rounded-large border border-content3 pointer ${className}`}>
       <button
         onClick={() => setIsExpanded(!isExpanded)}
         type="button"
-        className="w-full px-4 py-3 flex items-center justify-between hover:bg-gray-100/50 transition-colors"
+        className="w-full px-4 py-3 flex items-center justify-between transition-colors"
       >
         <div className="flex items-center gap-2">
           {icon}

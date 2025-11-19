@@ -117,17 +117,6 @@ export const useShoppingListActions = (initialList: ShoppingListPayload) => {
 
       // Recharger les données depuis le serveur
       router.refresh();
-
-      addToast({
-        title: <Trans>Item removed</Trans>,
-        description: removedItem?.product?.name ? (
-          <Trans>Removed {removedItem.product.name}</Trans>
-        ) : (
-          <Trans>Item removed from list</Trans>
-        ),
-        variant: "solid",
-        color: "primary"
-      });
     } catch (error) {
       setItems((prevItems) => [...prevItems]);
 

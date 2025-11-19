@@ -42,7 +42,6 @@ export const SmartQuickAddBar = ({ listId, className = "", onItemAdded }: SmartQ
     unit: string,
     price?: number
   ) => {
-    // Si le produit a des prix disponibles, ouvrir le modal de sélection
     if (product.prices && product.prices.length > 0) {
       setSelectedProduct(product);
       setPendingQuantity(quantity);
@@ -50,7 +49,6 @@ export const SmartQuickAddBar = ({ listId, className = "", onItemAdded }: SmartQ
       setPendingPrice(price);
       onOpen();
     } else {
-      // Sinon, ajouter directement le produit sans prix
       addProductItem(product, quantity, unit, price);
     }
   };
@@ -90,7 +88,6 @@ export const SmartQuickAddBar = ({ listId, className = "", onItemAdded }: SmartQ
 
   return (
     <div className={className}>
-      {/* Input simple avec liste déroulante */}
       <SmartItemInput
         listId={listId}
         onProductSelected={handleProductSelected}
@@ -103,7 +100,6 @@ export const SmartQuickAddBar = ({ listId, className = "", onItemAdded }: SmartQ
         product={selectedProduct}
         defaultQuantity={pendingQuantity}
         defaultUnit={pendingUnit}
-        defaultPrice={pendingPrice}
         onConfirm={handleModalConfirm}
       />
 

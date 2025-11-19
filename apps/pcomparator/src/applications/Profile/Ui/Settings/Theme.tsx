@@ -64,7 +64,7 @@ export function SettingsTheme() {
             value="light"
             description={<Trans>Always use light theme</Trans>}
             classNames={{
-              base: "max-w-full m-0",
+              base: "max-w-full m-0 gap-2",
               label: "text-sm"
             }}
           >
@@ -77,7 +77,7 @@ export function SettingsTheme() {
             value="dark"
             description={<Trans>Always use dark theme</Trans>}
             classNames={{
-              base: "max-w-full m-0",
+              base: "max-w-full m-0 gap-2",
               label: "text-sm"
             }}
           >
@@ -90,7 +90,7 @@ export function SettingsTheme() {
             value="system"
             description={<Trans>Follow your device theme settings</Trans>}
             classNames={{
-              base: "max-w-full m-0",
+              base: "max-w-full m-0 gap-2",
               label: "text-sm"
             }}
           >

@@ -1,5 +1,7 @@
 User-Agent: *
 Allow: /
+Disallow: /api/
 Disallow: /private/
 
 Sitemap: https://deazl.fr/sitemap.xml
+Sitemap: https://deazl.fr/recipes-sitemap.xml
