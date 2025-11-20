@@ -31,11 +31,7 @@ export const ShoppingListsView = ({ lists }: ShoppingListViewProps) => {
     return progress === 100;
   });
 
-  return !lists || !activeLists ? (
-    <div className="col-span-full">
-      <EmptyState type="active" onCreateList={createModal.onOpen} />
-    </div>
-  ) : (
+  return (
     <div className="mx-auto max-w-5xl md:max-w-6xl px-3 md:px-4">
       <div className="mb-4 md:mb-6 flex items-center justify-between gap-3">
         <FloatingButton
@@ -71,7 +67,7 @@ export const ShoppingListsView = ({ lists }: ShoppingListViewProps) => {
                 <Trans>Active</Trans>
               </span>
               <Chip size="sm" variant="flat" color="primary">
-                {activeLists.length}
+                {activeLists?.length}
               </Chip>
             </div>
           }
@@ -91,42 +87,49 @@ export const ShoppingListsView = ({ lists }: ShoppingListViewProps) => {
           }
         />
       </Tabs>
+      {!lists || !activeLists ? (
+        <div className="col-span-full">
+          <EmptyState type="active" onCreateList={createModal.onOpen} />
+        </div>
+      ) : (
+        <>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <AnimatePresence mode="popLayout">
+              {(filter === "active" ? activeLists : (completedLists ?? [])).map((list, index) => (
+                <motion.div
+                  key={list.id}
+                  layout
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 500,
+                    damping: 30,
+                    opacity: { duration: 0.2 },
+                    delay: index * 0.05
+                  }}
+                >
+                  <ShoppingListCard list={list} userRole={list.userRole} />
+                </motion.div>
+              ))}
+            </AnimatePresence>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <AnimatePresence mode="popLayout">
-          {(filter === "active" ? activeLists : (completedLists ?? [])).map((list, index) => (
-            <motion.div
-              key={list.id}
-              layout
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{
-                type: "spring",
-                stiffness: 500,
-                damping: 30,
-                opacity: { duration: 0.2 },
-                delay: index * 0.05
-              }}
-            >
-              <ShoppingListCard list={list} userRole={list.userRole} />
-            </motion.div>
-          ))}
-        </AnimatePresence>
-
-        {filter === "active" && activeLists.length === 0 && (
-          <div className="col-span-full">
-            <EmptyState type="active" onCreateList={createModal.onOpen} />
+            {filter === "active" && activeLists.length === 0 && (
+              <div className="col-span-full">
+                <EmptyState type="active" onCreateList={createModal.onOpen} />
+              </div>
+            )}
+            {filter === "completed" && completedLists?.length === 0 && (
+              <div className="col-span-full">
+                <EmptyState type="completed" onCreateList={createModal.onOpen} />
+              </div>
+            )}
           </div>
-        )}
-        {filter === "completed" && completedLists?.length === 0 && (
-          <div className="col-span-full">
-            <EmptyState type="completed" onCreateList={createModal.onOpen} />
-          </div>
-        )}
-      </div>
 
-      <CreateEditListModal isOpen={createModal.isOpen} onClose={createModal.onClose} mode="create" />
+          <CreateEditListModal isOpen={createModal.isOpen} onClose={createModal.onClose} mode="create" />
+        </>
+      )}
     </div>
   );
 };

@@ -16,7 +16,6 @@ import {
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { PageHeader } from "~/components/Header/PageHeader";
-import useDevice from "~/hooks/useDevice";
 import type { RecipeHubDataPayload } from "../Api/hub/getRecipeHubData.api";
 import { searchRecipes } from "../Api/search/searchRecipes.api";
 import type { RecipeSearchFilters } from "../Application/Services/RecipeSearch.service";
@@ -29,12 +28,11 @@ import { RecipeSearchBar } from "./components/RecipeSearchBar";
 import { RecipeSearchFiltersModal } from "./components/RecipeSearchFiltersModal";
 
 interface RecipeHubContentProps {
-  hubData: RecipeHubDataPayload;
+  hubData: RecipeHubDataPayload | null;
 }
 
 export function RecipeHubContent({ hubData }: RecipeHubContentProps) {
   const router = useRouter();
-  const device = useDevice();
   const { favorites, isFavorite, toggleFavorite } = useRecipeFavorites();
   const [searchQuery, setSearchQuery] = useState("");
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
@@ -457,7 +455,7 @@ export function RecipeHubContent({ hubData }: RecipeHubContentProps) {
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
                     {Array.from({ length: 8 }).map((_, i) => (
                       <div key={i} className="animate-pulse">
-                        <div className="bg-gray-200 rounded-xl aspect-[4/3] mb-3" />
+                        <div className="bg-gray-200 rounded-xl aspect-4/3 mb-3" />
                         <div className="bg-gray-200 h-4 rounded mb-2" />
                         <div className="bg-gray-200 h-3 rounded w-2/3" />
                       </div>
@@ -494,7 +492,7 @@ export function RecipeHubContent({ hubData }: RecipeHubContentProps) {
           {!showResults && <Divider />}
 
           {/* Popular Recipes */}
-          {!showResults && hubData.popular.length > 0 && (
+          {!showResults && hubData && hubData.popular.length > 0 && (
             <RecipeHorizontalList
               title="Recettes Populaires"
               icon={<TrendingUp className="w-6 h-6 text-primary-600" />}
@@ -507,7 +505,7 @@ export function RecipeHubContent({ hubData }: RecipeHubContentProps) {
           )}
 
           {/* Quick Recipes */}
-          {!showResults && hubData.quick.length > 0 && (
+          {!showResults && hubData && hubData.quick.length > 0 && (
             <RecipeHorizontalList
               title="Recettes Rapides"
               icon={<Clock className="w-5 h-5 sm:w-6 sm:h-6 text-warning-600" />}
@@ -520,7 +518,7 @@ export function RecipeHubContent({ hubData }: RecipeHubContentProps) {
           )}
 
           {/* Cheap Recipes */}
-          {!showResults && hubData.cheap.length > 0 && (
+          {!showResults && hubData && hubData.cheap.length > 0 && (
             <RecipeHorizontalList
               title="Recettes Économiques"
               icon={<DollarSign className="w-5 h-5 sm:w-6 sm:h-6 text-success-600" />}
@@ -533,7 +531,7 @@ export function RecipeHubContent({ hubData }: RecipeHubContentProps) {
           )}
 
           {/* Healthy Recipes */}
-          {!showResults && hubData.healthy.length > 0 && (
+          {!showResults && hubData && hubData.healthy.length > 0 && (
             <RecipeHorizontalList
               title="Recettes Saines"
               icon={<Flame className="w-5 h-5 sm:w-6 sm:h-6 text-danger-600" />}
@@ -546,7 +544,7 @@ export function RecipeHubContent({ hubData }: RecipeHubContentProps) {
           )}
 
           {/* Cellar-Based Recipes (Personalized) */}
-          {!showResults && hubData.cellarBased.length > 0 && (
+          {!showResults && hubData && hubData.cellarBased.length > 0 && (
             <>
               <Divider />
               <RecipeHorizontalList
@@ -559,7 +557,7 @@ export function RecipeHubContent({ hubData }: RecipeHubContentProps) {
           )}
 
           {/* Recommended Recipes (Personalized) */}
-          {!showResults && hubData.recommended.length > 0 && (
+          {!showResults && hubData && hubData.recommended.length > 0 && (
             <RecipeHorizontalList
               title="Recommandé pour vous"
               icon={<Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-primary-600" />}
@@ -569,7 +567,7 @@ export function RecipeHubContent({ hubData }: RecipeHubContentProps) {
           )}
 
           {/* Purchase-Based Recipes (Personalized) */}
-          {!showResults && hubData.purchaseBased.length > 0 && (
+          {!showResults && hubData && hubData.purchaseBased.length > 0 && (
             <RecipeHorizontalList
               title="Basé sur vos achats récents"
               icon={<ShoppingBag className="w-5 h-5 sm:w-6 sm:h-6 text-secondary-600" />}
@@ -579,7 +577,7 @@ export function RecipeHubContent({ hubData }: RecipeHubContentProps) {
           )}
 
           {/* Categories Section */}
-          {!showResults && hubData.categories.length > 0 && (
+          {!showResults && hubData && hubData.categories.length > 0 && (
             <>
               <Divider />
               <section className="space-y-4 sm:space-y-6">
@@ -605,7 +603,7 @@ export function RecipeHubContent({ hubData }: RecipeHubContentProps) {
           )}
 
           {/* New Recipes */}
-          {!showResults && hubData.new.length > 0 && (
+          {!showResults && hubData && hubData.new.length > 0 && (
             <>
               <Divider />
               <RecipeHorizontalList

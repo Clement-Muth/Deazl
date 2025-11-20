@@ -6,11 +6,11 @@ import { PrismaShoppingListRepository } from "../../Infrastructure/Repositories/
 
 const shoppingListApplicationService = new ShoppingListApplicationService(new PrismaShoppingListRepository());
 
-export const listUserShoppingList = async (): Promise<ShoppingListPayload[] | null> => {
+export const listUserShoppingList = async (): Promise<ShoppingListPayload[]> => {
   try {
     const userShoppingLists = await shoppingListApplicationService.listUserShoppingLists();
 
-    return userShoppingLists.map((shoppingList) => shoppingList.toObject());
+    return userShoppingLists.map((shoppingList) => shoppingList.toObject()) ?? [];
   } catch (error) {
     throw new Error("Shopping list not found", { cause: error });
   }
