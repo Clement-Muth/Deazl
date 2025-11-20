@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardBody, Chip, Skeleton } from "@heroui/react";
+import { Card, CardBody, Chip } from "@heroui/react";
 import { ChefHat, Clock, Heart, Users } from "lucide-react";
 import { useRouter } from "next/navigation";
 import type { RecipePayload } from "../../Domain/Schemas/Recipe.schema";
@@ -54,7 +54,7 @@ export function RecipeCard({
       onPress={() => {
         router.push(`/recipes/${recipe.id}`);
       }}
-      className="w-full active:scale-[0.98] sm:hover:scale-[1.02] transition-transform touch-manipulation"
+      className="w-full active:scale-[0.98] sm:hover:scale-[1.02] h-full transition-transform touch-manipulation"
     >
       <CardBody className="p-0">
         <div className="relative w-full h-40 sm:h-48 overflow-hidden">
@@ -128,30 +128,6 @@ export function RecipeCard({
               <ChefHat className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               <span>{recipe.ingredients?.length || 0}</span>
             </div>
-          </div>
-        </div>
-      </CardBody>
-    </Card>
-  );
-}
-
-export function RecipeCardSkeleton() {
-  return (
-    <Card className="w-full">
-      <CardBody className="p-0">
-        <Skeleton className="w-full h-48 rounded-t-lg" />
-        <div className="p-4 space-y-3">
-          <Skeleton className="h-6 w-3/4 rounded-lg" />
-          <div className="flex gap-2">
-            <Skeleton className="h-5 w-16 rounded-lg" />
-            <Skeleton className="h-5 w-16 rounded-lg" />
-          </div>
-          <Skeleton className="h-4 w-full rounded-lg" />
-          <Skeleton className="h-4 w-2/3 rounded-lg" />
-          <div className="flex gap-3">
-            <Skeleton className="h-4 w-16 rounded-lg" />
-            <Skeleton className="h-4 w-12 rounded-lg" />
-            <Skeleton className="h-4 w-12 rounded-lg" />
           </div>
         </div>
       </CardBody>
