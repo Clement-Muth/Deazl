@@ -2,13 +2,12 @@
 
 import { Card, CardBody } from "@heroui/react";
 import { Trans } from "@lingui/react/macro";
-import { ListChecks, Sparkles, TrendingDown } from "lucide-react";
+import { ListChecks, Sparkles } from "lucide-react";
 
 interface StatsCardsProps {
   stats?: {
     totalLists: number;
     completedItems: number;
-    totalSavings: number;
   };
 }
 
@@ -44,22 +43,6 @@ export function StatsCards({ stats }: StatsCardsProps) {
                 <Trans>Items Completed</Trans>
               </p>
               <p className="text-xl sm:text-2xl font-bold">{stats.completedItems}</p>
-            </div>
-          </div>
-        </CardBody>
-      </Card>
-
-      <Card>
-        <CardBody className="p-4 sm:p-5">
-          <div className="flex items-center gap-3">
-            <div className="bg-orange-100 p-2 sm:p-3 rounded-lg">
-              <TrendingDown className="h-5 w-5 sm:h-6 sm:w-6 text-orange-600" />
-            </div>
-            <div>
-              <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
-                <Trans>Total Savings</Trans>
-              </p>
-              <p className="text-xl sm:text-2xl font-bold">{stats.totalSavings.toFixed(2)}€</p>
             </div>
           </div>
         </CardBody>

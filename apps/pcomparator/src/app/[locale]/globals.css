@@ -124,3 +124,37 @@ div[data-rsbs-overlay="true"] {
 div[data-rsbs-root]::after {
   background: hsl(var(--heroui-content1) / 1) !important;
 }
+
+.skeleton {
+  position: relative;
+}
+
+.skeleton * {
+  color: transparent !important;
+  pointer-events: none;
+  user-select: none;
+}
+
+@keyframes pulse2 {
+  0% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
+
+.skeleton h1,
+.skeleton h2,
+.skeleton h3,
+.skeleton h4,
+.skeleton p {
+  @apply rounded-small bg-content3 animate-[pulse2_1s_infinite] min-h-1;
+}
+
+.skeleton * {
+  @apply animate-[pulse2_2s_ease-in-out_infinite];
+}

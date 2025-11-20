@@ -1,9 +1,8 @@
 import { auth } from "@deazl/system";
 import type { Metadata } from "next";
-import { getRecipeHubData } from "~/applications/Recipes/Api";
 import { getPublicHubData } from "~/applications/Recipes/Api/hub/getPublicHubData.api";
 import { PublicRecipeHub } from "~/applications/Recipes/Ui/PublicRecipeHub";
-import { RecipeHubContent } from "~/applications/Recipes/Ui/RecipeHubContent";
+import { RecipeHub } from "~/applications/Recipes/Ui/RecipeHub";
 import { getRecipesHubMetadata } from "~/applications/Recipes/Ui/metadata";
 import { withLinguiPage } from "~/core/withLinguiLayout";
 
@@ -21,8 +20,7 @@ async function RecipesPage({ params }: { params: Promise<{ locale: string }> }) 
   const isAuthenticated = !!session?.user;
 
   if (isAuthenticated) {
-    const hubData = await getRecipeHubData();
-    return <RecipeHubContent hubData={hubData} />;
+    return <RecipeHub />;
   }
 
   const publicHubData = await getPublicHubData();
