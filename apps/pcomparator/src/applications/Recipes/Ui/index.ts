@@ -20,7 +20,7 @@ export { RecipeHubContent } from "./RecipeHubContent";
 export { RecipeSearchPage } from "./RecipeSearchPage";
 
 // Recipe Hub Components
-export { RecipeCard, RecipeCardSkeleton } from "./components/RecipeCard";
+export { RecipeCard } from "./components/RecipeCard";
 export { RecipeHorizontalList } from "./components/RecipeHorizontalList";
 export { RecipeSearchBar } from "./components/RecipeSearchBar";
 export { RecipeCategoryCard } from "./components/RecipeCategoryCard";

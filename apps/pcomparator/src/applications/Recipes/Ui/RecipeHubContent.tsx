@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, Chip, Divider, Link } from "@heroui/react";
+import { Trans } from "@lingui/react/macro";
 import {
   Clock,
   Compass,
@@ -128,12 +129,12 @@ export function RecipeHubContent({ hubData }: RecipeHubContentProps) {
           {/* Hero Search Section */}
           <section className="space-y-4 sm:space-y-6">
             <div className="text-center space-y-2 sm:space-y-3">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 px-2">
-                Découvrez des recettes adaptées à votre budget
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground px-2">
+                <Trans>Discover recipes tailored to your budget</Trans>
               </h1>
-              <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4">
-                Des recettes intelligentes avec prix réels, qualité nutritionnelle et optimisation du cellier
-              </p>
+              <h2 className="text-base sm:text-lg md:text-xl text-gray-400 max-w-3xl mx-auto px-4">
+                <Trans>Smart recipes with real prices, nutritional quality, and cellar optimization</Trans>
+              </h2>
             </div>
 
             <div className="max-w-3xl mx-auto">
@@ -144,30 +145,30 @@ export function RecipeHubContent({ hubData }: RecipeHubContentProps) {
               <Button
                 type="button"
                 onPress={() => handleQuickFilter({ tags: ["vegan"], limit: 20 })}
-                className="px-3 sm:px-4 py-2 rounded-full bg-gray-100 hover:bg-gray-200 active:bg-gray-300 text-xs sm:text-sm font-medium transition-colors touch-manipulation"
+                className="px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-colors touch-manipulation"
               >
-                Vegan
+                <Trans>Vegan</Trans>
               </Button>
               <Button
                 type="button"
                 onPress={() => handleQuickFilter({ tags: ["vegetarian"], limit: 20 })}
-                className="px-3 sm:px-4 py-2 rounded-full bg-gray-100 hover:bg-gray-200 active:bg-gray-300 text-xs sm:text-sm font-medium transition-colors touch-manipulation"
+                className="px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-colors touch-manipulation"
               >
-                Végétarien
+                <Trans>Vegetarian</Trans>
               </Button>
               <Button
                 type="button"
                 onPress={() => handleQuickFilter({ tags: ["gluten-free"], limit: 20 })}
-                className="px-3 sm:px-4 py-2 rounded-full bg-gray-100 hover:bg-gray-200 active:bg-gray-300 text-xs sm:text-sm font-medium transition-colors touch-manipulation"
+                className="px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-colors touch-manipulation"
               >
-                Sans gluten
+                <Trans>Gluten-free</Trans>
               </Button>
               <Button
                 type="button"
                 onPress={() => handleQuickFilter({ maxTotalTime: 30, limit: 20 })}
-                className="px-3 sm:px-4 py-2 rounded-full bg-gray-100 hover:bg-gray-200 active:bg-gray-300 text-xs sm:text-sm font-medium transition-colors touch-manipulation"
+                className="px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-colors touch-manipulation"
               >
-                Rapide (- 30 min)
+                <Trans>Rapide (- 30 min)</Trans>
               </Button>
             </div>
           </section>

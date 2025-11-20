@@ -1,6 +1,7 @@
 "use client";
 
-import { Button, Card, CardBody, Chip, Spinner } from "@heroui/react";
+import { Button, Card, CardBody, Chip, Spinner, Tab, Tabs } from "@heroui/react";
+import { Trans } from "@lingui/react/macro";
 import { ChefHat, Heart, Plus, Search } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -83,33 +84,44 @@ export function MyRecipesPageClient() {
         <div className="flex flex-col px-3 w-full sm:px-4 py-4 sm:py-8 max-w-7xl sm:space-y-12">
           {/* Filters */}
           <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
-            <Chip
-              classNames={{
-                base: `cursor-pointer ${filter === "all" ? "bg-primary-600 text-white" : "bg-gray-100"}`,
-                content: "text-sm sm:text-base"
-              }}
-              onClick={() => setFilter("all")}
+            <Tabs
+              selectedKey={filter}
+              onSelectionChange={(key) => setFilter(key as "all" | "public" | "private")}
+              color="primary"
+              size="lg"
+              fullWidth
             >
-              All ({recipes.length})
-            </Chip>
-            <Chip
-              classNames={{
-                base: `cursor-pointer ${filter === "public" ? "bg-primary-600 text-white" : "bg-gray-100"}`,
-                content: "text-sm sm:text-base"
-              }}
-              onClick={() => setFilter("public")}
-            >
-              Public ({recipes.filter((r) => r.isPublic).length})
-            </Chip>
-            <Chip
-              classNames={{
-                base: `cursor-pointer ${filter === "private" ? "bg-primary-600 text-white" : "bg-gray-100"}`,
-                content: "text-sm sm:text-base"
-              }}
-              onClick={() => setFilter("private")}
-            >
-              Private ({recipes.filter((r) => !r.isPublic).length})
-            </Chip>
+              <Tab
+                key="all"
+                title={
+                  <div className="flex items-center gap-2 px-2">
+                    <span>
+                      <Trans>All ({recipes.length})</Trans>
+                    </span>
+                  </div>
+                }
+              />
+              <Tab
+                key="public"
+                title={
+                  <div className="flex items-center gap-2 px-2">
+                    <span>
+                      <Trans>Public ({recipes.filter((r) => r.isPublic).length})</Trans>
+                    </span>
+                  </div>
+                }
+              />
+              <Tab
+                key="private"
+                title={
+                  <div className="flex items-center gap-2 px-2">
+                    <span>
+                      <Trans>Private ({recipes.filter((r) => !r.isPublic).length})</Trans>
+                    </span>
+                  </div>
+                }
+              />
+            </Tabs>
           </div>
 
           {/* Recipes Grid */}
@@ -117,7 +129,7 @@ export function MyRecipesPageClient() {
             <Card className="mt-8">
               <CardBody className="flex flex-col items-center justify-center py-12 sm:py-16 text-center">
                 <ChefHat className="w-16 h-16 sm:w-20 sm:h-20 text-gray-300 mb-4" />
-                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">
+                <h3 className="text-lg sm:text-xl font-semibold mb-2">
                   {filter === "all" ? "No recipes yet" : `No ${filter} recipes`}
                 </h3>
                 <p className="text-sm sm:text-base text-gray-600 mb-6 max-w-md">
@@ -178,17 +190,17 @@ export function MyRecipesPageClient() {
                     </div>
 
                     <div className="p-3 sm:p-4">
-                      <h3 className="font-semibold text-base sm:text-lg text-gray-900 line-clamp-2 mb-2">
+                      <h3 className="font-semibold text-base sm:text-lg text-foreground line-clamp-2 mb-2">
                         {recipe.name}
                       </h3>
 
                       {recipe.description && (
-                        <p className="text-xs sm:text-sm text-gray-500 line-clamp-2 mb-3">
+                        <p className="text-xs sm:text-sm text-gray-400 line-clamp-2 mb-3">
                           {recipe.description}
                         </p>
                       )}
 
-                      <div className="flex items-center justify-between text-xs sm:text-sm text-gray-500">
+                      <div className="flex items-center justify-between text-xs sm:text-sm text-gray-400">
                         <div className="flex items-center gap-3">
                           <span>{recipe.totalTime} min</span>
                           <span>{recipe.servings} portions</span>

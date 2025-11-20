@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
 import { useRef } from "react";
 import type { RecipePayload } from "../../Domain/Schemas/Recipe.schema";
-import { RecipeCard, RecipeCardSkeleton } from "./RecipeCard";
+import { RecipeCard } from "./RecipeCard";
 
 interface RecipeHorizontalListProps {
   recipes: RecipePayload[];
@@ -40,25 +40,6 @@ export function RecipeHorizontalList({
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className="space-y-3 sm:space-y-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 sm:gap-3">
-            <div className="h-5 sm:h-6 w-24 sm:w-32 bg-gray-200 rounded animate-pulse" />
-          </div>
-        </div>
-        <div className="flex gap-3 sm:gap-4 overflow-x-hidden">
-          {[...Array(4)].map((_, i) => (
-            <div key={i} className="min-w-[240px] sm:min-w-[280px]">
-              <RecipeCardSkeleton />
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-
   if (recipes.length === 0) {
     return null;
   }
@@ -68,13 +49,13 @@ export function RecipeHorizontalList({
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2 sm:gap-3">
           {icon && <div className="p-1.5 sm:p-2 rounded-lg bg-primary-50">{icon}</div>}
-          <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">{title}</h2>
+          <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground">{title}</h2>
         </div>
 
         {onViewAll && (
           <Button
             variant="light"
-            color="primary"
+            // color="primary"
             size="sm"
             endContent={<ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />}
             onPress={onViewAll}
@@ -90,18 +71,13 @@ export function RecipeHorizontalList({
         <ScrollShadow
           orientation="horizontal"
           size={20}
-          className="flex gap-4 -mx-3 px-4"
+          overflowCheck="vertical"
+          className="flex gap-4 -mx-3 px-4 py-4"
           ref={scrollRef}
           hideScrollBar
-          // className="flex gap-3 sm:gap-4 overflow-x-auto py-4 scrollbar-hide snap-x snap-mandatory px-3 sm:px-0 scroll-smooth"
-          // style={{
-          //   scrollbarWidth: "none",
-          //   msOverflowStyle: "none",
-          //   WebkitOverflowScrolling: "touch"
-          // }}
         >
           {recipes.map((recipe) => (
-            <div key={recipe.id} className="min-w-[240px] sm:min-w-[280px] snap-start snap-always">
+            <div key={recipe.id} className="min-w-60 sm:min-w-[280px] snap-start snap-always">
               <RecipeCard
                 recipe={recipe}
                 showFavorite={showFavorites}
@@ -113,7 +89,6 @@ export function RecipeHorizontalList({
           ))}
         </ScrollShadow>
 
-        {/* Desktop arrows - hidden on mobile */}
         {recipes.length > 3 && (
           <>
             <button
