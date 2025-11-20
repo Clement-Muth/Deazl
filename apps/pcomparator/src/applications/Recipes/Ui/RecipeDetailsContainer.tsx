@@ -8,7 +8,7 @@ import { incrementRecipeViews } from "../Api";
 import type { RecipePayload } from "../Domain/Schemas/Recipe.schema";
 import { AddRecipeToListModal } from "./RecipeDetails/AddRecipeToListModal";
 import { ShareRecipeModalNew } from "./RecipeDetails/ShareRecipeModal/ShareRecipeModalNew";
-import RecipeDetailsMobile from "./RecipeDetailsMobile";
+import RecipeDetailsMobile from "./RecipeDetailsMobile/RecipeDetailsMobile";
 
 interface RecipeDetailsContainerProps {
   recipe: RecipePayload;
