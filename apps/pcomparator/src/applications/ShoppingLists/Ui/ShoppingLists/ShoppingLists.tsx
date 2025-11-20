@@ -7,7 +7,9 @@ interface ShoppingListsLayoutProps {
   lists?: ShoppingListPayload[] | null;
 }
 
-const ShoppingListsLayout = ({ lists }: ShoppingListsLayoutProps) => <ShoppingListsView lists={[]} />;
+const ShoppingListsLayout = ({ lists }: ShoppingListsLayoutProps) => (
+  <ShoppingListsView lists={lists ?? []} />
+);
 
 const ShoppingListsContent = async () => {
   const lists = await listUserShoppingList();
