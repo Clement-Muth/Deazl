@@ -7,6 +7,8 @@ import { type NextPageProps, withLinguiLayout } from "~/core/withLinguiLayout";
 import "react-toastify/dist/ReactToastify.css";
 import "react-spring-bottom-sheet/dist/style.css";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import clsx from "clsx";
 import type { Metadata } from "next";
 
@@ -45,6 +47,8 @@ const RootLayout = async ({ children, params }: NextPageProps) => {
         <ApplicationKernel locale={locale}>
           <ApplicationLayout>{children}</ApplicationLayout>
         </ApplicationKernel>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
