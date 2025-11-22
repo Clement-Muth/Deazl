@@ -172,3 +172,20 @@ function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: numbe
 function toRad(degrees: number): number {
   return (degrees * Math.PI) / 180;
 }
+
+export async function getRecipePricingCached(recipeId: string) {
+  const { unstable_cache } = await import("next/cache");
+
+  const getCached = unstable_cache(
+    async () => {
+      return await getRecipePricing(recipeId);
+    },
+    [`recipe-pricing-public-${recipeId}`],
+    {
+      revalidate: 7200,
+      tags: [`recipe-pricing-${recipeId}`]
+    }
+  );
+
+  return getCached();
+}

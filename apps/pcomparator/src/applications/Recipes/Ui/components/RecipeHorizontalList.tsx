@@ -71,7 +71,6 @@ export function RecipeHorizontalList({
         <ScrollShadow
           orientation="horizontal"
           size={20}
-          overflowCheck="vertical"
           className="flex gap-4 -mx-3 px-4 py-4"
           ref={scrollRef}
           hideScrollBar

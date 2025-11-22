@@ -7,14 +7,18 @@ interface RecipeMetadataParams {
   servings: number;
   totalTime: number;
   locale: Locale;
+  avgPrice?: number;
 }
 
 const translations = {
   en: {
     recipeTitle: (name: string) => `${name} - Deazl Recipe`,
-    recipeDescription: (params: RecipeMetadataParams) =>
-      params.recipeDescription ||
-      `${params.recipeName}: ${params.difficulty} difficulty, ${params.servings} servings, ${params.totalTime} minutes total time.`,
+    recipeDescription: (params: RecipeMetadataParams) => {
+      const base =
+        params.recipeDescription ||
+        `${params.recipeName}: ${params.difficulty} difficulty, ${params.servings} servings, ${params.totalTime} minutes total time.`;
+      return params.avgPrice ? `${base} Estimated cost: €${params.avgPrice.toFixed(2)}` : base;
+    },
     notFoundTitle: "Recipe Not Found",
     notFoundDescription: "The requested recipe could not be found.",
     defaultTitle: "Recipe",
@@ -25,9 +29,12 @@ const translations = {
   },
   fr: {
     recipeTitle: (name: string) => `${name} - Recette Deazl`,
-    recipeDescription: (params: RecipeMetadataParams) =>
-      params.recipeDescription ||
-      `${params.recipeName}: Difficulté ${params.difficulty}, ${params.servings} portions, ${params.totalTime} minutes au total.`,
+    recipeDescription: (params: RecipeMetadataParams) => {
+      const base =
+        params.recipeDescription ||
+        `${params.recipeName}: Difficulté ${params.difficulty}, ${params.servings} portions, ${params.totalTime} minutes au total.`;
+      return params.avgPrice ? `${base} Coût estimé : ${params.avgPrice.toFixed(2)}€` : base;
+    },
     notFoundTitle: "Recette introuvable",
     notFoundDescription: "La recette demandée n'a pas pu être trouvée.",
     defaultTitle: "Recette",

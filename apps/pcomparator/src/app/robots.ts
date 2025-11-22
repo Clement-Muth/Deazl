@@ -17,6 +17,7 @@ export default function robots(): MetadataRoute.Robots {
           "/shopping-list/*?private=true",
           "/_next/static/",
           "/_next/image/",
+          "/recipes/my-recipes",
           "/server-sitemap.xml" // si tu en génères un
         ]
       },

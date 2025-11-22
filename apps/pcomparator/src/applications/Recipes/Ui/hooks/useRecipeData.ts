@@ -8,6 +8,7 @@ import type { RecipePricingResult } from "../../Domain/Services/RecipePricing.se
 interface UseRecipeDataParams {
   recipeId: string;
   userId?: string;
+  initialPublicPricing?: RecipePricingResult | null;
 }
 
 interface RecipeTip {
@@ -29,12 +30,17 @@ interface UseRecipeDataReturn {
 /**
  * Hook pour charger les données de pricing et qualité d'une recette
  * Utilisé dans RecipeDetailsMobile pour afficher les prix et scores
+ * Supporte le progressive enhancement avec initialPublicPricing pour le SEO
  */
-export function useRecipeData({ recipeId, userId }: UseRecipeDataParams): UseRecipeDataReturn {
-  const [pricing, setPricing] = useState<RecipePricingResult | null>(null);
+export function useRecipeData({
+  recipeId,
+  userId,
+  initialPublicPricing
+}: UseRecipeDataParams): UseRecipeDataReturn {
+  const [pricing, setPricing] = useState<RecipePricingResult | null>(initialPublicPricing || null);
   const [quality, setQuality] = useState<RecipeQualityResult | null>(null);
   const [tips, setTips] = useState<RecipeTip[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!initialPublicPricing);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -43,29 +49,39 @@ export function useRecipeData({ recipeId, userId }: UseRecipeDataParams): UseRec
       setError(null);
 
       try {
-        // Charger pricing, qualité et tips en parallèle
-        const [pricingResult, qualityResult, tipsResult] = await Promise.all([
-          getRecipePricing(recipeId, userId),
-          getRecipeQuality(recipeId),
-          getRecipeTips(recipeId)
-        ]);
+        const fetchPromises = [getRecipeQuality(recipeId), getRecipeTips(recipeId)] as const;
 
-        // Pricing
-        if ("error" in pricingResult) {
-          console.error("Erreur pricing:", pricingResult.error);
+        if (userId) {
+          const userPricingPromise = getRecipePricing(recipeId, userId);
+          const [userPricingResult, qualityResult, tipsResult] = await Promise.all([
+            userPricingPromise,
+            ...fetchPromises
+          ]);
+
+          if ("error" in userPricingResult) {
+            console.error("Erreur pricing:", userPricingResult.error);
+          } else {
+            setPricing(userPricingResult);
+          }
+
+          if ("error" in qualityResult) {
+            console.error("Erreur quality:", qualityResult.error);
+          } else {
+            setQuality(qualityResult);
+          }
+
+          setTips(tipsResult);
         } else {
-          setPricing(pricingResult);
-        }
+          const [qualityResult, tipsResult] = await Promise.all(fetchPromises);
 
-        // Quality
-        if ("error" in qualityResult) {
-          console.error("Erreur quality:", qualityResult.error);
-        } else {
-          setQuality(qualityResult);
-        }
+          if ("error" in qualityResult) {
+            console.error("Erreur quality:", qualityResult.error);
+          } else {
+            setQuality(qualityResult);
+          }
 
-        // Tips
-        setTips(tipsResult);
+          setTips(tipsResult);
+        }
       } catch (err) {
         const message = err instanceof Error ? err.message : "Erreur lors du chargement des données";
         setError(message);

@@ -19,6 +19,7 @@ interface RecipeDetailsMobileProps {
   onShare?: () => void;
   onProductClick: (productId: string) => void;
   accessMode?: "public" | "authenticated" | "shared" | "restricted";
+  initialPublicPricing?: import("../../Domain/Services/RecipePricing.service").RecipePricingResult | null;
 }
 
 interface IngredientWithPrice {
@@ -56,7 +57,8 @@ export default function RecipeDetailsMobile({
   onBack,
   onAddToList,
   onShare,
-  onProductClick
+  onProductClick,
+  initialPublicPricing
 }: RecipeDetailsMobileProps) {
   const [stepByStepMode, setStepByStepMode] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
@@ -75,8 +77,12 @@ export default function RecipeDetailsMobile({
   // Calculate scale factor for ingredient quantities
   const scaleFactor = 1; // For now, keep it simple
 
-  // Charger les vraies données depuis la DB
-  const { pricing, quality, tips, loading, error } = useRecipeData({ recipeId: recipe.id, userId });
+  // Charger les vraies données depuis la DB avec progressive enhancement
+  const { pricing, quality, tips, loading, error } = useRecipeData({
+    recipeId: recipe.id,
+    userId,
+    initialPublicPricing
+  });
 
   // Mapper les vraies données vers le format IngredientWithPrice
   const ingredientsWithPrice: IngredientWithPrice[] =
