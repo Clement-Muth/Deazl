@@ -75,4 +75,4 @@ packages/**/.turbo
 
 .github/runner
 
-.tsbuildinfo
+tsconfig.tsbuildinfo

@@ -8,6 +8,7 @@ interface RecipeIngredientProps {
   quantity: number;
   unit: string;
   order: number;
+  groupId?: string;
 }
 
 export class RecipeIngredient extends Entity<RecipeIngredientProps> {
@@ -23,6 +24,7 @@ export class RecipeIngredient extends Entity<RecipeIngredientProps> {
       quantity: number;
       unit: string;
       order?: number;
+      groupId?: string;
     },
     id?: string
   ): RecipeIngredient {
@@ -33,7 +35,8 @@ export class RecipeIngredient extends Entity<RecipeIngredientProps> {
         productName: props.productName,
         quantity: props.quantity,
         unit: props.unit,
-        order: props.order ?? 0
+        order: props.order ?? 0,
+        groupId: props.groupId
       },
       id
     );
@@ -67,6 +70,10 @@ export class RecipeIngredient extends Entity<RecipeIngredientProps> {
     return this.props.order;
   }
 
+  get groupId(): string | undefined {
+    return this.props.groupId;
+  }
+
   public withQuantity(quantity: number): RecipeIngredient {
     return new RecipeIngredient(
       {
@@ -97,6 +104,16 @@ export class RecipeIngredient extends Entity<RecipeIngredientProps> {
     );
   }
 
+  public withGroup(groupId: string | undefined): RecipeIngredient {
+    return new RecipeIngredient(
+      {
+        ...this.props,
+        groupId
+      },
+      this._id.toValue()
+    );
+  }
+
   public toObject() {
     return {
       id: this.id,
@@ -104,7 +121,8 @@ export class RecipeIngredient extends Entity<RecipeIngredientProps> {
       productName: this.productName,
       quantity: this.quantity,
       unit: this.unit,
-      order: this.order
+      order: this.order,
+      groupId: this.groupId
     };
   }
 }

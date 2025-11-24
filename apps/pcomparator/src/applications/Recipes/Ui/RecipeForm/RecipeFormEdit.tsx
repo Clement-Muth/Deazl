@@ -48,11 +48,13 @@ export const RecipeFormEdit = ({ recipe }: RecipeFormEditProps) => {
       unit: ing.unit,
       order: ing.order
     })),
+    ingredientGroups: recipe.ingredientGroups || [],
     steps: (recipe.steps || []).map((step) => ({
       stepNumber: step.stepNumber,
       description: step.description,
       duration: step.duration || undefined
-    }))
+    })),
+    stepGroups: recipe.stepGroups || []
   });
 
   const steps = [
@@ -118,7 +120,20 @@ export const RecipeFormEdit = ({ recipe }: RecipeFormEditProps) => {
         await uploadImage();
       }
 
-      await updateRecipe(recipe.id, formData);
+      // Clean up data before sending
+      const dataToSend = { ...formData };
+
+      // If using ingredient groups, clear simple ingredients array
+      if (dataToSend.ingredientGroups && dataToSend.ingredientGroups.length > 0) {
+        dataToSend.ingredients = [];
+      }
+
+      // If using step groups, clear simple steps array
+      if (dataToSend.stepGroups && dataToSend.stepGroups.length > 0) {
+        dataToSend.steps = [];
+      }
+
+      await updateRecipe(recipe.id, dataToSend);
       window.location.href = `/recipes/${recipe.id}`;
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
@@ -187,7 +202,17 @@ export const RecipeFormEdit = ({ recipe }: RecipeFormEditProps) => {
       return (formData.name && formData.name.trim().length > 0) || false;
     }
     if (currentStep === 2) {
-      return formData.ingredients.length > 0 && formData.ingredients.every((ing) => ing.productId);
+      // Check simple ingredients
+      const hasSimpleIngredients =
+        formData.ingredients.length > 0 && formData.ingredients.every((ing) => ing.productId);
+
+      // Check grouped ingredients
+      const hasGroupIngredients = (formData.ingredientGroups || []).some(
+        (group) =>
+          group.ingredients && group.ingredients.length > 0 && group.ingredients.every((ing) => ing.productId)
+      );
+
+      return hasSimpleIngredients || hasGroupIngredients;
     }
     return true;
   };
@@ -242,9 +267,11 @@ export const RecipeFormEdit = ({ recipe }: RecipeFormEditProps) => {
             >
               <RecipeIngredientsStep
                 ingredients={formData.ingredients}
+                ingredientGroups={formData.ingredientGroups}
                 onAddIngredient={addIngredient}
                 onRemoveIngredient={removeIngredient}
                 onUpdateIngredient={updateIngredient}
+                onGroupsChange={(groups) => setFormData({ ...formData, ingredientGroups: groups })}
               />
             </motion.div>
           )}
@@ -259,9 +286,11 @@ export const RecipeFormEdit = ({ recipe }: RecipeFormEditProps) => {
             >
               <RecipeStepsStep
                 steps={formData.steps}
+                stepGroups={formData.stepGroups}
                 onAddStep={addStep}
                 onRemoveStep={removeStep}
                 onUpdateStep={updateStep}
+                onGroupsChange={(groups) => setFormData({ ...formData, stepGroups: groups })}
               />
             </motion.div>
           )}
