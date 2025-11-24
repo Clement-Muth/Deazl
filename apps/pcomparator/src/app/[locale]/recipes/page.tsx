@@ -15,13 +15,11 @@ export async function generateMetadata({
   return getRecipesHubMetadata((locale || "en") as "en" | "fr");
 }
 
-async function RecipesPage({ params }: { params: Promise<{ locale: string }> }) {
+async function RecipesPage() {
   const session = await auth();
   const isAuthenticated = !!session?.user;
 
-  if (isAuthenticated) {
-    return <RecipeHub />;
-  }
+  if (isAuthenticated) return <RecipeHub />;
 
   const publicHubData = await getPublicHubData();
 

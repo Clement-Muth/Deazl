@@ -1,9 +1,12 @@
+import { v4 as uuidv4 } from "uuid";
 import { AuthenticationService } from "~/applications/Shared/Application/Services/Authentication.service";
 import { DomainError } from "~/applications/Shared/Domain/Core/DomainError";
 import { DataAccessError } from "~/applications/Shared/Domain/Core/Errors/ApplicationErrors";
+import { IngredientGroup } from "../../Domain/Entities/IngredientGroup.entity";
 import { Recipe } from "../../Domain/Entities/Recipe.entity";
 import { RecipeIngredient } from "../../Domain/Entities/RecipeIngredient.entity";
 import { RecipeStep } from "../../Domain/Entities/RecipeStep.entity";
+import { StepGroup } from "../../Domain/Entities/StepGroup.entity";
 import type { RecipeRepository, RecipeSearchFilters } from "../../Domain/Repositories/RecipeRepository";
 import type {
   CreateRecipePayload,
@@ -106,27 +109,103 @@ export class RecipeApplicationService {
 
       const savedRecipe = await this.repository.save(recipe);
 
-      const ingredients = data.ingredients.map((ing, index) =>
-        RecipeIngredient.create({
-          recipeId: savedRecipe.id,
-          productId: ing.productId,
-          productName: ing.productName,
-          quantity: ing.quantity,
-          unit: ing.unit,
-          order: ing.order ?? index
-        })
-      );
+      const allIngredients: RecipeIngredient[] = [];
+      let ingredientGroups: IngredientGroup[] = [];
 
-      const steps = data.steps.map((step) =>
-        RecipeStep.create({
-          recipeId: savedRecipe.id,
-          stepNumber: step.stepNumber,
-          description: step.description,
-          duration: step.duration ?? undefined
-        })
-      );
+      if (data.ingredientGroups && data.ingredientGroups.length > 0) {
+        ingredientGroups = data.ingredientGroups.map((group, groupIndex) => {
+          const groupId = uuidv4();
 
-      const recipeWithDetails = savedRecipe.withIngredients(ingredients).withSteps(steps);
+          const groupIngredients = group.ingredients.map((ing, ingIndex) =>
+            RecipeIngredient.create({
+              recipeId: savedRecipe.id,
+              productId: ing.productId,
+              productName: ing.productName,
+              quantity: ing.quantity,
+              unit: ing.unit,
+              order: ing.order ?? ingIndex,
+              groupId
+            })
+          );
+
+          allIngredients.push(...groupIngredients);
+
+          return IngredientGroup.create(
+            {
+              recipeId: savedRecipe.id,
+              name: group.name,
+              order: group.order ?? groupIndex,
+              ingredients: groupIngredients
+            },
+            groupId
+          );
+        });
+      }
+
+      if (data.ingredients && data.ingredients.length > 0) {
+        const flatIngredients = data.ingredients.map((ing, index) =>
+          RecipeIngredient.create({
+            recipeId: savedRecipe.id,
+            productId: ing.productId,
+            productName: ing.productName,
+            quantity: ing.quantity,
+            unit: ing.unit,
+            order: ing.order ?? index,
+            groupId: ing.groupId
+          })
+        );
+        allIngredients.push(...flatIngredients);
+      }
+
+      const allSteps: RecipeStep[] = [];
+      let stepGroups: StepGroup[] = [];
+
+      if (data.stepGroups && data.stepGroups.length > 0) {
+        stepGroups = data.stepGroups.map((group, groupIndex) => {
+          const groupId = uuidv4();
+
+          const groupSteps = group.steps.map((step) =>
+            RecipeStep.create({
+              recipeId: savedRecipe.id,
+              stepNumber: step.stepNumber,
+              description: step.description,
+              duration: step.duration ?? undefined,
+              groupId
+            })
+          );
+
+          allSteps.push(...groupSteps);
+
+          return StepGroup.create(
+            {
+              recipeId: savedRecipe.id,
+              name: group.name,
+              order: group.order ?? groupIndex,
+              steps: groupSteps
+            },
+            groupId
+          );
+        });
+      }
+
+      if (data.steps && data.steps.length > 0) {
+        const flatSteps = data.steps.map((step) =>
+          RecipeStep.create({
+            recipeId: savedRecipe.id,
+            stepNumber: step.stepNumber,
+            description: step.description,
+            duration: step.duration ?? undefined,
+            groupId: step.groupId
+          })
+        );
+        allSteps.push(...flatSteps);
+      }
+
+      const recipeWithDetails = savedRecipe
+        .withIngredients(allIngredients)
+        .withSteps(allSteps)
+        .withIngredientGroups(ingredientGroups)
+        .withStepGroups(stepGroups);
 
       return this.repository.save(recipeWithDetails);
     } catch (error) {
@@ -181,30 +260,106 @@ export class RecipeApplicationService {
 
       let updatedRecipe = recipe.withUpdates(cleanedData);
 
-      if (data.ingredients) {
-        const ingredients = data.ingredients.map((ing, index) =>
+      const allIngredients: RecipeIngredient[] = [];
+      let ingredientGroups: IngredientGroup[] = [];
+
+      if (data.ingredientGroups && data.ingredientGroups.length > 0) {
+        ingredientGroups = data.ingredientGroups.map((group, groupIndex) => {
+          const groupId = group.id ?? uuidv4();
+
+          const groupIngredients = group.ingredients.map((ing, ingIndex) =>
+            RecipeIngredient.create({
+              recipeId: recipe.id,
+              productId: ing.productId,
+              productName: ing.productName,
+              quantity: ing.quantity,
+              unit: ing.unit,
+              order: ing.order ?? ingIndex,
+              groupId
+            })
+          );
+
+          allIngredients.push(...groupIngredients);
+
+          return IngredientGroup.create(
+            {
+              recipeId: recipe.id,
+              name: group.name,
+              order: group.order ?? groupIndex,
+              ingredients: groupIngredients
+            },
+            groupId
+          );
+        });
+        updatedRecipe = updatedRecipe.withIngredientGroups(ingredientGroups);
+      }
+
+      if (data.ingredients && data.ingredients.length > 0) {
+        const flatIngredients = data.ingredients.map((ing, index) =>
           RecipeIngredient.create({
             recipeId: recipe.id,
             productId: ing.productId,
             productName: ing.productName,
             quantity: ing.quantity,
             unit: ing.unit,
-            order: ing.order ?? index
+            order: ing.order ?? index,
+            groupId: ing.groupId
           })
         );
-        updatedRecipe = updatedRecipe.withIngredients(ingredients);
+        allIngredients.push(...flatIngredients);
       }
 
-      if (data.steps) {
-        const steps = data.steps.map((step) =>
+      if (allIngredients.length > 0) {
+        updatedRecipe = updatedRecipe.withIngredients(allIngredients);
+      }
+
+      const allSteps: RecipeStep[] = [];
+      let stepGroups: StepGroup[] = [];
+
+      if (data.stepGroups && data.stepGroups.length > 0) {
+        stepGroups = data.stepGroups.map((group, groupIndex) => {
+          const groupId = group.id ?? uuidv4();
+
+          const groupSteps = group.steps.map((step) =>
+            RecipeStep.create({
+              recipeId: recipe.id,
+              stepNumber: step.stepNumber,
+              description: step.description,
+              duration: step.duration ?? undefined,
+              groupId
+            })
+          );
+
+          allSteps.push(...groupSteps);
+
+          return StepGroup.create(
+            {
+              recipeId: recipe.id,
+              name: group.name,
+              order: group.order ?? groupIndex,
+              steps: groupSteps
+            },
+            groupId
+          );
+        });
+        updatedRecipe = updatedRecipe.withStepGroups(stepGroups);
+      }
+
+      if (data.steps && data.steps.length > 0) {
+        const flatSteps = data.steps.map((step) =>
           RecipeStep.create({
             recipeId: recipe.id,
             stepNumber: step.stepNumber,
             description: step.description,
-            duration: step.duration ?? undefined
+            duration: step.duration ?? undefined,
+            groupId: step.groupId
           })
         );
-        updatedRecipe = updatedRecipe.withSteps(steps);
+        allSteps.push(...flatSteps);
+      }
+
+      if (allSteps.length > 0) {
+        updatedRecipe = updatedRecipe.withSteps(allSteps);
       }
 
       return this.repository.save(updatedRecipe);

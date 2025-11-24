@@ -4,9 +4,11 @@ import type { DifficultyLevel } from "../Schemas/Recipe.schema";
 import type { RecipePayload } from "../Schemas/Recipe.schema";
 import { RecipeVisibility, RecipeVisibilityStatus } from "../ValueObjects/RecipeVisibility.vo";
 import { ShareToken } from "../ValueObjects/ShareToken.vo";
+import type { IngredientGroup } from "./IngredientGroup.entity";
 import type { RecipeCollaborator } from "./RecipeCollaborator.entity";
 import type { RecipeIngredient } from "./RecipeIngredient.entity";
 import type { RecipeStep } from "./RecipeStep.entity";
+import type { StepGroup } from "./StepGroup.entity";
 
 interface RecipeProps {
   name: string;
@@ -27,6 +29,8 @@ interface RecipeProps {
   collaborators?: RecipeCollaborator[];
   ingredients: RecipeIngredient[];
   steps: RecipeStep[];
+  ingredientGroups?: IngredientGroup[];
+  stepGroups?: StepGroup[];
   createdAt?: Date;
   updatedAt?: Date;
   estimatedQualityScore?: number;
@@ -57,6 +61,8 @@ export class Recipe extends Entity<RecipeProps> {
       collaborators?: RecipeCollaborator[];
       ingredients?: RecipeIngredient[];
       steps?: RecipeStep[];
+      ingredientGroups?: IngredientGroup[];
+      stepGroups?: StepGroup[];
       estimatedQualityScore?: number;
     },
     id?: string
@@ -81,6 +87,8 @@ export class Recipe extends Entity<RecipeProps> {
         collaborators: props.collaborators || [],
         ingredients: props.ingredients || [],
         steps: props.steps || [],
+        ingredientGroups: props.ingredientGroups || [],
+        stepGroups: props.stepGroups || [],
         createdAt: new Date(),
         updatedAt: new Date(),
         estimatedQualityScore: props.estimatedQualityScore
@@ -143,6 +151,14 @@ export class Recipe extends Entity<RecipeProps> {
 
   get steps(): RecipeStep[] {
     return this.props.steps;
+  }
+
+  get ingredientGroups(): IngredientGroup[] {
+    return this.props.ingredientGroups || [];
+  }
+
+  get stepGroups(): StepGroup[] {
+    return this.props.stepGroups || [];
   }
 
   get createdAt(): Date | undefined {
@@ -283,6 +299,28 @@ export class Recipe extends Entity<RecipeProps> {
       {
         ...this.props,
         steps,
+        updatedAt: new Date()
+      },
+      this._id.toValue()
+    );
+  }
+
+  public withIngredientGroups(ingredientGroups: IngredientGroup[]): Recipe {
+    return new Recipe(
+      {
+        ...this.props,
+        ingredientGroups,
+        updatedAt: new Date()
+      },
+      this._id.toValue()
+    );
+  }
+
+  public withStepGroups(stepGroups: StepGroup[]): Recipe {
+    return new Recipe(
+      {
+        ...this.props,
+        stepGroups,
         updatedAt: new Date()
       },
       this._id.toValue()
@@ -487,6 +525,8 @@ export class Recipe extends Entity<RecipeProps> {
       tags: this.props.tags,
       viewsCount: this.props.viewsCount ?? 0,
       favoritesCount: this.props.favoritesCount ?? 0,
+      ingredientGroups: this.ingredientGroups.map((group) => group.toObject()),
+      stepGroups: this.stepGroups.map((group) => group.toObject()),
       ingredients: this.ingredients.map((ingredient) => ingredient.toObject()),
       steps: this.steps.map((step) => step.toObject()),
       createdAt: this.createdAt,

@@ -131,7 +131,7 @@ export default function RecipeDetailsMobile({
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen w-full">
       <RecipeDetailsMobileHeader
         recipe={recipe}
         userId={userId}
@@ -150,9 +150,12 @@ export default function RecipeDetailsMobile({
         <div className="px-4 space-y-6 mt-6">
           <RecipeDetailsMobileIngredients
             ingredientsWithPrice={ingredientsWithPrice}
+            ingredientGroups={recipe.ingredientGroups}
             scaleFactor={scaleFactor}
             onProductClick={onProductClick}
             recipeId={recipe.id}
+            pricing={pricing}
+            quality={quality}
           />
 
           <RecipeDetailsMobilePreparation

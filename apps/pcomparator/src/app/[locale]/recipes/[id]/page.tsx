@@ -63,9 +63,7 @@ export default async function RecipeDetailPage({
 
   const accessResult = await getRecipeWithAccess(recipeId, shareToken);
 
-  if (!accessResult.recipe) {
-    notFound();
-  }
+  if (!accessResult.recipe) notFound();
 
   if (!accessResult.hasAccess) {
     return <PrivateRecipeBanner recipeName={accessResult.recipe.name} />;
