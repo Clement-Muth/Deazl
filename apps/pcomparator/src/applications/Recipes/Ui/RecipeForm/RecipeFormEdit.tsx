@@ -10,8 +10,8 @@ import type { RecipePayload, UpdateRecipePayload } from "../../Domain/Schemas/Re
 import { RecipeBasicInfoStep } from "./RecipeBasicInfoStep";
 import { RecipeFormLayout } from "./RecipeFormLayout";
 import { RecipeFormNavigation } from "./RecipeFormNavigation";
-import { RecipeIngredientsStep } from "./RecipeIngredientsStep";
-import { RecipeStepsStep } from "./RecipeStepsStep";
+import { RecipeIngredientsStep } from "./RecipeIngredientsStepV2";
+import { RecipeStepsStep } from "./RecipeStepsStepV2";
 
 type Step = 1 | 2 | 3;
 

@@ -70,7 +70,7 @@ msgstr "(optimal)"
 
 #. placeholder {0}: showAlternatives ? "Hide" : "Show"
 #. placeholder {1}: item.alternatives.length
-#: src/applications/Recipes/Ui/RecipePricingSection.tsx
+#: src/applicationsJ/Recipes/Ui/RecipePricingSection.tsx
 msgid "{0} {1} alternative(s)"
 msgstr "{0} {1} alternative(s)"
 
@@ -265,14 +265,18 @@ msgstr "Ajouter un premier prix"
 msgid "Add GPS coordinates to stores for distance-based optimization"
 msgstr "Ajouter des coordonnées GPS aux magasins pour une optimisation basée sur la distance"
 
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
-#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStepV2.tsx
 msgid "Add Group"
 msgstr "Ajouter un groupe"
 
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
-msgid "Add ingredient"
+#: src/applications/Recipes/Ui/RecipeForm/RichTextEditor.tsx
+msgid "Add Image"
+msgstr "Ajouter une image"
+
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
+msgid "Add Ingredient"
 msgstr "Ajouter un ingrédient"
 
 #: src/applications/Pantry/Ui/PantryPage.tsx
@@ -319,9 +323,9 @@ msgstr "Ajouter un prix"
 msgid "Add price information"
 msgstr "Ajouter les informations sur le prix"
 
-#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
-#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
-msgid "Add step"
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStepV2.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStepV2.tsx
+msgid "Add Step"
 msgstr "Ajouter une étape"
 
 #: src/views/Home/components/HowItWorks/HowItWorksSection.tsx
@@ -354,6 +358,10 @@ msgstr "Ajouter au garde-manger"
 msgid "Add to Shopping List"
 msgstr "Ajouter à la liste"
 
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
+msgid "Add your ingredients one by one. For complex recipes, you can organize them into groups."
+msgstr "Ajoutez vos ingrédients un par un. Pour les recettes complexes, vous pouvez les organiser en groupes."
+
 #. placeholder {0}: result.stats.added
 #. placeholder {1}: result.stats.merged
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
@@ -367,6 +375,10 @@ msgstr "Ajuster les portions"
 #: src/applications/ShoppingLists/Ui/components/OptimizationPreferencesModal.tsx
 msgid "Adjust the importance of each criterion to customize the optimization algorithm. Weights are automatically normalized."
 msgstr "Ajustez l'importance de chaque critère pour personnaliser l'algorithme d'optimisation. Les poids sont automatiquement normalisés."
+
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "African"
+msgstr "Africain"
 
 #. placeholder {0}: recipes.length
 #: src/app/[locale]/recipes/my-recipes/MyRecipesPageClient.tsx
@@ -419,6 +431,10 @@ msgstr "Toujours utiliser le thème sombre"
 msgid "Always use light theme"
 msgstr "Toujours utiliser le thème clair"
 
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "American"
+msgstr "Américain"
+
 #: src/app/[locale]/error.tsx
 msgid "An error occurred"
 msgstr "Une erreur s'est produite"
@@ -465,6 +481,10 @@ msgstr "Toute personne disposant de ce lien peut voir la recette"
 msgid "Appearance"
 msgstr "Apparence"
 
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "Appetizer"
+msgstr "Entrée"
+
 #: src/applications/Recipes/Ui/RecipePricingSection.tsx
 #: src/applications/Recipes/Ui/RecipePricingSection.tsx
 msgid "Approximate price"
@@ -487,6 +507,10 @@ msgstr "Êtes-vous sûr de vouloir supprimer cet article ?"
 #: src/applications/Prices/Ui/ListPrices/CardPrice/DeletePriceModal/DeletePriceModal.tsx
 msgid "Are you sure you want to delete this price?"
 msgstr "Êtes-vous sûr de vouloir supprimer ce prix ?"
+
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "Asian"
+msgstr "Asiatique"
 
 #: src/applications/ShoppingLists/Ui/components/OptimizationPreferencesModal.tsx
 msgid "Availability"
@@ -572,6 +596,14 @@ msgstr "Meilleur prix"
 msgid "Best prices"
 msgstr "Meilleurs prix"
 
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "Beverage"
+msgstr "Boisson"
+
+#: src/applications/Recipes/Ui/RecipeForm/RichTextEditor.tsx
+msgid "Bold"
+msgstr "Gras"
+
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/AddStoreModal.tsx
 msgid "Both name and location are required"
 msgstr "Le nom et l'emplacement sont requis"
@@ -580,9 +612,17 @@ msgstr "Le nom et l'emplacement sont requis"
 msgid "Both store name and location are required"
 msgstr "Le nom et l'emplacement du magasin sont requis"
 
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "Breakfast"
+msgstr "Petit déjeuner"
+
 #: src/app/[locale]/recipes/content.tsx
 msgid "Browse thousands of recipes from the community"
 msgstr "Parcourez des milliers de recettes de la communauté"
+
+#: src/applications/Recipes/Ui/RecipeForm/RichTextEditor.tsx
+msgid "Bullet List"
+msgstr "Liste à puces"
 
 #: src/app/[locale]/auth/signin/Content.tsx
 msgid "By signing in, you agree to our <0>terms of service</0> and <1>privacy policy</1>."
@@ -658,9 +698,13 @@ msgstr "Catégorie"
 msgid "Centiliter (cl)"
 msgstr "Centilitre (cl)"
 
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
 msgid "Centiliters (cl)"
 msgstr "Centilitres (cl)"
+
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "Chinese"
+msgstr "Chinois"
 
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
 msgid "Choose a list"
@@ -1005,7 +1049,7 @@ msgstr "Création en cours..."
 msgid "Cuisine"
 msgstr "Cuisine"
 
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
 #: src/components/UnitSelector/UnitSelector.tsx
 #: src/components/UnitSelector/UnitSelector.tsx
 msgid "Cup"
@@ -1092,8 +1136,12 @@ msgstr "Supprimer mon compte personnel"
 msgid "Deleting this price will delete all of its data. You cannot undo this action."
 msgstr "La suppression de ce prix entraînera la suppression de toutes ses données. Vous ne pouvez pas annuler cette action."
 
-#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
-#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStepV2.tsx
+msgid "Describe each step of your recipe. For complex recipes, you can organize them into groups."
+msgstr "Décrivez chaque étape de votre recette. Pour les recettes complexes, vous pouvez les organiser en groupes."
+
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStepV2.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStepV2.tsx
 msgid "Describe this step in detail..."
 msgstr "Décrivez cette étape en détail..."
 
@@ -1101,6 +1149,10 @@ msgstr "Décrivez cette étape en détail..."
 #: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
 msgid "Description"
 msgstr "Description"
+
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "Dessert"
+msgstr "Dessert"
 
 #: src/applications/Recipes/Ui/RecipeQualitySection.tsx
 msgid "Detail by ingredient"
@@ -1177,10 +1229,22 @@ msgstr "Terminer"
 msgid "Drag and drop your file"
 msgstr "Drag and drop votre fichier"
 
-#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
-#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
-msgid "Duration (min)"
-msgstr "Durée (min)"
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStepV2.tsx
+msgid "Duplicate group"
+msgstr "Dupliquer le groupe"
+
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
+msgid "Duplicate ingredient"
+msgstr "Dupliquer l'ingrédient"
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStepV2.tsx
+msgid "Duplicate step"
+msgstr "Dupliquer l'étape"
+
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStepV2.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStepV2.tsx
+msgid "Duration (optional)"
+msgstr "Durée (optionnel)"
 
 #: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
 msgid "Duration:"
@@ -1190,7 +1254,7 @@ msgstr "Durée :"
 msgid "e.g., Carrefour, Auchan, etc."
 msgstr "ex. Carrefour, Auchan, etc."
 
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
 msgid "e.g., Dough, Filling, Sauce"
 msgstr "ex. Pâte, Garniture, Sauce"
 
@@ -1203,7 +1267,7 @@ msgstr "ex. Pommes bio"
 msgid "e.g., Paris, Lyon, etc."
 msgstr "ex. Paris, Lyon, etc."
 
-#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStepV2.tsx
 msgid "e.g., Preparation, Cooking, Finishing"
 msgstr "ex. Préparation, Cuisson, Finition"
 
@@ -1284,10 +1348,6 @@ msgstr "Enrichir"
 #: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
 msgid "Enrich All"
 msgstr "Tout enrichir"
-
-#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
-msgid "Enter a detailed description of your recipe. You can use multiple paragraphs."
-msgstr "Saisissez une description détaillée de votre recette. Vous pouvez utiliser plusieurs paragraphes."
 
 #: src/applications/Pantry/Ui/components/PantryAddForm.tsx
 msgid "Enter product name"
@@ -1386,16 +1446,8 @@ msgid "Everything included, for everyone"
 msgstr "Tout est inclus, pour tout le monde"
 
 #: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
-msgid "Ex: Appetizer, Main Course, Dessert"
-msgstr "Ex : Entrée, Plat principal, Dessert"
-
-#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
 msgid "Ex: Apple Pie"
 msgstr "Ex : Tarte aux pommes"
-
-#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
-msgid "Ex: Italian, French, Asian"
-msgstr "Ex : Italien, Français, Asiatique"
 
 #: src/app/[locale]/about/Content.tsx
 msgid "Excellence"
@@ -1532,6 +1584,10 @@ msgstr "Échec de la mise à jour du rôle"
 msgid "Failed to update shopping list"
 msgstr "Échec de la mise à jour de la liste de courses"
 
+#: src/applications/Recipes/Ui/RecipeForm/RichTextEditor.tsx
+msgid "Failed to upload image"
+msgstr "Échec du téléchargement de l'image"
+
 #: src/components/Footer/Footer.tsx
 msgid "FAQ"
 msgstr "FAQ"
@@ -1585,6 +1641,10 @@ msgstr "Format : quantité unité produit prix"
 msgid "Founded in 2024, Deazl is the result of a collaboration between technology enthusiasts and consumers frustrated by the lack of price transparency in retail."
 msgstr "Fondé en 2024, Deazl est le résultat d'une collaboration entre des passionnés de technologie et des consommateurs frustrés par le manque de transparence des prix dans le commerce de détail."
 
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "French"
+msgstr "Français"
+
 #: src/app/[locale]/pricing/Content.tsx
 msgid "Frequently Asked Questions"
 msgstr "Questions Fréquemment Posées"
@@ -1592,6 +1652,10 @@ msgstr "Questions Fréquemment Posées"
 #: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
 msgid "Full List"
 msgstr "Liste complète"
+
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "Fusion"
+msgstr "Fusion"
 
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step1/PriceDetails.tsx
 msgid "Gallery"
@@ -1660,27 +1724,34 @@ msgstr "Gramme"
 msgid "Gram (g)"
 msgstr "Gramme (g)"
 
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
 msgid "Grams (g)"
 msgstr "Grammes (g)"
 
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
-#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStepV2.tsx
 msgid "Group Name"
 msgstr "Nom du groupe"
 
-#: src/applications/Recipes/Ui/RecipeForm/ModeToggleHelp.tsx
-msgid "Group your ingredients by category (e.g., \"Dough\", \"Filling\", \"Sauce\") for better readability."
-msgstr "Regroupez vos ingrédients par catégorie (par exemple, \"Pâte\", \"Garniture\", \"Sauce\") pour une meilleure lisibilité."
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
+msgid "Group your ingredients by category (e.g., Dough, Filling, Sauce). This helps organize complex recipes."
+msgstr "Regroupez vos ingrédients par catégorie (par exemple, Pâte, Garniture, Sauce). Cela aide à organiser les recettes complexes."
 
-#: src/applications/Recipes/Ui/RecipeForm/ModeToggleHelp.tsx
-msgid "Group your steps by phase (e.g., \"Preparation\", \"Cooking\", \"Assembly\") to structure your recipe."
-msgstr "Regroupez vos étapes par phase (par exemple, \"Préparation\", \"Cuisson\", \"Assemblage\") pour structurer votre recette."
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStepV2.tsx
+msgid "Group your steps by phase (e.g., Preparation, Cooking, Finishing). This helps structure complex recipes."
+msgstr "Regroupez vos étapes par phase (par exemple, Préparation, Cuisson, Finition). Cela aide à structurer les recettes complexes."
 
 #: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
 msgid "Hard"
 msgstr "Difficile"
 
+#: src/applications/Recipes/Ui/RecipeForm/RichTextEditor.tsx
+msgid "Heading 2"
+msgstr "Titre 2"
+
+#: src/applications/Recipes/Ui/RecipeForm/RichTextEditor.tsx
+msgid "Heading 3"
+msgstr "Titre 3"
 #: src/applications/Prices/Ui/ListPrices/CardPrice/SeeMoreMenu/SeeMoreModal.tsx
 msgid "Health"
 msgstr "Santé"
@@ -1804,6 +1875,10 @@ msgstr "En cours"
 msgid "Incomplete"
 msgstr "Incomplet"
 
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "Indian"
+msgstr "Indien"
+
 #: src/applications/Recipes/Ui/RecipeForm/RecipeFormEdit.tsx
 msgid "Information"
 msgstr "Informations"
@@ -1817,7 +1892,8 @@ msgstr "Répartition des ingrédients"
 #: src/applications/Recipes/Ui/RecipeDetails/RecipeIngredientsWithPricing.tsx
 #: src/applications/Recipes/Ui/RecipeForm/RecipeFormCreate.tsx
 #: src/applications/Recipes/Ui/RecipeForm/RecipeFormEdit.tsx
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
 msgid "Ingredients"
 msgstr "Ingrédients"
 
@@ -1858,6 +1934,13 @@ msgstr "Inviter des personnes"
 msgid "Irreversible and destructive actions"
 msgstr "Actions irréversibles et destructrices"
 
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "Italian"
+msgstr "Italien"
+
+#: src/applications/Recipes/Ui/RecipeForm/RichTextEditor.tsx
+msgid "Italic"
+msgstr "Italique"
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/useQuickAdd.tsx
 msgid "Item added"
 msgstr "Article ajouté"
@@ -1885,6 +1968,10 @@ msgstr "articles"
 #: src/applications/Dashboard/Ui/StatsCards.tsx
 msgid "Items Completed"
 msgstr "Articles terminés"
+
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "Japanese"
+msgstr "Japonais"
 
 #: src/app/[locale]/features/Content.tsx
 msgid "Join our community and start enjoying all our features for free."
@@ -1918,7 +2005,7 @@ msgstr "Kilogramme"
 msgid "Kilogram (kg)"
 msgstr "Kilogramme (kg)"
 
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
 msgid "Kilograms (kg)"
 msgstr "Kilogrammes (kg)"
 
@@ -1996,7 +2083,7 @@ msgstr "Litre"
 msgid "Liter (l)"
 msgstr "Litre (l)"
 
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
 msgid "Liters (l)"
 msgstr "Litres (l)"
 
@@ -2046,6 +2133,10 @@ msgstr "Le plus bas"
 msgid "Made with ❤️ in France"
 msgstr "Fabriqué avec ❤️ en France"
 
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "Main Course"
+msgstr "Plat principal"
+
 #: src/app/[locale]/features/Content.tsx
 msgid "Major chains and local stores"
 msgstr "Grandes chaînes et magasins locaux"
@@ -2093,9 +2184,20 @@ msgid "Maybe later"
 msgstr "Peut-être plus tard"
 
 #: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "Mediterranean"
+msgstr "Méditerranéen"
+
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
 msgid "Medium"
 msgstr "Moyen"
 
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "Mexican"
+msgstr "Mexicain"
+
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "Middle Eastern"
+msgstr "Moyen-Oriental"
 #: src/applications/Products/Ui/AddToListModal.tsx
 #: src/applications/Products/Ui/AddToPantryModal.tsx
 msgid "Milliliter"
@@ -2107,7 +2209,7 @@ msgstr "Millilitre"
 msgid "Milliliter (ml)"
 msgstr "Millilitre (ml)"
 
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
 msgid "Milliliters (ml)"
 msgstr "Millilitres (ml)"
 
@@ -2349,15 +2451,14 @@ msgstr "Optionnel"
 msgid "Or search manually"
 msgstr "Ou recherchez manuellement"
 
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
-#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
-msgid "Organized"
-msgstr "Organisé"
+#: src/applications/Recipes/Ui/RecipeForm/RichTextEditor.tsx
+msgid "Ordered List"
+msgstr "Liste ordonnée"
 
-#: src/applications/Recipes/Ui/RecipeForm/ModeToggleHelp.tsx
-#: src/applications/Recipes/Ui/RecipeForm/ModeToggleHelp.tsx
-msgid "Organized Mode"
-msgstr "Mode organisé"
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStepV2.tsx
+msgid "Organize in Groups"
+msgstr "Organiser en groupes"
 
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/RecipeGroup.tsx
 msgid "Other items"
@@ -2439,7 +2540,7 @@ msgstr "Numéro de téléphone"
 msgid "Phone number updated"
 msgstr "Numéro de téléphone mis à jour"
 
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
 msgid "Piece"
 msgstr "Pièce"
 
@@ -2447,7 +2548,7 @@ msgstr "Pièce"
 msgid "Piece(s)"
 msgstr "Pièce(s)"
 
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
 #: src/components/UnitSelector/UnitSelector.tsx
 #: src/components/UnitSelector/UnitSelector.tsx
 msgid "Pinch"
@@ -2546,7 +2647,8 @@ msgstr "Préparation"
 msgid "Preparation (min)"
 msgstr "Préparation (min)"
 
-#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStepV2.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStepV2.tsx
 msgid "Preparation Steps"
 msgstr "Étapes de préparation"
 
@@ -2878,7 +2980,8 @@ msgstr "Produits référencés"
 msgid "Remove all from recipe"
 msgstr "Supprimer tout de la recette"
 
-#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStepV2.tsx
 msgid "Remove group"
 msgstr "Supprimer le groupe"
 
@@ -2886,8 +2989,12 @@ msgstr "Supprimer le groupe"
 msgid "Remove image"
 msgstr "Supprimer l'image"
 
-#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
-#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
+msgid "Remove ingredient"
+msgstr "Supprimer l'ingrédient"
+
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStepV2.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStepV2.tsx
 msgid "Remove step"
 msgstr "Supprimer l'étape"
 
@@ -2905,6 +3012,10 @@ msgstr "Retourner à l'application"
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
 msgid "Role updated"
 msgstr "Rôle mis à jour"
+
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "Salad"
+msgstr "Salade"
 
 #: src/applications/Pantry/Ui/components/PantryEditForm.tsx
 #: src/applications/Profile/Ui/Settings/FavoriteStores/components/FavoriteStoresModal.tsx
@@ -2959,8 +3070,8 @@ msgstr "Recherche"
 msgid "Search by name..."
 msgstr "Rechercher par nom..."
 
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
 msgid "Search for a product..."
 msgstr "Rechercher un produit..."
 
@@ -2982,6 +3093,13 @@ msgstr "Recherchez des recettes..."
 msgid "See all"
 msgstr "Voir tout"
 
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "Select a category"
+msgstr "Sélectionnez une catégorie"
+
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "Select a cuisine"
+msgstr "Sélectionnez une cuisine"
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/ProductSelectionModal.tsx
 msgid "Select a price and store"
 msgstr "Sélectionnez un prix et un magasin"
@@ -3014,11 +3132,6 @@ msgstr "Sélectionner la liste de courses"
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step2/Location.tsx
 msgid "Select store"
 msgstr "Sélectionnez le magasin"
-
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
-msgid "Select unit"
-msgstr "Sélectionnez l'unité"
 
 #: src/applications/Profile/Ui/Settings/FavoriteStores/components/FavoriteStoresModal.tsx
 msgid "Select your favorite stores. When no specific store is selected, prices from these stores will be prioritized."
@@ -3118,6 +3231,10 @@ msgstr "Optimisation des courses"
 msgid "Show nutrition details"
 msgstr "Afficher les détails nutritionnels"
 
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "Side Dish"
+msgstr "Accompagnement"
+
 #: src/app/[locale]/auth/signin/Content.tsx
 msgid "Sign in"
 msgstr "Se connecter"
@@ -3146,11 +3263,6 @@ msgstr "Se déconnecter"
 msgid "Simple and powerful tools"
 msgstr "Outils simples et puissants"
 
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
-#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
-msgid "Simple List"
-msgstr "Liste simple"
-
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
 msgid "Smart Merge Preview"
 msgstr "Aperçu de la fusion intelligente"
@@ -3167,9 +3279,17 @@ msgstr "Recettes intelligentes avec des prix réels, une qualité nutritionnelle
 msgid "Smart shopping lists"
 msgstr "Listes de courses intelligentes"
 
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "Snack"
+msgstr "En-cas"
+
 #: src/app/[locale]/recipes/explore/content.tsx
 msgid "Sort by"
 msgstr "Trier par"
+
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "Soup"
+msgstr "Soupe"
 
 #: src/applications/Recipes/Ui/components/CookingStepScreen.tsx
 #: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
@@ -3196,6 +3316,10 @@ msgstr "Commencez à économiser en quelques étapes simples. Plus besoin de cou
 #: src/applications/Pantry/Ui/PantryPage.tsx
 msgid "Start tracking your food to reduce waste"
 msgstr "Commencez à suivre vos aliments pour réduire le gaspillage"
+
+#: src/applications/Recipes/Ui/RecipeForm/RichTextEditor.tsx
+msgid "Start typing your description..."
+msgstr "Commencez à taper votre description..."
 
 #: src/views/Home/components/Stats/StatsSection.tsx
 msgid "Statistics"
@@ -3305,12 +3429,17 @@ msgstr "Balayez vers la gauche ou appuyez pour terminer"
 msgid "Swipe to navigate"
 msgstr "Glissez pour naviguer"
 
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStepV2.tsx
+msgid "Switch to Simple List"
+msgstr "Passer à la liste simple"
+
 #: src/applications/Profile/Ui/Settings/Theme.tsx
 #: src/components/ThemeSwitcher/ThemeSwitcher.tsx
 msgid "System"
 msgstr "Système"
 
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
 #: src/components/UnitSelector/UnitSelector.tsx
 #: src/components/UnitSelector/UnitSelector.tsx
 msgid "Tablespoon (tbsp)"
@@ -3332,7 +3461,7 @@ msgstr "Prenez ou téléchargez une photo de votre recette"
 msgid "Take Photo"
 msgstr "Prendre une photo"
 
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
 #: src/components/UnitSelector/UnitSelector.tsx
 #: src/components/UnitSelector/UnitSelector.tsx
 msgid "Teaspoon (tsp)"
@@ -3451,11 +3580,6 @@ msgstr "Cet utilisateur est déjà un collaborateur de cette liste."
 msgid "This user is already a collaborator on this recipe."
 msgstr "Cet utilisateur est déjà un collaborateur de cette recette."
 
-#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
-#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
-msgid "Time"
-msgstr "Durée"
-
 #: src/applications/Recipes/Ui/components/CookingStepScreen.tsx
 msgid "Timer finished!"
 msgstr "Minuteur terminé !"
@@ -3508,6 +3632,10 @@ msgstr "Prix total"
 #: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
 msgid "Total prices"
 msgstr "Prix totaux"
+
+#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileIngredients.tsx
+msgid "Total:"
+msgstr "Total :"
 
 #: src/views/Home/components/Hero/HeroSection.tsx
 msgid "Totally free and open source"
@@ -3599,9 +3727,9 @@ msgstr "Non autorisé"
 #: src/applications/Products/Ui/AddToListModal.tsx
 #: src/applications/Products/Ui/AddToPantryModal.tsx
 #: src/applications/Products/Ui/AddToPantryModal.tsx
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
 #: src/components/UnitSelector/UnitSelector.tsx
 msgid "Unit"
 msgstr "Unité"
@@ -3752,6 +3880,13 @@ msgstr "Sans coordonnées"
 msgid "World Cuisines"
 msgstr "Cuisines du monde"
 
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "Write a detailed description of your recipe. Use formatting to make it clear and SEO-friendly."
+msgstr "Rédigez une description détaillée de votre recette. Utilisez la mise en forme pour la rendre claire et optimisée pour le référencement."
+
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "You can format text with bold, italic, headings, and lists for better readability and SEO."
+msgstr "Vous pouvez formater le texte avec du gras, de l'italique, des titres et des listes pour une meilleure lisibilité et un meilleur référencement."
 #: src/components/Inputs/File/useFileHandler.ts
 msgid "You can only add a maximum of {maxFile} files"
 msgstr "Vous ne pouvez ajouter que {maxFile} fichiers maximum"
@@ -3759,10 +3894,6 @@ msgstr "Vous ne pouvez ajouter que {maxFile} fichiers maximum"
 #: src/app/[locale]/pricing/Content.tsx
 msgid "You can support Deazl by contributing code, reporting bugs, suggesting improvements, or making a donation to help cover hosting costs."
 msgstr "Vous pouvez soutenir Deazl en contribuant du code, en signalant des bogues, en suggérant des améliorations ou en faisant un don pour aider à couvrir les coûts d'hébergement."
-
-#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
-msgid "You can write multiple lines and paragraphs"
-msgstr "Vous pouvez écrire plusieurs lignes et paragraphes"
 
 #: src/applications/Products/Ui/AddToListModal.tsx
 msgid "You don't have any shopping lists yet"
