@@ -59,7 +59,10 @@ export function getRecipeMetadata(
   const t = translations[locale];
 
   const title = t.recipeTitle(params.recipeName);
-  const description = t.recipeDescription(params);
+  const description = t
+    .recipeDescription(params)
+    .replace(/<[^>]*>/g, "")
+    .trim();
   const url = `https://deazl.app/${locale}/recipes/${params.recipeId}`;
 
   return {
@@ -83,8 +86,8 @@ export function getRecipeMetadata(
       type: "article" as const,
       ...(params.isPublic && {
         locale: locale === "fr" ? "fr_FR" : "en_US",
-        publishedTime: params.createdAt?.toISOString(),
-        modifiedTime: params.updatedAt?.toISOString(),
+        publishedTime: new Date(params.createdAt as any).toISOString(),
+        modifiedTime: new Date(params.updatedAt as any).toISOString(),
         tags: params.tags || []
       })
     },
