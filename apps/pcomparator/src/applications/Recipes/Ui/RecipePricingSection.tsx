@@ -40,7 +40,7 @@ export function RecipePricingSection({ recipeId, userId, className }: RecipePric
           setPricingData(result);
         }
       } catch (err) {
-        setError(t`Erreur lors du chargement des prix`);
+        setError(t`Error loading prices`);
         console.error(err);
       } finally {
         setLoading(false);
@@ -56,7 +56,7 @@ export function RecipePricingSection({ recipeId, userId, className }: RecipePric
         <CardBody className="flex items-center justify-center py-12">
           <Spinner size="lg" />
           <p className="mt-4 text-gray-600">
-            <Trans>Calcul des prix en cours...</Trans>
+            <Trans>Price calculation in progress...</Trans>
           </p>
         </CardBody>
       </Card>
@@ -84,7 +84,7 @@ export function RecipePricingSection({ recipeId, userId, className }: RecipePric
       <CardHeader className="flex flex-col gap-3">
         <div className="flex items-center justify-between w-full">
           <h3 className="text-2xl font-bold">
-            <Trans>Prix de la recette</Trans>
+            <Trans>Recipe price</Trans>
           </h3>
 
           {userId && (
@@ -94,14 +94,14 @@ export function RecipePricingSection({ recipeId, userId, className }: RecipePric
                 color={viewMode === "user" ? "primary" : "default"}
                 onPress={() => setViewMode("user")}
               >
-                <Trans>Mon prix</Trans>
+                <Trans>My price</Trans>
               </Button>
               <Button
                 size="sm"
                 color={viewMode === "public" ? "primary" : "default"}
                 onPress={() => setViewMode("public")}
               >
-                <Trans>Prix moyen</Trans>
+                <Trans>Average price</Trans>
               </Button>
             </div>
           )}
@@ -111,19 +111,19 @@ export function RecipePricingSection({ recipeId, userId, className }: RecipePric
           <span className="text-4xl font-bold text-primary">{totals.optimizedMix.toFixed(2)} €</span>
           {mode === "user" && (
             <Chip size="sm" color="success" variant="flat">
-              <Trans>Optimisé</Trans>
+              <Trans>Optimized</Trans>
             </Chip>
           )}
           {confidence < 0.8 && (
             <Chip size="sm" color="warning" variant="flat">
-              <Trans>Prix approximatif</Trans>
+              <Trans>Approximate price</Trans>
             </Chip>
           )}
         </div>
 
         {missingCount > 0 && (
           <Chip size="sm" color="danger" variant="flat">
-            <Trans>{missingCount} ingrédient(s) sans prix</Trans>
+            <Trans>{missingCount} ingredient(s) without price</Trans>
           </Chip>
         )}
       </CardHeader>
@@ -132,7 +132,7 @@ export function RecipePricingSection({ recipeId, userId, className }: RecipePric
         {/* Détail par ingrédient */}
         <div>
           <h4 className="text-lg font-semibold mb-3">
-            <Trans>Détail par ingrédient</Trans>
+            <Trans>Ingredient breakdown</Trans>
           </h4>
 
           <div className="space-y-3">
@@ -146,7 +146,7 @@ export function RecipePricingSection({ recipeId, userId, className }: RecipePric
         {totals.perStore.length > 0 && (
           <div>
             <h4 className="text-lg font-semibold mb-3">
-              <Trans>Prix par magasin</Trans>
+              <Trans>Price per store</Trans>
             </h4>
 
             <Accordion variant="bordered">
@@ -169,11 +169,11 @@ export function RecipePricingSection({ recipeId, userId, className }: RecipePric
                 >
                   <div className="space-y-2 text-sm">
                     <p>
-                      <Trans>{store.itemCount} produits disponibles</Trans>
+                      <Trans>{store.itemCount} products available</Trans>
                     </p>
                     {store.missingCount > 0 && (
                       <p className="text-red-600">
-                        <Trans>{store.missingCount} produits manquants</Trans>
+                        <Trans>{store.missingCount} missing products</Trans>
                       </p>
                     )}
                   </div>
@@ -185,7 +185,7 @@ export function RecipePricingSection({ recipeId, userId, className }: RecipePric
 
         {/* Confiance */}
         <div className="text-sm text-gray-600">
-          <Trans>Confiance des prix : {(confidence * 100).toFixed(0)}%</Trans>
+          <Trans>Price confidence: {(confidence * 100).toFixed(0)}%</Trans>
         </div>
       </CardBody>
     </Card>
@@ -208,7 +208,7 @@ function IngredientPricingItem({ item }: { item: IngredientPricingBreakdown }) {
           </p>
         </div>
         <Chip size="sm" color="danger" variant="flat">
-          <Trans>Non disponible</Trans>
+          <Trans>Not available</Trans>
         </Chip>
       </div>
     );
@@ -244,7 +244,7 @@ function IngredientPricingItem({ item }: { item: IngredientPricingBreakdown }) {
         <div className="mt-2">
           <Button size="sm" variant="light" onPress={() => setShowAlternatives(!showAlternatives)}>
             <Trans>
-              {showAlternatives ? "Masquer" : "Voir"} {item.alternatives.length} alternative(s)
+              {showAlternatives ? "Hide" : "Show"} {item.alternatives.length} alternative(s)
             </Trans>
           </Button>
 
@@ -272,7 +272,7 @@ function IngredientPricingItem({ item }: { item: IngredientPricingBreakdown }) {
       {/* Confiance */}
       {item.selected.confidence < 0.8 && (
         <Chip size="sm" color="warning" variant="flat" className="mt-2">
-          <Trans>Prix approximatif</Trans>
+          <Trans>Approximate price</Trans>
         </Chip>
       )}
     </div>

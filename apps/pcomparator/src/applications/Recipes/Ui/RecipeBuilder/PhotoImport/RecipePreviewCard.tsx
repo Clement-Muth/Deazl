@@ -57,7 +57,7 @@ export function RecipePreviewCard({ recipe, onEdit, onSave }: RecipePreviewCardP
                     : "danger"
               }
             >
-              <Trans>{recipe.difficulty}</Trans>
+              {recipe.difficulty}
             </Chip>
           )}
         </div>

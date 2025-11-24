@@ -102,10 +102,10 @@ export default function RecipeDetailsMobilePreparation({
               </div>
               <div>
                 <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-                  <Trans>Préparation</Trans>
+                  <Trans>Preparation</Trans>
                 </h2>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
-                  {recipe.steps?.length || 0} <Trans>étapes</Trans>
+                  {recipe.steps?.length || 0} <Trans>steps</Trans>
                 </p>
               </div>
             </div>
@@ -118,7 +118,7 @@ export default function RecipeDetailsMobilePreparation({
               onPress={() => router.push(`/recipes/${recipe.id}/cook`)}
               className="font-semibold hover:scale-105 transition-transform"
             >
-              <Trans>Mode Cuisine</Trans>
+              <Trans>Cooking Mode</Trans>
             </Button>
           </div>
 
@@ -131,7 +131,7 @@ export default function RecipeDetailsMobilePreparation({
               onPress={() => setStepByStepMode(false)}
               className="flex-1 font-medium transition-all"
             >
-              <Trans>Liste complète</Trans>
+              <Trans>Full List</Trans>
             </Button>
             <Button
               size="md"
@@ -140,7 +140,7 @@ export default function RecipeDetailsMobilePreparation({
               onPress={() => setStepByStepMode(true)}
               className="flex-1 font-medium transition-all"
             >
-              <Trans>Étape par étape</Trans>
+              <Trans>Step-by-step</Trans>
             </Button>
           </div>
 
@@ -154,11 +154,11 @@ export default function RecipeDetailsMobilePreparation({
                     {currentStep + 1} / {recipe.steps.length}
                   </Chip>
                   <span className="text-sm text-gray-600 dark:text-gray-400">
-                    <Trans>Étape actuelle</Trans>
+                    <Trans>Current Step</Trans>
                   </span>
                 </div>
                 <Chip size="sm" color="success" variant="dot" className="font-medium">
-                  {Object.values(stepsCompleted).filter(Boolean).length} <Trans>terminées</Trans>
+                  {Object.values(stepsCompleted).filter(Boolean).length} <Trans>completed</Trans>
                 </Chip>
               </div>
 
@@ -206,7 +206,9 @@ export default function RecipeDetailsMobilePreparation({
                             {timer.isFinished ? (
                               <div className="flex items-center justify-center gap-2">
                                 <Check className="w-8 h-8" />
-                                <span>Terminé !</span>
+                                <span>
+                                  <Trans>Finished!</Trans>
+                                </span>
                               </div>
                             ) : (
                               formatTime(timer.timeLeft)
@@ -226,7 +228,7 @@ export default function RecipeDetailsMobilePreparation({
                             }
                             className="flex-1 font-semibold hover:scale-105 transition-transform"
                           >
-                            {timer.isRunning ? t`Pause` : t`Démarrer`}
+                            {timer.isRunning ? t`Pause` : t`Start`}
                           </Button>
                           <Button
                             size="lg"
@@ -241,7 +243,7 @@ export default function RecipeDetailsMobilePreparation({
 
                         <p className="text-sm text-gray-600 dark:text-gray-400 text-center flex items-center justify-center gap-2">
                           <Clock className="w-4 h-4" />
-                          <Trans>Durée:</Trans> {recipe.steps[currentStep].duration} min
+                          <Trans>Duration:</Trans> {recipe.steps[currentStep].duration} min
                         </p>
                       </div>
                     )}
@@ -253,7 +255,7 @@ export default function RecipeDetailsMobilePreparation({
                         color="default"
                         startContent={<Clock className="w-4 h-4" />}
                       >
-                        <Trans>Pas de minuteur pour cette étape</Trans>
+                        <Trans>No timer for this step</Trans>
                       </Chip>
                     )}
                   </div>
@@ -270,7 +272,7 @@ export default function RecipeDetailsMobilePreparation({
                   startContent={<ChevronLeft className="w-4 h-4" />}
                   className="flex-1"
                 >
-                  <Trans>Précédent</Trans>
+                  <Trans>Previous</Trans>
                 </Button>
                 <Button
                   size="sm"
@@ -283,9 +285,7 @@ export default function RecipeDetailsMobilePreparation({
                     ) : undefined
                   }
                 >
-                  {recipe.steps && stepsCompleted[recipe.steps[currentStep].id]
-                    ? t`Fait`
-                    : t`Marquer terminé`}
+                  {recipe.steps && stepsCompleted[recipe.steps[currentStep].id] ? t`Done` : t`Mark as done`}
                 </Button>
                 <Button
                   size="sm"
@@ -295,7 +295,7 @@ export default function RecipeDetailsMobilePreparation({
                   endContent={<ChevronRight className="w-4 h-4" />}
                   className="flex-1"
                 >
-                  <Trans>Suivant</Trans>
+                  <Trans>Next</Trans>
                 </Button>
               </div>
             </div>

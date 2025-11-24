@@ -76,8 +76,8 @@ export default function RecipeDetailsMobileNutrition({
 
   const getQualityLabel = (score: number) => {
     if (score >= 80) return t`Excellent`;
-    if (score >= 60) return t`Bon`;
-    return t`À améliorer`;
+    if (score >= 60) return t`Good`;
+    return t`To improve`;
   };
 
   const getLabelColor = (label: string) => {
@@ -120,10 +120,10 @@ export default function RecipeDetailsMobileNutrition({
             </div>
             <div>
               <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-                <Trans>Qualité nutritionnelle</Trans>
+                <Trans>Nutrition quality</Trans>
               </h2>
               <p className="text-xs text-gray-500 dark:text-gray-400">
-                <Trans>Analyse complète</Trans>
+                <Trans>Comprehensive analysis</Trans>
               </p>
             </div>
           </div>
@@ -192,10 +192,10 @@ export default function RecipeDetailsMobileNutrition({
                 </Chip>
                 <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
                   {qualityScore >= 80
-                    ? t`Cette recette est excellente pour votre santé`
+                    ? t`This recipe is excellent for your health`
                     : qualityScore >= 60
-                      ? t`Cette recette est bonne avec quelques améliorations possibles`
-                      : t`Cette recette pourrait être améliorée`}
+                      ? t`This recipe is good with some possible improvements`
+                      : t`This recipe could be improved`}
                 </p>
               </div>
             </div>
@@ -240,7 +240,7 @@ export default function RecipeDetailsMobileNutrition({
             <div className="mb-5 space-y-3">
               <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
                 <AlertCircle className="w-4 h-4" />
-                <Trans>Points d'attention</Trans>
+                <Trans>Points of attention</Trans>
               </p>
               {quality.nutritionalAlerts.map((alert, idx) => {
                 const isDanger = alert.severity === "danger";
@@ -264,11 +264,11 @@ export default function RecipeDetailsMobileNutrition({
                       <div className="flex-1">
                         <p className={`text-sm font-bold ${iconColor} mb-1`}>
                           {alert.type === "salt" ? (
-                            <Trans>Teneur en sel élevée</Trans>
+                            <Trans>High salt content</Trans>
                           ) : alert.type === "sugar" ? (
-                            <Trans>Teneur en sucre élevée</Trans>
+                            <Trans>High sugar content</Trans>
                           ) : (
-                            <Trans>Graisses saturées élevées</Trans>
+                            <Trans>High saturated fat content</Trans>
                           )}
                         </p>
                         <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
@@ -313,7 +313,7 @@ export default function RecipeDetailsMobileNutrition({
           {quality?.allergens && quality.allergens.length > 0 && (
             <div className="mb-4">
               <p className="text-xs font-medium text-gray-700 dark:text-gray-300 mb-2">
-                <Trans>Allergènes :</Trans>
+                <Trans>Allergens:</Trans>
               </p>
               <div className="flex flex-wrap gap-1.5">
                 {quality.allergens.map((allergen) => (
@@ -329,7 +329,7 @@ export default function RecipeDetailsMobileNutrition({
           {quality?.recommendations && quality.recommendations.length > 0 && (
             <div className="space-y-2 mb-3">
               <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                <Trans>Suggestions d'amélioration :</Trans>
+                <Trans>Improvement suggestions:</Trans>
               </p>
               <div className="space-y-2">
                 {quality.recommendations.slice(0, 3).map((rec, idx) => {
@@ -360,7 +360,7 @@ export default function RecipeDetailsMobileNutrition({
                             {rec.suggestion}
                           </p>
                           <p className="text-xs text-gray-600 dark:text-gray-400 mt-0.5">
-                            <Trans>Amélioration de +{rec.expectedQualityGain} points</Trans>
+                            <Trans>Improvement of +{rec.expectedQualityGain} points</Trans>
                           </p>
                         </div>
                       </div>

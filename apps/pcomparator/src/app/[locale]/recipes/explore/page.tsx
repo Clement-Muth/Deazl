@@ -6,3 +6,5 @@ const RecipeExplorePage = () => {
 };
 
 export default withLinguiPage(RecipeExplorePage);
+
+export const dynamic = "force-dynamic";

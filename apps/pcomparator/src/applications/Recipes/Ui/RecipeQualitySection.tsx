@@ -54,7 +54,7 @@ export function RecipeQualitySection({ recipeId, className }: RecipeQualitySecti
         <CardBody className="flex items-center justify-center py-12">
           <Spinner size="lg" />
           <p className="mt-4 text-gray-600">
-            <Trans>Calcul de la qualité...</Trans>
+            <Trans>Quality calculation...</Trans>
           </p>
         </CardBody>
       </Card>
@@ -65,7 +65,7 @@ export function RecipeQualitySection({ recipeId, className }: RecipeQualitySecti
     return (
       <Card className={className}>
         <CardBody className="flex items-center justify-center py-12">
-          <p className="text-red-600">{error || "Données non disponibles"}</p>
+          <p className="text-red-600">{error || "Data not available"}</p>
         </CardBody>
       </Card>
     );
@@ -90,9 +90,9 @@ export function RecipeQualitySection({ recipeId, className }: RecipeQualitySecti
 
   const getScoreLabel = (score: number): string => {
     if (score >= 80) return "Excellent";
-    if (score >= 60) return "Bon";
-    if (score >= 40) return "Moyen";
-    return "À améliorer";
+    if (score >= 60) return "Good";
+    if (score >= 40) return "Average";
+    return "To improve";
   };
 
   const getGradeColor = (grade: string): "success" | "primary" | "warning" | "danger" | "default" => {
@@ -127,12 +127,12 @@ export function RecipeQualitySection({ recipeId, className }: RecipeQualitySecti
     <Card className={className}>
       <CardHeader className="flex flex-col gap-3 p-4 sm:p-6">
         <h3 className="text-xl sm:text-2xl font-bold">
-          <Trans>Qualité nutritionnelle</Trans>
+          <Trans>Nutrition quality</Trans>
         </h3>
 
         {/* Score principal */}
         <div className="flex items-center gap-3 sm:gap-4">
-          <div className="relative flex-shrink-0">
+          <div className="relative">
             <div
               className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center ${
                 getScoreColor(qualityScore) === "success"
@@ -167,7 +167,7 @@ export function RecipeQualitySection({ recipeId, className }: RecipeQualitySecti
               {getScoreLabel(qualityScore)}
             </p>
             <p className="text-xs sm:text-sm text-gray-500">
-              <Trans>Score de qualité global</Trans>
+              <Trans>Overall quality score</Trans>
             </p>
           </div>
         </div>
@@ -222,12 +222,12 @@ export function RecipeQualitySection({ recipeId, className }: RecipeQualitySecti
           <div className="flex flex-wrap gap-2">
             {additivesCount > 0 && (
               <Chip size="sm" color={additivesCount >= 5 ? "danger" : "warning"} variant="flat">
-                <Trans>{additivesCount} additifs</Trans>
+                <Trans>{additivesCount} additives</Trans>
               </Chip>
             )}
             {allergensCount > 0 && (
               <Chip size="sm" color="warning" variant="flat">
-                <Trans>{allergensCount} allergènes</Trans>
+                <Trans>{allergensCount} allergens</Trans>
               </Chip>
             )}
           </div>
@@ -240,7 +240,7 @@ export function RecipeQualitySection({ recipeId, className }: RecipeQualitySecti
           <div>
             <h4 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 flex items-center gap-2">
               <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-              <Trans>Suggestions d'amélioration</Trans>
+              <Trans>Improvement suggestions</Trans>
             </h4>
 
             <div className="space-y-2 sm:space-y-3">
@@ -254,7 +254,7 @@ export function RecipeQualitySection({ recipeId, className }: RecipeQualitySecti
         {/* Détail par ingrédient */}
         <div>
           <h4 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3">
-            <Trans>Détail par ingrédient</Trans>
+            <Trans>Detail by ingredient</Trans>
           </h4>
 
           <Accordion variant="bordered">

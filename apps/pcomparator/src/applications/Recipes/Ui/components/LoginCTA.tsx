@@ -23,11 +23,11 @@ export function LoginCTA({ message, variant = "default", className = "" }: Login
         className={`flex flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-default-300 bg-default-50 p-8 text-center ${className}`}
       >
         <p className="text-lg font-medium text-default-700">
-          {message || <Trans>Créez un compte pour accéder à cette fonctionnalité</Trans>}
+          {message || <Trans>Create an account to access this feature</Trans>}
         </p>
         <div className="flex gap-3">
           <Button color="primary" onPress={handleLogin}>
-            <Trans>Se connecter</Trans>
+            <Trans>Login</Trans>
           </Button>
         </div>
       </div>
@@ -37,11 +37,9 @@ export function LoginCTA({ message, variant = "default", className = "" }: Login
   if (variant === "inline") {
     return (
       <div className={`flex items-center gap-3 ${className}`}>
-        <span className="text-sm text-default-600">
-          {message || <Trans>Connectez-vous pour continuer</Trans>}
-        </span>
+        <span className="text-sm text-default-600">{message || <Trans>Login to continue</Trans>}</span>
         <Button size="sm" color="primary" onPress={handleLogin}>
-          <Trans>Se connecter</Trans>
+          <Trans>Login</Trans>
         </Button>
       </div>
     );
@@ -50,11 +48,11 @@ export function LoginCTA({ message, variant = "default", className = "" }: Login
   return (
     <div className={`flex flex-col items-center gap-4 ${className}`}>
       <p className="text-center text-default-600">
-        {message || <Trans>Créez un compte pour utiliser cette fonctionnalité</Trans>}
+        {message || <Trans>Create an account to access this feature</Trans>}
       </p>
       <div className="flex gap-3">
         <Button color="primary" onPress={handleLogin}>
-          <Trans>Se connecter</Trans>
+          <Trans>Login</Trans>
         </Button>
       </div>
     </div>
