@@ -213,7 +213,7 @@ enum RecipeRole {
 model Recipe {
   id              String           @id @default(uuid()) @db.Uuid
   name            String
-  description     String?
+  description     String?          @db.Text
   difficulty      DifficultyLevel  @default(EASY)
   preparationTime Int
   cookingTime     Int
@@ -235,6 +235,8 @@ model Recipe {
 
   ingredients       RecipeIngredient[]
   steps             RecipeStep[]
+  ingredientGroups  IngredientGroup[]
+  stepGroups        StepGroup[]
   collaborators     RecipeCollaborator[]
   shoppingListItems ShoppingListItem[]
   tips              RecipeTip[]
@@ -250,26 +252,59 @@ model Recipe {
   @@index([favoritesCount])
 }
 
+model IngredientGroup {
+  id        String             @id @default(uuid()) @db.Uuid
+  recipeId  String             @db.Uuid
+  name      String
+  order     Int                @default(0)
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+  recipe      Recipe             @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  ingredients RecipeIngredient[]
+
+  @@index([recipeId])
+}
+
 model RecipeIngredient {
-  id        String @id @default(uuid()) @db.Uuid
-  recipeId  String @db.Uuid
-  productId String @db.Uuid
+  id        String           @id @default(uuid()) @db.Uuid
+  recipeId  String           @db.Uuid
+  productId String           @db.Uuid
+  groupId   String?          @db.Uuid
   quantity  Float
   unit      String
-  order     Int    @default(0)
-  recipe  Recipe  @relation(fields: [recipeId], references: [id], onDelete: Cascade)
-  product Product @relation(fields: [productId], references: [id])
+  order     Int              @default(0)
+  recipe  Recipe             @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  product Product            @relation(fields: [productId], references: [id])
+  group   IngredientGroup?   @relation(fields: [groupId], references: [id], onDelete: SetNull)
+
+  @@index([groupId])
+}
+
+model StepGroup {
+  id        String       @id @default(uuid()) @db.Uuid
+  recipeId  String       @db.Uuid
+  name      String
+  order     Int          @default(0)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  recipe    Recipe       @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  steps     RecipeStep[]
+
+  @@index([recipeId])
 }
 
 model RecipeStep {
-  id          String @id @default(uuid()) @db.Uuid
-  recipeId    String @db.Uuid
+  id          String      @id @default(uuid()) @db.Uuid
+  recipeId    String      @db.Uuid
+  groupId     String?     @db.Uuid
   stepNumber  Int
-  description String
+  description String      @db.Text
   duration    Int?
   recipe Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  group  StepGroup? @relation(fields: [groupId], references: [id], onDelete: SetNull)
 
   @@unique([recipeId, stepNumber])
+  @@index([groupId])
 }
 
 model RecipeCollaborator {

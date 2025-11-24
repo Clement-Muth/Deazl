@@ -95,7 +95,7 @@ export function RecipeHubContent({ hubData }: RecipeHubContentProps) {
 
   return (
     <>
-      <div className="container mx-auto w-full">
+      <div className="container mx-auto w-full flex flex-col items-center max-w-7xl">
         <PageHeader
           title="Recipe Hub"
           href="/recipes"
@@ -125,7 +125,7 @@ export function RecipeHubContent({ hubData }: RecipeHubContentProps) {
             </div>
           }
         />
-        <div className="flex flex-col px-3 w-full sm:px-4 py-4 gap-6 sm:py-8 max-w-7xl sm:space-y-12">
+        <div className="flex flex-col px-3 w-full sm:px-4 py-4 gap-6 sm:py-8 sm:space-y-12">
           {/* Hero Search Section */}
           <section className="space-y-4 sm:space-y-6">
             <div className="text-center space-y-2 sm:space-y-3">
@@ -176,7 +176,7 @@ export function RecipeHubContent({ hubData }: RecipeHubContentProps) {
           {/* Search/Filter Results */}
           {showResults && (
             <>
-              <Divider />
+              {/* <Divider /> */}
               <section className="space-y-4 sm:space-y-6">
                 <div className="flex flex-col gap-3">
                   <div className="flex items-center justify-between">
@@ -547,7 +547,7 @@ export function RecipeHubContent({ hubData }: RecipeHubContentProps) {
           {/* Cellar-Based Recipes (Personalized) */}
           {!showResults && hubData && hubData.cellarBased.length > 0 && (
             <>
-              <Divider />
+              {/* <Divider /> */}
               <RecipeHorizontalList
                 title="Faisable avec votre cellier"
                 icon={<Package className="w-5 h-5 sm:w-6 sm:h-6 text-secondary-600" />}
@@ -580,7 +580,7 @@ export function RecipeHubContent({ hubData }: RecipeHubContentProps) {
           {/* Categories Section */}
           {!showResults && hubData && hubData.categories.length > 0 && (
             <>
-              <Divider />
+              {/* <Divider /> */}
               <section className="space-y-4 sm:space-y-6">
                 <div className="flex items-center gap-2 sm:gap-3">
                   <div className="p-1.5 sm:p-2 rounded-lg bg-primary-50">
@@ -606,7 +606,7 @@ export function RecipeHubContent({ hubData }: RecipeHubContentProps) {
           {/* New Recipes */}
           {!showResults && hubData && hubData.new.length > 0 && (
             <>
-              <Divider />
+              {/* <Divider /> */}
               <RecipeHorizontalList
                 title="Nouvelles Recettes"
                 icon={<Heart className="w-5 h-5 sm:w-6 sm:h-6 text-danger-600" />}

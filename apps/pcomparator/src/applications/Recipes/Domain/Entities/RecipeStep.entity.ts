@@ -6,6 +6,7 @@ interface RecipeStepProps {
   stepNumber: number;
   description: string;
   duration?: number;
+  groupId?: string;
 }
 
 export class RecipeStep extends Entity<RecipeStepProps> {
@@ -19,6 +20,7 @@ export class RecipeStep extends Entity<RecipeStepProps> {
       stepNumber: number;
       description: string;
       duration?: number;
+      groupId?: string;
     },
     id?: string
   ): RecipeStep {
@@ -27,7 +29,8 @@ export class RecipeStep extends Entity<RecipeStepProps> {
         recipeId: props.recipeId,
         stepNumber: props.stepNumber,
         description: props.description,
-        duration: props.duration
+        duration: props.duration,
+        groupId: props.groupId
       },
       id
     );
@@ -53,6 +56,10 @@ export class RecipeStep extends Entity<RecipeStepProps> {
     return this.props.duration;
   }
 
+  get groupId(): string | undefined {
+    return this.props.groupId;
+  }
+
   public withDescription(description: string): RecipeStep {
     return new RecipeStep(
       {
@@ -73,12 +80,23 @@ export class RecipeStep extends Entity<RecipeStepProps> {
     );
   }
 
+  public withGroup(groupId: string | undefined): RecipeStep {
+    return new RecipeStep(
+      {
+        ...this.props,
+        groupId
+      },
+      this._id.toValue()
+    );
+  }
+
   public toObject() {
     return {
       id: this.id,
       stepNumber: this.stepNumber,
       description: this.description,
-      duration: this.duration ?? null
+      duration: this.duration ?? null,
+      groupId: this.groupId
     };
   }
 }

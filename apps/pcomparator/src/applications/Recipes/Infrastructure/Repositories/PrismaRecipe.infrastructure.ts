@@ -1,7 +1,9 @@
 import { prisma } from "@deazl/system";
+import { IngredientGroup } from "../../Domain/Entities/IngredientGroup.entity";
 import { Recipe } from "../../Domain/Entities/Recipe.entity";
 import { RecipeIngredient } from "../../Domain/Entities/RecipeIngredient.entity";
 import { RecipeStep } from "../../Domain/Entities/RecipeStep.entity";
+import { StepGroup } from "../../Domain/Entities/StepGroup.entity";
 import type {
   RecipeAccessContext,
   RecipeRepository,
@@ -22,6 +24,23 @@ export class PrismaRecipeRepository implements RecipeRepository {
           },
           steps: {
             orderBy: { stepNumber: "asc" }
+          },
+          ingredientGroups: {
+            include: {
+              ingredients: {
+                include: { product: true },
+                orderBy: { order: "asc" }
+              }
+            },
+            orderBy: { order: "asc" }
+          },
+          stepGroups: {
+            include: {
+              steps: {
+                orderBy: { stepNumber: "asc" }
+              }
+            },
+            orderBy: { order: "asc" }
           }
         }
       });
@@ -47,6 +66,23 @@ export class PrismaRecipeRepository implements RecipeRepository {
           },
           steps: {
             orderBy: { stepNumber: "asc" }
+          },
+          ingredientGroups: {
+            include: {
+              ingredients: {
+                include: { product: true },
+                orderBy: { order: "asc" }
+              }
+            },
+            orderBy: { order: "asc" }
+          },
+          stepGroups: {
+            include: {
+              steps: {
+                orderBy: { stepNumber: "asc" }
+              }
+            },
+            orderBy: { order: "asc" }
           }
         },
         orderBy: { createdAt: "desc" }
@@ -69,6 +105,23 @@ export class PrismaRecipeRepository implements RecipeRepository {
           },
           steps: {
             orderBy: { stepNumber: "asc" }
+          },
+          ingredientGroups: {
+            include: {
+              ingredients: {
+                include: { product: true },
+                orderBy: { order: "asc" }
+              }
+            },
+            orderBy: { order: "asc" }
+          },
+          stepGroups: {
+            include: {
+              steps: {
+                orderBy: { stepNumber: "asc" }
+              }
+            },
+            orderBy: { order: "asc" }
           }
         },
         orderBy: { createdAt: "desc" }
@@ -119,6 +172,23 @@ export class PrismaRecipeRepository implements RecipeRepository {
           },
           steps: {
             orderBy: { stepNumber: "asc" }
+          },
+          ingredientGroups: {
+            include: {
+              ingredients: {
+                include: { product: true },
+                orderBy: { order: "asc" }
+              }
+            },
+            orderBy: { order: "asc" }
+          },
+          stepGroups: {
+            include: {
+              steps: {
+                orderBy: { stepNumber: "asc" }
+              }
+            },
+            orderBy: { order: "asc" }
           }
         },
         orderBy
@@ -138,6 +208,14 @@ export class PrismaRecipeRepository implements RecipeRepository {
 
       if (existingRecipe) {
         await prisma.$transaction(async (tx) => {
+          await tx.ingredientGroup.deleteMany({
+            where: { recipeId: recipe.id }
+          });
+
+          await tx.stepGroup.deleteMany({
+            where: { recipeId: recipe.id }
+          });
+
           await tx.recipeIngredient.deleteMany({
             where: { recipeId: recipe.id }
           });
@@ -163,6 +241,30 @@ export class PrismaRecipeRepository implements RecipeRepository {
             }
           });
 
+          const ingredientGroups = recipe.ingredientGroups || [];
+          for (const group of ingredientGroups) {
+            await tx.ingredientGroup.create({
+              data: {
+                id: group.id,
+                recipeId: recipe.id,
+                name: group.name,
+                order: group.order
+              }
+            });
+          }
+
+          const stepGroups = recipe.stepGroups || [];
+          for (const group of stepGroups) {
+            await tx.stepGroup.create({
+              data: {
+                id: group.id,
+                recipeId: recipe.id,
+                name: group.name,
+                order: group.order
+              }
+            });
+          }
+
           if (recipe.ingredients.length > 0) {
             await tx.recipeIngredient.createMany({
               data: recipe.ingredients.map((ing) => ({
@@ -171,7 +273,8 @@ export class PrismaRecipeRepository implements RecipeRepository {
                 productId: ing.productId,
                 quantity: ing.quantity,
                 unit: ing.unit,
-                order: ing.order
+                order: ing.order,
+                groupId: ing.groupId ?? null
               }))
             });
           }
@@ -183,7 +286,8 @@ export class PrismaRecipeRepository implements RecipeRepository {
                 recipeId: recipe.id,
                 stepNumber: step.stepNumber,
                 description: step.description,
-                duration: step.duration ?? null
+                duration: step.duration ?? null,
+                groupId: step.groupId ?? null
               }))
             });
           }
@@ -209,6 +313,30 @@ export class PrismaRecipeRepository implements RecipeRepository {
             }
           });
 
+          const ingredientGroups = recipe.ingredientGroups || [];
+          for (const group of ingredientGroups) {
+            await tx.ingredientGroup.create({
+              data: {
+                id: group.id,
+                recipeId: recipe.id,
+                name: group.name,
+                order: group.order
+              }
+            });
+          }
+
+          const stepGroups = recipe.stepGroups || [];
+          for (const group of stepGroups) {
+            await tx.stepGroup.create({
+              data: {
+                id: group.id,
+                recipeId: recipe.id,
+                name: group.name,
+                order: group.order
+              }
+            });
+          }
+
           if (recipe.ingredients.length > 0) {
             await tx.recipeIngredient.createMany({
               data: recipe.ingredients.map((ing) => ({
@@ -217,7 +345,8 @@ export class PrismaRecipeRepository implements RecipeRepository {
                 productId: ing.productId,
                 quantity: ing.quantity,
                 unit: ing.unit,
-                order: ing.order
+                order: ing.order,
+                groupId: ing.groupId ?? null
               }))
             });
           }
@@ -229,7 +358,8 @@ export class PrismaRecipeRepository implements RecipeRepository {
                 recipeId: recipe.id,
                 stepNumber: step.stepNumber,
                 description: step.description,
-                duration: step.duration ?? null
+                duration: step.duration ?? null,
+                groupId: step.groupId ?? null
               }))
             });
           }
@@ -238,7 +368,8 @@ export class PrismaRecipeRepository implements RecipeRepository {
 
       return this.findById(recipe.id) as Promise<Recipe>;
     } catch (error) {
-      throw new Error("Failed to save recipe");
+      console.error("Error saving recipe:", error);
+      throw new Error("Failed to save recipe", { cause: error });
     }
   }
 
@@ -263,6 +394,23 @@ export class PrismaRecipeRepository implements RecipeRepository {
           },
           steps: {
             orderBy: { stepNumber: "asc" }
+          },
+          ingredientGroups: {
+            include: {
+              ingredients: {
+                include: { product: true },
+                orderBy: { order: "asc" }
+              }
+            },
+            orderBy: { order: "asc" }
+          },
+          stepGroups: {
+            include: {
+              steps: {
+                orderBy: { stepNumber: "asc" }
+              }
+            },
+            orderBy: { order: "asc" }
           }
         }
       });
@@ -324,6 +472,23 @@ export class PrismaRecipeRepository implements RecipeRepository {
           },
           steps: {
             orderBy: { stepNumber: "asc" }
+          },
+          ingredientGroups: {
+            include: {
+              ingredients: {
+                include: { product: true },
+                orderBy: { order: "asc" }
+              }
+            },
+            orderBy: { order: "asc" }
+          },
+          stepGroups: {
+            include: {
+              steps: {
+                orderBy: { stepNumber: "asc" }
+              }
+            },
+            orderBy: { order: "asc" }
           }
         },
         orderBy: { createdAt: "desc" },
@@ -350,6 +515,23 @@ export class PrismaRecipeRepository implements RecipeRepository {
           },
           steps: {
             orderBy: { stepNumber: "asc" }
+          },
+          ingredientGroups: {
+            include: {
+              ingredients: {
+                include: { product: true },
+                orderBy: { order: "asc" }
+              }
+            },
+            orderBy: { order: "asc" }
+          },
+          stepGroups: {
+            include: {
+              steps: {
+                orderBy: { stepNumber: "asc" }
+              }
+            },
+            orderBy: { order: "asc" }
           }
         },
         orderBy: { createdAt: "desc" },
@@ -376,6 +558,23 @@ export class PrismaRecipeRepository implements RecipeRepository {
           },
           steps: {
             orderBy: { stepNumber: "asc" }
+          },
+          ingredientGroups: {
+            include: {
+              ingredients: {
+                include: { product: true },
+                orderBy: { order: "asc" }
+              }
+            },
+            orderBy: { order: "asc" }
+          },
+          stepGroups: {
+            include: {
+              steps: {
+                orderBy: { stepNumber: "asc" }
+              }
+            },
+            orderBy: { order: "asc" }
           }
         },
         orderBy: { createdAt: "desc" },
@@ -404,6 +603,23 @@ export class PrismaRecipeRepository implements RecipeRepository {
           },
           steps: {
             orderBy: { stepNumber: "asc" }
+          },
+          ingredientGroups: {
+            include: {
+              ingredients: {
+                include: { product: true },
+                orderBy: { order: "asc" }
+              }
+            },
+            orderBy: { order: "asc" }
+          },
+          stepGroups: {
+            include: {
+              steps: {
+                orderBy: { stepNumber: "asc" }
+              }
+            },
+            orderBy: { order: "asc" }
           }
         },
         orderBy: { createdAt: "desc" },
@@ -434,6 +650,23 @@ export class PrismaRecipeRepository implements RecipeRepository {
           },
           steps: {
             orderBy: { stepNumber: "asc" }
+          },
+          ingredientGroups: {
+            include: {
+              ingredients: {
+                include: { product: true },
+                orderBy: { order: "asc" }
+              }
+            },
+            orderBy: { order: "asc" }
+          },
+          stepGroups: {
+            include: {
+              steps: {
+                orderBy: { stepNumber: "asc" }
+              }
+            },
+            orderBy: { order: "asc" }
           },
           collaborators: true
         }
@@ -491,7 +724,8 @@ export class PrismaRecipeRepository implements RecipeRepository {
         reason: "private"
       };
     } catch (error) {
-      throw new Error("Failed to check user access");
+      console.error("Error in checkUserAccess:", error);
+      throw new Error("Failed to check user access", { cause: error });
     }
   }
 
@@ -596,7 +830,7 @@ export class PrismaRecipeRepository implements RecipeRepository {
   }
 
   public mapToDomain(recipeData: any): Recipe {
-    const ingredients = recipeData.ingredients.map((ing: any) =>
+    const ingredients = (recipeData.ingredients || []).map((ing: any) =>
       RecipeIngredient.create(
         {
           recipeId: recipeData.id,
@@ -604,23 +838,77 @@ export class PrismaRecipeRepository implements RecipeRepository {
           productName: ing.product?.name,
           quantity: ing.quantity,
           unit: ing.unit,
-          order: ing.order
+          order: ing.order,
+          groupId: ing.groupId ?? undefined
         },
         ing.id
       )
     );
 
-    const steps = recipeData.steps.map((step: any) =>
+    const steps = (recipeData.steps || []).map((step: any) =>
       RecipeStep.create(
         {
           recipeId: recipeData.id,
           stepNumber: step.stepNumber,
           description: step.description,
-          duration: step.duration ?? undefined
+          duration: step.duration ?? undefined,
+          groupId: step.groupId ?? undefined
         },
         step.id
       )
     );
+
+    const ingredientGroups = (recipeData.ingredientGroups || []).map((group: any) => {
+      const groupIngredients = (group.ingredients || []).map((ing: any) =>
+        RecipeIngredient.create(
+          {
+            recipeId: recipeData.id,
+            productId: ing.productId,
+            productName: ing.product?.name,
+            quantity: ing.quantity,
+            unit: ing.unit,
+            order: ing.order,
+            groupId: group.id
+          },
+          ing.id
+        )
+      );
+
+      return IngredientGroup.create(
+        {
+          recipeId: recipeData.id,
+          name: group.name,
+          order: group.order,
+          ingredients: groupIngredients
+        },
+        group.id
+      );
+    });
+
+    const stepGroups = (recipeData.stepGroups || []).map((group: any) => {
+      const groupSteps = (group.steps || []).map((step: any) =>
+        RecipeStep.create(
+          {
+            recipeId: recipeData.id,
+            stepNumber: step.stepNumber,
+            description: step.description,
+            duration: step.duration ?? undefined,
+            groupId: group.id
+          },
+          step.id
+        )
+      );
+
+      return StepGroup.create(
+        {
+          recipeId: recipeData.id,
+          name: group.name,
+          order: group.order,
+          steps: groupSteps
+        },
+        group.id
+      );
+    });
 
     return Recipe.create(
       {
@@ -639,6 +927,8 @@ export class PrismaRecipeRepository implements RecipeRepository {
         isPublic: recipeData.isPublic,
         ingredients,
         steps,
+        ingredientGroups,
+        stepGroups,
         estimatedQualityScore: recipeData.estimatedQualityScore ?? undefined
       },
       recipeData.id

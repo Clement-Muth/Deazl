@@ -33,7 +33,7 @@ export const generateShareLink = async (shoppingListId: GenerateShareLinkPayload
     const sharingRepository = new PrismaShoppingListSharingRepository();
     const token = await sharingRepository.generateShareToken(payload);
 
-    const baseUrl = process.env.PCOMPARATOR_PUBLIC_URL || "http://localhost:3001";
+    const baseUrl = process.env.PCOMPARATOR_PUBLIC_URL || "https://deazl.fr";
     return `${baseUrl}/shared/shopping-list/${token}`;
   } catch (error) {
     console.error("Error generating share link:", error);

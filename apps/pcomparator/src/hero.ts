@@ -17,7 +17,8 @@ export default heroui({
           "800": "#3f1dba",
           "900": "#351a98",
           foreground: "#000000"
-        }
+        },
+        divider: "#E6E6E8"
       }
     },
     dark: {
@@ -64,7 +65,7 @@ export default heroui({
         },
 
         // Bordures + dividers
-        divider: "#2C2C30",
+        divider: "#ffffff",
 
         // Focus (hérité de ton violet)
         focus: "#6e58fa",
