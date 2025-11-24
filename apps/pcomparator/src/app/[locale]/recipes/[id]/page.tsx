@@ -12,8 +12,6 @@ import {
   getRecipeNotFoundMetadata
 } from "~/applications/Recipes/Ui/metadata";
 
-export const revalidate = 3600;
-
 export async function generateMetadata({
   params,
   searchParams
