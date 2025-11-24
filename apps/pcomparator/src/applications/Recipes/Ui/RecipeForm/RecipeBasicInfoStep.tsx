@@ -9,14 +9,14 @@ import {
   Image,
   Input,
   Select,
-  SelectItem,
-  Textarea
+  SelectItem
 } from "@heroui/react";
 import { useLingui } from "@lingui/react/macro";
 import { Trans } from "@lingui/react/macro";
 import { Upload, X } from "lucide-react";
 import type { CreateRecipePayload } from "../../Domain/Schemas/Recipe.schema";
 import { AIDescriptionButton } from "./AIDescriptionButton";
+import { RichTextEditor } from "./RichTextEditor";
 
 interface RecipeBasicInfoStepProps {
   formData: CreateRecipePayload;
@@ -86,19 +86,13 @@ export const RecipeBasicInfoStep = ({
         />
 
         <div className="space-y-2">
-          <div className="flex items-start justify-between gap-2">
-            <Textarea
-              label={<Trans>Description</Trans>}
-              placeholder={t`Enter a detailed description of your recipe. You can use multiple paragraphs.`}
-              description={<Trans>You can write multiple lines and paragraphs</Trans>}
-              value={formData.description}
-              onValueChange={(value) => onFormDataChange({ description: value })}
-              variant="bordered"
-              minRows={5}
-              maxRows={15}
-              className="flex-1"
-            />
-          </div>
+          <RichTextEditor
+            label={t`Description`}
+            placeholder={t`Write a detailed description of your recipe. Use formatting to make it clear and SEO-friendly.`}
+            description={t`You can format text with bold, italic, headings, and lists for better readability and SEO.`}
+            value={formData.description || ""}
+            onChange={(value) => onFormDataChange({ description: value })}
+          />
           <AIDescriptionButton
             formData={formData}
             onDescriptionGenerated={(desc) => onFormDataChange({ description: desc })}
@@ -148,21 +142,92 @@ export const RecipeBasicInfoStep = ({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Input
+          <Select
             label={<Trans>Category</Trans>}
-            placeholder={t`Ex: Appetizer, Main Course, Dessert`}
-            value={formData.category || ""}
-            onValueChange={(value) => onFormDataChange({ category: value || undefined })}
+            placeholder={t`Select a category`}
+            selectedKeys={formData.category ? [formData.category] : []}
+            onSelectionChange={(keys) => {
+              const value = Array.from(keys)[0] as string | undefined;
+              onFormDataChange({ category: value });
+            }}
             variant="bordered"
-          />
+          >
+            <SelectItem key="appetizer">
+              <Trans>Appetizer</Trans>
+            </SelectItem>
+            <SelectItem key="main-course">
+              <Trans>Main Course</Trans>
+            </SelectItem>
+            <SelectItem key="dessert">
+              <Trans>Dessert</Trans>
+            </SelectItem>
+            <SelectItem key="side-dish">
+              <Trans>Side Dish</Trans>
+            </SelectItem>
+            <SelectItem key="salad">
+              <Trans>Salad</Trans>
+            </SelectItem>
+            <SelectItem key="soup">
+              <Trans>Soup</Trans>
+            </SelectItem>
+            <SelectItem key="breakfast">
+              <Trans>Breakfast</Trans>
+            </SelectItem>
+            <SelectItem key="snack">
+              <Trans>Snack</Trans>
+            </SelectItem>
+            <SelectItem key="beverage">
+              <Trans>Beverage</Trans>
+            </SelectItem>
+          </Select>
 
-          <Input
+          <Select
             label={<Trans>Cuisine</Trans>}
-            placeholder={t`Ex: Italian, French, Asian`}
-            value={formData.cuisine || ""}
-            onValueChange={(value) => onFormDataChange({ cuisine: value || undefined })}
+            placeholder={t`Select a cuisine`}
+            selectedKeys={formData.cuisine ? [formData.cuisine] : []}
+            onSelectionChange={(keys) => {
+              const value = Array.from(keys)[0] as string | undefined;
+              onFormDataChange({ cuisine: value });
+            }}
             variant="bordered"
-          />
+          >
+            <SelectItem key="french">
+              <Trans>French</Trans>
+            </SelectItem>
+            <SelectItem key="italian">
+              <Trans>Italian</Trans>
+            </SelectItem>
+            <SelectItem key="asian">
+              <Trans>Asian</Trans>
+            </SelectItem>
+            <SelectItem key="mediterranean">
+              <Trans>Mediterranean</Trans>
+            </SelectItem>
+            <SelectItem key="american">
+              <Trans>American</Trans>
+            </SelectItem>
+            <SelectItem key="mexican">
+              <Trans>Mexican</Trans>
+            </SelectItem>
+            <SelectItem key="indian">
+              <Trans>Indian</Trans>
+            </SelectItem>
+            <SelectItem key="japanese">
+              <Trans>Japanese</Trans>
+            </SelectItem>
+            <SelectItem key="chinese">
+              <Trans>Chinese</Trans>
+            </SelectItem>
+            <SelectItem key="middle-eastern">
+              <Trans>Middle Eastern</Trans>
+            </SelectItem>
+            <SelectItem key="african">
+              <Trans>African</Trans>
+            </SelectItem>
+            <SelectItem key="fusion">
+              <Trans>Fusion</Trans>
+            </SelectItem>
+          </Select>
         </div>
 
         <div className="flex items-center gap-4">

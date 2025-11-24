@@ -12,8 +12,8 @@ import { RecipeBasicInfoStep } from "./RecipeBasicInfoStep";
 import { type RecipeCreationMode, RecipeCreationModeSelection } from "./RecipeCreationModeSelection";
 import { RecipeFormLayout } from "./RecipeFormLayout";
 import { RecipeFormNavigation } from "./RecipeFormNavigation";
-import { RecipeIngredientsStep } from "./RecipeIngredientsStep";
-import { RecipeStepsStep } from "./RecipeStepsStep";
+import { RecipeIngredientsStep } from "./RecipeIngredientsStepV2";
+import { RecipeStepsStep } from "./RecipeStepsStepV2";
 
 type Step = 0 | 1 | 2 | 3;
 

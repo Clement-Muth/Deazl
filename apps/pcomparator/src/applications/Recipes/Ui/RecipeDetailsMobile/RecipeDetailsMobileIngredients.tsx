@@ -150,6 +150,20 @@ export default function RecipeDetailsMobileIngredients({
     };
   };
 
+  // Calculate totals
+  const calculateGroupTotal = (group: IngredientGroup) => {
+    return group.ingredients.reduce((sum, ing) => {
+      const priceData = pricing?.breakdown.find((b: any) => b.ingredientId === ing.id);
+      const price = priceData?.selected?.price || 0;
+      return sum + price * scaleFactor;
+    }, 0);
+  };
+
+  const recipeTotal =
+    ingredientGroups && ingredientGroups.length > 0
+      ? ingredientGroups.reduce((sum, group) => sum + calculateGroupTotal(group), 0)
+      : ingredientsWithPrice.reduce((sum, ing) => sum + (ing.price || 0) * scaleFactor, 0);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -157,29 +171,44 @@ export default function RecipeDetailsMobileIngredients({
       transition={{ duration: 0.5, delay: 0.4 }}
     >
       <Card>
-        <CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
           <h3 className="text-xs font-bold uppercase tracking-wider">
             <Trans>INGREDIENTS</Trans>
           </h3>
+          {recipeTotal > 0 && (
+            <Chip size="lg" color="primary" variant="flat" className="font-bold">
+              <Trans>Total:</Trans> {recipeTotal.toFixed(2)}€
+            </Chip>
+          )}
         </CardHeader>
 
         <CardBody className="space-y-4">
           {ingredientGroups && ingredientGroups.length > 0 ? (
             ingredientGroups
               .sort((a, b) => a.order - b.order)
-              .map((group) => (
-                <div key={group.id} className="border-l-4 border-primary pl-4 space-y-3">
-                  <h4 className="text-sm font-bold text-primary mb-2">{group.name}</h4>
-                  <div className="space-y-2">
-                    {group.ingredients
-                      .sort((a, b) => a.order - b.order)
-                      .map((ing, idx) => {
-                        const ingWithPrice = mapIngredientWithPrice(ing);
-                        return renderIngredientCard(ingWithPrice, idx);
-                      })}
+              .map((group) => {
+                const groupTotal = calculateGroupTotal(group);
+                return (
+                  <div key={group.id} className="border-l-4 border-primary pl-4 space-y-3">
+                    <div className="flex items-center justify-between gap-2">
+                      <h4 className="text-sm font-bold text-primary">{group.name}</h4>
+                      {groupTotal > 0 && (
+                        <Chip size="sm" color="primary" variant="bordered" className="font-semibold">
+                          {groupTotal.toFixed(2)}€
+                        </Chip>
+                      )}
+                    </div>
+                    <div className="space-y-2">
+                      {group.ingredients
+                        .sort((a, b) => a.order - b.order)
+                        .map((ing, idx) => {
+                          const ingWithPrice = mapIngredientWithPrice(ing);
+                          return renderIngredientCard(ingWithPrice, idx);
+                        })}
+                    </div>
                   </div>
-                </div>
-              ))
+                );
+              })
           ) : (
             <div className="space-y-2">
               {ingredientsWithPrice.map((ing, idx) => renderIngredientCard(ing, idx))}

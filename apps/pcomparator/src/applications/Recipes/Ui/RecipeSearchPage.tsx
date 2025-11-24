@@ -29,6 +29,7 @@ export function RecipeSearchPage() {
     const tags = searchParams.get("tags");
     const sort = searchParams.get("sort");
 
+    console.log(searchParams);
     const initialFilters: RecipeSearchFilters = {
       searchTerm: query || undefined,
       category: category || undefined,

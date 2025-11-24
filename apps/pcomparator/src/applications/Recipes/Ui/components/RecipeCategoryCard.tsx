@@ -2,7 +2,7 @@
 
 import { Card, CardBody } from "@heroui/react";
 import { ChefHat } from "lucide-react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface RecipeCategoryCardProps {
   name: string;
@@ -13,12 +13,11 @@ interface RecipeCategoryCardProps {
 }
 
 export function RecipeCategoryCard({ name, slug, count, icon, imageUrl }: RecipeCategoryCardProps) {
-  const router = useRouter();
-
   return (
     <Card
       isPressable
-      onPress={() => router.push(`/recipes/explore?category=${slug}`)}
+      as={Link}
+      href={`/recipes/explore?category=${slug}`}
       className="hover:scale-105 transition-transform"
     >
       <CardBody className="p-0">

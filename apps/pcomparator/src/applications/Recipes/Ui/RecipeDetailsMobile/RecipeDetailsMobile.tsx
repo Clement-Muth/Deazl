@@ -147,38 +147,42 @@ export default function RecipeDetailsMobile({
         onAddToList={onAddToList}
       />
 
-      {/* Contenu scrollable */}
-      <div className="pb-8">
+      {/* Contenu scrollable avec max-width pour desktop */}
+      <div className="pb-8 lg:mx-auto">
         <RecipeDetailsMobileHero recipe={recipe} />
 
-        <RecipeDetailsMobileDescription recipe={recipe} />
+        <div className="flex flex-col justify-center items-center">
+          <div className="lg:max-w-6xl">
+            <RecipeDetailsMobileDescription recipe={recipe} />
 
-        <div className="px-4 space-y-6 mt-6">
-          <RecipeDetailsMobileIngredients
-            ingredientsWithPrice={ingredientsWithPrice}
-            ingredientGroups={recipe.ingredientGroups}
-            scaleFactor={scaleFactor}
-            onProductClick={onProductClick}
-            recipeId={recipe.id}
-            pricing={pricing}
-            quality={quality}
-          />
+            <div className="px-4 space-y-6 mt-6 lg:px-8">
+              <RecipeDetailsMobileIngredients
+                ingredientsWithPrice={ingredientsWithPrice}
+                ingredientGroups={recipe.ingredientGroups}
+                scaleFactor={scaleFactor}
+                onProductClick={onProductClick}
+                recipeId={recipe.id}
+                pricing={pricing}
+                quality={quality}
+              />
 
-          <RecipeDetailsMobilePreparation
-            recipe={recipe}
-            stepByStepMode={stepByStepMode}
-            setStepByStepMode={setStepByStepMode}
-            currentStep={currentStep}
-            setCurrentStep={setCurrentStep}
-            stepsCompleted={stepsCompleted}
-            toggleStepCompletion={toggleStepCompletion}
-            goToNextStep={goToNextStep}
-            goToPreviousStep={goToPreviousStep}
-          />
+              <RecipeDetailsMobilePreparation
+                recipe={recipe}
+                stepByStepMode={stepByStepMode}
+                setStepByStepMode={setStepByStepMode}
+                currentStep={currentStep}
+                setCurrentStep={setCurrentStep}
+                stepsCompleted={stepsCompleted}
+                toggleStepCompletion={toggleStepCompletion}
+                goToNextStep={goToNextStep}
+                goToPreviousStep={goToPreviousStep}
+              />
 
-          <RecipeDetailsMobileNutrition quality={quality} ingredientsWithPrice={ingredientsWithPrice} />
+              <RecipeDetailsMobileNutrition quality={quality} ingredientsWithPrice={ingredientsWithPrice} />
 
-          <RecipeDetailsMobileTips tips={tips} />
+              <RecipeDetailsMobileTips tips={tips} />
+            </div>
+          </div>
         </div>
       </div>
     </div>

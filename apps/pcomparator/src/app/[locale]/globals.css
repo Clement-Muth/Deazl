@@ -158,3 +158,94 @@ div[data-rsbs-root]::after {
 .skeleton * {
   @apply animate-[pulse2_2s_ease-in-out_infinite];
 }
+
+.ProseMirror {
+  @apply outline-none;
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  @apply text-default-400 float-left h-0 pointer-events-none;
+  content: attr(data-placeholder);
+}
+
+.ProseMirror h2 {
+  @apply text-2xl font-bold mt-6 mb-4;
+}
+
+.ProseMirror h3 {
+  @apply text-xl font-bold mt-4 mb-3;
+}
+
+.ProseMirror ul,
+.ProseMirror ol {
+  @apply pl-6 my-4;
+}
+
+.ProseMirror ul {
+  @apply list-disc;
+}
+
+.ProseMirror ol {
+  @apply list-decimal;
+}
+
+.ProseMirror li {
+  @apply my-1;
+}
+
+.ProseMirror strong {
+  @apply font-bold;
+}
+
+.ProseMirror em {
+  @apply italic;
+}
+
+.ProseMirror p {
+  @apply my-2;
+}
+
+/* Rich Text Display Styles */
+.prose h2 {
+  @apply text-2xl font-bold mt-6 mb-4 text-foreground;
+}
+
+.prose h3 {
+  @apply text-xl font-bold mt-4 mb-3 text-foreground;
+}
+
+.prose p {
+  @apply my-3 text-foreground leading-relaxed;
+}
+
+.prose strong {
+  @apply font-bold text-foreground;
+}
+
+.prose em {
+  @apply italic text-foreground;
+}
+
+.prose ul {
+  @apply list-disc pl-6 my-4 space-y-2;
+}
+
+.prose ol {
+  @apply list-decimal pl-6 my-4 space-y-2;
+}
+
+.prose li {
+  @apply text-foreground leading-relaxed;
+}
+
+.prose ul > li {
+  @apply relative pl-2;
+}
+
+.prose ul > li::marker {
+  @apply text-primary;
+}
+
+.prose ol > li::marker {
+  @apply text-primary font-semibold;
+}
