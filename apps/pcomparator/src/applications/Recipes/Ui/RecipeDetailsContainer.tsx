@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { ProductDetailPage } from "~/applications/ShoppingLists/Ui/components/ProductDetailPage";
 import { incrementRecipeViews } from "../Api";
 import type { RecipePayload } from "../Domain/Schemas/Recipe.schema";
+import type { RecipePricingResult } from "../Domain/Services/RecipePricing.service";
 import { AddRecipeToListModal } from "./RecipeDetails/AddRecipeToListModal";
 import { ShareRecipeModalNew } from "./RecipeDetails/ShareRecipeModal/ShareRecipeModalNew";
 import RecipeDetailsMobile from "./RecipeDetailsMobile/RecipeDetailsMobile";
@@ -14,6 +15,7 @@ interface RecipeDetailsContainerProps {
   recipe: RecipePayload;
   userId?: string;
   accessMode?: "public" | "authenticated" | "shared" | "restricted";
+  initialPublicPricing?: RecipePricingResult | null;
 }
 
 /**
@@ -22,7 +24,8 @@ interface RecipeDetailsContainerProps {
 export function RecipeDetailsContainer({
   recipe,
   userId,
-  accessMode = "public"
+  accessMode = "public",
+  initialPublicPricing
 }: RecipeDetailsContainerProps) {
   const isAuthenticated = !!userId;
   const router = useRouter();
@@ -47,6 +50,7 @@ export function RecipeDetailsContainer({
         onShare={canShare ? onShareOpen : undefined}
         onProductClick={(productId) => setSelectedProductId(productId)}
         accessMode={accessMode}
+        initialPublicPricing={initialPublicPricing}
       />
 
       {/* Modals */}

@@ -1,6 +1,7 @@
 "use server";
 
 import { auth } from "@deazl/system";
+import { unstable_cache } from "next/cache";
 import { RecipeAccessApplicationService } from "~/applications/Recipes/Application/Services/RecipeAccess.service";
 import { PrismaRecipeRepository } from "~/applications/Recipes/Infrastructure/Repositories/PrismaRecipe.infrastructure";
 
@@ -86,4 +87,41 @@ export async function canUserModifyRecipe(recipeId: string) {
     console.error("Failed to check if user can modify recipe:", error);
     return { canModify: false };
   }
+}
+
+export async function getRecipeWithAccessCached(recipeId: string, shareToken?: string, userId?: string) {
+  const getCached = unstable_cache(
+    async () => {
+      const result = await accessService.getRecipeWithAccessCheck(recipeId, {
+        userId,
+        shareToken,
+        isAuthenticated: !!userId
+      });
+
+      if (!result.hasAccess) {
+        return {
+          recipe: null,
+          hasAccess: false,
+          mode: result.mode,
+          reason: result.reason,
+          requiresLogin: result.requiresLogin
+        };
+      }
+
+      return {
+        recipe: result.recipe?.toObject(),
+        hasAccess: true,
+        mode: result.mode,
+        reason: result.reason,
+        requiresLogin: false
+      };
+    },
+    [`recipe-access-${recipeId}-${shareToken || "no-token"}-${userId || "no-user"}`],
+    {
+      revalidate: 3600,
+      tags: [`recipe-${recipeId}`]
+    }
+  );
+
+  return getCached();
 }

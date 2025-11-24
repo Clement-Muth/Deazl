@@ -54,6 +54,4 @@ const RootLayout = async ({ children, params }: NextPageProps) => {
   );
 };
 
-export const dynamic = "force-dynamic";
-
 export default withLinguiLayout(RootLayout);

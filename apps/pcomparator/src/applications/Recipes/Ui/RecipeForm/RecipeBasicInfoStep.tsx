@@ -57,6 +57,7 @@ export const RecipeBasicInfoStep = ({
                 variant="solid"
                 onPress={onImageRemove}
                 className="absolute top-2 right-2 z-10"
+                aria-label={t`Remove image`}
               >
                 <X className="w-4 h-4" />
               </Button>
@@ -88,11 +89,13 @@ export const RecipeBasicInfoStep = ({
           <div className="flex items-start justify-between gap-2">
             <Textarea
               label={<Trans>Description</Trans>}
-              placeholder={t`Describe your recipe...`}
+              placeholder={t`Enter a detailed description of your recipe. You can use multiple paragraphs.`}
+              description={<Trans>You can write multiple lines and paragraphs</Trans>}
               value={formData.description}
               onValueChange={(value) => onFormDataChange({ description: value })}
               variant="bordered"
-              minRows={3}
+              minRows={5}
+              maxRows={15}
               className="flex-1"
             />
           </div>

@@ -23,6 +23,18 @@ interface Step {
   stepNumber: number;
   description: string;
   duration?: number | null;
+  groupId?: string;
+}
+
+interface StepGroup {
+  id?: string;
+  name: string;
+  order: number;
+  steps: Array<{
+    stepNumber: number;
+    description: string;
+    duration?: number | null;
+  }>;
 }
 
 interface StepProgress {
@@ -33,6 +45,7 @@ interface RecipeDetailsMobilePreparationProps {
   recipe: {
     id: string;
     steps?: Step[];
+    stepGroups?: StepGroup[];
   };
   stepByStepMode: boolean;
   setStepByStepMode: (mode: boolean) => void;
@@ -173,7 +186,7 @@ export default function RecipeDetailsMobilePreparation({
                     {recipe.steps[currentStep].stepNumber}
                   </div>
                   <div className="flex-1">
-                    <p className="text-base leading-relaxed text-gray-900 dark:text-gray-100 mb-4 font-medium">
+                    <p className="text-base leading-relaxed text-gray-900 dark:text-gray-100 mb-4 font-medium whitespace-pre-wrap">
                       {recipe.steps[currentStep].description}
                     </p>
 
@@ -288,51 +301,113 @@ export default function RecipeDetailsMobilePreparation({
             </div>
           ) : (
             /* Mode liste complète avec checklist */
-            <div className="space-y-3">
-              {recipe.steps?.map((step, index) => (
-                <div
-                  key={step.id}
-                  className={`flex gap-3 p-3 rounded-lg border transition-colors ${
-                    stepsCompleted[step.id]
-                      ? "bg-success/10 border-success/20"
-                      : "bg-gray-50 dark:bg-gray-800 border-transparent hover:border-primary/20"
-                  }`}
-                >
-                  <Checkbox
-                    isSelected={stepsCompleted[step.id]}
-                    onValueChange={() => toggleStepCompletion(step.id)}
-                    size="md"
-                    color="success"
-                  />
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <div className="shrink-0 w-7 h-7 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold text-sm">
-                        {step.stepNumber}
+            <div className="space-y-4">
+              {recipe.stepGroups && recipe.stepGroups.length > 0
+                ? recipe.stepGroups
+                    .sort((a, b) => a.order - b.order)
+                    .map((group) => (
+                      <div
+                        key={group.id || group.name}
+                        className="border-l-4 border-secondary pl-4 space-y-3"
+                      >
+                        <h4 className="text-sm font-bold text-secondary mb-2">{group.name}</h4>
+                        <div className="space-y-2">
+                          {group.steps
+                            .sort((a, b) => a.stepNumber - b.stepNumber)
+                            .map((step) => {
+                              const stepId = `${group.id}-${step.stepNumber}`;
+                              return (
+                                <div
+                                  key={stepId}
+                                  className={`flex gap-3 p-3 rounded-lg border transition-colors ${
+                                    stepsCompleted[stepId]
+                                      ? "bg-success/10 border-success/20"
+                                      : "bg-gray-50 dark:bg-gray-800 border-transparent hover:border-primary/20"
+                                  }`}
+                                >
+                                  <Checkbox
+                                    isSelected={stepsCompleted[stepId]}
+                                    onValueChange={() => toggleStepCompletion(stepId)}
+                                    size="md"
+                                    color="success"
+                                  />
+                                  <div className="flex-1">
+                                    <div className="flex items-center gap-2 mb-1">
+                                      <div className="shrink-0 w-7 h-7 bg-secondary text-secondary-foreground rounded-full flex items-center justify-center font-bold text-sm">
+                                        {step.stepNumber}
+                                      </div>
+                                      {step.duration && (
+                                        <Chip
+                                          size="sm"
+                                          variant="flat"
+                                          color="secondary"
+                                          startContent={<Clock className="w-3 h-3" />}
+                                          className="text-xs"
+                                        >
+                                          {step.duration} min
+                                        </Chip>
+                                      )}
+                                    </div>
+                                    <p
+                                      className={`text-sm leading-relaxed whitespace-pre-wrap ${
+                                        stepsCompleted[stepId]
+                                          ? "line-through text-gray-500"
+                                          : "text-gray-700 dark:text-gray-300"
+                                      }`}
+                                    >
+                                      {step.description}
+                                    </p>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                        </div>
                       </div>
-                      {step.duration && (
-                        <Chip
-                          size="sm"
-                          variant="flat"
-                          color="primary"
-                          startContent={<Clock className="w-3 h-3" />}
-                          className="text-xs"
-                        >
-                          {step.duration} min
-                        </Chip>
-                      )}
-                    </div>
-                    <p
-                      className={`text-sm leading-relaxed ${
+                    ))
+                : recipe.steps?.map((step) => (
+                    <div
+                      key={step.id}
+                      className={`flex gap-3 p-3 rounded-lg border transition-colors ${
                         stepsCompleted[step.id]
-                          ? "line-through text-gray-500"
-                          : "text-gray-700 dark:text-gray-300"
+                          ? "bg-success/10 border-success/20"
+                          : "bg-gray-50 dark:bg-gray-800 border-transparent hover:border-primary/20"
                       }`}
                     >
-                      {step.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
+                      <Checkbox
+                        isSelected={stepsCompleted[step.id]}
+                        onValueChange={() => toggleStepCompletion(step.id)}
+                        size="md"
+                        color="success"
+                      />
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <div className="shrink-0 w-7 h-7 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold text-sm">
+                            {step.stepNumber}
+                          </div>
+                          {step.duration && (
+                            <Chip
+                              size="sm"
+                              variant="flat"
+                              color="primary"
+                              startContent={<Clock className="w-3 h-3" />}
+                              className="text-xs"
+                            >
+                              {step.duration} min
+                            </Chip>
+                          )}
+                        </div>
+                        <p
+                          className={`text-sm leading-relaxed whitespace-pre-wrap ${
+                            stepsCompleted[step.id]
+                              ? "line-through text-gray-500"
+                              : "text-gray-700 dark:text-gray-300"
+                          }`}
+                        >
+                          {step.description}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
             </div>
           )}
         </CardBody>

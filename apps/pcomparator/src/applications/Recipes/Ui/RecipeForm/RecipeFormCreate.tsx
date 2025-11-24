@@ -90,7 +90,20 @@ export const RecipeFormCreate = () => {
     setError(null);
 
     try {
-      const recipe = await createRecipe(formData);
+      // Clean up data before sending
+      const dataToSend = { ...formData };
+
+      // If using ingredient groups, clear simple ingredients array
+      if (dataToSend.ingredientGroups && dataToSend.ingredientGroups.length > 0) {
+        dataToSend.ingredients = [];
+      }
+
+      // If using step groups, clear simple steps array
+      if (dataToSend.stepGroups && dataToSend.stepGroups.length > 0) {
+        dataToSend.steps = [];
+      }
+
+      const recipe = await createRecipe(dataToSend);
 
       // Upload image if present
       if (imageFile && recipe.id) {
@@ -134,11 +147,12 @@ export const RecipeFormCreate = () => {
   };
 
   const addIngredient = () => {
+    const currentIngredients = formData.ingredients || [];
     setFormData({
       ...formData,
       ingredients: [
-        ...formData.ingredients,
-        { productId: "", productName: "", quantity: 1, unit: "unit", order: formData.ingredients.length }
+        ...currentIngredients,
+        { productId: "", productName: "", quantity: 1, unit: "unit", order: currentIngredients.length }
       ]
     });
   };
@@ -146,12 +160,12 @@ export const RecipeFormCreate = () => {
   const removeIngredient = (index: number) => {
     setFormData({
       ...formData,
-      ingredients: formData.ingredients.filter((_, i) => i !== index)
+      ingredients: (formData.ingredients || []).filter((_, i) => i !== index)
     });
   };
 
   const updateIngredient = (index: number, field: string, value: any) => {
-    const updatedIngredients = [...formData.ingredients];
+    const updatedIngredients = [...(formData.ingredients || [])];
 
     if (field === "_batch") {
       // Handle batch update (multiple fields at once)
@@ -165,21 +179,22 @@ export const RecipeFormCreate = () => {
   };
 
   const addStep = () => {
+    const currentSteps = formData.steps || [];
     setFormData({
       ...formData,
-      steps: [...formData.steps, { stepNumber: formData.steps.length + 1, description: "" }]
+      steps: [...currentSteps, { stepNumber: currentSteps.length + 1, description: "" }]
     });
   };
 
   const removeStep = (index: number) => {
-    const updatedSteps = formData.steps
+    const updatedSteps = (formData.steps || [])
       .filter((_, i) => i !== index)
       .map((step, i) => ({ ...step, stepNumber: i + 1 }));
     setFormData({ ...formData, steps: updatedSteps });
   };
 
   const updateStep = (index: number, field: string, value: any) => {
-    const updatedSteps = [...formData.steps];
+    const updatedSteps = [...(formData.steps || [])];
     updatedSteps[index] = { ...updatedSteps[index], [field]: value };
     setFormData({ ...formData, steps: updatedSteps });
   };
@@ -190,7 +205,23 @@ export const RecipeFormCreate = () => {
       return formData.name.trim().length > 0;
     }
     if (currentStep === 2) {
-      return formData.ingredients.length > 0 && formData.ingredients.every((ing) => ing.productId);
+      const ingredients = formData.ingredients || [];
+      const ingredientGroups = formData.ingredientGroups || [];
+
+      // Check if we have simple ingredients
+      const hasSimpleIngredients = ingredients.length > 0 && ingredients.every((ing) => ing.productId);
+
+      // Check if we have ingredient groups with at least one ingredient
+      const hasGroupIngredients =
+        ingredientGroups.length > 0 &&
+        ingredientGroups.some(
+          (group) =>
+            group.ingredients &&
+            group.ingredients.length > 0 &&
+            group.ingredients.every((ing) => ing.productId)
+        );
+
+      return hasSimpleIngredients || hasGroupIngredients;
     }
     return true;
   };
@@ -265,9 +296,11 @@ export const RecipeFormCreate = () => {
             >
               <RecipeIngredientsStep
                 ingredients={formData.ingredients}
+                ingredientGroups={formData.ingredientGroups}
                 onAddIngredient={addIngredient}
                 onRemoveIngredient={removeIngredient}
                 onUpdateIngredient={updateIngredient}
+                onGroupsChange={(groups) => setFormData({ ...formData, ingredientGroups: groups })}
               />
             </motion.div>
           )}
@@ -282,9 +315,11 @@ export const RecipeFormCreate = () => {
             >
               <RecipeStepsStep
                 steps={formData.steps}
+                stepGroups={formData.stepGroups}
                 onAddStep={addStep}
                 onRemoveStep={removeStep}
                 onUpdateStep={updateStep}
+                onGroupsChange={(groups) => setFormData({ ...formData, stepGroups: groups })}
               />
             </motion.div>
           )}

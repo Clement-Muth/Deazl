@@ -14,6 +14,10 @@ export const metadata: Metadata = {
   }
 };
 
+export const generateStaticParams = async () => {
+  return [{ locale: "en" }, { locale: "fr" }];
+};
+
 const HomePage = async () => {
   const session = await auth();
 
