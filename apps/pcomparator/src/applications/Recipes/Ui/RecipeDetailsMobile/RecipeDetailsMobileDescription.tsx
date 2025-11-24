@@ -4,6 +4,7 @@ import { Divider } from "@heroui/react";
 import { Trans } from "@lingui/react/macro";
 import { motion } from "framer-motion";
 import { Clock, Users } from "lucide-react";
+import { RichTextDisplay } from "../components/RichTextDisplay";
 
 interface RecipeDetailsMobileDescriptionProps {
   recipe: {
@@ -93,9 +94,7 @@ export default function RecipeDetailsMobileDescription({ recipe }: RecipeDetails
             <h3 className="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-3">
               <Trans>Description</Trans>
             </h3>
-            <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">
-              {recipe.description}
-            </p>
+            <RichTextDisplay content={recipe.description} />
           </div>
         )}
       </motion.div>

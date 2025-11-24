@@ -37,17 +37,20 @@ export const SmartIngredientInput = forwardRef<HTMLInputElement, SmartIngredient
     const [selectedProduct, setSelectedProduct] = useState<ProductSearchResult | null>(value || null);
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-    // Update when value or productId changes from parent
+    // Update when value changes from parent
     useEffect(() => {
-      if (value) {
+      if (value && value.id !== selectedProduct?.id) {
         setSelectedProduct(value);
         setInputValue(value.name);
-      } else if (productId && productId !== selectedProduct?.id) {
-        // Product ID changed but we don't have the full product object
-        // Keep the selected state but don't reset input
+      }
+    }, [value?.id]);
+
+    // Reset when productId is cleared
+    useEffect(() => {
+      if (!productId && selectedProduct) {
         setSelectedProduct(null);
       }
-    }, [value, productId, selectedProduct?.id]);
+    }, [productId]);
 
     // Debounced search
     useEffect(() => {

@@ -112,7 +112,10 @@ export function RecipeCard({
           )}
 
           {!isCompact && recipe.description && (
-            <p className="text-xs sm:text-sm text-gray-500 line-clamp-2 mb-2 sm:mb-3">{recipe.description}</p>
+            <p
+              className="text-xs sm:text-sm text-gray-500 line-clamp-2 mb-2 sm:mb-3"
+              dangerouslySetInnerHTML={{ __html: recipe.description.replace(/<[^>]*>/g, "").trim() }}
+            />
           )}
 
           <div className="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm text-gray-500">

@@ -20,7 +20,8 @@ export default async (request: NextRequest) => {
   };
 
   if (pathnameIsMissingLocale) {
-    const newUrl = new URL(`/${locale}${pathname}`, origin);
+    const newUrl = new URL(request.nextUrl);
+    newUrl.pathname = `/${locale}${pathname}`;
 
     if (newUrl.pathname.endsWith("/") && newUrl.pathname !== "/")
       newUrl.pathname = newUrl.pathname.slice(0, -1);
