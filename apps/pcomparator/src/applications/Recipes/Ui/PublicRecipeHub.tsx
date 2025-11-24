@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Chip, Link } from "@heroui/react";
-import { Trans } from "@lingui/react/macro";
+import { Trans, useLingui } from "@lingui/react/macro";
 import { Flame, Sparkles, TrendingUp } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -21,6 +21,7 @@ interface PublicRecipeHubProps {
 export function PublicRecipeHub({ hubData, isAuthenticated }: PublicRecipeHubProps) {
   const router = useRouter();
   const device = useDevice();
+  const { t } = useLingui();
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearch = async (query: string) => {
@@ -44,17 +45,17 @@ export function PublicRecipeHub({ hubData, isAuthenticated }: PublicRecipeHubPro
 
   return (
     <div className="container mx-auto w-full">
-      <PageHeader title="Découvrir des recettes" />
+      <PageHeader title={<Trans>Discover recipes</Trans>} />
 
       <div className="space-y-8 p-4">
         <div className="mb-8">
-          <RecipeSearchBar onSearch={handleSearch} placeholder="Rechercher des recettes..." />
+          <RecipeSearchBar onSearch={handleSearch} placeholder={t`Search recipes...`} />
         </div>
 
         {!isAuthenticated && (
           <div className="mb-8">
             <LoginCTA
-              message="Créez un compte pour accéder à des fonctionnalités personnalisées, enregistrer vos recettes favorites et obtenir des recommandations sur mesure"
+              message={t`Create an account to access personalized features, save your favorite recipes, and get tailored recommendations`}
               variant="banner"
             />
           </div>
@@ -66,7 +67,7 @@ export function PublicRecipeHub({ hubData, isAuthenticated }: PublicRecipeHubPro
               <div className="flex items-center gap-2">
                 <TrendingUp className="h-5 w-5 text-danger" />
                 <h2 className="text-2xl font-bold">
-                  <Trans>Tendances</Trans>
+                  <Trans>Trending</Trans>
                 </h2>
               </div>
               <Button
@@ -76,12 +77,12 @@ export function PublicRecipeHub({ hubData, isAuthenticated }: PublicRecipeHubPro
                 href="/recipes/trending"
                 endContent={<Sparkles className="h-4 w-4" />}
               >
-                <Trans>Voir tout</Trans>
+                <Trans>See all</Trans>
               </Button>
             </div>
 
             <RecipeHorizontalList
-              title="Tendances"
+              title={t`Trending`}
               recipes={hubData.trending.items.map((item) => item.recipe)}
             />
           </section>
@@ -93,7 +94,7 @@ export function PublicRecipeHub({ hubData, isAuthenticated }: PublicRecipeHubPro
               <div className="flex items-center gap-2">
                 <Flame className="h-5 w-5 text-warning" />
                 <h2 className="text-2xl font-bold">
-                  <Trans>Nouvelles recettes</Trans>
+                  <Trans>New recipes</Trans>
                 </h2>
               </div>
               <Button
@@ -103,18 +104,18 @@ export function PublicRecipeHub({ hubData, isAuthenticated }: PublicRecipeHubPro
                 href="/recipes/recent"
                 endContent={<Sparkles className="h-4 w-4" />}
               >
-                <Trans>Voir tout</Trans>
+                <Trans>See all</Trans>
               </Button>
             </div>
 
-            <RecipeHorizontalList title="Nouvelles recettes" recipes={hubData.recent.items} />
+            <RecipeHorizontalList title={t`New recipes`} recipes={hubData.recent.items} />
           </section>
         )}
 
         {hubData.categories.length > 0 && (
           <section className="space-y-4">
             <h2 className="text-2xl font-bold">
-              <Trans>Catégories</Trans>
+              <Trans>Categories</Trans>
             </h2>
             <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6">
               {hubData.categories.slice(0, 12).map((cat) => (
@@ -132,7 +133,7 @@ export function PublicRecipeHub({ hubData, isAuthenticated }: PublicRecipeHubPro
         {hubData.cuisines.length > 0 && (
           <section className="space-y-4">
             <h2 className="text-2xl font-bold">
-              <Trans>Cuisines du monde</Trans>
+              <Trans>World Cuisines</Trans>
             </h2>
             <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6">
               {hubData.cuisines.slice(0, 12).map((cui) => (
@@ -150,7 +151,7 @@ export function PublicRecipeHub({ hubData, isAuthenticated }: PublicRecipeHubPro
         {hubData.popularTags.length > 0 && (
           <section className="space-y-4">
             <h2 className="text-2xl font-bold">
-              <Trans>Tags populaires</Trans>
+              <Trans>Popular Tags</Trans>
             </h2>
             <div className="flex flex-wrap gap-2">
               {hubData.popularTags.slice(0, 20).map((tag) => (
@@ -168,7 +169,7 @@ export function PublicRecipeHub({ hubData, isAuthenticated }: PublicRecipeHubPro
         )}
 
         <div className="text-center pt-8 pb-4 text-sm text-default-500">
-          <Trans>{hubData.totalRecipes} recettes publiques disponibles</Trans>
+          <Trans>{hubData.totalRecipes} public recipes available</Trans>
         </div>
       </div>
     </div>

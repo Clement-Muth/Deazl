@@ -21,7 +21,7 @@ export function PrivateRecipeBanner({ recipeName, className = "" }: PrivateRecip
 
           <div className="space-y-2">
             <h2 className="text-2xl font-bold text-default-900">
-              <Trans>Recette privée</Trans>
+              <Trans>Private recipe</Trans>
             </h2>
             {recipeName && (
               <p className="text-lg text-default-600">
@@ -31,10 +31,10 @@ export function PrivateRecipeBanner({ recipeName, className = "" }: PrivateRecip
           </div>
 
           <p className="text-default-500">
-            <Trans>Cette recette est privée. Le créateur n'a pas autorisé l'accès public.</Trans>
+            <Trans>This recipe is private. The creator has not authorized public access.</Trans>
           </p>
 
-          <LoginCTA message="Connectez-vous pour accéder à vos recettes privées" variant="default" />
+          <LoginCTA message="Log in to access your private recipes" variant="default" />
         </CardBody>
       </Card>
     </div>

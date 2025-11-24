@@ -68,12 +68,7 @@ msgstr "\"{recipeName}\""
 msgid "(optimal)"
 msgstr "(optimal)"
 
-#. placeholder {0}: recipe.difficulty
-#: src/applications/Recipes/Ui/RecipeBuilder/PhotoImport/RecipePreviewCard.tsx
-msgid "{0}"
-msgstr "{0}"
-
-#. placeholder {0}: showAlternatives ? "Masquer" : "Voir"
+#. placeholder {0}: showAlternatives ? "Hide" : "Show"
 #. placeholder {1}: item.alternatives.length
 #: src/applications/Recipes/Ui/RecipePricingSection.tsx
 msgid "{0} {1} alternative(s)"
@@ -86,8 +81,8 @@ msgstr "{0} favorite(s)"
 
 #. placeholder {0}: pricingData.missingCount
 #: src/applications/Recipes/Ui/RecipeDetails/RecipeIngredientsWithPricing.tsx
-msgid "{0} ingrédients sans prix"
-msgstr "{0} ingrédients sans prix"
+msgid "{0} ingredients without price"
+msgstr "{0} ingredients without price"
 
 #. placeholder {0}: stats.totalCount
 #: src/applications/Pantry/Ui/PantryPage.tsx
@@ -105,20 +100,20 @@ msgstr "{0} items will be merged, {1} new items will be added"
 msgid "{0} minutes"
 msgstr "{0} minutes"
 
-#. placeholder {0}: store.itemCount
-#: src/applications/Recipes/Ui/RecipePricingSection.tsx
-msgid "{0} produits disponibles"
-msgstr "{0} produits disponibles"
-
 #. placeholder {0}: store.missingCount
 #: src/applications/Recipes/Ui/RecipePricingSection.tsx
-msgid "{0} produits manquants"
-msgstr "{0} produits manquants"
+msgid "{0} missing products"
+msgstr "{0} missing products"
+
+#. placeholder {0}: store.itemCount
+#: src/applications/Recipes/Ui/RecipePricingSection.tsx
+msgid "{0} products available"
+msgstr "{0} products available"
 
 #. placeholder {0}: hubData.totalRecipes
 #: src/applications/Recipes/Ui/PublicRecipeHub.tsx
-msgid "{0} recettes publiques disponibles"
-msgstr "{0} recettes publiques disponibles"
+msgid "{0} public recipes available"
+msgstr "{0} public recipes available"
 
 #. placeholder {0}: recipes.length
 #: src/app/[locale]/recipes/content.tsx
@@ -126,53 +121,20 @@ msgid "{0} recipe(s)"
 msgstr "{0} recipe(s)"
 
 #: src/applications/Recipes/Ui/RecipeQualitySection.tsx
-msgid "{additivesCount} additifs"
-msgstr "{additivesCount} additifs"
+msgid "{additivesCount} additives"
+msgstr "{additivesCount} additives"
 
 #: src/applications/Recipes/Ui/RecipeQualitySection.tsx
-msgid "{allergensCount} allergènes"
-msgstr "{allergensCount} allergènes"
-
-#. js-lingui-explicit-id
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileDescription.tsx
-msgid "time.days"
-msgstr "{days}j"
-
-#. js-lingui-explicit-id
-#. placeholder {0}: minutes.toString().padStart(2, "0")
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileDescription.tsx
-msgid "time.days_minutes"
-msgstr "{days}j {0}min"
-
-#. js-lingui-explicit-id
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileDescription.tsx
-msgid "time.days_hours"
-msgstr "{days}j {remainingHours}h"
-
-#. js-lingui-explicit-id
-#. placeholder {0}: minutes.toString().padStart(2, "0")
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileDescription.tsx
-msgid "time.days_hours_minutes"
-msgstr "{days}j {remainingHours}h {0}min"
+msgid "{allergensCount} allergens"
+msgstr "{allergensCount} allergens"
 
 #: src/applications/Pantry/Ui/components/PantryItemCard.tsx
 msgid "{daysUntil}d left"
 msgstr "{daysUntil}d left"
 
-#. js-lingui-explicit-id
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileDescription.tsx
-msgid "time.hours"
-msgstr "{hours}h"
-
-#. js-lingui-explicit-id
-#. placeholder {0}: minutes.toString().padStart(2, "0")
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileDescription.tsx
-msgid "time.hours_minutes"
-msgstr "{hours}h {0}min"
-
 #: src/applications/Recipes/Ui/RecipePricingSection.tsx
-msgid "{missingCount} ingrédient(s) sans prix"
-msgstr "{missingCount} ingrédient(s) sans prix"
+msgid "{missingCount} ingredient(s) without price"
+msgstr "{missingCount} ingredient(s) without price"
 
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
 msgid "{name} has been added to your list"
@@ -185,11 +147,6 @@ msgstr "{newStoreName} has been added and selected"
 #: src/applications/Prices/Ui/QuickAddProduct/components/ProductFormModal.tsx
 msgid "{productName} has been added successfully"
 msgstr "{productName} has been added successfully"
-
-#. js-lingui-explicit-id
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileDescription.tsx
-msgid "time.minutes"
-msgstr "{totalMinutes} Min"
 
 #: src/components/Footer/Footer.tsx
 msgid "© 2025 Deazl. All rights reserved."
@@ -218,17 +175,13 @@ msgstr "+{0} more steps"
 msgid "⚠️ The Photon API is free but rate-limited. Enriching many stores may take time."
 msgstr "⚠️ The Photon API is free but rate-limited. Enriching many stores may take time."
 
-#: src/app/[locale]/pricing/page.tsx
+#: src/app/[locale]/pricing/Content.tsx
 msgid "100% Free and Open Source"
 msgstr "100% Free and Open Source"
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "30-day price history"
 msgstr "30-day price history"
-
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileNutrition.tsx
-msgid "À améliorer"
-msgstr "À améliorer"
 
 #: src/views/Home/components/Features/FeaturesSection.tsx
 msgid "A free and open source solution to manage your shopping and save on your daily purchases."
@@ -238,11 +191,11 @@ msgstr "A free and open source solution to manage your shopping and save on your
 msgid "A growing community that contributes every day to enrich our database."
 msgstr "A growing community that contributes every day to enrich our database."
 
-#: src/app/[locale]/about/page.tsx
+#: src/app/[locale]/about/Content.tsx
 msgid "A passionate team of developers, designers, and data experts dedicated to helping you save on your shopping."
 msgstr "A passionate team of developers, designers, and data experts dedicated to helping you save on your shopping."
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "A wide coverage of stores"
 msgstr "A wide coverage of stores"
 
@@ -251,7 +204,7 @@ msgstr "A wide coverage of stores"
 msgid "About"
 msgstr "About"
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "Access prices from many stores near you. Our network grows every day thanks to the community."
 msgstr "Access prices from many stores near you. Our network grows every day thanks to the community."
 
@@ -313,6 +266,12 @@ msgid "Add GPS coordinates to stores for distance-based optimization"
 msgstr "Add GPS coordinates to stores for distance-based optimization"
 
 #: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
+msgid "Add Group"
+msgstr "Add Group"
+
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
 msgid "Add ingredient"
 msgstr "Add ingredient"
 
@@ -361,6 +320,7 @@ msgid "Add price information"
 msgstr "Add price information"
 
 #: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
 msgid "Add step"
 msgstr "Add step"
 
@@ -408,6 +368,11 @@ msgstr "Adjust Portions"
 msgid "Adjust the importance of each criterion to customize the optimization algorithm. Weights are automatically normalized."
 msgstr "Adjust the importance of each criterion to customize the optimization algorithm. Weights are automatically normalized."
 
+#. placeholder {0}: recipes.length
+#: src/app/[locale]/recipes/my-recipes/MyRecipesPageClient.tsx
+msgid "All ({0})"
+msgstr "All ({0})"
+
 #: src/app/[locale]/recipes/explore/content.tsx
 msgid "All cuisines"
 msgstr "All cuisines"
@@ -420,7 +385,7 @@ msgstr "All ingredients"
 msgid "All levels"
 msgstr "All levels"
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "All our features"
 msgstr "All our features"
 
@@ -433,9 +398,6 @@ msgid "All stores now have GPS coordinates for distance-based optimization"
 msgstr "All stores now have GPS coordinates for distance-based optimization"
 
 #: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileNutrition.tsx
-msgid "Allergènes :"
-msgstr "Allergènes :"
-
 #: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileNutrition.tsx
 msgid "Allergens:"
 msgstr "Allergens:"
@@ -457,11 +419,6 @@ msgstr "Always use dark theme"
 msgid "Always use light theme"
 msgstr "Always use light theme"
 
-#. placeholder {0}: rec.expectedQualityGain
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileNutrition.tsx
-msgid "Amélioration de +{0} points"
-msgstr "Amélioration de +{0} points"
-
 #: src/app/[locale]/error.tsx
 msgid "An error occurred"
 msgstr "An error occurred"
@@ -474,15 +431,11 @@ msgstr "An invitation has been sent to {email}"
 msgid "An unexpected error occurred"
 msgstr "An unexpected error occurred"
 
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileNutrition.tsx
-msgid "Analyse complète"
-msgstr "Analyse complète"
-
 #: src/applications/Recipes/Ui/RecipeForm/PhotoImportStep.tsx
 msgid "Analysis failed"
 msgstr "Analysis failed"
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "Analysis of savings made"
 msgstr "Analysis of savings made"
 
@@ -512,7 +465,12 @@ msgstr "Anyone with this link can view the recipe"
 msgid "Appearance"
 msgstr "Appearance"
 
-#: src/app/[locale]/pricing/page.tsx
+#: src/applications/Recipes/Ui/RecipePricingSection.tsx
+#: src/applications/Recipes/Ui/RecipePricingSection.tsx
+msgid "Approximate price"
+msgstr "Approximate price"
+
+#: src/app/[locale]/pricing/Content.tsx
 msgid "Are there any usage limits?"
 msgstr "Are there any usage limits?"
 
@@ -537,6 +495,14 @@ msgstr "Availability"
 #: src/applications/Profile/Ui/Settings/Avatar.tsx
 msgid "Avatar updated"
 msgstr "Avatar updated"
+
+#: src/applications/Recipes/Ui/RecipeDetails/RecipeIngredientsWithPricing.tsx
+msgid "Average"
+msgstr "Average"
+
+#: src/applications/Recipes/Ui/RecipePricingSection.tsx
+msgid "Average price"
+msgstr "Average price"
 
 #: src/applications/Products/Ui/ProductDetailsPage.tsx
 msgid "Average Price"
@@ -606,10 +572,6 @@ msgstr "Best Price"
 msgid "Best prices"
 msgstr "Best prices"
 
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileNutrition.tsx
-msgid "Bon"
-msgstr "Bon"
-
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/AddStoreModal.tsx
 msgid "Both name and location are required"
 msgstr "Both name and location are required"
@@ -622,17 +584,9 @@ msgstr "Both store name and location are required"
 msgid "Browse thousands of recipes from the community"
 msgstr "Browse thousands of recipes from the community"
 
-#: src/app/[locale]/auth/signin/page.tsx
+#: src/app/[locale]/auth/signin/Content.tsx
 msgid "By signing in, you agree to our <0>terms of service</0> and <1>privacy policy</1>."
 msgstr "By signing in, you agree to our <0>terms of service</0> and <1>privacy policy</1>."
-
-#: src/applications/Recipes/Ui/RecipeQualitySection.tsx
-msgid "Calcul de la qualité..."
-msgstr "Calcul de la qualité..."
-
-#: src/applications/Recipes/Ui/RecipePricingSection.tsx
-msgid "Calcul des prix en cours..."
-msgstr "Calcul des prix en cours..."
 
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step1/PriceDetails.tsx
 msgid "Camera"
@@ -692,8 +646,8 @@ msgid "Cancel"
 msgstr "Cancel"
 
 #: src/applications/Recipes/Ui/PublicRecipeHub.tsx
-msgid "Catégories"
-msgstr "Catégories"
+msgid "Categories"
+msgstr "Categories"
 
 #: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
 msgid "Category"
@@ -707,22 +661,6 @@ msgstr "Centiliter (cl)"
 #: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
 msgid "Centiliters (cl)"
 msgstr "Centiliters (cl)"
-
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileNutrition.tsx
-msgid "Cette recette est bonne avec quelques améliorations possibles"
-msgstr "Cette recette est bonne avec quelques améliorations possibles"
-
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileNutrition.tsx
-msgid "Cette recette est excellente pour votre santé"
-msgstr "Cette recette est excellente pour votre santé"
-
-#: src/applications/Recipes/Ui/components/PrivateRecipeBanner.tsx
-msgid "Cette recette est privée. Le créateur n'a pas autorisé l'accès public."
-msgstr "Cette recette est privée. Le créateur n'a pas autorisé l'accès public."
-
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileNutrition.tsx
-msgid "Cette recette pourrait être améliorée"
-msgstr "Cette recette pourrait être améliorée"
 
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
 msgid "Choose a list"
@@ -748,7 +686,7 @@ msgstr "Choose your preferred theme"
 msgid "Clear"
 msgstr "Clear"
 
-#: src/app/[locale]/about/page.tsx
+#: src/app/[locale]/about/Content.tsx
 msgid "Clear and verified information for informed choices."
 msgstr "Clear and verified information for informed choices."
 
@@ -777,11 +715,11 @@ msgstr "Click to add an image"
 msgid "Close"
 msgstr "Close"
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "Collaborative lists"
 msgstr "Collaborative lists"
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "Collaborative shopping lists"
 msgstr "Collaborative shopping lists"
 
@@ -807,7 +745,7 @@ msgstr "Collaborators"
 msgid "Coming soon"
 msgstr "Coming soon"
 
-#: src/app/[locale]/about/page.tsx
+#: src/app/[locale]/about/Content.tsx
 #: src/components/Footer/Footer.tsx
 msgid "Community"
 msgstr "Community"
@@ -816,7 +754,7 @@ msgstr "Community"
 msgid "Community pricing"
 msgstr "Community pricing"
 
-#: src/app/[locale]/pricing/page.tsx
+#: src/app/[locale]/pricing/Content.tsx
 msgid "Community project"
 msgstr "Community project"
 
@@ -824,7 +762,7 @@ msgstr "Community project"
 msgid "Compare prices"
 msgstr "Compare prices"
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "Compare prices between different stores"
 msgstr "Compare prices between different stores"
 
@@ -836,16 +774,19 @@ msgstr "Compare prices, save smart"
 msgid "Comparez les prix dans les plus grandes enseignes de distribution françaises."
 msgstr "Comparez les prix dans les plus grandes enseignes de distribution françaises."
 
+#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
+msgid "completed"
+msgstr "completed"
+
 #: src/applications/ShoppingLists/Ui/ShoppingLists/ShoppingListsView.tsx
 #: src/applications/ShoppingLists/Ui/ShoppingLists/Stats/Stats.tsx
 #: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
 msgid "Completed"
 msgstr "Completed"
 
-#. placeholder {0}: (confidence * 100).toFixed(0)
-#: src/applications/Recipes/Ui/RecipePricingSection.tsx
-msgid "Confiance des prix : {0}%"
-msgstr "Confiance des prix : {0}%"
+#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileNutrition.tsx
+msgid "Comprehensive analysis"
+msgstr "Comprehensive analysis"
 
 #: src/applications/Profile/Ui/Settings/OptimalPricing/components/OptimalPricingHeader.tsx
 msgid "Configure"
@@ -875,11 +816,7 @@ msgstr "Confirm & Add"
 msgid "Congratulations! You have successfully completed"
 msgstr "Congratulations! You have successfully completed"
 
-#: src/applications/Recipes/Ui/components/LoginCTA.tsx
-msgid "Connectez-vous pour continuer"
-msgstr "Connectez-vous pour continuer"
-
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "Consumption trends"
 msgstr "Consumption trends"
 
@@ -891,15 +828,15 @@ msgstr "Contact"
 msgid "Contact Information"
 msgstr "Contact Information"
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "Contact us"
 msgstr "Contact us"
 
-#: src/app/[locale]/about/page.tsx
+#: src/app/[locale]/about/Content.tsx
 msgid "Continuous improvement of our services and data."
 msgstr "Continuous improvement of our services and data."
 
-#: src/app/[locale]/about/page.tsx
+#: src/app/[locale]/about/Content.tsx
 msgid "Contribute on GitHub"
 msgstr "Contribute on GitHub"
 
@@ -927,15 +864,15 @@ msgstr "Cooking"
 msgid "Cooking (min)"
 msgstr "Cooking (min)"
 
+#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
+msgid "Cooking Mode"
+msgstr "Cooking Mode"
+
 #: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModal.tsx
 #: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalBody.tsx
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/ShareListModal/ShareModalBody.tsx
 msgid "Copy"
 msgstr "Copy"
-
-#: src/applications/Recipes/Ui/RecipeDetails/RecipeIngredientsWithPricing.tsx
-msgid "Coût total estimé"
-msgstr "Coût total estimé"
 
 #: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
 msgid "Cover Image"
@@ -973,6 +910,15 @@ msgstr "Create a new store to track prices"
 msgid "Create a recipe from constraints like budget, time, or ingredients"
 msgstr "Create a recipe from constraints like budget, time, or ingredients"
 
+#: src/applications/Recipes/Ui/PublicRecipeHub.tsx
+msgid "Create an account to access personalized features, save your favorite recipes, and get tailored recommendations"
+msgstr "Create an account to access personalized features, save your favorite recipes, and get tailored recommendations"
+
+#: src/applications/Recipes/Ui/components/LoginCTA.tsx
+#: src/applications/Recipes/Ui/components/LoginCTA.tsx
+msgid "Create an account to access this feature"
+msgstr "Create an account to access this feature"
+
 #: src/views/Home/components/QuickAccess/QuickAccessSection.tsx
 msgid "Create and manage your shopping lists. Track items, prices, and collaborate with others."
 msgstr "Create and manage your shopping lists. Track items, prices, and collaborate with others."
@@ -981,15 +927,15 @@ msgstr "Create and manage your shopping lists. Track items, prices, and collabor
 msgid "Create and share public or private recipes. Get automatic pricing and quality analysis."
 msgstr "Create and share public or private recipes. Get automatic pricing and quality analysis."
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "Create and share recipes"
 msgstr "Create and share recipes"
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "Create and share your lists in real time"
 msgstr "Create and share your lists in real time"
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "Create and share your shopping lists with your family or friends. Collaborate in real time for optimal organization."
 msgstr "Create and share your shopping lists with your family or friends. Collaborate in real time for optimal organization."
 
@@ -1054,28 +1000,20 @@ msgstr "Create your lists"
 msgid "Creating..."
 msgstr "Creating..."
 
-#: src/applications/Recipes/Ui/components/LoginCTA.tsx
-msgid "Créez un compte pour accéder à cette fonctionnalité"
-msgstr "Créez un compte pour accéder à cette fonctionnalité"
-
-#: src/applications/Recipes/Ui/components/LoginCTA.tsx
-msgid "Créez un compte pour utiliser cette fonctionnalité"
-msgstr "Créez un compte pour utiliser cette fonctionnalité"
-
 #: src/app/[locale]/recipes/explore/content.tsx
 #: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
 msgid "Cuisine"
 msgstr "Cuisine"
-
-#: src/applications/Recipes/Ui/PublicRecipeHub.tsx
-msgid "Cuisines du monde"
-msgstr "Cuisines du monde"
 
 #: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
 #: src/components/UnitSelector/UnitSelector.tsx
 #: src/components/UnitSelector/UnitSelector.tsx
 msgid "Cup"
 msgstr "Cup"
+
+#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
+msgid "Current Step"
+msgstr "Current Step"
 
 #: src/applications/Prices/Ui/NewQuickPrice/FormSteps/Location.tsx
 msgid "Custom location"
@@ -1102,7 +1040,7 @@ msgstr "Dashboard"
 msgid "Deazl in numbers"
 msgstr "Deazl in numbers"
 
-#: src/app/[locale]/auth/signin/page.tsx
+#: src/app/[locale]/auth/signin/Content.tsx
 msgid "Deazl is a 100% free and open source application. <0>View on GitHub</0>"
 msgstr "Deazl is a 100% free and open source application. <0>View on GitHub</0>"
 
@@ -1110,11 +1048,11 @@ msgstr "Deazl is a 100% free and open source application. <0>View on GitHub</0>"
 msgid "Deazl is a 100% free app that helps you save money by comparing product prices. Our user community actively contributes to enriching the database for everyone's benefit."
 msgstr "Deazl is a 100% free app that helps you save money by comparing product prices. Our user community actively contributes to enriching the database for everyone's benefit."
 
-#: src/app/[locale]/pricing/page.tsx
+#: src/app/[locale]/pricing/Content.tsx
 msgid "Deazl is a completely free app, developed with and for the community. No subscription, no hidden features – everything is accessible to everyone."
 msgstr "Deazl is a completely free app, developed with and for the community. No subscription, no hidden features – everything is accessible to everyone."
 
-#: src/app/[locale]/pricing/page.tsx
+#: src/app/[locale]/pricing/Content.tsx
 msgid "Deazl is an open source project maintained by the community. The code is public and anyone can contribute to its improvement."
 msgstr "Deazl is an open source project maintained by the community. The code is public and anyone can contribute to its improvement."
 
@@ -1122,7 +1060,7 @@ msgstr "Deazl is an open source project maintained by the community. The code is
 msgid "Deazl is an open source project maintained thanks to community contributions. If you enjoy the service, you can support us via <0>a donation</0>."
 msgstr "Deazl is an open source project maintained thanks to community contributions. If you enjoy the service, you can support us via <0>a donation</0>."
 
-#: src/app/[locale]/about/page.tsx
+#: src/app/[locale]/about/Content.tsx
 msgid "Deazl was born from a simple conviction: everyone should be able to shop at the best price without spending hours comparing stores."
 msgstr "Deazl was born from a simple conviction: everyone should be able to shop at the best price without spending hours comparing stores."
 
@@ -1154,29 +1092,21 @@ msgstr "Delete Personal Account"
 msgid "Deleting this price will delete all of its data. You cannot undo this action."
 msgstr "Deleting this price will delete all of its data. You cannot undo this action."
 
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
-msgid "Démarrer"
-msgstr "Démarrer"
-
 #: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
-msgid "Describe this step..."
-msgstr "Describe this step..."
-
-#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
-msgid "Describe your recipe..."
-msgstr "Describe your recipe..."
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
+msgid "Describe this step in detail..."
+msgstr "Describe this step in detail..."
 
 #: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileDescription.tsx
 #: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
 msgid "Description"
 msgstr "Description"
 
-#: src/applications/Recipes/Ui/RecipePricingSection.tsx
 #: src/applications/Recipes/Ui/RecipeQualitySection.tsx
-msgid "Détail par ingrédient"
-msgstr "Détail par ingrédient"
+msgid "Detail by ingredient"
+msgstr "Detail by ingredient"
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "Detailed price charts"
 msgstr "Detailed price charts"
 
@@ -1189,7 +1119,7 @@ msgstr "Detected additives:"
 msgid "Difficulty"
 msgstr "Difficulty"
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "Discover all the tools at your disposal to manage your shopping and save money every day."
 msgstr "Discover all the tools at your disposal to manage your shopping and save money every day."
 
@@ -1201,9 +1131,17 @@ msgstr "Discover how Deazl helps our users save on their groceries every day."
 msgid "Discover More Recipes"
 msgstr "Discover More Recipes"
 
+#: src/applications/Recipes/Ui/PublicRecipeHub.tsx
+msgid "Discover recipes"
+msgstr "Discover recipes"
+
 #: src/app/[locale]/recipes/content.tsx
 msgid "Discover Recipes"
 msgstr "Discover Recipes"
+
+#: src/applications/Recipes/Ui/RecipeHubContent.tsx
+msgid "Discover recipes tailored to your budget"
+msgstr "Discover recipes tailored to your budget"
 
 #: src/applications/Profile/Ui/Settings/DisplayName.tsx
 msgid "Display name"
@@ -1230,6 +1168,7 @@ msgstr "Distance"
 msgid "done"
 msgstr "done"
 
+#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
 #: src/components/Stepper/Stepper.tsx
 msgid "Done"
 msgstr "Done"
@@ -1239,16 +1178,21 @@ msgid "Drag and drop your file"
 msgstr "Drag and drop your file"
 
 #: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
 msgid "Duration (min)"
 msgstr "Duration (min)"
 
 #: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
-msgid "Durée:"
-msgstr "Durée:"
+msgid "Duration:"
+msgstr "Duration:"
 
 #: src/applications/Prices/Ui/QuickAddProduct/components/AddStoreModal.tsx
 msgid "e.g., Carrefour, Auchan, etc."
 msgstr "e.g., Carrefour, Auchan, etc."
+
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
+msgid "e.g., Dough, Filling, Sauce"
+msgstr "e.g., Dough, Filling, Sauce"
 
 #: src/applications/Prices/Ui/QuickAddProduct/components/ProductFormModal.tsx
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/CreateProductModal/CreateProductModal.tsx
@@ -1259,6 +1203,10 @@ msgstr "e.g., Organic Apples"
 msgid "e.g., Paris, Lyon, etc."
 msgstr "e.g., Paris, Lyon, etc."
 
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
+msgid "e.g., Preparation, Cooking, Finishing"
+msgstr "e.g., Preparation, Cooking, Finishing"
+
 #: src/applications/ShoppingLists/Ui/ShoppingLists/CreateEditListModal.tsx
 msgid "e.g., Weekly Groceries, Party Shopping..."
 msgstr "e.g., Weekly Groceries, Party Shopping..."
@@ -1267,7 +1215,7 @@ msgstr "e.g., Weekly Groceries, Party Shopping..."
 msgid "Easy"
 msgstr "Easy"
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "Easy sharing with loved ones"
 msgstr "Easy sharing with loved ones"
 
@@ -1337,6 +1285,10 @@ msgstr "Enrich"
 msgid "Enrich All"
 msgstr "Enrich All"
 
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "Enter a detailed description of your recipe. You can use multiple paragraphs."
+msgstr "Enter a detailed description of your recipe. You can use multiple paragraphs."
+
 #: src/applications/Pantry/Ui/components/PantryAddForm.tsx
 msgid "Enter product name"
 msgstr "Enter product name"
@@ -1356,10 +1308,6 @@ msgstr "Enter your product name"
 #: src/applications/Prices/Ui/ListPrices/CardPrice/SeeMoreMenu/SeeMoreModal.tsx
 msgid "Environment"
 msgstr "Environment"
-
-#: src/applications/Recipes/Ui/RecipePricingSection.tsx
-msgid "Erreur lors du chargement des prix"
-msgstr "Erreur lors du chargement des prix"
 
 #: src/applications/Prices/Ui/QuickAddProduct/components/AddStoreModal.tsx
 #: src/applications/Prices/Ui/QuickAddProduct/components/AddStoreModal.tsx
@@ -1421,23 +1369,19 @@ msgstr "Erreur lors du chargement des prix"
 msgid "Error"
 msgstr "Error"
 
-#: src/app/[locale]/features/page.tsx
+#: src/applications/Recipes/Ui/RecipePricingSection.tsx
+msgid "Error loading prices"
+msgstr "Error loading prices"
+
+#: src/app/[locale]/features/Content.tsx
 msgid "Essential features"
 msgstr "Essential features"
 
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
-msgid "Étape actuelle"
-msgstr "Étape actuelle"
+#: src/applications/Recipes/Ui/RecipeDetails/RecipeIngredientsWithPricing.tsx
+msgid "Estimated total cost"
+msgstr "Estimated total cost"
 
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
-msgid "Étape par étape"
-msgstr "Étape par étape"
-
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
-msgid "étapes"
-msgstr "étapes"
-
-#: src/app/[locale]/pricing/page.tsx
+#: src/app/[locale]/pricing/Content.tsx
 msgid "Everything included, for everyone"
 msgstr "Everything included, for everyone"
 
@@ -1453,7 +1397,7 @@ msgstr "Ex: Apple Pie"
 msgid "Ex: Italian, French, Asian"
 msgstr "Ex: Italian, French, Asian"
 
-#: src/app/[locale]/about/page.tsx
+#: src/app/[locale]/about/Content.tsx
 msgid "Excellence"
 msgstr "Excellence"
 
@@ -1588,10 +1532,6 @@ msgstr "Failed to update role"
 msgid "Failed to update shopping list"
 msgstr "Failed to update shopping list"
 
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
-msgid "Fait"
-msgstr "Fait"
-
 #: src/components/Footer/Footer.tsx
 msgid "FAQ"
 msgstr "FAQ"
@@ -1620,12 +1560,16 @@ msgstr "Find the best prices near you"
 msgid "Finish Cooking"
 msgstr "Finish Cooking"
 
+#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
+msgid "Finished!"
+msgstr "Finished!"
+
 #: src/applications/Profile/Ui/Settings/Theme.tsx
 msgid "Follow your device theme settings"
 msgstr "Follow your device theme settings"
 
-#: src/app/[locale]/about/page.tsx
-#: src/app/[locale]/auth/signin/page.tsx
+#: src/app/[locale]/about/Content.tsx
+#: src/app/[locale]/auth/signin/Content.tsx
 msgid "For the community"
 msgstr "For the community"
 
@@ -1637,13 +1581,17 @@ msgstr "For this step"
 msgid "Format: quantity unit product price"
 msgstr "Format: quantity unit product price"
 
-#: src/app/[locale]/about/page.tsx
+#: src/app/[locale]/about/Content.tsx
 msgid "Founded in 2024, Deazl is the result of a collaboration between technology enthusiasts and consumers frustrated by the lack of price transparency in retail."
 msgstr "Founded in 2024, Deazl is the result of a collaboration between technology enthusiasts and consumers frustrated by the lack of price transparency in retail."
 
-#: src/app/[locale]/pricing/page.tsx
+#: src/app/[locale]/pricing/Content.tsx
 msgid "Frequently Asked Questions"
 msgstr "Frequently Asked Questions"
+
+#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
+msgid "Full List"
+msgstr "Full List"
 
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step1/PriceDetails.tsx
 msgid "Gallery"
@@ -1675,7 +1623,7 @@ msgstr "Geolocation Error"
 msgid "Geolocation not supported"
 msgstr "Geolocation not supported"
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "Get best prices for recipes"
 msgstr "Get best prices for recipes"
 
@@ -1688,13 +1636,17 @@ msgstr "Get faster access, work offline, and enjoy a smoother experience."
 msgid "Get optimal pricing suggestions for your recipes across multiple stores."
 msgstr "Get optimal pricing suggestions for your recipes across multiple stores."
 
+#: src/applications/Recipes/Ui/RecipeHubContent.tsx
+msgid "Gluten-free"
+msgstr "Gluten-free"
+
 #: src/applications/Products/Ui/ProductDetailsPage.tsx
 msgid "Go back"
 msgstr "Go back"
 
 #: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileNutrition.tsx
-msgid "Graisses saturées élevées"
-msgstr "Graisses saturées élevées"
+msgid "Good"
+msgstr "Good"
 
 #: src/applications/Products/Ui/AddPriceModal.tsx
 #: src/applications/Products/Ui/AddToListModal.tsx
@@ -1711,6 +1663,19 @@ msgstr "Gram (g)"
 #: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
 msgid "Grams (g)"
 msgstr "Grams (g)"
+
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
+msgid "Group Name"
+msgstr "Group Name"
+
+#: src/applications/Recipes/Ui/RecipeForm/ModeToggleHelp.tsx
+msgid "Group your ingredients by category (e.g., \"Dough\", \"Filling\", \"Sauce\") for better readability."
+msgstr "Group your ingredients by category (e.g., \"Dough\", \"Filling\", \"Sauce\") for better readability."
+
+#: src/applications/Recipes/Ui/RecipeForm/ModeToggleHelp.tsx
+msgid "Group your steps by phase (e.g., \"Preparation\", \"Cooking\", \"Assembly\") to structure your recipe."
+msgstr "Group your steps by phase (e.g., \"Preparation\", \"Cooking\", \"Assembly\") to structure your recipe."
 
 #: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
 msgid "Hard"
@@ -1736,20 +1701,32 @@ msgstr "Help the community by contributing new prices. Scan barcodes or enter pr
 msgid "Hide details"
 msgstr "Hide details"
 
+#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileNutrition.tsx
+msgid "High salt content"
+msgstr "High salt content"
+
+#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileNutrition.tsx
+msgid "High saturated fat content"
+msgstr "High saturated fat content"
+
+#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileNutrition.tsx
+msgid "High sugar content"
+msgstr "High sugar content"
+
 #: src/applications/Products/Ui/ProductDetailsPage.tsx
 msgid "Highest"
 msgstr "Highest"
 
-#: src/app/[locale]/features/page.tsx
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "History and analytics"
 msgstr "History and analytics"
 
-#: src/app/[locale]/pricing/page.tsx
+#: src/app/[locale]/pricing/Content.tsx
 msgid "How can I get help?"
 msgstr "How can I get help?"
 
-#: src/app/[locale]/pricing/page.tsx
+#: src/app/[locale]/pricing/Content.tsx
 msgid "How can I support the project?"
 msgstr "How can I support the project?"
 
@@ -1758,7 +1735,7 @@ msgstr "How can I support the project?"
 msgid "How does it work?"
 msgstr "How does it work?"
 
-#: src/app/[locale]/pricing/page.tsx
+#: src/app/[locale]/pricing/Content.tsx
 msgid "How is the app maintained?"
 msgstr "How is the app maintained?"
 
@@ -1802,7 +1779,20 @@ msgstr "Importance of store proximity"
 msgid "Importance of the best price"
 msgstr "Importance of the best price"
 
-#: src/app/[locale]/features/page.tsx
+#. placeholder {0}: rec.expectedQualityGain
+#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileNutrition.tsx
+msgid "Improvement of +{0} points"
+msgstr "Improvement of +{0} points"
+
+#: src/applications/Recipes/Ui/RecipeQualitySection.tsx
+msgid "Improvement suggestions"
+msgstr "Improvement suggestions"
+
+#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileNutrition.tsx
+msgid "Improvement suggestions:"
+msgstr "Improvement suggestions:"
+
+#: src/app/[locale]/features/Content.tsx
 msgid "In detail"
 msgstr "In detail"
 
@@ -1818,6 +1808,10 @@ msgstr "Incomplete"
 msgid "Information"
 msgstr "Information"
 
+#: src/applications/Recipes/Ui/RecipePricingSection.tsx
+msgid "Ingredient breakdown"
+msgstr "Ingredient breakdown"
+
 #: src/applications/Recipes/Ui/components/IngredientsModal.tsx
 #: src/applications/Recipes/Ui/RecipeBuilder/PhotoImport/RecipePreviewCard.tsx
 #: src/applications/Recipes/Ui/RecipeDetails/RecipeIngredientsWithPricing.tsx
@@ -1831,7 +1825,7 @@ msgstr "Ingredients"
 msgid "INGREDIENTS"
 msgstr "INGREDIENTS"
 
-#: src/app/[locale]/about/page.tsx
+#: src/app/[locale]/about/Content.tsx
 msgid "Innovation"
 msgstr "Innovation"
 
@@ -1840,7 +1834,7 @@ msgstr "Innovation"
 msgid "Install Our App for a Better Experience!"
 msgstr "Install Our App for a Better Experience!"
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "Instantly compare prices between different stores. Our database is updated daily by our active community."
 msgstr "Instantly compare prices between different stores. Our database is updated daily by our active community."
 
@@ -1892,19 +1886,19 @@ msgstr "items"
 msgid "Items Completed"
 msgstr "Items Completed"
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "Join our community and start enjoying all our features for free."
 msgstr "Join our community and start enjoying all our features for free."
 
-#: src/app/[locale]/auth/signin/page.tsx
+#: src/app/[locale]/auth/signin/Content.tsx
 msgid "Join our community and start saving money on your daily groceries."
 msgstr "Join our community and start saving money on your daily groceries."
 
-#: src/app/[locale]/about/page.tsx
+#: src/app/[locale]/about/Content.tsx
 msgid "Join the adventure"
 msgstr "Join the adventure"
 
-#: src/app/[locale]/about/page.tsx
+#: src/app/[locale]/about/Content.tsx
 msgid "Join the community"
 msgstr "Join the community"
 
@@ -1990,10 +1984,6 @@ msgstr "List Name"
 msgid "List updated"
 msgstr "List updated"
 
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
-msgid "Liste complète"
-msgstr "Liste complète"
-
 #: src/applications/Products/Ui/AddPriceModal.tsx
 #: src/applications/Products/Ui/AddToListModal.tsx
 #: src/applications/Products/Ui/AddToPantryModal.tsx
@@ -2038,6 +2028,16 @@ msgstr "Location permission denied. Please allow location access in your browser
 msgid "Location request timed out. Please try again."
 msgstr "Location request timed out. Please try again."
 
+#: src/applications/Recipes/Ui/components/LoginCTA.tsx
+#: src/applications/Recipes/Ui/components/LoginCTA.tsx
+#: src/applications/Recipes/Ui/components/LoginCTA.tsx
+msgid "Login"
+msgstr "Login"
+
+#: src/applications/Recipes/Ui/components/LoginCTA.tsx
+msgid "Login to continue"
+msgstr "Login to continue"
+
 #: src/applications/Products/Ui/ProductDetailsPage.tsx
 msgid "Lowest"
 msgstr "Lowest"
@@ -2046,7 +2046,7 @@ msgstr "Lowest"
 msgid "Made with ❤️ in France"
 msgstr "Made with ❤️ in France"
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "Major chains and local stores"
 msgstr "Major chains and local stores"
 
@@ -2075,8 +2075,8 @@ msgid "Manage your recipes and discover new ones"
 msgstr "Manage your recipes and discover new ones"
 
 #: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
-msgid "Marquer terminé"
-msgstr "Marquer terminé"
+msgid "Mark as done"
+msgstr "Mark as done"
 
 #: src/applications/Profile/Ui/Settings/OptimalPricing/components/QuickStatusGrid.tsx
 msgid "Max radius"
@@ -2119,22 +2119,9 @@ msgstr "Missing"
 msgid "Missing information"
 msgstr "Missing information"
 
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
-msgid "Mode Cuisine"
-msgstr "Mode Cuisine"
-
-#: src/applications/Recipes/Ui/RecipeDetails/RecipeIngredientsWithPricing.tsx
-#: src/applications/Recipes/Ui/RecipePricingSection.tsx
-msgid "Mon prix"
-msgstr "Mon prix"
-
 #: src/views/Home/components/Features/FeaturesSection.tsx
 msgid "Monitor price changes over time and find the best deals."
 msgstr "Monitor price changes over time and find the best deals."
-
-#: src/applications/Recipes/Ui/RecipeDetails/RecipeIngredientsWithPricing.tsx
-msgid "Moyen"
-msgstr "Moyen"
 
 #: src/app/[locale]/recipes/content.tsx
 msgid "My Favorites"
@@ -2147,6 +2134,11 @@ msgstr "My Lists"
 #: src/applications/Pantry/Ui/PantryPage.tsx
 msgid "My Pantry"
 msgstr "My Pantry"
+
+#: src/applications/Recipes/Ui/RecipeDetails/RecipeIngredientsWithPricing.tsx
+#: src/applications/Recipes/Ui/RecipePricingSection.tsx
+msgid "My price"
+msgstr "My price"
 
 #: src/app/[locale]/dashboard/layout.tsx
 #: src/applications/Dashboard/Ui/QuickActionsGrid.tsx
@@ -2163,7 +2155,7 @@ msgstr "My Recipes"
 msgid "Name automatically filled from barcode scan"
 msgstr "Name automatically filled from barcode scan"
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "National coverage"
 msgstr "National coverage"
 
@@ -2185,6 +2177,11 @@ msgstr "New list name"
 msgid "New Recipe"
 msgstr "New Recipe"
 
+#: src/applications/Recipes/Ui/PublicRecipeHub.tsx
+#: src/applications/Recipes/Ui/PublicRecipeHub.tsx
+msgid "New recipes"
+msgstr "New recipes"
+
 #: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
 msgid "New stores will automatically be enriched when created"
 msgstr "New stores will automatically be enriched when created"
@@ -2194,6 +2191,7 @@ msgstr "New stores will automatically be enriched when created"
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step2/Price.tsx
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step3/Proof.tsx
 #: src/applications/Prices/Ui/NewQuickPrice/FormSteps/Location.tsx
+#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
 #: src/applications/Recipes/Ui/RecipeForm/RecipeFormNavigation.tsx
 #: src/components/Form/FormActions.tsx
 msgid "Next"
@@ -2253,13 +2251,13 @@ msgstr "No store selected"
 msgid "No stores available"
 msgstr "No stores available"
 
-#: src/app/[locale]/pricing/page.tsx
+#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
+msgid "No timer for this step"
+msgstr "No timer for this step"
+
+#: src/app/[locale]/pricing/Content.tsx
 msgid "No, all features are available without limits. We simply ask you to use the app responsibly and contribute to the community."
 msgstr "No, all features are available without limits. We simply ask you to use the app responsibly and contribute to the community."
-
-#: src/applications/Recipes/Ui/RecipePricingSection.tsx
-msgid "Non disponible"
-msgstr "Non disponible"
 
 #: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileNutrition.tsx
 msgid "None"
@@ -2269,13 +2267,13 @@ msgstr "None"
 msgid "Nos magasins partenaires"
 msgstr "Nos magasins partenaires"
 
+#: src/applications/Recipes/Ui/RecipePricingSection.tsx
+msgid "Not available"
+msgstr "Not available"
+
 #: src/applications/Profile/Ui/Settings/OptimalPricing/components/QuickStatusGrid.tsx
 msgid "Not configured"
 msgstr "Not configured"
-
-#: src/applications/Recipes/Ui/PublicRecipeHub.tsx
-msgid "Nouvelles recettes"
-msgstr "Nouvelles recettes"
 
 #: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileNutrition.tsx
 #: src/applications/Recipes/Ui/RecipeQualitySection.tsx
@@ -2297,6 +2295,11 @@ msgstr "Nutri-Score"
 msgid "NutriScore"
 msgstr "NutriScore"
 
+#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileNutrition.tsx
+#: src/applications/Recipes/Ui/RecipeQualitySection.tsx
+msgid "Nutrition quality"
+msgstr "Nutrition quality"
+
 #: src/applications/ShoppingLists/Ui/ShoppingLists/EmptyState.tsx
 msgid "Once you complete a shopping list, it will appear here for your reference."
 msgstr "Once you complete a shopping list, it will appear here for your reference."
@@ -2310,17 +2313,13 @@ msgstr "Only show stores within this distance"
 msgid "Only the owner can add collaborators."
 msgstr "Only the owner can add collaborators."
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "Optimal pricing"
 msgstr "Optimal pricing"
 
 #: src/applications/Profile/Ui/Settings/OptimalPricing/components/OptimalPricingHeader.tsx
 msgid "Optimal pricing settings"
 msgstr "Optimal pricing settings"
-
-#: src/applications/Recipes/Ui/RecipePricingSection.tsx
-msgid "Optimisé"
-msgstr "Optimisé"
 
 #: src/applications/ShoppingLists/Ui/components/OptimizationPreferencesModal.tsx
 msgid "Optimization Preferences"
@@ -2334,6 +2333,10 @@ msgstr "Optimization successful"
 msgid "Optimize List"
 msgstr "Optimize List"
 
+#: src/applications/Recipes/Ui/RecipePricingSection.tsx
+msgid "Optimized"
+msgstr "Optimized"
+
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/OptimizeListButton/OptimizeListButton.tsx
 msgid "Optimizing..."
 msgstr "Optimizing..."
@@ -2346,37 +2349,51 @@ msgstr "Optional"
 msgid "Or search manually"
 msgstr "Or search manually"
 
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
+msgid "Organized"
+msgstr "Organized"
+
+#: src/applications/Recipes/Ui/RecipeForm/ModeToggleHelp.tsx
+#: src/applications/Recipes/Ui/RecipeForm/ModeToggleHelp.tsx
+msgid "Organized Mode"
+msgstr "Organized Mode"
+
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/RecipeGroup.tsx
 msgid "Other items"
 msgstr "Other items"
 
-#: src/app/[locale]/about/page.tsx
+#: src/app/[locale]/about/Content.tsx
 msgid "Our community-based approach helps maintain an up-to-date database of prices across different stores, helping everyone make informed choices for their shopping."
 msgstr "Our community-based approach helps maintain an up-to-date database of prices across different stores, helping everyone make informed choices for their shopping."
 
-#: src/app/[locale]/about/page.tsx
+#: src/app/[locale]/about/Content.tsx
 msgid "Our goal is to become the reference for price comparison for everyday products, while building an engaged and supportive community."
 msgstr "Our goal is to become the reference for price comparison for everyday products, while building an engaged and supportive community."
 
-#: src/app/[locale]/about/page.tsx
+#: src/app/[locale]/about/Content.tsx
 msgid "Our mission"
 msgstr "Our mission"
 
-#: src/app/[locale]/pricing/page.tsx
+#: src/app/[locale]/pricing/Content.tsx
 msgid "Our mission is to make price comparison accessible to everyone. That's why we don't limit any features."
 msgstr "Our mission is to make price comparison accessible to everyone. That's why we don't limit any features."
 
-#: src/app/[locale]/about/page.tsx
+#: src/app/[locale]/about/Content.tsx
 msgid "Our story"
 msgstr "Our story"
 
-#: src/app/[locale]/about/page.tsx
+#: src/app/[locale]/about/Content.tsx
 msgid "Our values"
 msgstr "Our values"
 
-#: src/app/[locale]/about/page.tsx
+#: src/app/[locale]/about/Content.tsx
 msgid "Our vision"
 msgstr "Our vision"
+
+#: src/applications/Recipes/Ui/RecipeQualitySection.tsx
+msgid "Overall quality score"
+msgstr "Overall quality score"
 
 #: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalBody.tsx
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/ShareListModal/ShareModalBody.tsx
@@ -2395,10 +2412,6 @@ msgstr "Partial"
 #: src/views/Home/components/Stats/StatsSection.tsx
 msgid "Partner stores"
 msgstr "Partner stores"
-
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
-msgid "Pas de minuteur pour cette étape"
-msgstr "Pas de minuteur pour cette étape"
 
 #: src/applications/Recipes/Ui/RecipeForm/RecipeCreationModeSelection.tsx
 msgid "Paste a recipe link to import it automatically"
@@ -2482,12 +2495,16 @@ msgid "PNG, JPG up to 10MB"
 msgstr "PNG, JPG up to 10MB"
 
 #: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileNutrition.tsx
-msgid "Points d'attention"
-msgstr "Points d'attention"
+msgid "Points of attention"
+msgstr "Points of attention"
 
 #: src/app/[locale]/recipes/content.tsx
 msgid "Popular recipes from the community"
 msgstr "Popular recipes from the community"
+
+#: src/applications/Recipes/Ui/PublicRecipeHub.tsx
+msgid "Popular Tags"
+msgstr "Popular Tags"
 
 #: src/applications/Pantry/Ui/components/ProductSearchInput.tsx
 msgid "Position the barcode in the frame"
@@ -2498,10 +2515,6 @@ msgstr "Position the barcode in the frame"
 #: src/applications/Profile/Ui/Settings/OptimalPricing/components/GeolocationSection.tsx
 msgid "Position: {0}, {1}"
 msgstr "Position: {0}, {1}"
-
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
-msgid "Précédent"
-msgstr "Précédent"
 
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/ShoppingListDetailsHeader.tsx
 msgid "Preferences"
@@ -2523,14 +2536,11 @@ msgstr "Preferences Saved"
 msgid "Prep"
 msgstr "Prep"
 
+#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
 #: src/applications/Recipes/Ui/RecipeForm/RecipeFormCreate.tsx
 #: src/applications/Recipes/Ui/RecipeForm/RecipeFormEdit.tsx
 msgid "Preparation"
 msgstr "Preparation"
-
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
-msgid "Préparation"
-msgstr "Préparation"
 
 #: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
 msgid "Preparation (min)"
@@ -2543,6 +2553,7 @@ msgstr "Preparation Steps"
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step2/Price.tsx
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step3/Proof.tsx
 #: src/applications/Prices/Ui/NewQuickPrice/FormSteps/Location.tsx
+#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
 #: src/applications/Recipes/Ui/RecipeForm/RecipeFormNavigation.tsx
 msgid "Previous"
 msgstr "Previous"
@@ -2566,11 +2577,20 @@ msgstr "Price (Optional)"
 msgid "Price & Photo"
 msgstr "Price & Photo"
 
+#: src/applications/Recipes/Ui/RecipePricingSection.tsx
+msgid "Price calculation in progress..."
+msgstr "Price calculation in progress..."
+
+#. placeholder {0}: (confidence * 100).toFixed(0)
+#: src/applications/Recipes/Ui/RecipePricingSection.tsx
+msgid "Price confidence: {0}%"
+msgstr "Price confidence: {0}%"
+
 #: src/applications/Prices/Ui/ListPrices/CardPrice/DeletePriceModal/DeletePriceModal.tsx
 msgid "Price deleted"
 msgstr "Price deleted"
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "Price drop alerts"
 msgstr "Price drop alerts"
 
@@ -2594,6 +2614,10 @@ msgstr "Price optimization"
 #: src/applications/Profile/Ui/Settings/OptimalPricing/components/OptimizationConfigModal.tsx
 msgid "Price Optimization Settings"
 msgstr "Price Optimization Settings"
+
+#: src/applications/Recipes/Ui/RecipePricingSection.tsx
+msgid "Price per store"
+msgstr "Price per store"
 
 #: src/applications/Products/Ui/ProductDetailsPage.tsx
 msgid "Price Statistics"
@@ -2631,7 +2655,7 @@ msgstr "Prices for {search}"
 msgid "Prices Recorded"
 msgstr "Prices Recorded"
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "Prices verified by the community"
 msgstr "Prices verified by the community"
 
@@ -2656,22 +2680,14 @@ msgstr "Priority stores for price selection"
 msgid "Privacy"
 msgstr "Privacy"
 
-#: src/applications/Recipes/Ui/RecipePricingSection.tsx
-#: src/applications/Recipes/Ui/RecipePricingSection.tsx
-msgid "Prix approximatif"
-msgstr "Prix approximatif"
+#. placeholder {0}: recipes.filter((r) => !r.isPublic).length
+#: src/app/[locale]/recipes/my-recipes/MyRecipesPageClient.tsx
+msgid "Private ({0})"
+msgstr "Private ({0})"
 
-#: src/applications/Recipes/Ui/RecipePricingSection.tsx
-msgid "Prix de la recette"
-msgstr "Prix de la recette"
-
-#: src/applications/Recipes/Ui/RecipePricingSection.tsx
-msgid "Prix moyen"
-msgstr "Prix moyen"
-
-#: src/applications/Recipes/Ui/RecipePricingSection.tsx
-msgid "Prix par magasin"
-msgstr "Prix par magasin"
+#: src/applications/Recipes/Ui/components/PrivateRecipeBanner.tsx
+msgid "Private recipe"
+msgstr "Private recipe"
 
 #: src/applications/Prices/Ui/ListPrices/CardPrice/SeeMoreMenu/SeeMoreModal.tsx
 #: src/components/Footer/Footer.tsx
@@ -2751,6 +2767,11 @@ msgstr "Proof photo (optional)"
 msgid "Proximity"
 msgstr "Proximity"
 
+#. placeholder {0}: recipes.filter((r) => r.isPublic).length
+#: src/app/[locale]/recipes/my-recipes/MyRecipesPageClient.tsx
+msgid "Public ({0})"
+msgstr "Public ({0})"
+
 #: src/views/Home/components/Features/FeaturesSection.tsx
 msgid "Public recipe hub"
 msgstr "Public recipe hub"
@@ -2758,11 +2779,6 @@ msgstr "Public recipe hub"
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/ShareListModal/QrCodeTab.tsx
 msgid "QR Code downloaded"
 msgstr "QR Code downloaded"
-
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileNutrition.tsx
-#: src/applications/Recipes/Ui/RecipeQualitySection.tsx
-msgid "Qualité nutritionnelle"
-msgstr "Qualité nutritionnelle"
 
 #: src/applications/ShoppingLists/Ui/components/OptimizationPreferencesModal.tsx
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/ItemPriceAlternativesModal/ItemPriceAlternativesModal.tsx
@@ -2772,6 +2788,10 @@ msgstr "Quality"
 #: src/views/Home/components/Features/FeaturesSection.tsx
 msgid "Quality analysis"
 msgstr "Quality analysis"
+
+#: src/applications/Recipes/Ui/RecipeQualitySection.tsx
+msgid "Quality calculation..."
+msgstr "Quality calculation..."
 
 #: src/applications/Pantry/Ui/components/PantryAddForm.tsx
 #: src/applications/Pantry/Ui/components/PantryEditForm.tsx
@@ -2793,7 +2813,11 @@ msgstr "Quick Add"
 msgid "Quick Share"
 msgstr "Quick Share"
 
-#: src/app/[locale]/features/page.tsx
+#: src/applications/Recipes/Ui/RecipeHubContent.tsx
+msgid "Rapide (- 30 min)"
+msgstr "Rapide (- 30 min)"
+
+#: src/app/[locale]/features/Content.tsx
 msgid "Ready to save on your groceries?"
 msgstr "Ready to save on your groceries?"
 
@@ -2801,12 +2825,12 @@ msgstr "Ready to save on your groceries?"
 msgid "Ready to start saving?"
 msgstr "Ready to start saving?"
 
-#: src/app/[locale]/features/page.tsx
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "Real-time price comparison"
 msgstr "Real-time price comparison"
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "Real-time updates"
 msgstr "Real-time updates"
 
@@ -2814,15 +2838,11 @@ msgstr "Real-time updates"
 msgid "Recent Shopping Lists"
 msgstr "Recent Shopping Lists"
 
-#: src/applications/Recipes/Ui/components/PrivateRecipeBanner.tsx
-msgid "Recette privée"
-msgstr "Recette privée"
-
 #: src/applications/Recipes/Ui/components/CookingCompletionScreen.tsx
 msgid "Recipe Completed!"
 msgstr "Recipe Completed!"
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 #: src/views/Home/components/Features/FeaturesSection.tsx
 msgid "Recipe management"
 msgstr "Recipe management"
@@ -2830,6 +2850,10 @@ msgstr "Recipe management"
 #: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
 msgid "Recipe Name"
 msgstr "Recipe Name"
+
+#: src/applications/Recipes/Ui/RecipePricingSection.tsx
+msgid "Recipe price"
+msgstr "Recipe price"
 
 #: src/app/[locale]/recipes/content.tsx
 #: src/applications/Dashboard/Ui/QuickActionsGrid.tsx
@@ -2841,7 +2865,7 @@ msgstr "Recipes"
 msgid "Recommended: Square image, at least 200x200px. Max size: 5MB. Formats: PNG, JPG, WEBP"
 msgstr "Recommended: Square image, at least 200x200px. Max size: 5MB. Formats: PNG, JPG, WEBP"
 
-#: src/app/[locale]/auth/signin/page.tsx
+#: src/app/[locale]/auth/signin/Content.tsx
 msgid "Redirecting..."
 msgstr "Redirecting..."
 
@@ -2853,6 +2877,19 @@ msgstr "Referenced products"
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/RecipeGroup.tsx
 msgid "Remove all from recipe"
 msgstr "Remove all from recipe"
+
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
+msgid "Remove group"
+msgstr "Remove group"
+
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "Remove image"
+msgstr "Remove image"
+
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
+msgid "Remove step"
+msgstr "Remove step"
 
 #: src/applications/Profile/Ui/Settings/Avatar.tsx
 #: src/applications/Recipes/Ui/components/CookingStepScreen.tsx
@@ -2912,16 +2949,6 @@ msgstr "Scan barcode"
 msgid "Scan or enter barcode"
 msgstr "Scan or enter barcode"
 
-#: src/applications/Recipes/Ui/RecipeQualitySection.tsx
-msgid "Score de qualité global"
-msgstr "Score de qualité global"
-
-#: src/applications/Recipes/Ui/components/LoginCTA.tsx
-#: src/applications/Recipes/Ui/components/LoginCTA.tsx
-#: src/applications/Recipes/Ui/components/LoginCTA.tsx
-msgid "Se connecter"
-msgstr "Se connecter"
-
 #: src/app/[locale]/recipes/explore/content.tsx
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step2/Location.tsx
 #: src/applications/Prices/Ui/NewQuickPrice/FormSteps/Location.tsx
@@ -2932,6 +2959,7 @@ msgstr "Search"
 msgid "Search by name..."
 msgstr "Search by name..."
 
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
 #: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
 msgid "Search for a product..."
 msgstr "Search for a product..."
@@ -2945,8 +2973,14 @@ msgid "Search product..."
 msgstr "Search product..."
 
 #: src/app/[locale]/recipes/explore/content.tsx
+#: src/applications/Recipes/Ui/PublicRecipeHub.tsx
 msgid "Search recipes..."
 msgstr "Search recipes..."
+
+#: src/applications/Recipes/Ui/PublicRecipeHub.tsx
+#: src/applications/Recipes/Ui/PublicRecipeHub.tsx
+msgid "See all"
+msgstr "See all"
 
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/ProductSelectionModal.tsx
 msgid "Select a price and store"
@@ -2981,6 +3015,7 @@ msgstr "Select Shopping List"
 msgid "Select store"
 msgstr "Select store"
 
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
 #: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
 msgid "Select unit"
 msgstr "Select unit"
@@ -3083,7 +3118,7 @@ msgstr "Shopping Optimization"
 msgid "Show nutrition details"
 msgstr "Show nutrition details"
 
-#: src/app/[locale]/auth/signin/page.tsx
+#: src/app/[locale]/auth/signin/Content.tsx
 msgid "Sign in"
 msgstr "Sign in"
 
@@ -3107,17 +3142,26 @@ msgstr "Signing in..."
 msgid "Signout"
 msgstr "Signout"
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "Simple and powerful tools"
 msgstr "Simple and powerful tools"
+
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
+msgid "Simple List"
+msgstr "Simple List"
 
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
 msgid "Smart Merge Preview"
 msgstr "Smart Merge Preview"
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "Smart product suggestions"
 msgstr "Smart product suggestions"
+
+#: src/applications/Recipes/Ui/RecipeHubContent.tsx
+msgid "Smart recipes with real prices, nutritional quality, and cellar optimization"
+msgstr "Smart recipes with real prices, nutritional quality, and cellar optimization"
 
 #: src/views/Home/components/Features/FeaturesSection.tsx
 msgid "Smart shopping lists"
@@ -3128,15 +3172,16 @@ msgid "Sort by"
 msgstr "Sort by"
 
 #: src/applications/Recipes/Ui/components/CookingStepScreen.tsx
+#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
 msgid "Start"
 msgstr "Start"
 
-#: src/app/[locale]/pricing/page.tsx
+#: src/app/[locale]/pricing/Content.tsx
 #: src/views/Home/components/Hero/HeroSection.tsx
 msgid "Start for free"
 msgstr "Start for free"
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "Start now"
 msgstr "Start now"
 
@@ -3160,6 +3205,14 @@ msgstr "Statistics"
 #: src/applications/Recipes/Ui/components/CookingModeHeader.tsx
 msgid "Step {0} / {totalSteps}"
 msgstr "Step {0} / {totalSteps}"
+
+#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
+msgid "Step-by-step"
+msgstr "Step-by-step"
+
+#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
+msgid "steps"
+msgstr "steps"
 
 #: src/applications/Recipes/Ui/RecipeBuilder/PhotoImport/RecipePreviewCard.tsx
 msgid "Steps"
@@ -3189,7 +3242,7 @@ msgstr "Store"
 msgid "Store created"
 msgstr "Store created"
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "Store geolocation"
 msgstr "Store geolocation"
 
@@ -3206,8 +3259,8 @@ msgstr "Store Management"
 msgid "Store Name"
 msgstr "Store Name"
 
-#: src/app/[locale]/features/page.tsx
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "Store network"
 msgstr "Store network"
 
@@ -3236,23 +3289,11 @@ msgstr "Success"
 msgid "Success!"
 msgstr "Success!"
 
-#: src/applications/Recipes/Ui/RecipeQualitySection.tsx
-msgid "Suggestions d'amélioration"
-msgstr "Suggestions d'amélioration"
-
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileNutrition.tsx
-msgid "Suggestions d'amélioration :"
-msgstr "Suggestions d'amélioration :"
-
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
-msgid "Suivant"
-msgstr "Suivant"
-
 #: src/components/Footer/Footer.tsx
 msgid "Support"
 msgstr "Support"
 
-#: src/app/[locale]/pricing/page.tsx
+#: src/app/[locale]/pricing/Content.tsx
 msgid "Supported by the community"
 msgstr "Supported by the community"
 
@@ -3274,10 +3315,6 @@ msgstr "System"
 #: src/components/UnitSelector/UnitSelector.tsx
 msgid "Tablespoon (tbsp)"
 msgstr "Tablespoon (tbsp)"
-
-#: src/applications/Recipes/Ui/PublicRecipeHub.tsx
-msgid "Tags populaires"
-msgstr "Tags populaires"
 
 #: src/applications/Recipes/Ui/RecipeBuilder/PhotoImport/PhotoCapture.tsx
 msgid "Take a photo or select an image of your recipe"
@@ -3301,25 +3338,9 @@ msgstr "Take Photo"
 msgid "Teaspoon (tsp)"
 msgstr "Teaspoon (tsp)"
 
-#: src/app/[locale]/about/page.tsx
+#: src/app/[locale]/about/Content.tsx
 msgid "Technology at the service of your purchasing power."
 msgstr "Technology at the service of your purchasing power."
-
-#: src/applications/Recipes/Ui/PublicRecipeHub.tsx
-msgid "Tendances"
-msgstr "Tendances"
-
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileNutrition.tsx
-msgid "Teneur en sel élevée"
-msgstr "Teneur en sel élevée"
-
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileNutrition.tsx
-msgid "Teneur en sucre élevée"
-msgstr "Teneur en sucre élevée"
-
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
-msgid "terminées"
-msgstr "terminées"
 
 #: src/components/Footer/Footer.tsx
 msgid "Terms of Service"
@@ -3365,7 +3386,7 @@ msgstr "The product you are looking for does not exist or has been removed"
 msgid "The QR code has been downloaded"
 msgstr "The QR code has been downloaded"
 
-#: src/app/[locale]/about/page.tsx
+#: src/app/[locale]/about/Content.tsx
 msgid "The team"
 msgstr "The team"
 
@@ -3402,6 +3423,22 @@ msgstr "This is the name that will be displayed across the application."
 msgid "This list contains <0>{0} item(s)</0>. All items will be permanently deleted."
 msgstr "This list contains <0>{0} item(s)</0>. All items will be permanently deleted."
 
+#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileNutrition.tsx
+msgid "This recipe could be improved"
+msgstr "This recipe could be improved"
+
+#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileNutrition.tsx
+msgid "This recipe is excellent for your health"
+msgstr "This recipe is excellent for your health"
+
+#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileNutrition.tsx
+msgid "This recipe is good with some possible improvements"
+msgstr "This recipe is good with some possible improvements"
+
+#: src/applications/Recipes/Ui/components/PrivateRecipeBanner.tsx
+msgid "This recipe is private. The creator has not authorized public access."
+msgstr "This recipe is private. The creator has not authorized public access."
+
 #: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
 msgid "This tool uses the Photon API (Komoot) to automatically find GPS coordinates for stores based on their name and location."
 msgstr "This tool uses the Photon API (Komoot) to automatically find GPS coordinates for stores based on their name and location."
@@ -3414,6 +3451,7 @@ msgstr "This user is already a collaborator on this list."
 msgid "This user is already a collaborator on this recipe."
 msgstr "This user is already a collaborator on this recipe."
 
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
 #: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
 msgid "Time"
 msgstr "Time"
@@ -3430,6 +3468,10 @@ msgstr "Tip: You can add items to your list after creating it"
 msgid "Tips & Advice"
 msgstr "Tips & Advice"
 
+#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileNutrition.tsx
+msgid "To improve"
+msgstr "To improve"
+
 #: src/applications/Profile/Ui/Settings/DeleteAccountModal.tsx
 msgid "To verify, type <0>{expectedText}</0> below:"
 msgstr "To verify, type <0>{expectedText}</0> below:"
@@ -3438,7 +3480,7 @@ msgstr "To verify, type <0>{expectedText}</0> below:"
 msgid "Today"
 msgstr "Today"
 
-#: src/app/[locale]/about/page.tsx
+#: src/app/[locale]/about/Content.tsx
 msgid "Together, we build a collaborative and reliable database."
 msgstr "Together, we build a collaborative and reliable database."
 
@@ -3471,11 +3513,11 @@ msgstr "Total prices"
 msgid "Totally free and open source"
 msgstr "Totally free and open source"
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "Track and analyze your expenses"
 msgstr "Track and analyze your expenses"
 
-#: src/app/[locale]/features/page.tsx
+#: src/app/[locale]/features/Content.tsx
 msgid "Track your expenses and analyze your shopping habits to optimize your grocery budget."
 msgstr "Track your expenses and analyze your shopping habits to optimize your grocery budget."
 
@@ -3483,9 +3525,14 @@ msgstr "Track your expenses and analyze your shopping habits to optimize your gr
 msgid "Tracked prices"
 msgstr "Tracked prices"
 
-#: src/app/[locale]/about/page.tsx
+#: src/app/[locale]/about/Content.tsx
 msgid "Transparency"
 msgstr "Transparency"
+
+#: src/applications/Recipes/Ui/PublicRecipeHub.tsx
+#: src/applications/Recipes/Ui/PublicRecipeHub.tsx
+msgid "Trending"
+msgstr "Trending"
 
 #: src/app/[locale]/error.tsx
 msgid "Try Again"
@@ -3552,6 +3599,7 @@ msgstr "Unauthorized"
 #: src/applications/Products/Ui/AddToListModal.tsx
 #: src/applications/Products/Ui/AddToPantryModal.tsx
 #: src/applications/Products/Ui/AddToPantryModal.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
 #: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
 #: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
 #: src/components/UnitSelector/UnitSelector.tsx
@@ -3624,6 +3672,14 @@ msgstr "User for 6 months"
 msgid "User Not Found"
 msgstr "User Not Found"
 
+#: src/applications/Recipes/Ui/RecipeHubContent.tsx
+msgid "Vegan"
+msgstr "Vegan"
+
+#: src/applications/Recipes/Ui/RecipeHubContent.tsx
+msgid "Vegetarian"
+msgstr "Vegetarian"
+
 #: src/app/[locale]/recipes/content.tsx
 #: src/app/[locale]/recipes/content.tsx
 #: src/app/[locale]/recipes/content.tsx
@@ -3631,7 +3687,7 @@ msgstr "User Not Found"
 msgid "View All"
 msgstr "View All"
 
-#: src/app/[locale]/pricing/page.tsx
+#: src/app/[locale]/pricing/Content.tsx
 msgid "View on GitHub"
 msgstr "View on GitHub"
 
@@ -3642,11 +3698,6 @@ msgstr "View price trends over time. Monitor changes and find the best deals."
 #: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModal.tsx
 msgid "Viewer"
 msgstr "Viewer"
-
-#: src/applications/Recipes/Ui/PublicRecipeHub.tsx
-#: src/applications/Recipes/Ui/PublicRecipeHub.tsx
-msgid "Voir tout"
-msgstr "Voir tout"
 
 #: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
 msgid "Warning"
@@ -3660,11 +3711,11 @@ msgstr "Warning: This action cannot be undone"
 msgid "We apologize, but something went wrong. Our team has been notified and is working to resolve the issue."
 msgstr "We apologize, but something went wrong. Our team has been notified and is working to resolve the issue."
 
-#: src/app/[locale]/about/page.tsx
+#: src/app/[locale]/about/Content.tsx
 msgid "We envision a future where price comparison is accessible to all, where shopping at the best price becomes simple and intuitive."
 msgstr "We envision a future where price comparison is accessible to all, where shopping at the best price becomes simple and intuitive."
 
-#: src/app/[locale]/pricing/page.tsx
+#: src/app/[locale]/pricing/Content.tsx
 msgid "We have an active community ready to help you. You can ask your questions on our forum or consult our detailed documentation."
 msgstr "We have an active community ready to help you. You can ask your questions on our forum or consult our detailed documentation."
 
@@ -3697,13 +3748,21 @@ msgstr "Why choose Deazl?"
 msgid "Without coordinates"
 msgstr "Without coordinates"
 
+#: src/applications/Recipes/Ui/PublicRecipeHub.tsx
+msgid "World Cuisines"
+msgstr "World Cuisines"
+
 #: src/components/Inputs/File/useFileHandler.ts
 msgid "You can only add a maximum of {maxFile} files"
 msgstr "You can only add a maximum of {maxFile} files"
 
-#: src/app/[locale]/pricing/page.tsx
+#: src/app/[locale]/pricing/Content.tsx
 msgid "You can support Deazl by contributing code, reporting bugs, suggesting improvements, or making a donation to help cover hosting costs."
 msgstr "You can support Deazl by contributing code, reporting bugs, suggesting improvements, or making a donation to help cover hosting costs."
+
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "You can write multiple lines and paragraphs"
+msgstr "You can write multiple lines and paragraphs"
 
 #: src/applications/Products/Ui/AddToListModal.tsx
 msgid "You don't have any shopping lists yet"

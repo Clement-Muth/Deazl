@@ -106,7 +106,7 @@ export function RecipeIngredientsWithPricing({
                 className="text-xs sm:text-sm min-w-0 px-2 sm:px-3 h-7 sm:h-8"
                 onPress={() => setShowUserPrice(true)}
               >
-                <Trans>Mon prix</Trans>
+                <Trans>My price</Trans>
               </Button>
               <Button
                 size="sm"
@@ -115,7 +115,7 @@ export function RecipeIngredientsWithPricing({
                 className="text-xs sm:text-sm min-w-0 px-2 sm:px-3 h-7 sm:h-8"
                 onPress={() => setShowUserPrice(false)}
               >
-                <Trans>Moyen</Trans>
+                <Trans>Average</Trans>
               </Button>
             </div>
           )}
@@ -126,13 +126,13 @@ export function RecipeIngredientsWithPricing({
           <div className="mt-3 p-3 bg-primary/10 rounded-lg w-full">
             <div className="flex items-center justify-between">
               <span className="text-sm sm:text-base text-gray-700 dark:text-gray-300 font-medium">
-                <Trans>Coût total estimé</Trans>
+                <Trans>Estimated total cost</Trans>
               </span>
               <span className="text-lg sm:text-xl font-bold text-primary">{totalPrice.toFixed(2)}€</span>
             </div>
             {pricingData.missingCount > 0 && (
               <p className="text-xs text-gray-500 mt-1">
-                <Trans>{pricingData.missingCount} ingrédients sans prix</Trans>
+                <Trans>{pricingData.missingCount} ingredients without price</Trans>
               </p>
             )}
           </div>
