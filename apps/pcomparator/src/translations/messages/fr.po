@@ -3263,6 +3263,11 @@ msgstr "Se déconnecter"
 msgid "Simple and powerful tools"
 msgstr "Outils simples et puissants"
 
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
+msgid "Simple List"
+msgstr "Liste simple"
+
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
 msgid "Smart Merge Preview"
 msgstr "Aperçu de la fusion intelligente"
@@ -3894,6 +3899,10 @@ msgstr "Vous ne pouvez ajouter que {maxFile} fichiers maximum"
 #: src/app/[locale]/pricing/Content.tsx
 msgid "You can support Deazl by contributing code, reporting bugs, suggesting improvements, or making a donation to help cover hosting costs."
 msgstr "Vous pouvez soutenir Deazl en contribuant du code, en signalant des bogues, en suggérant des améliorations ou en faisant un don pour aider à couvrir les coûts d'hébergement."
+
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "You can write multiple lines and paragraphs"
+msgstr "Vous pouvez écrire plusieurs lignes et paragraphes"
 
 #: src/applications/Products/Ui/AddToListModal.tsx
 msgid "You don't have any shopping lists yet"

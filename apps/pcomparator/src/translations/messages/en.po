@@ -1350,6 +1350,10 @@ msgstr "Enrich"
 msgid "Enrich All"
 msgstr "Enrich All"
 
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "Enter a detailed description of your recipe. You can use multiple paragraphs."
+msgstr "Enter a detailed description of your recipe. You can use multiple paragraphs."
+
 #: src/applications/Pantry/Ui/components/PantryAddForm.tsx
 msgid "Enter product name"
 msgstr "Enter product name"
@@ -3268,6 +3272,11 @@ msgstr "Signout"
 msgid "Simple and powerful tools"
 msgstr "Simple and powerful tools"
 
+#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
+#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
+msgid "Simple List"
+msgstr "Simple List"
+
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
 msgid "Smart Merge Preview"
 msgstr "Smart Merge Preview"
@@ -3900,6 +3909,10 @@ msgstr "You can only add a maximum of {maxFile} files"
 #: src/app/[locale]/pricing/Content.tsx
 msgid "You can support Deazl by contributing code, reporting bugs, suggesting improvements, or making a donation to help cover hosting costs."
 msgstr "You can support Deazl by contributing code, reporting bugs, suggesting improvements, or making a donation to help cover hosting costs."
+
+#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
+msgid "You can write multiple lines and paragraphs"
+msgstr "You can write multiple lines and paragraphs"
 
 #: src/applications/Products/Ui/AddToListModal.tsx
 msgid "You don't have any shopping lists yet"
