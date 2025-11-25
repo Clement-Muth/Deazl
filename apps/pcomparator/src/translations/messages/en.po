@@ -1350,10 +1350,6 @@ msgstr "Enrich"
 msgid "Enrich All"
 msgstr "Enrich All"
 
-#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
-msgid "Enter a detailed description of your recipe. You can use multiple paragraphs."
-msgstr "Enter a detailed description of your recipe. You can use multiple paragraphs."
-
 #: src/applications/Pantry/Ui/components/PantryAddForm.tsx
 msgid "Enter product name"
 msgstr "Enter product name"
@@ -1738,9 +1734,17 @@ msgstr "Grams (g)"
 msgid "Group Name"
 msgstr "Group Name"
 
+#: src/applications/Recipes/Ui/RecipeForm/ModeToggleHelp.tsx
+msgid "Group your ingredients by category (e.g., \"Dough\", \"Filling\", \"Sauce\") for better readability."
+msgstr "Group your ingredients by category (e.g., \"Dough\", \"Filling\", \"Sauce\") for better readability."
+
 #: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
 msgid "Group your ingredients by category (e.g., Dough, Filling, Sauce). This helps organize complex recipes."
 msgstr "Group your ingredients by category (e.g., Dough, Filling, Sauce). This helps organize complex recipes."
+
+#: src/applications/Recipes/Ui/RecipeForm/ModeToggleHelp.tsx
+msgid "Group your steps by phase (e.g., \"Preparation\", \"Cooking\", \"Assembly\") to structure your recipe."
+msgstr "Group your steps by phase (e.g., \"Preparation\", \"Cooking\", \"Assembly\") to structure your recipe."
 
 #: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStepV2.tsx
 msgid "Group your steps by phase (e.g., Preparation, Cooking, Finishing). This helps structure complex recipes."
@@ -2467,6 +2471,11 @@ msgstr "Ordered List"
 #: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStepV2.tsx
 msgid "Organize in Groups"
 msgstr "Organize in Groups"
+
+#: src/applications/Recipes/Ui/RecipeForm/ModeToggleHelp.tsx
+#: src/applications/Recipes/Ui/RecipeForm/ModeToggleHelp.tsx
+msgid "Organized Mode"
+msgstr "Organized Mode"
 
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/RecipeGroup.tsx
 msgid "Other items"
@@ -3272,11 +3281,6 @@ msgstr "Signout"
 msgid "Simple and powerful tools"
 msgstr "Simple and powerful tools"
 
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
-#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
-msgid "Simple List"
-msgstr "Simple List"
-
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
 msgid "Smart Merge Preview"
 msgstr "Smart Merge Preview"
@@ -3909,10 +3913,6 @@ msgstr "You can only add a maximum of {maxFile} files"
 #: src/app/[locale]/pricing/Content.tsx
 msgid "You can support Deazl by contributing code, reporting bugs, suggesting improvements, or making a donation to help cover hosting costs."
 msgstr "You can support Deazl by contributing code, reporting bugs, suggesting improvements, or making a donation to help cover hosting costs."
-
-#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
-msgid "You can write multiple lines and paragraphs"
-msgstr "You can write multiple lines and paragraphs"
 
 #: src/applications/Products/Ui/AddToListModal.tsx
 msgid "You don't have any shopping lists yet"

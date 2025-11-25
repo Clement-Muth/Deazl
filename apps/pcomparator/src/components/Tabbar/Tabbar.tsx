@@ -15,7 +15,7 @@ export const Tabbar = ({ mainButton, isSignedIn }: TabbarProps) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
-    <div className="flex md:hidden sticky bottom-0 justify-evenly py-4 rounded-t-3xl items-center shadow-large bg-content1 z-30">
+    <div className="flex md:hidden sticky bottom-0 justify-evenly py-4 rounded-t-3xl items-center shadow-[0_-2px_75px_rgba(0,0,0,0.25)] dark:shadow-[0_-10px_75px_rgba(0,0,0,0.75)] bg-background z-30">
       <Button as={Link} href="/" startContent={<Home />} variant="light" size="lg" radius="full" isIconOnly />
       <Button
         as={Link}

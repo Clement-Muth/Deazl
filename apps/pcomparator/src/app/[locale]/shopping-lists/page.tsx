@@ -1,8 +1,9 @@
+import type { Metadata } from "next";
 import { ShoppingLists } from "~/applications/ShoppingLists/Ui/ShoppingLists/ShoppingLists";
 import { PageHeader } from "~/components/Header/PageHeader";
 import { withLinguiPage } from "~/core/withLinguiLayout";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Shopping Lists | PComparator",
   description: "Create and manage your shopping lists"
 };
@@ -21,3 +22,5 @@ const ShoppingListsPage = () => {
 };
 
 export default withLinguiPage(ShoppingListsPage);
+
+export const dynamic = "force-dynamic";

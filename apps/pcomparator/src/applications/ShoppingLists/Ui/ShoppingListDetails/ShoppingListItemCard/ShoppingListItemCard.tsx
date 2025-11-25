@@ -1,19 +1,8 @@
-import {
-  Button,
-  Card,
-  CardBody,
-  CardHeader,
-  Input,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  useDisclosure
-} from "@heroui/react";
+import { Button, Card, CardBody, CardHeader, Input, useDisclosure } from "@heroui/react";
 import { Trans } from "@lingui/react/macro";
 import { SaveIcon, ShoppingCartIcon } from "lucide-react";
 import { useState } from "react";
+import { Modal } from "~/components/Modal/Modal";
 import type { ShoppingListItemPayload } from "../../../Domain/Entities/ShoppingListItem.entity";
 import type { ShoppingListPayload } from "../../../Domain/Schemas/ShoppingList.schema";
 import type { ItemOptimalPrice } from "../../../Domain/Services/OptimalPricingService";
@@ -147,12 +136,16 @@ export const ShoppingListItemCard = ({
       </Card>
 
       {/* Simple quantity edit modal */}
-      <Modal isOpen={isOpen} onClose={onClose} size="sm">
-        <ModalContent>
-          <ModalHeader>
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        header={
+          <header>
             <Trans>Edit Quantity</Trans>
-          </ModalHeader>
-          <ModalBody>
+          </header>
+        }
+        body={
+          <div>
             {selectedItem && (
               <div className="space-y-3">
                 <p className="text-sm text-gray-600">{selectedItem.product?.name || "Product"}</p>
@@ -167,22 +160,26 @@ export const ShoppingListItemCard = ({
                 />
               </div>
             )}
-          </ModalBody>
-          <ModalFooter>
-            <Button variant="flat" onPress={onClose}>
+          </div>
+        }
+        footer={
+          <div className="flex gap-2">
+            <Button variant="flat" size="lg" onPress={onClose} fullWidth>
               <Trans>Cancel</Trans>
             </Button>
             <Button
               color="primary"
               onPress={handleUpdateQuantity}
               isLoading={isSubmitting}
+              size="lg"
               startContent={<SaveIcon size={16} />}
+              fullWidth
             >
               <Trans>Save</Trans>
             </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+          </div>
+        }
+      />
     </>
   );
 };

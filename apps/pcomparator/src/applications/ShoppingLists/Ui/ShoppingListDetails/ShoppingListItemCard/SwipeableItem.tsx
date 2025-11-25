@@ -12,6 +12,7 @@ interface SwipeableItemProps {
   isCompleted: boolean;
   disabled?: boolean;
   onPress?: (e: any) => void;
+  onLongPress?: () => void;
 }
 
 const SWIPE_THRESHOLD = 100;
@@ -23,13 +24,16 @@ export const SwipeableItem = ({
   onSwipeRight,
   isCompleted,
   disabled = false,
-  onPress
+  onPress,
+  onLongPress
 }: SwipeableItemProps) => {
   const { theme } = useTheme();
   const x = useMotionValue(0);
   const [isDragging, setIsDragging] = useState(false);
   const [lastTap, setLastTap] = useState(0);
   const [hasSwiped, setHasSwiped] = useState(false);
+  const [longPressTimer, setLongPressTimer] = useState<NodeJS.Timeout | null>(null);
+  const [hasLongPressed, setHasLongPressed] = useState(false);
 
   const backgroundColor = useTransform(
     x,
@@ -77,8 +81,27 @@ export const SwipeableItem = ({
     setLastTap(now);
   };
 
+  const handlePressStart = () => {
+    if (hasSwiped || isDragging) return;
+    setHasLongPressed(false);
+    const timer = setTimeout(() => {
+      setHasLongPressed(true);
+      if (onLongPress) {
+        onLongPress();
+      }
+    }, 500); // 500ms for long press
+    setLongPressTimer(timer);
+  };
+
+  const handlePressEnd = () => {
+    if (longPressTimer) {
+      clearTimeout(longPressTimer);
+      setLongPressTimer(null);
+    }
+  };
+
   const handlePress = (e: React.MouseEvent | React.TouchEvent) => {
-    if (hasSwiped || isDragging) {
+    if (hasSwiped || isDragging || hasLongPressed) {
       return;
     }
     onPress?.(e);
@@ -157,9 +180,18 @@ export const SwipeableItem = ({
         onDragStart={(e) => {
           e.stopImmediatePropagation();
           setIsDragging(true);
+          // Clear long press timer if dragging starts
+          if (longPressTimer) {
+            clearTimeout(longPressTimer);
+            setLongPressTimer(null);
+          }
         }}
         onDragEnd={handleDragEnd}
         onTap={handleTap}
+        onMouseDown={handlePressStart}
+        onMouseUp={handlePressEnd}
+        onTouchStart={handlePressStart}
+        onTouchEnd={handlePressEnd}
         style={{
           x,
           position: "relative",

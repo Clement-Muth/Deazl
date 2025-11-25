@@ -70,7 +70,7 @@ msgstr "(optimal)"
 
 #. placeholder {0}: showAlternatives ? "Hide" : "Show"
 #. placeholder {1}: item.alternatives.length
-#: src/applicationsJ/Recipes/Ui/RecipePricingSection.tsx
+#: src/applications/Recipes/Ui/RecipePricingSection.tsx
 msgid "{0} {1} alternative(s)"
 msgstr "{0} {1} alternative(s)"
 
@@ -1237,6 +1237,7 @@ msgstr "Dupliquer le groupe"
 #: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
 msgid "Duplicate ingredient"
 msgstr "Dupliquer l'ingrédient"
+
 #: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStepV2.tsx
 msgid "Duplicate step"
 msgstr "Dupliquer l'étape"
@@ -1733,9 +1734,17 @@ msgstr "Grammes (g)"
 msgid "Group Name"
 msgstr "Nom du groupe"
 
+#: src/applications/Recipes/Ui/RecipeForm/ModeToggleHelp.tsx
+msgid "Group your ingredients by category (e.g., \"Dough\", \"Filling\", \"Sauce\") for better readability."
+msgstr "Regroupez vos ingrédients par catégorie (par exemple, \"Pâte\", \"Garniture\", \"Sauce\") pour une meilleure lisibilité."
+
 #: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
 msgid "Group your ingredients by category (e.g., Dough, Filling, Sauce). This helps organize complex recipes."
 msgstr "Regroupez vos ingrédients par catégorie (par exemple, Pâte, Garniture, Sauce). Cela aide à organiser les recettes complexes."
+
+#: src/applications/Recipes/Ui/RecipeForm/ModeToggleHelp.tsx
+msgid "Group your steps by phase (e.g., \"Preparation\", \"Cooking\", \"Assembly\") to structure your recipe."
+msgstr "Regroupez vos étapes par phase (par exemple, \"Préparation\", \"Cuisson\", \"Assemblage\") pour structurer votre recette."
 
 #: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStepV2.tsx
 msgid "Group your steps by phase (e.g., Preparation, Cooking, Finishing). This helps structure complex recipes."
@@ -1752,6 +1761,7 @@ msgstr "Titre 2"
 #: src/applications/Recipes/Ui/RecipeForm/RichTextEditor.tsx
 msgid "Heading 3"
 msgstr "Titre 3"
+
 #: src/applications/Prices/Ui/ListPrices/CardPrice/SeeMoreMenu/SeeMoreModal.tsx
 msgid "Health"
 msgstr "Santé"
@@ -1941,6 +1951,7 @@ msgstr "Italien"
 #: src/applications/Recipes/Ui/RecipeForm/RichTextEditor.tsx
 msgid "Italic"
 msgstr "Italique"
+
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/useQuickAdd.tsx
 msgid "Item added"
 msgstr "Article ajouté"
@@ -2198,6 +2209,7 @@ msgstr "Mexicain"
 #: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
 msgid "Middle Eastern"
 msgstr "Moyen-Oriental"
+
 #: src/applications/Products/Ui/AddToListModal.tsx
 #: src/applications/Products/Ui/AddToPantryModal.tsx
 msgid "Milliliter"
@@ -2459,6 +2471,11 @@ msgstr "Liste ordonnée"
 #: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStepV2.tsx
 msgid "Organize in Groups"
 msgstr "Organiser en groupes"
+
+#: src/applications/Recipes/Ui/RecipeForm/ModeToggleHelp.tsx
+#: src/applications/Recipes/Ui/RecipeForm/ModeToggleHelp.tsx
+msgid "Organized Mode"
+msgstr "Mode organisé"
 
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/RecipeGroup.tsx
 msgid "Other items"
@@ -3100,6 +3117,7 @@ msgstr "Sélectionnez une catégorie"
 #: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
 msgid "Select a cuisine"
 msgstr "Sélectionnez une cuisine"
+
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/ProductSelectionModal.tsx
 msgid "Select a price and store"
 msgstr "Sélectionnez un prix et un magasin"
@@ -3262,11 +3280,6 @@ msgstr "Se déconnecter"
 #: src/app/[locale]/features/Content.tsx
 msgid "Simple and powerful tools"
 msgstr "Outils simples et puissants"
-
-#: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStep.tsx
-#: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStep.tsx
-msgid "Simple List"
-msgstr "Liste simple"
 
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
 msgid "Smart Merge Preview"
@@ -3892,6 +3905,7 @@ msgstr "Rédigez une description détaillée de votre recette. Utilisez la mise 
 #: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
 msgid "You can format text with bold, italic, headings, and lists for better readability and SEO."
 msgstr "Vous pouvez formater le texte avec du gras, de l'italique, des titres et des listes pour une meilleure lisibilité et un meilleur référencement."
+
 #: src/components/Inputs/File/useFileHandler.ts
 msgid "You can only add a maximum of {maxFile} files"
 msgstr "Vous ne pouvez ajouter que {maxFile} fichiers maximum"
@@ -3899,10 +3913,6 @@ msgstr "Vous ne pouvez ajouter que {maxFile} fichiers maximum"
 #: src/app/[locale]/pricing/Content.tsx
 msgid "You can support Deazl by contributing code, reporting bugs, suggesting improvements, or making a donation to help cover hosting costs."
 msgstr "Vous pouvez soutenir Deazl en contribuant du code, en signalant des bogues, en suggérant des améliorations ou en faisant un don pour aider à couvrir les coûts d'hébergement."
-
-#: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
-msgid "You can write multiple lines and paragraphs"
-msgstr "Vous pouvez écrire plusieurs lignes et paragraphes"
 
 #: src/applications/Products/Ui/AddToListModal.tsx
 msgid "You don't have any shopping lists yet"

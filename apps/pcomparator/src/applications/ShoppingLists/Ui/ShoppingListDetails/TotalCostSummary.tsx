@@ -28,18 +28,18 @@ export const TotalCostSummary = ({
   const bestStoreName = storeSummary.length > 0 ? storeSummary[0].storeName : undefined;
 
   return (
-    <Card>
+    <Card shadow="sm">
       <CardBody>
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-primary-100 flex items-center justify-center">
+            <div className="h-10 w-10 rounded-full flex items-center justify-center">
               <ShoppingCart className="h-5 w-5 text-primary-600" />
             </div>
             <div>
               <p className="text-xs text-gray-400">
                 <Trans>Total</Trans> · {completedCount}/{itemCount}
               </p>
-              <p className="text-2xl font-bold text-gray-400">{optimizedTotal.toFixed(2)}€</p>
+              <p className="text-2xl font-bold">{optimizedTotal.toFixed(2)}€</p>
             </div>
           </div>
 

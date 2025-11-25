@@ -117,14 +117,6 @@ main {
   @apply flex flex-1;
 }
 
-div[data-rsbs-overlay="true"] {
-  @apply bg-content1;
-}
-
-div[data-rsbs-root]::after {
-  background: hsl(var(--heroui-content1) / 1) !important;
-}
-
 .skeleton {
   position: relative;
 }
