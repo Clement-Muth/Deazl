@@ -4,10 +4,14 @@ import Google from "next-auth/providers/google";
 import { type NextRequest, NextResponse } from "next/server";
 import { prisma } from "~/libraries/prisma";
 
-// @ts-ignore
 export const { auth, handlers, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma) as any,
-  providers: [Google],
+  providers: [
+    Google({
+      clientId: process.env.AUTH_GOOGLE_ID,
+      clientSecret: process.env.AUTH_GOOGLE_SECRET
+    })
+  ],
   trustHost: true,
   session: { strategy: "database" },
   cookies: {
@@ -15,7 +19,6 @@ export const { auth, handlers, signOut } = NextAuth({
       name: "next-auth.session-token-v2"
     }
   },
-
   callbacks: {
     async session({ session, user }) {
       session.user.id = user.id;
