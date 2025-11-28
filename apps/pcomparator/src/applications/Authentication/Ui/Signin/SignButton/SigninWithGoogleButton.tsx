@@ -6,6 +6,7 @@ import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { useNativeGoogleAuth } from "~/applications/Authentication/Ui/hooks/useNativeGoogleAuth";
 
 export const SigninWithGoogleButton = () => {
   const { t } = useLingui();
@@ -13,18 +14,24 @@ export const SigninWithGoogleButton = () => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
 
+  const { signIn: nativeSignIn, error: nativeError, isNativePlatform } = useNativeGoogleAuth(callbackUrl);
+
   const handleSignIn = async () => {
-    try {
-      setIsLoading(true);
-      await signIn("google", { callbackUrl });
-    } catch (error) {
-      console.error("Error signing in:", error);
-      setIsLoading(false);
+    if (isNativePlatform) await nativeSignIn();
+    else {
+      try {
+        setIsLoading(true);
+        await signIn("google");
+      } catch (error) {
+        console.error("Error signing in:", error);
+        setIsLoading(false);
+      }
     }
   };
 
   return (
     <form action={handleSignIn}>
+      {nativeError && <p className="text-red-500 text-sm mb-2 text-center">{nativeError}</p>}
       <Button
         type="submit"
         className="group relative w-full overflow-hidden bg-white hover:bg-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-300"

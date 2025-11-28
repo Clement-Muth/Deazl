@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">@deazl/pcomparator</string>
+    <string name="title_activity_main">@deazl/pcomparator</string>
+    <string name="package_name">com.deazl.app</string>
+    <string name="custom_url_scheme">com.deazl.app</string>
+    <string name="server_client_id">790647876649-04qtk9svq3231lf5ascrf69v6bee9549.apps.googleusercontent.com</string>
+</resources>

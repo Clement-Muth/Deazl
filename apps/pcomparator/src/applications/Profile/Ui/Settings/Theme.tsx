@@ -1,5 +1,7 @@
 "use client";
 
+import { Capacitor } from "@capacitor/core";
+import { StatusBar, Style } from "@capacitor/status-bar";
 import { Card, CardBody, Radio, RadioGroup } from "@heroui/react";
 import { Trans } from "@lingui/react/macro";
 import { Laptop, Moon, Sun } from "lucide-react";
@@ -8,11 +10,29 @@ import { useEffect, useState } from "react";
 
 export function SettingsTheme() {
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, resolvedTheme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (!Capacitor.isNativePlatform()) return;
+
+    const updateStatusBar = async () => {
+      await StatusBar.setStyle({
+        style: resolvedTheme === "dark" ? Style.Dark : Style.Light
+      });
+
+      await StatusBar.setBackgroundColor({
+        color: "#989898"
+      });
+
+      await StatusBar.setOverlaysWebView({ overlay: false });
+    };
+
+    updateStatusBar();
+  }, [resolvedTheme]);
 
   if (!mounted) {
     return (
