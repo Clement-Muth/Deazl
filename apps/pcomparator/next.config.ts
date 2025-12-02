@@ -24,6 +24,7 @@ const nextConfig = (): NextConfig => {
       PCOMPARATOR_API_ENDPOINT: readEnvironmentVariable("PCOMPARATOR_API_ENDPOINT"),
       OPEN_FOOD_FACT_API_ENDPOINT: readEnvironmentVariable("OPEN_FOOD_FACT_API_ENDPOINT"),
       OPEN_FOOD_FACT_PRICES_API_ENDPOINT: readEnvironmentVariable("OPEN_FOOD_FACT_PRICES_API_ENDPOINT"),
+      AUTH_GOOGLE_ID: readEnvironmentVariable("AUTH_GOOGLE_ID"),
     },
     trailingSlash: false,
     reactStrictMode: true,
