@@ -20,8 +20,8 @@ const config: CapacitorConfig = {
   
   // 🔧 DÉCOMMENTE ET MODIFIE selon ton environnement:
   server: {
-    url: "https://staging.deazl.fr",  // ← Remplace par ton IP (yarn mobile:ip)
-    // cleartext: true
+    url: "http://192.168.1.39:3001", //"https://staging.deazl.fr",  // ← Remplace par ton IP (yarn mobile:ip)
+    cleartext: true
   },
   
   ios: {

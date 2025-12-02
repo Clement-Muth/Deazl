@@ -1,5 +1,4 @@
 "use client";
-
 import { animate, motion, useMotionValue, useTransform } from "framer-motion";
 import { CheckIcon, TrashIcon } from "lucide-react";
 import { useTheme } from "next-themes";

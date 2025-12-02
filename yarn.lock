@@ -1878,6 +1878,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@capacitor/haptics@npm:7.0.2":
+  version: 7.0.2
+  resolution: "@capacitor/haptics@npm:7.0.2"
+  peerDependencies:
+    "@capacitor/core": ">=7.0.0"
+  checksum: 10/c239e10e4ddf9b2b2096e7f53b6a5a56ef48545773582941fec3e97b015016672b7fc2102f24b0dc66b348e1a16c0aa387faf2d3f12ba9afdbb74c71a4bef11e
+  languageName: node
+  linkType: hard
+
 "@capacitor/ios@npm:^7.4.4":
   version: 7.4.4
   resolution: "@capacitor/ios@npm:7.4.4"
@@ -2206,6 +2215,7 @@ __metadata:
     "@capacitor/browser": "npm:^7.0.2"
     "@capacitor/cli": "npm:^7.4.4"
     "@capacitor/core": "npm:^7.4.4"
+    "@capacitor/haptics": "npm:7.0.2"
     "@capacitor/ios": "npm:^7.4.4"
     "@capacitor/share": "npm:7.0.2"
     "@capacitor/status-bar": "npm:7.0.3"

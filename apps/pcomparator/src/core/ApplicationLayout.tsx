@@ -1,4 +1,3 @@
-import {} from "@capacitor/core";
 import type { ReactNode } from "react";
 import { Toast } from "~/components/Toast/Toast";
 import { Tabbar } from "./Tabbar";
