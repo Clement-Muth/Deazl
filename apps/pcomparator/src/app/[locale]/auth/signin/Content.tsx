@@ -9,6 +9,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import LogoImage from "public/static/logo.png";
 import { useEffect } from "react";
 import { Balancer } from "react-wrap-balancer";
+import { SigninWithAppleButton } from "~/applications/Authentication/Ui/Signin/SignButton/SigninWithAppleButton";
 import { SigninWithGoogleButton } from "~/applications/Authentication/Ui/Signin/SignButton/SigninWithGoogleButton";
 import { GridBackground } from "~/views/Home/components/GridBackground";
 
@@ -26,7 +27,7 @@ export default function SigninContent() {
 
   if (status === "loading" || status === "authenticated") {
     return (
-      <main className="relative -mt-[4rem] flex flex-1 w-full flex-col min-h-screen">
+      <main className="relative -mt-16 flex flex-1 w-full flex-col min-h-screen">
         <div className="absolute isolate overflow-hidden min-h-[calc(100dvh)] w-full flex items-center">
           <GridBackground />
         </div>
@@ -41,7 +42,7 @@ export default function SigninContent() {
   }
 
   return (
-    <main className="relative -mt-[4rem] flex flex-1 w-full flex-col min-h-screen">
+    <main className="relative -mt-16 flex flex-1 w-full flex-col min-h-screen">
       <div className="absolute isolate overflow-hidden min-h-[calc(100dvh)] w-full flex items-center">
         <GridBackground />
       </div>
@@ -51,7 +52,7 @@ export default function SigninContent() {
           <div className="text-center mb-8">
             <div className="flex justify-center transform hover:scale-105 transition-all duration-300">
               <Link href="/" className="relative block rounded-3xl bg-white shadow-xl">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary-100 via-white to-primary-50 dark:from-primary-900 dark:via-gray-900 dark:to-primary-950 opacity-50 rounded-3xl" />
+                <div className="absolute inset-0 bg-linear-to-br from-primary-100 via-white to-primary-50 dark:from-primary-900 dark:via-gray-900 dark:to-primary-950 opacity-50 rounded-3xl" />
                 <Image
                   src={LogoImage}
                   alt="Deazl Logo"
@@ -69,7 +70,7 @@ export default function SigninContent() {
                 <Trans>For the community</Trans>
               </span>
             </div>
-            <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-100 dark:to-white bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold mb-4 bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-100 dark:to-white bg-clip-text text-transparent">
               <Balancer>
                 <Trans>Sign in</Trans>
               </Balancer>
@@ -83,8 +84,9 @@ export default function SigninContent() {
 
           <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-800">
             <div className="relative">
-              <div className="relative space-y-6">
+              <div className="relative space-y-4">
                 <SigninWithGoogleButton />
+                <SigninWithAppleButton />
 
                 <div className="text-center mt-8">
                   <p className="text-sm text-gray-500 dark:text-gray-400">

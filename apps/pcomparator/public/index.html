@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Deazl</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 4px solid #e0e7ff;
+            border-top-color: #6366f1;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .text {
+            margin-top: 24px;
+            color: #4f46e5;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        .subtext {
+            margin-top: 8px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="loader"></div>
+    <p class="text">Loading Deazl...</p>
+    <p class="subtext">Connecting to server</p>
+    <script>
+        // This page is shown briefly while Capacitor redirects to the remote server
+        // If you see this for more than a few seconds, check your network connection
+        setTimeout(function() {
+            document.querySelector('.subtext').textContent = 'Please check your internet connection';
+        }, 10000);
+    </script>
+</body>
+</html>

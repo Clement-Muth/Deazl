@@ -1,4 +1,5 @@
 import { SuspendedView } from "~/components/Skeletons/SuspendedView";
+import { listUserShoppingList } from "../../Api";
 import type { ShoppingListPayload } from "../../Domain/Schemas/ShoppingList.schema";
 import { ShoppingListsView } from "./ShoppingListsView";
 
@@ -11,9 +12,9 @@ const ShoppingListsLayout = ({ lists }: ShoppingListsLayoutProps) => (
 );
 
 const ShoppingListsContent = async () => {
-  // const lists = await listUserShoppingList();
+  const lists = await listUserShoppingList();
 
-  return <ShoppingListsLayout lists={[]} />;
+  return <ShoppingListsLayout lists={lists} />;
 };
 
 export const ShoppingLists = () => {

@@ -1,5 +1,10 @@
 "use client";
 
+import {
+  CapacitorBarcodeScanner,
+  CapacitorBarcodeScannerCameraDirection,
+  CapacitorBarcodeScannerTypeHint
+} from "@capacitor/barcode-scanner";
 import { BarcodeScannerWithUI } from "@deazl/components";
 import { Autocomplete, AutocompleteItem, Button, useDisclosure } from "@heroui/react";
 import { ScanBarcode, SearchIcon } from "lucide-react";
@@ -36,6 +41,21 @@ export const SmartItemInput = forwardRef<HTMLInputElement, SmartItemInputProps>(
     const { isOpen: isScannerOpen, onOpen: openScanner, onClose: closeScanner } = useDisclosure();
     const [isScannerLoading, setIsScannerLoading] = useState(false);
 
+    const [result, setResult] = useState<string | null>(null);
+
+    const handleScan = async () => {
+      try {
+        const res = await CapacitorBarcodeScanner.scanBarcode({
+          hint: CapacitorBarcodeScannerTypeHint.ALL,
+          cameraDirection: CapacitorBarcodeScannerCameraDirection.BACK
+        });
+        // res.ScanResult contient la donnée lue
+        setResult(res.ScanResult);
+      } catch (err) {
+        console.error("Scan erreur:", err);
+      }
+    };
+
     const {
       inputValue,
       suggestions,
@@ -51,39 +71,34 @@ export const SmartItemInput = forwardRef<HTMLInputElement, SmartItemInputProps>(
       }
     });
 
-    const handleBarcodeScanned = useCallback(
-      async (barcode: string) => {
-        setIsScannerLoading(true);
-        closeScanner();
+    const handleBarcodeScanned = useCallback(async () => {
+      setIsScannerLoading(true);
+      closeScanner();
 
-        try {
-          // Fetch product info from Open Food Facts
-          const response = await fetch(`https://world.openfoodfacts.org/api/v2/product/${barcode}.json`);
+      const res = await CapacitorBarcodeScanner.scanBarcode({
+        hint: CapacitorBarcodeScannerTypeHint.ALL,
+        cameraDirection: CapacitorBarcodeScannerCameraDirection.BACK
+      });
+      const barcode = res.ScanResult;
 
-          if (response.ok) {
-            const data = await response.json();
+      try {
+        // Fetch product info from Open Food Facts
+        const response = await fetch(`https://world.openfoodfacts.org/api/v2/product/${barcode}.json`);
 
-            if (data.status === 1 && data.product && data.product.product_name) {
-              // Product found - open create modal with pre-filled data
-              onCreateProductRequested?.(
-                data.product.product_name,
-                parsedInput?.quantity || 1,
-                parsedInput?.unit || "unit",
-                parsedInput?.price,
-                barcode
-              );
-            } else {
-              // Product not found - open create modal with barcode only
-              onCreateProductRequested?.(
-                "",
-                parsedInput?.quantity || 1,
-                parsedInput?.unit || "unit",
-                parsedInput?.price,
-                barcode
-              );
-            }
+        if (response.ok) {
+          const data = await response.json();
+
+          if (data.status === 1 && data.product && data.product.product_name) {
+            // Product found - open create modal with pre-filled data
+            onCreateProductRequested?.(
+              data.product.product_name,
+              parsedInput?.quantity || 1,
+              parsedInput?.unit || "unit",
+              parsedInput?.price,
+              barcode
+            );
           } else {
-            // API error - open create modal anyway
+            // Product not found - open create modal with barcode only
             onCreateProductRequested?.(
               "",
               parsedInput?.quantity || 1,
@@ -92,9 +107,8 @@ export const SmartItemInput = forwardRef<HTMLInputElement, SmartItemInputProps>(
               barcode
             );
           }
-        } catch (error) {
-          console.error("Erreur lors du scan:", error);
-          // On error - still open create modal
+        } else {
+          // API error - open create modal anyway
           onCreateProductRequested?.(
             "",
             parsedInput?.quantity || 1,
@@ -102,12 +116,21 @@ export const SmartItemInput = forwardRef<HTMLInputElement, SmartItemInputProps>(
             parsedInput?.price,
             barcode
           );
-        } finally {
-          setIsScannerLoading(false);
         }
-      },
-      [closeScanner, onCreateProductRequested, parsedInput]
-    );
+      } catch (error) {
+        console.error("Erreur lors du scan:", error);
+        // On error - still open create modal
+        onCreateProductRequested?.(
+          "",
+          parsedInput?.quantity || 1,
+          parsedInput?.unit || "unit",
+          parsedInput?.price,
+          barcode
+        );
+      } finally {
+        setIsScannerLoading(false);
+      }
+    }, [closeScanner, onCreateProductRequested, parsedInput]);
 
     const handleSuggestionSelect = useCallback(
       (suggestion: SmartSuggestion) => {
@@ -160,7 +183,7 @@ export const SmartItemInput = forwardRef<HTMLInputElement, SmartItemInputProps>(
             size="lg"
             color="primary"
             startContent={<ScanBarcode className="h-5 w-5" />}
-            onPress={openScanner}
+            onPress={handleBarcodeScanned}
             isLoading={isScannerLoading}
             aria-label="Scanner un code-barres"
           />

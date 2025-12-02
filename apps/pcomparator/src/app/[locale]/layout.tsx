@@ -11,6 +11,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import clsx from "clsx";
 import type { Metadata } from "next";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -42,6 +43,28 @@ const RootLayout = async ({ children, params }: NextPageProps) => {
     <html lang={locale} suppressHydrationWarning>
       <head>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <Script
+          dangerouslySetInnerHTML={{
+            __html: `
+        if (!window.themeColorObserver) {
+          function updateThemeColor() {
+            const isDark = document.documentElement.classList.contains('dark');
+            const color = isDark ? '#0d0d0f' : '#ffffff';
+            let meta = document.querySelector('meta[name="theme-color"]');
+            if (!meta) {
+              meta = document.createElement('meta');
+              meta.name = 'theme-color';
+              document.head.appendChild(meta);
+            }
+            meta.setAttribute('content', color);
+          }
+          updateThemeColor();
+          window.themeColorObserver = new MutationObserver(updateThemeColor);
+          window.themeColorObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+        }
+      `
+          }}
+        />
       </head>
       <body className={clsx(inter.className, "min-h-dvh flex flex-col")}>
         <ApplicationKernel locale={locale}>

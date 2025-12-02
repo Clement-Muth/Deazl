@@ -190,7 +190,7 @@ export const CreateProductModal = ({
         onClose={handleClose}
         isForm
         body={
-          <>
+          <div className="flex flex-col gap-4">
             {/* Product Name */}
             <Input
               label={t`Product Name`}
@@ -295,7 +295,7 @@ export const CreateProductModal = ({
                 ))}
               </Autocomplete>
             )}
-          </>
+          </div>
         }
         header={
           <>

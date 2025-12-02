@@ -148,7 +148,7 @@ export default function RecipeDetailsMobile({
       />
 
       {/* Contenu scrollable avec max-width pour desktop */}
-      <div className="pb-8 lg:mx-auto">
+      <div className="pb-8 lg:mx-auto -mt-16">
         <RecipeDetailsMobileHero recipe={recipe} />
 
         <div className="flex flex-col justify-center items-center">

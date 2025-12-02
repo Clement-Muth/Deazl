@@ -152,6 +152,7 @@ export const ShoppingListItemList = ({
                     handleOpenProductQuickView(item.productId);
                   }
                 }}
+                onLongPress={() => onOpenEditModal(item)}
               >
                 <div
                   className={`flex items-center justify-between p-2 border rounded-large transition-colors ${

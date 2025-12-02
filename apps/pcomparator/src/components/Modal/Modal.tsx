@@ -8,8 +8,8 @@ import {
   type ModalProps as ModalNextUiProps
 } from "@heroui/react";
 import clsx from "clsx";
-import { BottomSheet } from "react-spring-bottom-sheet";
 import useDevice from "~/hooks/useDevice";
+import { BottomSheet } from "../BottomSheet";
 
 export interface ModalProps {
   isOpen: boolean;
@@ -41,30 +41,31 @@ export const Modal = ({
   if (device === "mobile") {
     return (
       <BottomSheet
-        open={isOpen}
-        onDismiss={onClose}
-        header={header}
-        footer={footer}
-        snapPoints={({ maxHeight, minHeight }) => {
-          switch (sheetHeight) {
-            case "sm":
-              return maxHeight / 4;
-            case "full":
-              return maxHeight;
-            case "xl":
-              return (maxHeight * 3.5) / 4;
-            case "lg":
-              return maxHeight / 1.5;
-            case "md":
-              return maxHeight / 2;
-            default:
-              return minHeight;
-          }
-        }}
+        isOpen={isOpen}
+        onClose={onClose}
+        // maxHeight="100dvh"
+        // closeOnOverlayClick={false}
+        // closeThreshold={50}
+        // onDismiss={onClose}
+        // header={header}
+        // footer={footer}
+        // className="backdrop-blur-2xl"
+        // blocking={false}
+        snapPoints={
+          sheetHeight === "sm"
+            ? [0.3, 0.5]
+            : sheetHeight === "md"
+              ? [0.5, 0.75]
+              : sheetHeight === "lg"
+                ? [0.75, 0.9]
+                : sheetHeight === "xl"
+                  ? [0.9, 1]
+                  : sheetHeight === "full"
+                    ? [1]
+                    : undefined
+        }
       >
-        <div className={clsx(fullwidth ? "p-0" : "p-4", "flex flex-col h-full pointer-events-auto gap-4")}>
-          {body}
-        </div>
+        {body}
       </BottomSheet>
     );
   }
