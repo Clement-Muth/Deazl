@@ -67,7 +67,7 @@ export const useNativeGoogleAuth = (callbackUrl = "/"): UseNativeGoogleAuthRetur
           apple?: { clientId?: string };
         } = {
           google: {
-            webClientId: process.env.NEXT_PUBLIC_GOOGLE_WEB_CLIENT_ID
+            webClientId: process.env.AUTH_GOOGLE_ID
           }
         };
 
@@ -110,7 +110,7 @@ export const useNativeGoogleAuth = (callbackUrl = "/"): UseNativeGoogleAuthRetur
         google?: { webClientId?: string; iOSClientId?: string };
       } = {
         google: {
-          webClientId: process.env.NEXT_PUBLIC_GOOGLE_WEB_CLIENT_ID
+          webClientId: process.env.AUTH_GOOGLE_ID
         }
       };
 

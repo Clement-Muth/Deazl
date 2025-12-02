@@ -20,10 +20,9 @@ const config: CapacitorConfig = {
   
   // 🔧 DÉCOMMENTE ET MODIFIE selon ton environnement:
   server: {
-    url: "http://192.168.1.39:3001", //"https://staging.deazl.fr",  // ← Remplace par ton IP (yarn mobile:ip)
-    cleartext: true
+    url: process.env.PCOMPARATOR_PUBLIC_URL,  // ← Remplace par ton IP (yarn mobile:ip)
+    cleartext: process.env.NODE_ENV === "development" ? true : false
   },
-  
   ios: {
     contentInset: "automatic",
     preferredContentMode: "mobile",
@@ -43,7 +42,7 @@ const config: CapacitorConfig = {
     },
     SocialLogin: {
       google: {
-        webClientId: process.env.NEXT_PUBLIC_GOOGLE_WEB_CLIENT_ID,
+        webClientId: process.env.AUTH_GOOGLE_ID,
       },
       providers: {
         google: true,
