@@ -16,7 +16,6 @@ export const PageHeader = ({ title, href, extra, children }: PageHeaderProps) =>
       <div className="flex items-center justify-between gap-2">
         <Button
           variant="light"
-          className="flex-shrink-0"
           as={Link}
           href={href ?? "/"}
           startContent={<ArrowLeftIcon className="h-4 w-4" />}
@@ -25,7 +24,7 @@ export const PageHeader = ({ title, href, extra, children }: PageHeaderProps) =>
             <h1 className="text-lg font-semibold truncate">{title}</h1>
           </div>
         </Button>
-        {extra && <div className="flex-shrink-0">{extra}</div>}
+        {extra && <div>{extra}</div>}
       </div>
       {children}
     </header>

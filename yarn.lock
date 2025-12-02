@@ -1878,6 +1878,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@capacitor/ios@npm:^7.4.4":
+  version: 7.4.4
+  resolution: "@capacitor/ios@npm:7.4.4"
+  peerDependencies:
+    "@capacitor/core": ^7.4.0
+  checksum: 10/bc9211f16efb181460844c4ded7460018d44b8bb0a421b683373f3824701aab48f87886e2e65deb5a8645df204c9d9532d93c24bdcc0d6dc213c2e2ac278a3fe
+  languageName: node
+  linkType: hard
+
 "@capacitor/share@npm:7.0.2":
   version: 7.0.2
   resolution: "@capacitor/share@npm:7.0.2"
@@ -2197,6 +2206,7 @@ __metadata:
     "@capacitor/browser": "npm:^7.0.2"
     "@capacitor/cli": "npm:^7.4.4"
     "@capacitor/core": "npm:^7.4.4"
+    "@capacitor/ios": "npm:^7.4.4"
     "@capacitor/share": "npm:7.0.2"
     "@capacitor/status-bar": "npm:7.0.3"
     "@capgo/capacitor-social-login": "npm:^7.20.0"
