@@ -156,7 +156,7 @@ export function RecipeHubContent({ hubData }: RecipeHubContentProps) {
               <RecipeSearchBar onSearch={handleSearch} onFilterClick={handleFilterClick} />
             </div>
 
-            <div className="flex flex-wrap justify-center gap-2">
+            {/* <div className="flex flex-wrap justify-center gap-2">
               <Button
                 variant="flat"
                 size="md"
@@ -189,7 +189,7 @@ export function RecipeHubContent({ hubData }: RecipeHubContentProps) {
               >
                 <Trans>Quick (under 30 min)</Trans>
               </Button>
-            </div>
+            </div> */}
           </section>
 
           {showResults && (
