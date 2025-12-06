@@ -71,10 +71,10 @@
    - Optionnel: Ajouter `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` pour Google Search Console
 
 3. **Test des URLs**
-   - https://deazl.app/sitemap.xml
-   - https://deazl.app/recipes-sitemap.xml
-   - https://deazl.app/robots.txt
-   - https://deazl.app/opengraph-image
+   - https://deazl.fr/sitemap.xml
+   - https://deazl.fr/recipes-sitemap.xml
+   - https://deazl.fr/robots.txt
+   - https://deazl.fr/opengraph-image
 
 4. **Outils de test**
    - [Google Rich Results Test](https://search.google.com/test/rich-results)

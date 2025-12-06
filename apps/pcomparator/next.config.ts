@@ -21,6 +21,7 @@ const nextConfig = (): NextConfig => {
   return {
     env: {
       PCOMPARATOR_ENV,
+      PCOMPARATOR_PUBLIC_URL: readEnvironmentVariable("PCOMPARATOR_PUBLIC_URL", "https://deazl.fr"),
       PCOMPARATOR_API_ENDPOINT: readEnvironmentVariable("PCOMPARATOR_API_ENDPOINT"),
       OPEN_FOOD_FACT_API_ENDPOINT: readEnvironmentVariable("OPEN_FOOD_FACT_API_ENDPOINT"),
       OPEN_FOOD_FACT_PRICES_API_ENDPOINT: readEnvironmentVariable("OPEN_FOOD_FACT_PRICES_API_ENDPOINT"),

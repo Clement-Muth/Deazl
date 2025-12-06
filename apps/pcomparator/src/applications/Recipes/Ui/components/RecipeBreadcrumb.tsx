@@ -74,27 +74,27 @@ export function RecipeBreadcrumbJsonLd({
   cuisine
 }: RecipeBreadcrumbProps & { recipeId: string }) {
   const items = [
-    { name: "Home", url: "https://deazl.app" },
-    { name: "Recipes", url: "https://deazl.app/recipes" }
+    { name: "Home", url: "https://deazl.fr" },
+    { name: "Recipes", url: "https://deazl.fr/recipes" }
   ];
 
   if (category) {
     items.push({
       name: categoryLabels[category] || category,
-      url: `https://deazl.app/recipes?category=${category}`
+      url: `https://deazl.fr/recipes?category=${category}`
     });
   }
 
   if (cuisine) {
     items.push({
       name: cuisine,
-      url: `https://deazl.app/recipes?cuisine=${cuisine}`
+      url: `https://deazl.fr/recipes?cuisine=${cuisine}`
     });
   }
 
   items.push({
     name: recipeName,
-    url: `https://deazl.app/recipes/${recipeId}`
+    url: `https://deazl.fr/recipes/${recipeId}`
   });
 
   const jsonLd = {
