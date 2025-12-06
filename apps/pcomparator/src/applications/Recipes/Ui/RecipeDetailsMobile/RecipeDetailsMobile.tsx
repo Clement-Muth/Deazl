@@ -1,7 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import type { RecipeAuthorInfo as RecipeAuthorInfoType } from "../../Api/recipes/getRecipeAuthor.api";
 import type { RecipePayload } from "../../Domain/Schemas/Recipe.schema";
+import { PrintRecipeButton } from "../components/PrintRecipeButton";
+import { RecipeAuthorInfo } from "../components/RecipeAuthorInfo";
+import { RecipeJumpLinks } from "../components/RecipeJumpLinks";
+import { RelatedRecipes } from "../components/RelatedRecipes";
+import { ServingAdjuster } from "../components/ServingAdjuster";
 import { useRecipeData } from "../hooks/useRecipeData";
 import RecipeDetailsMobileDescription from "./RecipeDetailsMobileDescription";
 import RecipeDetailsMobileHeader from "./RecipeDetailsMobileHeader";
@@ -20,6 +26,7 @@ interface RecipeDetailsMobileProps {
   onProductClick: (productId: string) => void;
   accessMode?: "public" | "authenticated" | "shared" | "restricted";
   initialPublicPricing?: import("../../Domain/Services/RecipePricing.service").RecipePricingResult | null;
+  author?: RecipeAuthorInfoType;
 }
 
 interface IngredientWithPrice {
@@ -58,12 +65,15 @@ export default function RecipeDetailsMobile({
   onAddToList,
   onShare,
   onProductClick,
-  initialPublicPricing
+  initialPublicPricing,
+  author
 }: RecipeDetailsMobileProps) {
   const [stepByStepMode, setStepByStepMode] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [stepsCompleted, setStepsCompleted] = useState<StepProgress>({});
   const [isScrolled, setIsScrolled] = useState(false);
+  const [scaleFactor, setScaleFactor] = useState(1);
+  const [adjustedServings, setAdjustedServings] = useState(recipe.servings);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,8 +84,10 @@ export default function RecipeDetailsMobile({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Calculate scale factor for ingredient quantities
-  const scaleFactor = 1; // For now, keep it simple
+  const handleServingsChange = useCallback((newServings: number, newScaleFactor: number) => {
+    setAdjustedServings(newServings);
+    setScaleFactor(newScaleFactor);
+  }, []);
 
   // Charger les vraies données depuis la DB avec progressive enhancement
   const { pricing, quality, tips, loading, error } = useRecipeData({
@@ -137,7 +149,7 @@ export default function RecipeDetailsMobile({
   }
 
   return (
-    <div className="min-h-screen w-full">
+    <article className="min-h-screen w-full" itemScope itemType="https://schema.org/Recipe">
       <RecipeDetailsMobileHeader
         recipe={recipe}
         userId={userId}
@@ -147,44 +159,83 @@ export default function RecipeDetailsMobile({
         onAddToList={onAddToList}
       />
 
-      {/* Contenu scrollable avec max-width pour desktop */}
       <div className="pb-8 lg:mx-auto -mt-16">
         <RecipeDetailsMobileHero recipe={recipe} />
 
-        <div className="flex flex-col justify-center items-center">
-          <div className="lg:max-w-6xl">
+        <div className="flex flex-col justify-center items-center -mt-10 z-20">
+          <div className="lg:max-w-6xl w-full">
             <RecipeDetailsMobileDescription recipe={recipe} />
 
+            <div className="px-4 lg:px-8 mt-4">
+              <RecipeAuthorInfo
+                authorName={author?.name || undefined}
+                authorImage={author?.image || undefined}
+                createdAt={recipe.createdAt}
+                updatedAt={recipe.updatedAt}
+                viewsCount={recipe.viewsCount}
+                favoritesCount={recipe.favoritesCount}
+                isPublic={recipe.isPublic}
+              />
+            </div>
+
+            <div className="px-4 lg:px-8 mt-4">
+              <RecipeJumpLinks hasTips={tips.length > 0} hasNutrition={!!quality} />
+            </div>
+
+            <div className="px-4 lg:px-8 mt-4 flex flex-col sm:flex-row gap-4">
+              <div className="flex-1">
+                <ServingAdjuster defaultServings={recipe.servings} onServingsChange={handleServingsChange} />
+              </div>
+              <div className="flex items-center">
+                <PrintRecipeButton recipe={recipe} scaleFactor={scaleFactor} />
+              </div>
+            </div>
+
             <div className="px-4 space-y-6 mt-6 lg:px-8">
-              <RecipeDetailsMobileIngredients
-                ingredientsWithPrice={ingredientsWithPrice}
-                ingredientGroups={recipe.ingredientGroups}
-                scaleFactor={scaleFactor}
-                onProductClick={onProductClick}
+              <section id="recipe-ingredients" aria-labelledby="ingredients-heading">
+                <RecipeDetailsMobileIngredients
+                  ingredientsWithPrice={ingredientsWithPrice}
+                  ingredientGroups={recipe.ingredientGroups}
+                  scaleFactor={scaleFactor}
+                  onProductClick={onProductClick}
+                  recipeId={recipe.id}
+                  pricing={pricing}
+                  quality={quality}
+                />
+              </section>
+
+              <section id="recipe-preparation" aria-labelledby="preparation-heading">
+                <RecipeDetailsMobilePreparation
+                  recipe={recipe}
+                  stepByStepMode={stepByStepMode}
+                  setStepByStepMode={setStepByStepMode}
+                  currentStep={currentStep}
+                  setCurrentStep={setCurrentStep}
+                  stepsCompleted={stepsCompleted}
+                  toggleStepCompletion={toggleStepCompletion}
+                  goToNextStep={goToNextStep}
+                  goToPreviousStep={goToPreviousStep}
+                />
+              </section>
+
+              <section id="recipe-nutrition" aria-labelledby="nutrition-heading">
+                <RecipeDetailsMobileNutrition quality={quality} ingredientsWithPrice={ingredientsWithPrice} />
+              </section>
+
+              <section id="recipe-tips" aria-labelledby="tips-heading">
+                <RecipeDetailsMobileTips tips={tips} />
+              </section>
+
+              <RelatedRecipes
                 recipeId={recipe.id}
-                pricing={pricing}
-                quality={quality}
+                category={recipe.category}
+                cuisine={recipe.cuisine}
+                tags={recipe.tags}
               />
-
-              <RecipeDetailsMobilePreparation
-                recipe={recipe}
-                stepByStepMode={stepByStepMode}
-                setStepByStepMode={setStepByStepMode}
-                currentStep={currentStep}
-                setCurrentStep={setCurrentStep}
-                stepsCompleted={stepsCompleted}
-                toggleStepCompletion={toggleStepCompletion}
-                goToNextStep={goToNextStep}
-                goToPreviousStep={goToPreviousStep}
-              />
-
-              <RecipeDetailsMobileNutrition quality={quality} ingredientsWithPrice={ingredientsWithPrice} />
-
-              <RecipeDetailsMobileTips tips={tips} />
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </article>
   );
 }

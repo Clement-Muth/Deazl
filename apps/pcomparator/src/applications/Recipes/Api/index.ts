@@ -57,3 +57,9 @@ export {
   checkRecipeAccess,
   canUserModifyRecipe
 } from "./recipes/getRecipeWithAccess.api";
+
+export { getRecipeAuthor, getRecipeAuthorCached } from "./recipes/getRecipeAuthor.api";
+export type { RecipeAuthorInfo } from "./recipes/getRecipeAuthor.api";
+
+export { getRelatedRecipes, getRelatedRecipesCached } from "./recipes/getRelatedRecipes.api";
+export type { RelatedRecipe } from "./recipes/getRelatedRecipes.api";

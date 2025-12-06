@@ -32,8 +32,8 @@ export const ShoppingListsView = ({ lists }: ShoppingListViewProps) => {
   });
 
   return (
-    <div className="mx-auto max-w-5xl md:max-w-6xl px-3 md:px-4">
-      <div className="mb-4 md:mb-6 flex items-center justify-between gap-3">
+    <div className="mx-auto max-w-5xl md:max-w-6xl px-3 sm:px-4">
+      <div className="mb-6 flex items-center justify-end">
         <FloatingButton
           className="md:hidden"
           onPress={createModal.onOpen}
@@ -43,9 +43,9 @@ export const ShoppingListsView = ({ lists }: ShoppingListViewProps) => {
           color="primary"
           variant="flat"
           size="lg"
-          startContent={<ListPlusIcon className="h-4 w-4" />}
+          startContent={<ListPlusIcon className="h-5 w-5" />}
           onPress={createModal.onOpen}
-          className="hidden md:flex"
+          className="hidden md:flex touch-manipulation min-h-12"
         >
           <Trans>New List</Trans>
         </Button>
@@ -57,17 +57,21 @@ export const ShoppingListsView = ({ lists }: ShoppingListViewProps) => {
         color="primary"
         size="lg"
         fullWidth
+        classNames={{
+          tabList: "w-full",
+          tab: "h-14 touch-manipulation"
+        }}
       >
         <Tab
           key="active"
           title={
             <div className="flex items-center gap-2 px-2">
-              <ShoppingCartIcon className="h-4 w-4" />
-              <span>
+              <ShoppingCartIcon className="h-5 w-5" />
+              <span className="font-medium">
                 <Trans>Active</Trans>
               </span>
               <Chip size="sm" variant="flat" color="primary">
-                {activeLists?.length}
+                {activeLists?.length || 0}
               </Chip>
             </div>
           }
@@ -76,17 +80,18 @@ export const ShoppingListsView = ({ lists }: ShoppingListViewProps) => {
           key="completed"
           title={
             <div className="flex items-center gap-2 px-2">
-              <ArchiveIcon className="h-4 w-4" />
-              <span>
+              <ArchiveIcon className="h-5 w-5" />
+              <span className="font-medium">
                 <Trans>Completed</Trans>
               </span>
               <Chip size="sm" variant="flat" color="default">
-                {completedLists?.length}
+                {completedLists?.length || 0}
               </Chip>
             </div>
           }
         />
       </Tabs>
+
       {!lists || !activeLists ? (
         <div className="col-span-full">
           <EmptyState type="active" onCreateList={createModal.onOpen} />

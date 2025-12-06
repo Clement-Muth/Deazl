@@ -59,6 +59,21 @@ const getLocationIcon = (location: string | null) => {
   }
 };
 
+const getLocationLabel = (location: string | null) => {
+  switch (location) {
+    case "fridge":
+      return <Trans>Fridge</Trans>;
+    case "freezer":
+      return <Trans>Freezer</Trans>;
+    case "pantry":
+      return <Trans>Pantry</Trans>;
+    case "countertop":
+      return <Trans>Countertop</Trans>;
+    default:
+      return null;
+  }
+};
+
 export const PantryItemCard = ({ item, onEdit, onDelete }: PantryItemCardProps) => {
   const { t } = useLingui();
   const expirationColor = getExpirationColor(item.expirationStatus);
@@ -90,38 +105,39 @@ export const PantryItemCard = ({ item, onEdit, onDelete }: PantryItemCardProps) 
     <motion.div layout>
       <PressableCard
         actions={cardActions}
-        className="group relative p-4 transition duration-200 hover:bg-gray-50"
+        className="group relative p-4 transition duration-200 hover:bg-default-50 dark:hover:bg-default-100 min-h-[120px]"
       >
-        <div className="flex items-start justify-between gap-2 mb-3">
+        <div className="flex items-start justify-between gap-3 mb-3">
           <div className="flex-1 min-w-0">
-            <h2 className="font-semibold text-lg text-foreground line-clamp-1 group-hover:text-primary-600 transition-colors">
+            <h2 className="font-semibold text-lg text-foreground line-clamp-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors leading-tight">
               {item.name}
             </h2>
           </div>
           {item.location && (
-            <div className="p-1.5 rounded-full bg-primary-100 text-primary-600" title={item.location}>
-              <LocationIcon className="h-4 w-4" />
+            <div
+              className="p-2 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 shrink-0"
+              title={item.location}
+            >
+              <LocationIcon className="h-5 w-5" />
             </div>
           )}
         </div>
 
-        <div className="space-y-2">
-          <div className="flex items-center gap-3 text-sm">
-            <div className="flex items-center gap-1.5 text-gray-600">
-              <Package className="h-4 w-4" />
-              <span className="font-medium">
-                {item.quantity} {item.unit}
-              </span>
-            </div>
-            {item.expiration && (
-              <div className="flex items-center gap-1.5 text-gray-600">
-                <CalendarIcon className="h-4 w-4" />
-                <Chip size="sm" color={expirationColor} variant="flat">
-                  {formatExpiration(item.expiration, item.daysUntilExpiration || null)}
-                </Chip>
-              </div>
-            )}
+        <div className="flex flex-wrap items-center gap-3 text-sm">
+          <div className="flex items-center gap-1.5 text-default-600">
+            <Package className="h-4 w-4" />
+            <span className="font-medium">
+              {item.quantity} {item.unit}
+            </span>
           </div>
+          {item.expiration && (
+            <div className="flex items-center gap-1.5">
+              <CalendarIcon className="h-4 w-4 text-default-400" />
+              <Chip size="sm" color={expirationColor} variant="flat" classNames={{ base: "h-6" }}>
+                {formatExpiration(item.expiration, item.daysUntilExpiration || null)}
+              </Chip>
+            </div>
+          )}
         </div>
       </PressableCard>
     </motion.div>

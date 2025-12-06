@@ -45,9 +45,7 @@ export const ShoppingListCard = ({ list, userRole }: ShoppingListCardProps) => {
           label: <Trans>Share List</Trans>,
           icon: <Share2Icon className="h-5 w-5" />,
           variant: "light",
-          onAction: () => {
-            // TODO: Open share modal
-          }
+          onAction: () => {}
         },
         {
           key: "delete",
@@ -60,22 +58,35 @@ export const ShoppingListCard = ({ list, userRole }: ShoppingListCardProps) => {
       ]
     : [];
 
+  const progressPercent = list.totalItems > 0 ? (list.completedItems / list.totalItems) * 100 : 0;
+  const isComplete = progressPercent === 100;
+
   return (
     <motion.div layout>
-      <PressableCard actions={cardActions} onPress={() => router.push(`/shopping-lists/${list.id}`)}>
-        <div className="p-2">
-          <div className="flex items-center justify-between">
-            <h2 className="font-semibold text-lg line-clamp-1 group-hover:text-primary-600 transition-colors">
+      <PressableCard
+        actions={cardActions}
+        onPress={() => router.push(`/shopping-lists/${list.id}`)}
+        className="min-h-40"
+      >
+        <div className="p-4">
+          <div className="flex items-start justify-between gap-3">
+            <h2 className="font-semibold text-lg line-clamp-1 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors flex-1">
               {list.name}
             </h2>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 shrink-0">
               {hasCollaborators && (
-                <div className="p-1 rounded-full bg-primary-100 text-primary-600" title="Shared list">
+                <div
+                  className="p-1.5 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400"
+                  title="Shared list"
+                >
                   <UsersIcon className="h-4 w-4" />
                 </div>
               )}
               {list.isPublic && (
-                <div className="p-1 rounded-full bg-green-100 text-green-600" title="Public list">
+                <div
+                  className="p-1.5 rounded-full bg-success-100 dark:bg-success-900/30 text-success-600 dark:text-success-400"
+                  title="Public list"
+                >
                   <GlobeIcon className="h-4 w-4" />
                 </div>
               )}
@@ -86,9 +97,9 @@ export const ShoppingListCard = ({ list, userRole }: ShoppingListCardProps) => {
                       isIconOnly
                       variant="light"
                       size="sm"
-                      className="p-1 absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"
+                      className="min-w-11 min-h-11 touch-manipulation opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity"
                     >
-                      <MoreVerticalIcon className="h-4 w-4" />
+                      <MoreVerticalIcon className="h-5 w-5" />
                     </Button>
                   </DropdownTrigger>
                   <DropdownMenu
@@ -101,11 +112,22 @@ export const ShoppingListCard = ({ list, userRole }: ShoppingListCardProps) => {
                       }
                     }}
                   >
-                    <DropdownItem key="share">Share List</DropdownItem>
-                    <DropdownItem key="edit">Edit List</DropdownItem>
-                    <DropdownItem key="duplicate">Duplicate List</DropdownItem>
-                    <DropdownItem className="text-danger" color="danger" key="delete">
-                      Delete List
+                    <DropdownItem key="share" startContent={<Share2Icon className="h-4 w-4" />}>
+                      <Trans>Share List</Trans>
+                    </DropdownItem>
+                    <DropdownItem key="edit" startContent={<Edit3Icon className="h-4 w-4" />}>
+                      <Trans>Edit List</Trans>
+                    </DropdownItem>
+                    <DropdownItem key="duplicate" startContent={<CalendarIcon className="h-4 w-4" />}>
+                      <Trans>Duplicate List</Trans>
+                    </DropdownItem>
+                    <DropdownItem
+                      className="text-danger"
+                      color="danger"
+                      key="delete"
+                      startContent={<TrashIcon className="h-4 w-4" />}
+                    >
+                      <Trans>Delete List</Trans>
                     </DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
@@ -114,29 +136,33 @@ export const ShoppingListCard = ({ list, userRole }: ShoppingListCardProps) => {
           </div>
 
           <div className="my-4 flex flex-wrap items-center gap-4 text-sm">
-            <div className="flex items-center gap-1 text-gray-500">
+            <div className="flex items-center gap-1.5 text-default-500">
               <ShoppingBagIcon className="h-4 w-4" />
-              <span>{list.totalItems} items</span>
+              <span>
+                {list.totalItems} <Trans>items</Trans>
+              </span>
             </div>
-            <div className="flex items-center gap-1 text-gray-500">
+            <div className="flex items-center gap-1.5 text-default-500">
               <CalendarIcon className="h-4 w-4" />
               <span>{new Date(list.createdAt!).toLocaleDateString()}</span>
             </div>
             {hasCollaborators && (
-              <div className="flex items-center gap-1 text-gray-500">
+              <div className="flex items-center gap-1.5 text-default-500">
                 <UsersIcon className="h-4 w-4" />
-                <span>{list.collaborators?.length} collaborators</span>
+                <span>
+                  {list.collaborators?.length} <Trans>collaborators</Trans>
+                </span>
               </div>
             )}
           </div>
 
           <div className="space-y-2">
             <div className="flex items-center justify-between text-xs">
-              <span className="font-medium">Progress</span>
+              <span className="font-medium text-default-600">
+                <Trans>Progress</Trans>
+              </span>
               <motion.span
-                style={{
-                  color: list.completedItems === list.totalItems ? "#16a34a" : "var(--primary-600)"
-                }}
+                className={isComplete ? "text-success-600" : "text-primary-600"}
                 initial={false}
                 animate={{
                   opacity: [0.6, 1],
@@ -147,16 +173,12 @@ export const ShoppingListCard = ({ list, userRole }: ShoppingListCardProps) => {
                 {list.completedItems}/{list.totalItems}
               </motion.span>
             </div>
-            <div className="h-2 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
+            <div className="h-2 overflow-hidden rounded-full bg-default-100 dark:bg-default-200">
               <motion.div
-                style={{
-                  height: "100%",
-                  borderRadius: "9999px",
-                  backgroundColor: list.completedItems === list.totalItems ? "#16a34a" : "var(--primary-600)"
-                }}
+                className={`h-full rounded-full ${isComplete ? "bg-success-500" : "bg-primary-500"}`}
                 initial={{ width: "0%" }}
                 animate={{
-                  width: `${(list.completedItems / list.totalItems) * 100}%`
+                  width: `${progressPercent}%`
                 }}
                 transition={{
                   type: "spring",

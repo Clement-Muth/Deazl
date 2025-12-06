@@ -64,8 +64,8 @@ export default function RecipeDetailsMobileNutrition({
   const [showNutritionDetails, setShowNutritionDetails] = useState(false);
 
   const qualityScore = quality?.qualityScore || 0;
-  const nutriScore = quality?.averageNutriScore || "?";
-  const ecoScore = quality?.averageEcoScore || "?";
+  const nutriScore = quality?.averageNutriScore || "-";
+  const ecoScore = quality?.averageEcoScore || "-";
   const novaGroup = quality?.avgNovaGroup || 0;
 
   const getQualityColor = (score: number) => {
@@ -376,7 +376,7 @@ export default function RecipeDetailsMobileNutrition({
             <div className="mt-4">
               <Button
                 fullWidth
-                size="sm"
+                size="lg"
                 variant="flat"
                 onPress={() => setShowNutritionDetails(!showNutritionDetails)}
                 endContent={
@@ -386,6 +386,7 @@ export default function RecipeDetailsMobileNutrition({
                     <ChevronRight className="w-4 h-4 rotate-90" />
                   )
                 }
+                className="min-h-12 touch-manipulation"
               >
                 {showNutritionDetails ? t`Hide details` : t`Show nutrition details`}
               </Button>
