@@ -27,7 +27,7 @@ export function getMetadataForLocale(locale: Locale): Metadata {
       template: "%s – Deazl"
     },
     description: meta.description,
-    metadataBase: new URL(process.env.PCOMPARATOR_PUBLIC_URL!),
+    metadataBase: new URL(process.env.PCOMPARATOR_PUBLIC_URL || "https://deazl.app"),
 
     openGraph: {
       title: meta.title,

@@ -58,8 +58,8 @@ const formatTimeLabel = (minutes: number, locale: Locale): string => {
 const translations = {
   en: {
     recipeTitle: (name: string, category?: string | null) => {
-      const categoryStr = category ? ` ${categoryLabels.en[category] || category}` : "";
-      return `${name}${categoryStr} Recipe - Deazl`;
+      const categoryStr = category ? ` (${categoryLabels.en[category] || category})` : "";
+      return `${name}${categoryStr} - Deazl`;
     },
     recipeDescription: (params: RecipeMetadataParams) => {
       const diffLabel =

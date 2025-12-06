@@ -14,8 +14,9 @@ export const deleteRecipe = async (recipeId: DeleteRecipePayload): Promise<void>
 
     await recipeApplicationService.deleteRecipe(validatedId);
 
-    revalidatePath(`/recipes/${validatedId}`);
-    revalidatePath("/recipes");
+    // Invalidate all caches related to this recipe
+    revalidatePath(`/recipes/${validatedId}`, "page");
+    revalidatePath("/recipes", "page");
   } catch (error) {
     throw new Error("Failed to delete recipe", { cause: error });
   }
