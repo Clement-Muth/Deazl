@@ -1,5 +1,6 @@
 import {} from "@heroui/react";
 import { Trans } from "@lingui/react/macro";
+import { AlertTriangle } from "lucide-react";
 import { useMemo, useState } from "react";
 import type { ShoppingListPayload } from "../../Domain/Schemas/ShoppingList.schema";
 import { useStore } from "../Contexts/StoreContext";
@@ -64,41 +65,40 @@ export const ShoppingListContainer = ({ initialList, user }: ShoppingListContain
   }, [initialList.userId, initialList.collaborators, user.id]);
 
   return (
-    <div className="flex flex-col gap-6 animate-fadeIn w-full">
-      <>
-        {canEdit ? (
-          <SmartQuickAddBar listId={initialList.id} onItemAdded={handleAddItem} className="min-w-[260px]" />
-        ) : (
-          <div className="bg-yellow-50 p-4 rounded-lg border border-yellow-100">
-            <p className="text-sm text-yellow-700">
-              <Trans>You have view-only access to this list. Contact the owner to make changes.</Trans>
-            </p>
-          </div>
-        )}
+    <div className="flex flex-col gap-6 animate-fadeIn w-full max-w-4xl mx-auto">
+      {canEdit ? (
+        <SmartQuickAddBar listId={initialList.id} onItemAdded={handleAddItem} className="min-w-[260px]" />
+      ) : (
+        <div className="bg-warning-50 dark:bg-warning-900/20 p-4 rounded-lg border border-warning-200 dark:border-warning-800 flex items-start gap-3">
+          <AlertTriangle className="w-5 h-5 text-warning-600 dark:text-warning-400 shrink-0 mt-0.5" />
+          <p className="text-sm text-warning-700 dark:text-warning-300">
+            <Trans>You have view-only access to this list. Contact the owner to make changes.</Trans>
+          </p>
+        </div>
+      )}
 
-        <ShoppingListItemCard
-          list={{ ...initialList, items: filteredItems }}
-          onToggleItem={canEdit ? handleToggleComplete : noopPromise}
-          onDeleteItem={canEdit ? handleDeleteItem : noopPromise}
-          onUpdateItem={canEdit ? handleUpdateItem : noopPromise}
-          itemPrices={itemPrices}
-          isStoreSelected={!!selectedStore}
-          selectedStore={selectedStore}
-          totalCost={totalCost}
-          potentialSavings={potentialSavings}
-          storeSummary={storeSummary}
+      <ShoppingListItemCard
+        list={{ ...initialList, items: filteredItems }}
+        onToggleItem={canEdit ? handleToggleComplete : noopPromise}
+        onDeleteItem={canEdit ? handleDeleteItem : noopPromise}
+        onUpdateItem={canEdit ? handleUpdateItem : noopPromise}
+        itemPrices={itemPrices}
+        isStoreSelected={!!selectedStore}
+        selectedStore={selectedStore}
+        totalCost={totalCost}
+        potentialSavings={potentialSavings}
+        storeSummary={storeSummary}
+      />
+
+      {canEdit && smartConversion.activeNotification && (
+        <SmartConversionSection
+          itemId={smartConversion.activeNotification.itemId}
+          itemName={smartConversion.activeNotification.itemName}
+          isVisible={true}
+          onConversionComplete={smartConversion.handleConversionComplete}
+          onDismiss={smartConversion.dismissNotification}
         />
-
-        {canEdit && smartConversion.activeNotification && (
-          <SmartConversionSection
-            itemId={smartConversion.activeNotification.itemId}
-            itemName={smartConversion.activeNotification.itemName}
-            isVisible={true}
-            onConversionComplete={smartConversion.handleConversionComplete}
-            onDismiss={smartConversion.dismissNotification}
-          />
-        )}
-      </>
+      )}
     </div>
   );
 };

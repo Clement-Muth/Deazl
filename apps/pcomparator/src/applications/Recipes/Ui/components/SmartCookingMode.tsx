@@ -1,9 +1,12 @@
 "use client";
-import { useDisclosure } from "@heroui/react";
-import { Package } from "lucide-react";
+import { Chip, useDisclosure } from "@heroui/react";
+import { Trans } from "@lingui/react/macro";
+import { Monitor, Package } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { FloatingButton } from "~/components/Button/FloatingButton/FloatingButton";
 import { useCookingSession } from "../hooks/useCookingSession";
+import { useWakeLock } from "../hooks/useWakeLock";
 import { CookingCompletionScreen } from "./CookingCompletionScreen";
 import { CookingModeHeader } from "./CookingModeHeader";
 import { CookingStepScreen } from "./CookingStepScreen";
@@ -34,16 +37,28 @@ export function SmartCookingMode({ recipeId, recipeName, steps, ingredients }: S
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { currentStepIndex, nextStep, previousStep, clearSession, restartSession, isCompleted, progress } =
     useCookingSession(recipeId, steps.length);
+  const { isSupported, isActive, request, release } = useWakeLock();
 
   const currentStep = steps[currentStepIndex];
 
+  useEffect(() => {
+    if (isSupported && !isCompleted) {
+      request();
+    }
+    return () => {
+      release();
+    };
+  }, [isSupported, isCompleted, request, release]);
+
   const handleBack = () => {
     clearSession();
+    release();
     router.back();
   };
 
   const handleFinish = () => {
     clearSession();
+    release();
     router.back();
   };
 
@@ -82,6 +97,19 @@ export function SmartCookingMode({ recipeId, recipeName, steps, ingredients }: S
         onBack={handleBack}
       />
 
+      {isSupported && (
+        <div className="fixed top-20 right-4 z-50">
+          <Chip
+            size="sm"
+            color={isActive ? "success" : "default"}
+            variant="flat"
+            startContent={<Monitor className="w-3 h-3" />}
+          >
+            {isActive ? <Trans>Screen on</Trans> : <Trans>Screen may dim</Trans>}
+          </Chip>
+        </div>
+      )}
+
       <FloatingButton icon={<Package size={24} />} onPress={onOpen} />
 
       <IngredientsModal
@@ -97,7 +125,7 @@ export function SmartCookingMode({ recipeId, recipeName, steps, ingredients }: S
           style={{ transform: `translateX(-${currentStepIndex * 100}%)` }}
         >
           {steps.map((step, index) => (
-            <div key={step.id} className="flex-shrink-0 w-full h-full px-4 flex items-center">
+            <div key={step.id} className="shrink-0 w-full h-full px-4 flex items-center">
               <CookingStepScreen
                 step={step}
                 stepNumber={index + 1}

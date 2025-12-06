@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Chip, Divider, Link } from "@heroui/react";
-import { Trans } from "@lingui/react/macro";
+import { Trans, useLingui } from "@lingui/react/macro";
 import {
   Clock,
   Compass,
@@ -9,6 +9,7 @@ import {
   Flame,
   Heart,
   Package,
+  Plus,
   ShoppingBag,
   Sparkles,
   TrendingUp,
@@ -20,7 +21,7 @@ import { PageHeader } from "~/components/Header/PageHeader";
 import type { RecipeHubDataPayload } from "../Api/hub/getRecipeHubData.api";
 import { searchRecipes } from "../Api/search/searchRecipes.api";
 import type { RecipeSearchFilters } from "../Application/Services/RecipeSearch.service";
-import type { DifficultyLevel } from "../Domain/Schemas/Recipe.schema";
+
 import { useRecipeFavorites } from "../hooks/useRecipeFavorites";
 import { RecipeCard } from "./components/RecipeCard";
 import { RecipeCategoryCard } from "./components/RecipeCategoryCard";
@@ -34,6 +35,7 @@ interface RecipeHubContentProps {
 
 export function RecipeHubContent({ hubData }: RecipeHubContentProps) {
   const router = useRouter();
+  const { t } = useLingui();
   const { favorites, isFavorite, toggleFavorite } = useRecipeFavorites();
   const [searchQuery, setSearchQuery] = useState("");
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
@@ -97,19 +99,32 @@ export function RecipeHubContent({ hubData }: RecipeHubContentProps) {
     <>
       <div className="container mx-auto w-full flex flex-col items-center max-w-7xl">
         <PageHeader
-          title="Recipe Hub"
-          href="/recipes"
+          title={<Trans>Recipe Hub</Trans>}
+          href="/"
           extra={
             <div className="flex gap-2">
+              <Button
+                as={Link}
+                href="/recipes/new"
+                isIconOnly
+                variant="flat"
+                color="primary"
+                size="sm"
+                className="min-w-11 min-h-11 touch-manipulation"
+                aria-label={t`Create recipe`}
+              >
+                <Plus className="w-5 h-5" />
+              </Button>
               <Button
                 as={Link}
                 href="/recipes/my-recipes"
                 isIconOnly
                 variant="flat"
                 size="sm"
-                className="touch-manipulation"
+                className="min-w-11 min-h-11 touch-manipulation"
+                aria-label={t`My recipes`}
               >
-                <User className="w-4 h-4" />
+                <User className="w-5 h-5" />
               </Button>
               <Button
                 as={Link}
@@ -118,385 +133,220 @@ export function RecipeHubContent({ hubData }: RecipeHubContentProps) {
                 variant="flat"
                 color="danger"
                 size="sm"
-                className="touch-manipulation"
+                className="min-w-11 min-h-11 touch-manipulation"
+                aria-label={t`Favorites`}
               >
-                <Heart className="w-4 h-4" />
+                <Heart className="w-5 h-5" />
               </Button>
             </div>
           }
         />
-        <div className="flex flex-col px-3 w-full sm:px-4 py-4 gap-6 sm:py-8 sm:space-y-12">
-          {/* Hero Search Section */}
+        <div className="flex flex-col px-4 w-full py-4 gap-6 sm:py-8 sm:gap-8">
           <section className="space-y-4 sm:space-y-6">
             <div className="text-center space-y-2 sm:space-y-3">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground px-2">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
                 <Trans>Discover recipes tailored to your budget</Trans>
               </h1>
-              <h2 className="text-base sm:text-lg md:text-xl text-gray-400 max-w-3xl mx-auto px-4">
+              <p className="text-base sm:text-lg text-default-500 max-w-3xl mx-auto">
                 <Trans>Smart recipes with real prices, nutritional quality, and cellar optimization</Trans>
-              </h2>
+              </p>
             </div>
 
             <div className="max-w-3xl mx-auto">
               <RecipeSearchBar onSearch={handleSearch} onFilterClick={handleFilterClick} />
             </div>
 
-            <div className="flex flex-wrap justify-center gap-2 sm:gap-3 px-2">
+            <div className="flex flex-wrap justify-center gap-2">
               <Button
-                type="button"
+                variant="flat"
+                size="md"
                 onPress={() => handleQuickFilter({ tags: ["vegan"], limit: 20 })}
-                className="px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-colors touch-manipulation"
+                className="min-h-11 touch-manipulation"
               >
                 <Trans>Vegan</Trans>
               </Button>
               <Button
-                type="button"
+                variant="flat"
+                size="md"
                 onPress={() => handleQuickFilter({ tags: ["vegetarian"], limit: 20 })}
-                className="px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-colors touch-manipulation"
+                className="min-h-11 touch-manipulation"
               >
                 <Trans>Vegetarian</Trans>
               </Button>
               <Button
-                type="button"
+                variant="flat"
+                size="md"
                 onPress={() => handleQuickFilter({ tags: ["gluten-free"], limit: 20 })}
-                className="px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-colors touch-manipulation"
+                className="min-h-11 touch-manipulation"
               >
                 <Trans>Gluten-free</Trans>
               </Button>
               <Button
-                type="button"
+                variant="flat"
+                size="md"
                 onPress={() => handleQuickFilter({ maxTotalTime: 30, limit: 20 })}
-                className="px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-colors touch-manipulation"
+                className="min-h-11 touch-manipulation"
               >
-                <Trans>Rapide (- 30 min)</Trans>
+                <Trans>Quick (under 30 min)</Trans>
               </Button>
             </div>
           </section>
 
-          {/* Search/Filter Results */}
           {showResults && (
-            <>
-              {/* <Divider /> */}
-              <section className="space-y-4 sm:space-y-6">
-                <div className="flex flex-col gap-3">
-                  <div className="flex items-center justify-between">
-                    <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
-                      {filteredRecipes.length} résultat{filteredRecipes.length > 1 ? "s" : ""}
-                    </h2>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setShowResults(false);
-                        setFilteredRecipes([]);
-                        setSearchQuery("");
-                        setActiveFilters({});
-                      }}
-                      className="text-sm text-gray-600 hover:text-gray-900 underline"
-                    >
-                      Effacer tout
-                    </button>
-                  </div>
+            <section className="space-y-4">
+              <div className="flex flex-col gap-3">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-xl sm:text-2xl font-bold">
+                    <Trans>{filteredRecipes.length} results</Trans>
+                  </h2>
+                  <Button
+                    variant="light"
+                    size="sm"
+                    onPress={() => {
+                      setShowResults(false);
+                      setFilteredRecipes([]);
+                      setSearchQuery("");
+                      setActiveFilters({});
+                    }}
+                    className="min-h-11 touch-manipulation"
+                  >
+                    <Trans>Clear all</Trans>
+                  </Button>
+                </div>
 
-                  {/* Active Filters Display */}
-                  {Object.keys(activeFilters).length > 0 && (
-                    <div className="flex flex-wrap gap-2">
-                      {searchQuery && (
+                {Object.keys(activeFilters).length > 0 && (
+                  <div className="flex flex-wrap gap-2">
+                    {searchQuery && (
+                      <Chip
+                        size="sm"
+                        variant="flat"
+                        color="primary"
+                        onClose={() => {
+                          setSearchQuery("");
+                          const { searchTerm, ...newFilters } = activeFilters;
+                          setActiveFilters(newFilters);
+                          handleApplyFilters(newFilters);
+                        }}
+                      >
+                        <Trans>Search:</Trans> {searchQuery}
+                      </Chip>
+                    )}
+                    {activeFilters.category &&
+                      (Array.isArray(activeFilters.category) ? (
+                        activeFilters.category.map((cat) => (
+                          <Chip
+                            key={cat}
+                            size="sm"
+                            variant="flat"
+                            color="primary"
+                            onClose={() => {
+                              const categoryArray = activeFilters.category as string[];
+                              const newCategories = categoryArray.filter((c) => c !== cat);
+                              const newFilters =
+                                newCategories.length > 0
+                                  ? { ...activeFilters, category: newCategories }
+                                  : { ...activeFilters, category: undefined };
+                              setActiveFilters(newFilters);
+                              handleApplyFilters(newFilters);
+                            }}
+                          >
+                            <Trans>Category:</Trans> {cat}
+                          </Chip>
+                        ))
+                      ) : (
                         <Chip
                           size="sm"
                           variant="flat"
                           color="primary"
                           onClose={() => {
-                            setSearchQuery("");
-                            const { searchTerm, ...newFilters } = activeFilters;
+                            const { category, ...newFilters } = activeFilters;
                             setActiveFilters(newFilters);
                             handleApplyFilters(newFilters);
                           }}
                         >
-                          Recherche: {searchQuery}
+                          <Trans>Category:</Trans> {activeFilters.category}
                         </Chip>
-                      )}
-                      {activeFilters.category &&
-                        (Array.isArray(activeFilters.category) ? (
-                          activeFilters.category.map((cat) => (
-                            <Chip
-                              key={cat}
-                              size="sm"
-                              variant="flat"
-                              color="primary"
-                              onClose={() => {
-                                const categoryArray = activeFilters.category as string[];
-                                const newCategories = categoryArray.filter((c) => c !== cat);
-                                const newFilters =
-                                  newCategories.length > 0
-                                    ? { ...activeFilters, category: newCategories }
-                                    : { ...activeFilters, category: undefined };
-                                setActiveFilters(newFilters);
-                                handleApplyFilters(newFilters);
-                              }}
-                            >
-                              Catégorie: {cat}
-                            </Chip>
-                          ))
-                        ) : (
-                          <Chip
-                            size="sm"
-                            variant="flat"
-                            color="primary"
-                            onClose={() => {
-                              const { category, ...newFilters } = activeFilters;
-                              setActiveFilters(newFilters);
-                              handleApplyFilters(newFilters);
-                            }}
-                          >
-                            Catégorie: {activeFilters.category}
-                          </Chip>
-                        ))}
-                      {activeFilters.cuisine &&
-                        (Array.isArray(activeFilters.cuisine) ? (
-                          activeFilters.cuisine.map((cuisine) => (
-                            <Chip
-                              key={cuisine}
-                              size="sm"
-                              variant="flat"
-                              color="primary"
-                              onClose={() => {
-                                const cuisineArray = activeFilters.cuisine as string[];
-                                const newCuisines = cuisineArray.filter((c) => c !== cuisine);
-                                const newFilters =
-                                  newCuisines.length > 0
-                                    ? { ...activeFilters, cuisine: newCuisines }
-                                    : { ...activeFilters, cuisine: undefined };
-                                setActiveFilters(newFilters);
-                                handleApplyFilters(newFilters);
-                              }}
-                            >
-                              Cuisine: {cuisine}
-                            </Chip>
-                          ))
-                        ) : (
-                          <Chip
-                            size="sm"
-                            variant="flat"
-                            color="primary"
-                            onClose={() => {
-                              const { cuisine, ...newFilters } = activeFilters;
-                              setActiveFilters(newFilters);
-                              handleApplyFilters(newFilters);
-                            }}
-                          >
-                            Cuisine: {activeFilters.cuisine}
-                          </Chip>
-                        ))}
-                      {activeFilters.difficulty &&
-                        (Array.isArray(activeFilters.difficulty) ? (
-                          activeFilters.difficulty.map((diff) => (
-                            <Chip
-                              key={diff}
-                              size="sm"
-                              variant="flat"
-                              color="primary"
-                              onClose={() => {
-                                const difficultyArray = activeFilters.difficulty as DifficultyLevel[];
-                                const newDifficulties = difficultyArray.filter((d) => d !== diff);
-                                const newFilters =
-                                  newDifficulties.length > 0
-                                    ? { ...activeFilters, difficulty: newDifficulties }
-                                    : { ...activeFilters, difficulty: undefined };
-                                setActiveFilters(newFilters);
-                                handleApplyFilters(newFilters);
-                              }}
-                            >
-                              Difficulté:{" "}
-                              {diff === "EASY" ? "Facile" : diff === "MEDIUM" ? "Moyen" : "Difficile"}
-                            </Chip>
-                          ))
-                        ) : (
-                          <Chip
-                            size="sm"
-                            variant="flat"
-                            color="primary"
-                            onClose={() => {
-                              const { difficulty, ...newFilters } = activeFilters;
-                              setActiveFilters(newFilters);
-                              handleApplyFilters(newFilters);
-                            }}
-                          >
-                            Difficulté:{" "}
-                            {activeFilters.difficulty === "EASY"
-                              ? "Facile"
-                              : activeFilters.difficulty === "MEDIUM"
-                                ? "Moyen"
-                                : "Difficile"}
-                          </Chip>
-                        ))}
-                      {activeFilters.tags &&
-                        activeFilters.tags.length > 0 &&
-                        activeFilters.tags.map((tag) => (
-                          <Chip
-                            key={tag}
-                            size="sm"
-                            variant="flat"
-                            color="secondary"
-                            onClose={() => {
-                              const newTags = activeFilters.tags?.filter((t) => t !== tag);
-                              const newFilters =
-                                newTags && newTags.length > 0
-                                  ? { ...activeFilters, tags: newTags }
-                                  : { ...activeFilters, tags: undefined };
-                              setActiveFilters(newFilters);
-                              handleApplyFilters(newFilters);
-                            }}
-                          >
-                            #{tag}
-                          </Chip>
-                        ))}
-                      {activeFilters.isVegan && (
+                      ))}
+                    {activeFilters.tags &&
+                      activeFilters.tags.length > 0 &&
+                      activeFilters.tags.map((tag) => (
                         <Chip
+                          key={tag}
                           size="sm"
                           variant="flat"
-                          color="success"
+                          color="secondary"
                           onClose={() => {
-                            const { isVegan, ...newFilters } = activeFilters;
+                            const newTags = activeFilters.tags?.filter((t) => t !== tag);
+                            const newFilters =
+                              newTags && newTags.length > 0
+                                ? { ...activeFilters, tags: newTags }
+                                : { ...activeFilters, tags: undefined };
                             setActiveFilters(newFilters);
                             handleApplyFilters(newFilters);
                           }}
                         >
-                          Vegan
+                          #{tag}
                         </Chip>
-                      )}
-                      {activeFilters.isVegetarian && (
-                        <Chip
-                          size="sm"
-                          variant="flat"
-                          color="success"
-                          onClose={() => {
-                            const { isVegetarian, ...newFilters } = activeFilters;
-                            setActiveFilters(newFilters);
-                            handleApplyFilters(newFilters);
-                          }}
-                        >
-                          Végétarien
-                        </Chip>
-                      )}
-                      {activeFilters.isGlutenFree && (
-                        <Chip
-                          size="sm"
-                          variant="flat"
-                          color="success"
-                          onClose={() => {
-                            const { isGlutenFree, ...newFilters } = activeFilters;
-                            setActiveFilters(newFilters);
-                            handleApplyFilters(newFilters);
-                          }}
-                        >
-                          Sans gluten
-                        </Chip>
-                      )}
-                      {activeFilters.isDairyFree && (
-                        <Chip
-                          size="sm"
-                          variant="flat"
-                          color="success"
-                          onClose={() => {
-                            const { isDairyFree, ...newFilters } = activeFilters;
-                            setActiveFilters(newFilters);
-                            handleApplyFilters(newFilters);
-                          }}
-                        >
-                          Sans lactose
-                        </Chip>
-                      )}
-                      {activeFilters.maxPreparationTime && activeFilters.maxPreparationTime < 120 && (
-                        <Chip
-                          size="sm"
-                          variant="flat"
-                          color="warning"
-                          onClose={() => {
-                            const { maxPreparationTime, ...newFilters } = activeFilters;
-                            setActiveFilters(newFilters);
-                            handleApplyFilters(newFilters);
-                          }}
-                        >
-                          Préparation: max {activeFilters.maxPreparationTime} min
-                        </Chip>
-                      )}
-                      {activeFilters.maxCookingTime && activeFilters.maxCookingTime < 180 && (
-                        <Chip
-                          size="sm"
-                          variant="flat"
-                          color="warning"
-                          onClose={() => {
-                            const { maxCookingTime, ...newFilters } = activeFilters;
-                            setActiveFilters(newFilters);
-                            handleApplyFilters(newFilters);
-                          }}
-                        >
-                          Cuisson: max {activeFilters.maxCookingTime} min
-                        </Chip>
-                      )}
-                      {activeFilters.maxTotalTime && (
-                        <Chip
-                          size="sm"
-                          variant="flat"
-                          color="warning"
-                          onClose={() => {
-                            const { maxTotalTime, ...newFilters } = activeFilters;
-                            setActiveFilters(newFilters);
-                            handleApplyFilters(newFilters);
-                          }}
-                        >
-                          Temps max: {activeFilters.maxTotalTime} min
-                        </Chip>
-                      )}
-                    </div>
-                  )}
-                </div>
-
-                {isLoading ? (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
-                    {Array.from({ length: 8 }).map((_, i) => (
-                      <div key={i} className="animate-pulse">
-                        <div className="bg-gray-200 rounded-xl aspect-4/3 mb-3" />
-                        <div className="bg-gray-200 h-4 rounded mb-2" />
-                        <div className="bg-gray-200 h-3 rounded w-2/3" />
-                      </div>
-                    ))}
-                  </div>
-                ) : filteredRecipes.length > 0 ? (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
-                    {filteredRecipes.map((recipe) => (
-                      <RecipeCard
-                        key={recipe.id}
-                        recipe={recipe}
-                        showFavorite
-                        isFavorite={isFavorite(recipe.id)}
-                        onFavoriteToggle={toggleFavorite}
-                      />
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-center py-12 sm:py-16">
-                    <p className="text-gray-600 text-base sm:text-lg">Aucune recette trouvée</p>
-                    <button
-                      type="button"
-                      onClick={() => setIsFiltersOpen(true)}
-                      className="mt-4 text-primary-600 hover:text-primary-700 underline text-sm sm:text-base"
-                    >
-                      Modifier les filtres
-                    </button>
+                      ))}
+                    {activeFilters.maxTotalTime && (
+                      <Chip
+                        size="sm"
+                        variant="flat"
+                        color="warning"
+                        onClose={() => {
+                          const { maxTotalTime, ...newFilters } = activeFilters;
+                          setActiveFilters(newFilters);
+                          handleApplyFilters(newFilters);
+                        }}
+                      >
+                        <Trans>Max time:</Trans> {activeFilters.maxTotalTime} min
+                      </Chip>
+                    )}
                   </div>
                 )}
-              </section>
-            </>
+              </div>
+
+              {isLoading ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                  {Array.from({ length: 8 }).map((_, i) => (
+                    <div key={i} className="animate-pulse">
+                      <div className="bg-content2 rounded-xl aspect-4/3 mb-3" />
+                      <div className="bg-content2 h-4 rounded mb-2" />
+                      <div className="bg-content2 h-3 rounded w-2/3" />
+                    </div>
+                  ))}
+                </div>
+              ) : filteredRecipes.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                  {filteredRecipes.map((recipe) => (
+                    <RecipeCard
+                      key={recipe.id}
+                      recipe={recipe}
+                      showFavorite
+                      isFavorite={isFavorite(recipe.id)}
+                      onFavoriteToggle={toggleFavorite}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-12">
+                  <p className="text-default-500 text-lg mb-4">
+                    <Trans>No recipes found</Trans>
+                  </p>
+                  <Button variant="flat" color="primary" onPress={() => setIsFiltersOpen(true)}>
+                    <Trans>Modify filters</Trans>
+                  </Button>
+                </div>
+              )}
+            </section>
           )}
 
           {!showResults && <Divider />}
 
-          {/* Popular Recipes */}
           {!showResults && hubData && hubData.popular.length > 0 && (
             <RecipeHorizontalList
-              title="Recettes Populaires"
-              icon={<TrendingUp className="w-6 h-6 text-primary-600" />}
+              title={t`Popular Recipes`}
+              icon={<TrendingUp className="w-5 h-5 text-primary" />}
               recipes={hubData.popular}
               onViewAll={() => router.push("/recipes/explore?sort=popular")}
               showFavorites
@@ -505,11 +355,10 @@ export function RecipeHubContent({ hubData }: RecipeHubContentProps) {
             />
           )}
 
-          {/* Quick Recipes */}
           {!showResults && hubData && hubData.quick.length > 0 && (
             <RecipeHorizontalList
-              title="Recettes Rapides"
-              icon={<Clock className="w-5 h-5 sm:w-6 sm:h-6 text-warning-600" />}
+              title={t`Quick Recipes`}
+              icon={<Clock className="w-5 h-5 text-warning" />}
               recipes={hubData.quick}
               onViewAll={() => handleQuickFilter({ maxTotalTime: 30, sortBy: "quickest", limit: 20 })}
               showFavorites
@@ -518,11 +367,10 @@ export function RecipeHubContent({ hubData }: RecipeHubContentProps) {
             />
           )}
 
-          {/* Cheap Recipes */}
           {!showResults && hubData && hubData.cheap.length > 0 && (
             <RecipeHorizontalList
-              title="Recettes Économiques"
-              icon={<DollarSign className="w-5 h-5 sm:w-6 sm:h-6 text-success-600" />}
+              title={t`Budget Recipes`}
+              icon={<DollarSign className="w-5 h-5 text-success" />}
               recipes={hubData.cheap}
               onViewAll={() => handleQuickFilter({ sortBy: "cheapest", limit: 20 })}
               showFavorites
@@ -531,11 +379,10 @@ export function RecipeHubContent({ hubData }: RecipeHubContentProps) {
             />
           )}
 
-          {/* Healthy Recipes */}
           {!showResults && hubData && hubData.healthy.length > 0 && (
             <RecipeHorizontalList
-              title="Recettes Saines"
-              icon={<Flame className="w-5 h-5 sm:w-6 sm:h-6 text-danger-600" />}
+              title={t`Healthy Recipes`}
+              icon={<Flame className="w-5 h-5 text-danger" />}
               recipes={hubData.healthy}
               onViewAll={() => handleQuickFilter({ tags: ["healthy"], sortBy: "healthiest", limit: 20 })}
               showFavorites
@@ -544,80 +391,67 @@ export function RecipeHubContent({ hubData }: RecipeHubContentProps) {
             />
           )}
 
-          {/* Cellar-Based Recipes (Personalized) */}
           {!showResults && hubData && hubData.cellarBased.length > 0 && (
-            <>
-              {/* <Divider /> */}
-              <RecipeHorizontalList
-                title="Faisable avec votre cellier"
-                icon={<Package className="w-5 h-5 sm:w-6 sm:h-6 text-secondary-600" />}
-                recipes={hubData.cellarBased}
-                showFavorites
-              />
-            </>
+            <RecipeHorizontalList
+              title={t`From your cellar`}
+              icon={<Package className="w-5 h-5 text-secondary" />}
+              recipes={hubData.cellarBased}
+              showFavorites
+            />
           )}
 
-          {/* Recommended Recipes (Personalized) */}
           {!showResults && hubData && hubData.recommended.length > 0 && (
             <RecipeHorizontalList
-              title="Recommandé pour vous"
-              icon={<Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-primary-600" />}
+              title={t`Recommended for you`}
+              icon={<Sparkles className="w-5 h-5 text-primary" />}
               recipes={hubData.recommended}
               showFavorites
             />
           )}
 
-          {/* Purchase-Based Recipes (Personalized) */}
           {!showResults && hubData && hubData.purchaseBased.length > 0 && (
             <RecipeHorizontalList
-              title="Basé sur vos achats récents"
-              icon={<ShoppingBag className="w-5 h-5 sm:w-6 sm:h-6 text-secondary-600" />}
+              title={t`Based on your purchases`}
+              icon={<ShoppingBag className="w-5 h-5 text-secondary" />}
               recipes={hubData.purchaseBased}
               showFavorites
             />
           )}
 
-          {/* Categories Section */}
           {!showResults && hubData && hubData.categories.length > 0 && (
-            <>
-              {/* <Divider /> */}
-              <section className="space-y-4 sm:space-y-6">
-                <div className="flex items-center gap-2 sm:gap-3">
-                  <div className="p-1.5 sm:p-2 rounded-lg bg-primary-50">
-                    <Compass className="w-5 h-5 sm:w-6 sm:h-6 text-primary-600" />
-                  </div>
-                  <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Explorer par catégorie</h2>
+            <section className="space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-xl bg-primary/10">
+                  <Compass className="w-5 h-5 text-primary" />
                 </div>
+                <h2 className="text-xl sm:text-2xl font-bold">
+                  <Trans>Explore by category</Trans>
+                </h2>
+              </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
-                  {hubData.categories.map((category) => (
-                    <RecipeCategoryCard
-                      key={category.slug}
-                      name={category.name}
-                      slug={category.slug}
-                      count={category.count}
-                    />
-                  ))}
-                </div>
-              </section>
-            </>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+                {hubData.categories.map((category) => (
+                  <RecipeCategoryCard
+                    key={category.slug}
+                    name={category.name}
+                    slug={category.slug}
+                    count={category.count}
+                  />
+                ))}
+              </div>
+            </section>
           )}
 
-          {/* New Recipes */}
           {!showResults && hubData && hubData.new.length > 0 && (
-            <>
-              {/* <Divider /> */}
-              <RecipeHorizontalList
-                title="Nouvelles Recettes"
-                icon={<Heart className="w-5 h-5 sm:w-6 sm:h-6 text-danger-600" />}
-                recipes={hubData.new}
-                onViewAll={() => handleQuickFilter({ sortBy: "newest", limit: 20 })}
-                showFavorites
-              />
-            </>
+            <RecipeHorizontalList
+              title={t`New Recipes`}
+              icon={<Heart className="w-5 h-5 text-danger" />}
+              recipes={hubData.new}
+              onViewAll={() => handleQuickFilter({ sortBy: "newest", limit: 20 })}
+              showFavorites
+            />
           )}
 
-          {/* Filters Modal */}
           <RecipeSearchFiltersModal
             isOpen={isFiltersOpen}
             onClose={() => setIsFiltersOpen(false)}

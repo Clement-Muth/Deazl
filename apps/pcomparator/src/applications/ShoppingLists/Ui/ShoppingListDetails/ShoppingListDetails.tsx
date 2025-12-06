@@ -6,12 +6,10 @@ import { ShoppingListContainer } from "./ShoppingListContainer";
 
 export const ShoppingListDetails = ({ list, user }: { list: ShoppingListPayload; user: any }) => {
   return (
-    <>
-      <StoreProvider>
-        <main className="space-y-4 px-4">
-          <ShoppingListContainer initialList={list} user={{ id: user.id }} />
-        </main>
-      </StoreProvider>
-    </>
+    <StoreProvider>
+      <main className="space-y-4 px-4 pb-20">
+        <ShoppingListContainer initialList={list} user={{ id: user.id }} />
+      </main>
+    </StoreProvider>
   );
 };

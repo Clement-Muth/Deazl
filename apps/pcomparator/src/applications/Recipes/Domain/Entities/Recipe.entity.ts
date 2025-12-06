@@ -64,6 +64,8 @@ export class Recipe extends Entity<RecipeProps> {
       ingredientGroups?: IngredientGroup[];
       stepGroups?: StepGroup[];
       estimatedQualityScore?: number;
+      createdAt?: Date;
+      updatedAt?: Date;
     },
     id?: string
   ): Recipe {
@@ -89,8 +91,8 @@ export class Recipe extends Entity<RecipeProps> {
         steps: props.steps || [],
         ingredientGroups: props.ingredientGroups || [],
         stepGroups: props.stepGroups || [],
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        createdAt: props.createdAt ?? new Date(),
+        updatedAt: props.updatedAt ?? new Date(),
         estimatedQualityScore: props.estimatedQualityScore
       },
       id

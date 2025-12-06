@@ -929,7 +929,9 @@ export class PrismaRecipeRepository implements RecipeRepository {
         steps,
         ingredientGroups,
         stepGroups,
-        estimatedQualityScore: recipeData.estimatedQualityScore ?? undefined
+        estimatedQualityScore: recipeData.estimatedQualityScore ?? undefined,
+        createdAt: recipeData.createdAt ? new Date(recipeData.createdAt) : undefined,
+        updatedAt: recipeData.updatedAt ? new Date(recipeData.updatedAt) : undefined
       },
       recipeData.id
     );

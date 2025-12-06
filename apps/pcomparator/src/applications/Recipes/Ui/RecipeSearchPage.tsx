@@ -1,9 +1,11 @@
 "use client";
 
 import { Button, Spinner } from "@heroui/react";
-import { ArrowLeft, Filter } from "lucide-react";
+import { Trans, useLingui } from "@lingui/react/macro";
+import { Filter, X } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { PageHeader } from "~/components/Header/PageHeader";
 import { searchRecipes } from "../Api";
 import type { RecipeSearchFilters } from "../Application/Services/RecipeSearch.service";
 import type { RecipePayload } from "../Domain/Schemas/Recipe.schema";
@@ -14,6 +16,7 @@ import { RecipeSearchFiltersModal } from "./components/RecipeSearchFiltersModal"
 export function RecipeSearchPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { t } = useLingui();
 
   const [recipes, setRecipes] = useState<RecipePayload[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -95,106 +98,123 @@ export function RecipeSearchPage() {
     router.push(`/recipes/explore?${params.toString()}`);
   };
 
+  const hasActiveFilters = filters.category || filters.cuisine || filters.difficulty || filters.tags;
+
   return (
-    <div className="container mx-auto px-4 py-8 max-w-7xl">
-      {/* Header */}
-      <div className="mb-8 space-y-4">
-        <Button
-          variant="light"
-          startContent={<ArrowLeft className="w-4 h-4" />}
-          onPress={() => router.push("/recipes")}
-        >
-          Retour au hub
-        </Button>
-
-        <h1 className="text-3xl font-bold text-gray-900">Rechercher des recettes</h1>
-
-        <div className="flex gap-2">
-          <div className="flex-1">
-            <RecipeSearchBar
-              onSearch={handleSearch}
-              onFilterClick={() => setIsFiltersOpen(true)}
-              placeholder="Rechercher par nom, ingrédient..."
-            />
-          </div>
-        </div>
-
-        {/* Active Filters Display */}
-        {(filters.category || filters.cuisine || filters.difficulty || filters.tags) && (
-          <div className="flex flex-wrap gap-2 items-center">
-            <span className="text-sm text-gray-600">Filtres actifs:</span>
-            {filters.category && (
-              <span className="px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-sm">
-                {filters.category}
-              </span>
-            )}
-            {filters.cuisine && (
-              <span className="px-3 py-1 bg-secondary-100 text-secondary-700 rounded-full text-sm">
-                {filters.cuisine}
-              </span>
-            )}
-            {filters.difficulty && (
-              <span className="px-3 py-1 bg-warning-100 text-warning-700 rounded-full text-sm">
-                {filters.difficulty}
-              </span>
-            )}
-            {filters.tags?.map((tag) => (
-              <span key={tag} className="px-3 py-1 bg-success-100 text-success-700 rounded-full text-sm">
-                {tag}
-              </span>
-            ))}
+    <div className="flex flex-col w-full">
+      <PageHeader
+        title={<Trans>Explore Recipes</Trans>}
+        href="/recipes"
+        extra={
+          hasActiveFilters ? (
             <Button
               size="sm"
               variant="light"
               color="danger"
+              startContent={<X className="h-4 w-4" />}
               onPress={() => {
                 setFilters({});
                 router.push("/recipes/explore");
                 loadRecipes({});
               }}
+              className="touch-manipulation"
             >
-              Effacer tout
+              <Trans>Clear</Trans>
             </Button>
-          </div>
-        )}
-      </div>
+          ) : null
+        }
+      />
 
-      {/* Results */}
-      <div>
-        {isLoading ? (
-          <div className="flex justify-center items-center py-20">
-            <Spinner size="lg" />
+      <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-6 max-w-7xl">
+        <div className="mb-6 space-y-4">
+          <div className="flex gap-2">
+            <div className="flex-1">
+              <RecipeSearchBar
+                onSearch={handleSearch}
+                onFilterClick={() => setIsFiltersOpen(true)}
+                placeholder={t`Search by name, ingredient...`}
+              />
+            </div>
           </div>
-        ) : recipes.length > 0 ? (
-          <>
-            <p className="text-gray-600 mb-6">{recipes.length} recettes trouvées</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {recipes.map((recipe) => (
-                <RecipeCard key={recipe.id} recipe={recipe} showFavorite />
+
+          {hasActiveFilters && (
+            <div className="flex flex-wrap gap-2 items-center">
+              <span className="text-sm text-default-500">
+                <Trans>Active filters:</Trans>
+              </span>
+              {filters.category && (
+                <span className="px-3 py-1 bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-300 rounded-full text-sm">
+                  {filters.category}
+                </span>
+              )}
+              {filters.cuisine && (
+                <span className="px-3 py-1 bg-secondary-100 text-secondary-700 dark:bg-secondary-900/30 dark:text-secondary-300 rounded-full text-sm">
+                  {filters.cuisine}
+                </span>
+              )}
+              {filters.difficulty && (
+                <span className="px-3 py-1 bg-warning-100 text-warning-700 dark:bg-warning-900/30 dark:text-warning-300 rounded-full text-sm">
+                  {filters.difficulty}
+                </span>
+              )}
+              {filters.tags?.map((tag) => (
+                <span
+                  key={tag}
+                  className="px-3 py-1 bg-success-100 text-success-700 dark:bg-success-900/30 dark:text-success-300 rounded-full text-sm"
+                >
+                  {tag}
+                </span>
               ))}
             </div>
-          </>
-        ) : (
-          <div className="text-center py-20">
-            <div className="mb-4">
-              <Filter className="w-16 h-16 text-gray-300 mx-auto" />
-            </div>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-2">Aucune recette trouvée</h2>
-            <p className="text-gray-500 mb-6">Essayez de modifier vos critères de recherche</p>
-            <Button color="primary" onPress={() => setIsFiltersOpen(true)}>
-              Modifier les filtres
-            </Button>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
 
-      {/* Filters Modal */}
-      <RecipeSearchFiltersModal
-        isOpen={isFiltersOpen}
-        onClose={() => setIsFiltersOpen(false)}
-        onApplyFilters={handleApplyFilters}
-        initialFilters={filters}
-      />
+        <div>
+          {isLoading ? (
+            <div className="flex justify-center items-center py-20">
+              <Spinner size="lg" />
+            </div>
+          ) : recipes.length > 0 ? (
+            <>
+              <p className="text-default-500 mb-6">
+                <Trans>{recipes.length} recipes found</Trans>
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+                {recipes.map((recipe) => (
+                  <RecipeCard key={recipe.id} recipe={recipe} showFavorite />
+                ))}
+              </div>
+            </>
+          ) : (
+            <div className="text-center py-20">
+              <div className="mb-4">
+                <Filter className="w-16 h-16 text-default-300 mx-auto" />
+              </div>
+              <h2 className="text-2xl font-semibold text-foreground mb-2">
+                <Trans>No recipes found</Trans>
+              </h2>
+              <p className="text-default-500 mb-6">
+                <Trans>Try adjusting your search criteria</Trans>
+              </p>
+              <Button
+                color="primary"
+                size="lg"
+                onPress={() => setIsFiltersOpen(true)}
+                className="touch-manipulation"
+              >
+                <Trans>Modify filters</Trans>
+              </Button>
+            </div>
+          )}
+        </div>
+
+        <RecipeSearchFiltersModal
+          isOpen={isFiltersOpen}
+          onClose={() => setIsFiltersOpen(false)}
+          onApplyFilters={handleApplyFilters}
+          initialFilters={filters}
+        />
+      </div>
     </div>
   );
 }

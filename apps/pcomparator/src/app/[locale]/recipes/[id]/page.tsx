@@ -1,10 +1,12 @@
 import { auth } from "@deazl/system";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { getRecipeAuthorCached } from "~/applications/Recipes/Api/recipes/getRecipeAuthor.api";
 import { getRecipePricingCached } from "~/applications/Recipes/Api/recipes/getRecipePricing.api";
 import { getRecipeWithAccessCached } from "~/applications/Recipes/Api/recipes/getRecipeWithAccess.api";
 import type { RecipePricingResult } from "~/applications/Recipes/Domain/Services/RecipePricing.service";
 import { RecipeDetailsContainer } from "~/applications/Recipes/Ui/RecipeDetailsContainer";
+import { RecipeBreadcrumbJsonLd, RecipeJsonLd } from "~/applications/Recipes/Ui/components";
 import { PrivateRecipeBanner } from "~/applications/Recipes/Ui/components/PrivateRecipeBanner";
 import {
   getRecipeDefaultMetadata,
@@ -56,7 +58,11 @@ export async function generateMetadata({
       updatedAt: recipe.updatedAt,
       tags: recipe.tags,
       locale: localeStr,
-      avgPrice
+      avgPrice,
+      category: recipe.category,
+      cuisine: recipe.cuisine,
+      ingredientCount: recipe.ingredients?.length || 0,
+      stepCount: recipe.steps?.length || 0
     });
   } catch (error) {
     return getRecipeDefaultMetadata(localeStr);
@@ -83,24 +89,50 @@ export default async function RecipeDetailPage({
     return <PrivateRecipeBanner recipeName={accessResult.recipe.name} />;
   }
 
+  const [author, pricingResult] = await Promise.all([
+    getRecipeAuthorCached(accessResult.recipe.userId),
+    getRecipePricingCached(recipeId).catch((e) => {
+      console.warn("Could not fetch initial pricing:", e);
+      return null;
+    })
+  ]);
+
   let initialPublicPricing: RecipePricingResult | null = null;
-  try {
-    const pricingResult = await getRecipePricingCached(recipeId);
-    if (pricingResult && "totals" in pricingResult) {
-      initialPublicPricing = pricingResult as RecipePricingResult;
-    }
-  } catch (e) {
-    console.warn("Could not fetch initial pricing:", e);
+  let avgPrice: number | undefined;
+  if (pricingResult && "totals" in pricingResult) {
+    initialPublicPricing = pricingResult as RecipePricingResult;
+    avgPrice = pricingResult.totals.optimizedMix;
   }
 
+  const isPublic = accessResult.mode === "public";
+
   return (
-    <main className="flex w-full justify-center pt-0">
-      <RecipeDetailsContainer
-        recipe={accessResult.recipe}
-        userId={userId}
-        accessMode={accessResult.mode}
-        initialPublicPricing={initialPublicPricing}
-      />
-    </main>
+    <>
+      {isPublic && (
+        <>
+          <RecipeJsonLd
+            recipe={accessResult.recipe}
+            imageUrl={accessResult.recipe.imageUrl || undefined}
+            avgPrice={avgPrice}
+            authorName={author?.name || undefined}
+          />
+          <RecipeBreadcrumbJsonLd
+            recipeName={accessResult.recipe.name}
+            recipeId={recipeId}
+            category={accessResult.recipe.category}
+            cuisine={accessResult.recipe.cuisine}
+          />
+        </>
+      )}
+      <main className="flex w-full justify-center pt-0">
+        <RecipeDetailsContainer
+          recipe={accessResult.recipe}
+          userId={userId}
+          accessMode={accessResult.mode}
+          initialPublicPricing={initialPublicPricing}
+          author={author || undefined}
+        />
+      </main>
+    </>
   );
 }

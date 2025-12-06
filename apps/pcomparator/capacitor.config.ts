@@ -18,10 +18,9 @@ const config: CapacitorConfig = {
   appName: "Deazl",
   webDir: "public",
   
-  // 🔧 DÉCOMMENTE ET MODIFIE selon ton environnement:
   server: {
-    url: process.env.PCOMPARATOR_PUBLIC_URL,  // ← Remplace par ton IP (yarn mobile:ip)
-    cleartext: process.env.NODE_ENV === "development" ? true : false
+    url: 'http://192.168.1.153:3001', //process.env.PCOMPARATOR_PUBLIC_URL,  // ← Remplace par ton IP (yarn mobile:ip)
+    cleartext: true, //process.env.NODE_ENV === "development" ? true : false
   },
   ios: {
     contentInset: "automatic",
