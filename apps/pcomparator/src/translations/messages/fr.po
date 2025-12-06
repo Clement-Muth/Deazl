@@ -74,6 +74,16 @@ msgstr "(optimal)"
 msgid "{0} {1} alternative(s)"
 msgstr "{0} {1} alternative(s)"
 
+#. placeholder {0}: stats.expiredCount
+#: src/applications/Pantry/Ui/PantryPage.tsx
+msgid "{0} expired"
+msgstr ""
+
+#. placeholder {0}: stats.expiringSoonCount
+#: src/applications/Pantry/Ui/PantryPage.tsx
+msgid "{0} expiring soon"
+msgstr ""
+
 #. placeholder {0}: favoriteRecipes.length
 #: src/app/[locale]/recipes/content.tsx
 msgid "{0} favorite(s)"
@@ -86,8 +96,8 @@ msgstr "{0} ingrédients sans prix"
 
 #. placeholder {0}: stats.totalCount
 #: src/applications/Pantry/Ui/PantryPage.tsx
-msgid "{0} items in stock"
-msgstr "{0} articles en stock"
+msgid "{0} items"
+msgstr ""
 
 #. placeholder {0}: mergePreview.merged
 #. placeholder {1}: mergePreview.added
@@ -120,6 +130,16 @@ msgstr "{0} recettes publiques disponibles"
 msgid "{0} recipe(s)"
 msgstr "{0} recette(s)"
 
+#. placeholder {0}: recipes.length
+#: src/applications/Recipes/Ui/RecipeSearchPage.tsx
+msgid "{0} recipes found"
+msgstr ""
+
+#. placeholder {0}: filteredRecipes.length
+#: src/applications/Recipes/Ui/RecipeHubContent.tsx
+msgid "{0} results"
+msgstr ""
+
 #: src/applications/Recipes/Ui/RecipeQualitySection.tsx
 msgid "{additivesCount} additives"
 msgstr "{additivesCount} additifs"
@@ -129,6 +149,7 @@ msgid "{allergensCount} allergens"
 msgstr "{allergensCount} allergènes"
 
 #: src/applications/Pantry/Ui/components/PantryItemCard.tsx
+#: src/applications/Pantry/Ui/components/PantryItemCardEnhanced.tsx
 msgid "{daysUntil}d left"
 msgstr "{daysUntil}j restants"
 
@@ -221,6 +242,10 @@ msgstr "Paramètres de compte"
 msgid "Active"
 msgstr "Actif"
 
+#: src/applications/Recipes/Ui/RecipeSearchPage.tsx
+msgid "Active filters:"
+msgstr ""
+
 #: src/applications/ShoppingLists/Ui/ShoppingLists/Stats/Stats.tsx
 msgid "Active Lists"
 msgstr "Listes actives"
@@ -283,6 +308,14 @@ msgstr "Ajouter un ingrédient"
 msgid "Add item"
 msgstr "Ajouter un article"
 
+#: src/applications/Pantry/Ui/PantryPage.tsx
+msgid "Add Item"
+msgstr ""
+
+#: src/applications/Dashboard/Ui/widgets/PantryAlertWidget.tsx
+msgid "Add items"
+msgstr ""
+
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/ShoppingListItemCard/ShoppingListItemCard.tsx
 msgid "Add items using the quick add bar above"
 msgstr "Ajoutez des articles en utilisant la barre d'ajout rapide ci-dessus"
@@ -308,6 +341,11 @@ msgstr "Ajouter un nouveau produit"
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/AddStoreModal.tsx
 msgid "Add New Store"
 msgstr "Ajouter un nouveau magasin"
+
+#: src/applications/Pantry/Ui/components/PantryItemCardEnhanced.tsx
+#: src/applications/Pantry/Ui/components/PantryItemCardEnhanced.tsx
+msgid "Add one"
+msgstr ""
 
 #: src/applications/Prices/Ui/NewPrice/NewPiceModal.tsx
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/AddPriceButton.tsx
@@ -340,6 +378,8 @@ msgstr "Ajouter ce produit"
 msgid "Add to list"
 msgstr "Ajouter à la liste"
 
+#: src/applications/Pantry/Ui/components/AddToShoppingListModal.tsx
+#: src/applications/Pantry/Ui/components/PantryItemCardEnhanced.tsx
 #: src/applications/Products/Ui/AddToListModal.tsx
 #: src/applications/Products/Ui/ProductDetailsPage.tsx
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
@@ -353,10 +393,15 @@ msgstr "Ajouter à la liste"
 msgid "Add to Pantry"
 msgstr "Ajouter au garde-manger"
 
+#: src/applications/Pantry/Ui/components/AddToShoppingListModal.tsx
 #: src/applications/Products/Ui/AddToListModal.tsx
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
 msgid "Add to Shopping List"
 msgstr "Ajouter à la liste"
+
+#: src/applications/Pantry/Ui/PantryPage.tsx
+msgid "Add Your First Item"
+msgstr ""
 
 #: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
 msgid "Add your ingredients one by one. For complex recipes, you can organize them into groups."
@@ -368,6 +413,10 @@ msgstr "Ajoutez vos ingrédients un par un. Pour les recettes complexes, vous po
 msgid "Added {0} items, merged {1} duplicates"
 msgstr "{0} articles ajoutés, {1} doublons fusionnés"
 
+#: src/applications/Pantry/Ui/components/AddToShoppingListModal.tsx
+msgid "Added to shopping list!"
+msgstr ""
+
 #: src/applications/Recipes/Ui/RecipeDetails/AddRecipeToListModal.tsx
 msgid "Adjust Portions"
 msgstr "Ajuster les portions"
@@ -376,9 +425,17 @@ msgstr "Ajuster les portions"
 msgid "Adjust the importance of each criterion to customize the optimization algorithm. Weights are automatically normalized."
 msgstr "Ajustez l'importance de chaque critère pour personnaliser l'algorithme d'optimisation. Les poids sont automatiquement normalisés."
 
+#: src/app/[locale]/recipes/favorites/FavoriteRecipesPageClient.tsx
+msgid "Advanced Search"
+msgstr ""
+
 #: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
 msgid "African"
 msgstr "Africain"
+
+#: src/applications/Pantry/Ui/PantryPage.tsx
+msgid "All"
+msgstr ""
 
 #. placeholder {0}: recipes.length
 #: src/app/[locale]/recipes/my-recipes/MyRecipesPageClient.tsx
@@ -392,6 +449,10 @@ msgstr "Toutes les cuisines"
 #: src/applications/Recipes/Ui/components/IngredientsModal.tsx
 msgid "All ingredients"
 msgstr "Tous les ingrédients"
+
+#: src/applications/Dashboard/Ui/widgets/PantryAlertWidget.tsx
+msgid "All items fresh!"
+msgstr ""
 
 #: src/app/[locale]/recipes/explore/content.tsx
 msgid "All levels"
@@ -504,7 +565,7 @@ msgid "Are you sure you want to delete <0>\"{0}\"</0>?"
 msgstr "Êtes-vous sûr de vouloir supprimer <0>\"{0}\"</0> ?"
 
 #: src/applications/Pantry/Ui/components/PantryItemCard.tsx
-#: src/applications/Pantry/Ui/PantryPage.tsx
+#: src/applications/Pantry/Ui/components/PantryItemCardEnhanced.tsx
 msgid "Are you sure you want to delete this item?"
 msgstr "Êtes-vous sûr de vouloir supprimer cet article ?"
 
@@ -579,6 +640,10 @@ msgstr "Code-barre enregistré, mais aucune information sur le produit trouvée"
 msgid "Barcode: {customBarcode}"
 msgstr "Code-barre : {customBarcode}"
 
+#: src/applications/Recipes/Ui/RecipeHubContent.tsx
+msgid "Based on your purchases"
+msgstr ""
+
 #: src/applications/Recipes/Ui/RecipeForm/RecipeFormCreate.tsx
 msgid "Basic Info"
 msgstr "Informations de base"
@@ -620,9 +685,17 @@ msgstr "Le nom et l'emplacement du magasin sont requis"
 msgid "Breakfast"
 msgstr "Petit déjeuner"
 
+#: src/app/[locale]/recipes/my-recipes/MyRecipesPageClient.tsx
+msgid "Browse Community"
+msgstr ""
+
 #: src/app/[locale]/recipes/content.tsx
 msgid "Browse thousands of recipes from the community"
 msgstr "Parcourez des milliers de recettes de la communauté"
+
+#: src/applications/Recipes/Ui/RecipeHubContent.tsx
+msgid "Budget Recipes"
+msgstr ""
 
 #: src/applications/Recipes/Ui/RecipeForm/RichTextEditor.tsx
 msgid "Bullet List"
@@ -662,6 +735,7 @@ msgstr "Peut modifier"
 msgid "Can view"
 msgstr "Peut voir"
 
+#: src/applications/Pantry/Ui/components/AddToShoppingListModal.tsx
 #: src/applications/Pantry/Ui/components/PantryAddForm.tsx
 #: src/applications/Pantry/Ui/components/PantryEditForm.tsx
 #: src/applications/Prices/Ui/ListPrices/CardPrice/DeletePriceModal/DeletePriceModal.tsx
@@ -697,6 +771,11 @@ msgstr "Catégories"
 msgid "Category"
 msgstr "Catégorie"
 
+#: src/applications/Recipes/Ui/RecipeHubContent.tsx
+#: src/applications/Recipes/Ui/RecipeHubContent.tsx
+msgid "Category:"
+msgstr ""
+
 #: src/components/UnitSelector/UnitSelector.tsx
 #: src/components/UnitSelector/UnitSelector.tsx
 msgid "Centiliter (cl)"
@@ -730,9 +809,14 @@ msgstr "Choisissez la méthode qui vous convient le mieux"
 msgid "Choose your preferred theme"
 msgstr "Choisissez votre thème préféré"
 
+#: src/applications/Recipes/Ui/RecipeSearchPage.tsx
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/StoreSelector.tsx
 msgid "Clear"
 msgstr "Effacer"
+
+#: src/applications/Recipes/Ui/RecipeHubContent.tsx
+msgid "Clear all"
+msgstr ""
 
 #: src/app/[locale]/about/Content.tsx
 msgid "Clear and verified information for informed choices."
@@ -741,6 +825,10 @@ msgstr "Informations claires et vérifiées pour des choix éclairés"
 #: src/app/[locale]/recipes/explore/content.tsx
 msgid "Clear Filters"
 msgstr "Effacer les filtres"
+
+#: src/applications/Pantry/Ui/PantryPage.tsx
+msgid "Clear search"
+msgstr ""
 
 #: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
 msgid "Click \"Enrich All\" to process all stores at once (500ms delay between each)"
@@ -784,6 +872,10 @@ msgstr "Collaborateur invité avec succès"
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/ShareListModal/ShareModalNew.tsx
 msgid "Collaborator removed"
 msgstr "Collaborateur supprimé"
+
+#: src/applications/ShoppingLists/Ui/ShoppingLists/ShoppingListCard.tsx
+msgid "collaborators"
+msgstr ""
 
 #: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModal.tsx
 msgid "Collaborators"
@@ -919,6 +1011,10 @@ msgstr "Mode de cuisson"
 msgid "Copy"
 msgstr "Copier"
 
+#: src/applications/Pantry/Ui/components/PantryItemCard.tsx
+msgid "Countertop"
+msgstr ""
+
 #: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
 msgid "Cover Image"
 msgstr "Image de couverture"
@@ -954,6 +1050,10 @@ msgstr "Créer un nouveau magasin pour suivre les prix"
 #: src/applications/Recipes/Ui/RecipeForm/RecipeCreationModeSelection.tsx
 msgid "Create a recipe from constraints like budget, time, or ingredients"
 msgstr "Créer une recette à partir de contraintes comme le budget, le temps ou les ingrédients"
+
+#: src/applications/Pantry/Ui/components/AddToShoppingListModal.tsx
+msgid "Create a shopping list first to add items"
+msgstr ""
 
 #: src/applications/Recipes/Ui/PublicRecipeHub.tsx
 msgid "Create an account to access personalized features, save your favorite recipes, and get tailored recommendations"
@@ -1010,7 +1110,12 @@ msgstr "Créer un nouveau produit"
 msgid "Create Product"
 msgstr "Créer un produit"
 
+#: src/applications/Recipes/Ui/RecipeHubContent.tsx
+msgid "Create recipe"
+msgstr ""
+
 #: src/app/[locale]/recipes/content.tsx
+#: src/app/[locale]/recipes/my-recipes/MyRecipesPageClient.tsx
 #: src/applications/Recipes/Ui/RecipeForm/RecipeFormCreate.tsx
 msgid "Create Recipe"
 msgstr "Créer une recette"
@@ -1023,6 +1128,10 @@ msgstr "Créer une liste de courses"
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/AddStoreModal.tsx
 msgid "Create Store"
 msgstr "Créer un magasin"
+
+#: src/applications/Dashboard/Ui/widgets/RecentActivityWidget.tsx
+msgid "Create your first list"
+msgstr ""
 
 #: src/applications/Dashboard/Ui/RecentListsSection.tsx
 #: src/applications/ShoppingLists/Ui/ShoppingLists/EmptyState.tsx
@@ -1040,6 +1149,10 @@ msgstr "Créez votre compte gratuit en quelques secondes"
 #: src/views/Home/components/HowItWorks/HowItWorksSection.tsx
 msgid "Create your lists"
 msgstr "Créez vos listes"
+
+#: src/applications/Recipes/Ui/components/RecipeAuthorInfo.tsx
+msgid "Created {createdFormatted}"
+msgstr ""
 
 #: src/applications/Recipes/Ui/RecipeForm/RecipeFormCreate.tsx
 msgid "Creating..."
@@ -1122,12 +1235,19 @@ msgstr "Les valeurs par défaut ont été restaurées"
 msgid "Delete"
 msgstr "Supprimer"
 
+#. placeholder {0}: item.name
+#: src/applications/Pantry/Ui/components/ExpirationAlerts.tsx
+msgid "Delete {0}?"
+msgstr ""
+
 #: src/applications/Pantry/Ui/components/PantryItemCard.tsx
+#: src/applications/Pantry/Ui/components/PantryItemCardEnhanced.tsx
 msgid "Delete Item"
 msgstr "Supprimer l'article"
 
 #: src/applications/ShoppingLists/Ui/ShoppingLists/DeleteListModal.tsx
 #: src/applications/ShoppingLists/Ui/ShoppingLists/DeleteListModal.tsx
+#: src/applications/ShoppingLists/Ui/ShoppingLists/ShoppingListCard.tsx
 #: src/applications/ShoppingLists/Ui/ShoppingLists/ShoppingListCard.tsx
 msgid "Delete List"
 msgstr "Supprimer la liste"
@@ -1172,13 +1292,10 @@ msgid "Detected additives:"
 msgstr "Additifs détectés :"
 
 #: src/app/[locale]/recipes/explore/content.tsx
+#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileDescription.tsx
 #: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
 msgid "Difficulty"
 msgstr "Difficulté"
-
-#: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileDescription.tsx
-msgid "Difficulty:"
-msgstr ""
 
 #: src/app/[locale]/features/Content.tsx
 msgid "Discover all the tools at your disposal to manage your shopping and save money every day."
@@ -1247,6 +1364,10 @@ msgstr "Dupliquer le groupe"
 msgid "Duplicate ingredient"
 msgstr "Dupliquer l'ingrédient"
 
+#: src/applications/ShoppingLists/Ui/ShoppingLists/ShoppingListCard.tsx
+msgid "Duplicate List"
+msgstr ""
+
 #: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStepV2.tsx
 msgid "Duplicate step"
 msgstr "Dupliquer l'étape"
@@ -1285,7 +1406,7 @@ msgstr "ex. Préparation, Cuisson, Finition"
 msgid "e.g., Weekly Groceries, Party Shopping..."
 msgstr "ex. Courses hebdomadaires, Courses pour une fête..."
 
-#: src/applications/Recipes/Ui/components/RelatedRecipes.tsx
+#: src/applications/Recipes/Ui/components/RecipeCard.tsx
 #: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileDescription.tsx
 #: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileDescription.tsx
 #: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
@@ -1317,10 +1438,12 @@ msgid "Edit Details"
 msgstr "Modifier les détails"
 
 #: src/applications/Pantry/Ui/components/PantryItemCard.tsx
+#: src/applications/Pantry/Ui/components/PantryItemCardEnhanced.tsx
 msgid "Edit Item"
 msgstr "Modifier l'article"
 
 #: src/applications/ShoppingLists/Ui/ShoppingLists/CreateEditListModal.tsx
+#: src/applications/ShoppingLists/Ui/ShoppingLists/ShoppingListCard.tsx
 #: src/applications/ShoppingLists/Ui/ShoppingLists/ShoppingListCard.tsx
 msgid "Edit List"
 msgstr "Modifier la liste"
@@ -1479,17 +1602,40 @@ msgstr "Expiration (optionnel)"
 msgid "Expiration Date"
 msgstr "Date d'expiration"
 
+#: src/applications/Dashboard/Ui/widgets/PantryAlertWidget.tsx
+msgid "expired"
+msgstr ""
+
 #. placeholder {0}: Math.abs(daysUntil)
 #: src/applications/Pantry/Ui/components/PantryItemCard.tsx
+#: src/applications/Pantry/Ui/components/PantryItemCardEnhanced.tsx
 msgid "Expired {0}d ago"
 msgstr "Expiré il y a {0}j"
+
+#: src/applications/Dashboard/Ui/widgets/PantryAlertWidget.tsx
+msgid "Expired items:"
+msgstr ""
+
+#: src/applications/Dashboard/Ui/widgets/PantryAlertWidget.tsx
+msgid "expiring"
+msgstr ""
 
 #: src/app/[locale]/recipes/content.tsx
 msgid "Explore"
 msgstr "Explorer"
 
+#: src/applications/Recipes/Ui/RecipeHubContent.tsx
+msgid "Explore by category"
+msgstr ""
+
+#: src/app/[locale]/recipes/favorites/FavoriteRecipesPageClient.tsx
+msgid "Explore Recipe Hub"
+msgstr ""
+
 #: src/app/[locale]/recipes/content.tsx
 #: src/app/[locale]/recipes/explore/content.tsx
+#: src/applications/Dashboard/Ui/widgets/RecipeSuggestionWidget.tsx
+#: src/applications/Recipes/Ui/RecipeSearchPage.tsx
 msgid "Explore Recipes"
 msgstr "Explorer les recettes"
 
@@ -1609,6 +1755,11 @@ msgstr "FAQ"
 msgid "Favorite Stores"
 msgstr "Magasins favoris"
 
+#: src/applications/Recipes/Ui/components/RecipeAuthorInfo.tsx
+msgid "favorites"
+msgstr ""
+
+#: src/applications/Recipes/Ui/RecipeHubContent.tsx
 #: src/components/DesktopNav.tsx
 msgid "Favorites"
 msgstr "Favoris"
@@ -1620,6 +1771,10 @@ msgstr "Fonctionnalités"
 #: src/applications/Recipes/Ui/RecipeForm/RecipeCreationModeSelection.tsx
 msgid "Fill out the form step by step"
 msgstr "Remplir le formulaire étape par étape"
+
+#: src/applications/Dashboard/Ui/widgets/RecipeSuggestionWidget.tsx
+msgid "Find dishes with your ingredients"
+msgstr ""
 
 #: src/views/Home/components/HowItWorks/HowItWorksSection.tsx
 msgid "Find the best prices near you"
@@ -1654,6 +1809,11 @@ msgstr "Format : quantité unité produit prix"
 msgid "Founded in 2024, Deazl is the result of a collaboration between technology enthusiasts and consumers frustrated by the lack of price transparency in retail."
 msgstr "Fondé en 2024, Deazl est le résultat d'une collaboration entre des passionnés de technologie et des consommateurs frustrés par le manque de transparence des prix dans le commerce de détail."
 
+#: src/applications/Pantry/Ui/components/PantryItemCard.tsx
+#: src/applications/Pantry/Ui/PantryPage.tsx
+msgid "Freezer"
+msgstr ""
+
 #: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
 msgid "French"
 msgstr "Français"
@@ -1661,6 +1821,15 @@ msgstr "Français"
 #: src/app/[locale]/pricing/Content.tsx
 msgid "Frequently Asked Questions"
 msgstr "Questions Fréquemment Posées"
+
+#: src/applications/Pantry/Ui/components/PantryItemCard.tsx
+#: src/applications/Pantry/Ui/PantryPage.tsx
+msgid "Fridge"
+msgstr ""
+
+#: src/applications/Recipes/Ui/RecipeHubContent.tsx
+msgid "From your cellar"
+msgstr ""
 
 #: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobilePreparation.tsx
 msgid "Full List"
@@ -1741,6 +1910,11 @@ msgstr "Gramme (g)"
 msgid "Grams (g)"
 msgstr "Grammes (g)"
 
+#: src/applications/Pantry/Ui/PantryPage.tsx
+#: src/applications/Pantry/Ui/PantryPage.tsx
+msgid "Grid view"
+msgstr ""
+
 #: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
 #: src/applications/Recipes/Ui/RecipeForm/RecipeStepsStepV2.tsx
 msgid "Group Name"
@@ -1762,7 +1936,7 @@ msgstr "Regroupez vos étapes par phase (par exemple, \"Préparation\", \"Cuisso
 msgid "Group your steps by phase (e.g., Preparation, Cooking, Finishing). This helps structure complex recipes."
 msgstr "Regroupez vos étapes par phase (par exemple, Préparation, Cuisson, Finition). Cela aide à structurer les recettes complexes."
 
-#: src/applications/Recipes/Ui/components/RelatedRecipes.tsx
+#: src/applications/Recipes/Ui/components/RecipeCard.tsx
 #: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileDescription.tsx
 #: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
 msgid "Hard"
@@ -1776,9 +1950,14 @@ msgstr "Titre 2"
 msgid "Heading 3"
 msgstr "Titre 3"
 
+#: src/applications/Pantry/Ui/components/PantryStats.tsx
 #: src/applications/Prices/Ui/ListPrices/CardPrice/SeeMoreMenu/SeeMoreModal.tsx
 msgid "Health"
 msgstr "Santé"
+
+#: src/applications/Recipes/Ui/RecipeHubContent.tsx
+msgid "Healthy Recipes"
+msgstr ""
 
 #: src/views/Home/components/QuickAccess/QuickAccessSection.tsx
 msgid "Hello {userName}"
@@ -1991,11 +2170,16 @@ msgstr "Les détails de l'article ont été mis à jour"
 msgid "Item marked as completed"
 msgstr "Article marqué comme terminé"
 
+#: src/applications/Pantry/Ui/PantryPage.tsx
+msgid "Item quantity will be 0. Delete it?"
+msgstr ""
+
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/useShoppingListActions.tsx
 msgid "Item updated"
 msgstr "Article mis à jour"
 
 #: src/applications/Products/Ui/AddToListModal.tsx
+#: src/applications/ShoppingLists/Ui/ShoppingLists/ShoppingListCard.tsx
 msgid "items"
 msgstr "articles"
 
@@ -2105,6 +2289,11 @@ msgstr "Nom de la liste"
 msgid "List updated"
 msgstr "Liste mise à jour"
 
+#: src/applications/Pantry/Ui/PantryPage.tsx
+#: src/applications/Pantry/Ui/PantryPage.tsx
+msgid "List view"
+msgstr ""
+
 #: src/applications/Products/Ui/AddPriceModal.tsx
 #: src/applications/Products/Ui/AddToListModal.tsx
 #: src/applications/Products/Ui/AddToPantryModal.tsx
@@ -2159,6 +2348,10 @@ msgstr "Connexion"
 msgid "Login to continue"
 msgstr "Connectez-vous pour continuer"
 
+#: src/applications/Pantry/Ui/components/PantryItemCardEnhanced.tsx
+msgid "Low stock"
+msgstr ""
+
 #: src/applications/Products/Ui/ProductDetailsPage.tsx
 msgid "Lowest"
 msgstr "Le plus bas"
@@ -2207,6 +2400,10 @@ msgstr "Marquer comme fait"
 msgid "Max radius"
 msgstr "Rayon max"
 
+#: src/applications/Recipes/Ui/RecipeHubContent.tsx
+msgid "Max time:"
+msgstr ""
+
 #: src/applications/Profile/Ui/Settings/OptimalPricing/components/RadiusSection.tsx
 msgid "Maximum radius"
 msgstr "Rayon maximum"
@@ -2221,7 +2418,7 @@ msgstr "Peut-être plus tard"
 msgid "Mediterranean"
 msgstr "Méditerranéen"
 
-#: src/applications/Recipes/Ui/components/RelatedRecipes.tsx
+#: src/applications/Recipes/Ui/components/RecipeCard.tsx
 #: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileDescription.tsx
 #: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
 msgid "Medium"
@@ -2258,11 +2455,17 @@ msgstr "Manquant"
 msgid "Missing information"
 msgstr "Informations manquantes"
 
+#: src/applications/Recipes/Ui/RecipeHubContent.tsx
+#: src/applications/Recipes/Ui/RecipeSearchPage.tsx
+msgid "Modify filters"
+msgstr ""
+
 #: src/views/Home/components/Features/FeaturesSection.tsx
 msgid "Monitor price changes over time and find the best deals."
 msgstr "Surveillez les changements de prix au fil du temps et trouvez les meilleures offres."
 
 #: src/app/[locale]/recipes/content.tsx
+#: src/app/[locale]/recipes/favorites/FavoriteRecipesPageClient.tsx
 msgid "My Favorites"
 msgstr "Mes favoris"
 
@@ -2284,7 +2487,12 @@ msgstr "Mon prix"
 msgid "My Prices"
 msgstr "Mes prix"
 
+#: src/applications/Recipes/Ui/RecipeHubContent.tsx
+msgid "My recipes"
+msgstr ""
+
 #: src/app/[locale]/recipes/content.tsx
+#: src/app/[locale]/recipes/my-recipes/MyRecipesPageClient.tsx
 #: src/components/DesktopNav.tsx
 msgid "My Recipes"
 msgstr "Mes recettes"
@@ -2301,6 +2509,14 @@ msgstr "Couverture nationale"
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step2/Location.tsx
 msgid "Nearby stores"
 msgstr "Magasins à proximité"
+
+#: src/applications/Pantry/Ui/components/ExpirationAlerts.tsx
+msgid "Needs attention"
+msgstr ""
+
+#: src/applications/Dashboard/Ui/widgets/RecentActivityWidget.tsx
+msgid "New"
+msgstr ""
 
 #: src/applications/Dashboard/Ui/QuickActionsGrid.tsx
 #: src/applications/ShoppingLists/Ui/NewShoppingListButton/NewShoppingListButton.tsx
@@ -2320,6 +2536,14 @@ msgstr "Nouvelle recette"
 #: src/applications/Recipes/Ui/PublicRecipeHub.tsx
 msgid "New recipes"
 msgstr "Nouvelles recettes"
+
+#: src/applications/Recipes/Ui/RecipeHubContent.tsx
+msgid "New Recipes"
+msgstr ""
+
+#: src/applications/Dashboard/Ui/widgets/RecentActivityWidget.tsx
+msgid "New Shopping List"
+msgstr ""
 
 #: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
 msgid "New stores will automatically be enriched when created"
@@ -2349,13 +2573,17 @@ msgstr "Aucune liste de courses active"
 msgid "No completed lists"
 msgstr "Aucune liste de courses terminée"
 
+#: src/app/[locale]/recipes/favorites/FavoriteRecipesPageClient.tsx
+msgid "No favorite recipes yet"
+msgstr ""
+
 #: src/applications/Profile/Ui/Settings/FavoriteStores/components/FavoriteStoresList.tsx
 msgid "No favorite stores configured"
 msgstr "Aucun magasin favori configuré"
 
 #: src/applications/Pantry/Ui/PantryPage.tsx
-msgid "No items found"
-msgstr "Aucun article trouvé"
+msgid "No items found matching \"{searchQuery}\""
+msgstr ""
 
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/ItemPriceAlternativesModal/ItemPriceAlternativesModal.tsx
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/ProductSelectionModal.tsx
@@ -2366,19 +2594,34 @@ msgstr "Aucun prix disponible pour ce produit"
 msgid "No prices recorded yet"
 msgstr "Aucun prix enregistré pour le moment"
 
+#: src/app/[locale]/recipes/my-recipes/MyRecipesPageClient.tsx
+msgid "No private recipes"
+msgstr ""
+
 #: src/applications/Pantry/Ui/components/ProductSearchInput.tsx
 msgid "No products found"
 msgstr "Aucun produit trouvé"
+
+#: src/app/[locale]/recipes/my-recipes/MyRecipesPageClient.tsx
+msgid "No public recipes"
+msgstr ""
+
+#: src/applications/Recipes/Ui/RecipeHubContent.tsx
+#: src/applications/Recipes/Ui/RecipeSearchPage.tsx
+msgid "No recipes found"
+msgstr ""
 
 #: src/app/[locale]/recipes/explore/content.tsx
 msgid "No recipes found. Try adjusting your filters."
 msgstr "Aucune recette trouvée. Essayez d'ajuster vos filtres."
 
 #: src/app/[locale]/recipes/content.tsx
+#: src/app/[locale]/recipes/my-recipes/MyRecipesPageClient.tsx
 msgid "No recipes yet"
 msgstr "Pas encore de recettes"
 
 #: src/applications/Dashboard/Ui/RecentListsSection.tsx
+#: src/applications/Pantry/Ui/components/AddToShoppingListModal.tsx
 msgid "No shopping lists yet"
 msgstr "Pas encore de listes de courses"
 
@@ -2552,8 +2795,15 @@ msgid "Owner"
 msgstr "Propriétaire"
 
 #: src/applications/Dashboard/Ui/QuickActionsGrid.tsx
+#: src/applications/Dashboard/Ui/widgets/PantryAlertWidget.tsx
+#: src/applications/Pantry/Ui/components/PantryItemCard.tsx
+#: src/applications/Pantry/Ui/PantryPage.tsx
 msgid "Pantry"
 msgstr "Garde-manger"
+
+#: src/applications/Dashboard/Ui/widgets/PantryAlertWidget.tsx
+msgid "Pantry Health"
+msgstr ""
 
 #: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
 msgid "Partial"
@@ -2648,6 +2898,10 @@ msgstr "PNG, JPG jusqu'à 10 Mo"
 #: src/applications/Recipes/Ui/RecipeDetailsMobile/RecipeDetailsMobileNutrition.tsx
 msgid "Points of attention"
 msgstr "Points d'attention"
+
+#: src/applications/Recipes/Ui/RecipeHubContent.tsx
+msgid "Popular Recipes"
+msgstr ""
 
 #: src/app/[locale]/recipes/content.tsx
 msgid "Popular recipes from the community"
@@ -2841,6 +3095,10 @@ msgstr "Magasins prioritaires pour la sélection des prix"
 msgid "Privacy"
 msgstr "Confidentialité"
 
+#: src/applications/Recipes/Ui/components/RecipeCard.tsx
+msgid "Private"
+msgstr ""
+
 #. placeholder {0}: recipes.filter((r) => !r.isPublic).length
 #: src/app/[locale]/recipes/my-recipes/MyRecipesPageClient.tsx
 msgid "Private ({0})"
@@ -2920,6 +3178,10 @@ msgstr "Informations sur le profil"
 msgid "Profile Picture"
 msgstr "Photo de profil"
 
+#: src/applications/ShoppingLists/Ui/ShoppingLists/ShoppingListCard.tsx
+msgid "Progress"
+msgstr ""
+
 #: src/applications/Prices/Ui/NewPrice/FormSteps/Step1/PriceDetails.tsx
 msgid "Proof photo (optional)"
 msgstr "Photo de preuve (optionnelle)"
@@ -2929,6 +3191,7 @@ msgid "Proximity"
 msgstr "Proximité"
 
 #: src/applications/Recipes/Ui/components/RecipeAuthorInfo.tsx
+#: src/applications/Recipes/Ui/components/RecipeCard.tsx
 msgid "Public"
 msgstr ""
 
@@ -2975,18 +3238,22 @@ msgstr ""
 msgid "Quantity"
 msgstr "Quantité"
 
+#: src/applications/Recipes/Ui/RecipeHubContent.tsx
+msgid "Quick (under 30 min)"
+msgstr ""
+
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/ShoppingListQuickAddBar.tsx
 msgid "Quick Add"
 msgstr "Ajout rapide"
+
+#: src/applications/Recipes/Ui/RecipeHubContent.tsx
+msgid "Quick Recipes"
+msgstr ""
 
 #: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModalBody.tsx
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/ShareListModal/ShareModalBody.tsx
 msgid "Quick Share"
 msgstr "Partage rapide"
-
-#: src/applications/Recipes/Ui/RecipeHubContent.tsx
-msgid "Rapide (- 30 min)"
-msgstr "Rapide (- 30 min)"
 
 #: src/app/[locale]/features/Content.tsx
 msgid "Ready to save on your groceries?"
@@ -3005,6 +3272,10 @@ msgstr "Comparaison de prix en temps réel"
 msgid "Real-time updates"
 msgstr "Mise à jour en temps réel"
 
+#: src/applications/Dashboard/Ui/widgets/RecentActivityWidget.tsx
+msgid "Recent Lists"
+msgstr ""
+
 #: src/applications/Dashboard/Ui/RecentListsSection.tsx
 msgid "Recent Shopping Lists"
 msgstr "Listes de courses récentes"
@@ -3012,6 +3283,14 @@ msgstr "Listes de courses récentes"
 #: src/applications/Recipes/Ui/components/CookingCompletionScreen.tsx
 msgid "Recipe Completed!"
 msgstr "Recette terminée !"
+
+#: src/applications/Recipes/Ui/RecipeHubContent.tsx
+msgid "Recipe Hub"
+msgstr ""
+
+#: src/applications/Dashboard/Ui/widgets/RecipeSuggestionWidget.tsx
+msgid "Recipe Ideas"
+msgstr ""
 
 #: src/app/[locale]/features/Content.tsx
 #: src/views/Home/components/Features/FeaturesSection.tsx
@@ -3032,6 +3311,10 @@ msgstr "Prix de la recette"
 #: src/components/DesktopNav.tsx
 msgid "Recipes"
 msgstr "Recettes"
+
+#: src/applications/Recipes/Ui/RecipeHubContent.tsx
+msgid "Recommended for you"
+msgstr ""
 
 #: src/applications/Profile/Ui/Settings/Avatar.tsx
 msgid "Recommended: Square image, at least 200x200px. Max size: 5MB. Formats: PNG, JPG, WEBP"
@@ -3070,6 +3353,7 @@ msgstr "Supprimer l'étape"
 
 #: src/applications/Profile/Ui/Settings/Avatar.tsx
 #: src/applications/Recipes/Ui/components/CookingStepScreen.tsx
+#: src/applications/Recipes/Ui/components/ServingAdjuster.tsx
 #: src/applications/ShoppingLists/Ui/components/OptimizationPreferencesModal.tsx
 msgid "Reset"
 msgstr "Réinitialiser"
@@ -3148,9 +3432,9 @@ msgstr ""
 msgid "Search"
 msgstr "Recherche"
 
-#: src/applications/Pantry/Ui/PantryPage.tsx
-msgid "Search by name..."
-msgstr "Rechercher par nom..."
+#: src/applications/Recipes/Ui/RecipeSearchPage.tsx
+msgid "Search by name, ingredient..."
+msgstr ""
 
 #: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
 #: src/applications/Recipes/Ui/RecipeForm/RecipeIngredientsStepV2.tsx
@@ -3170,6 +3454,16 @@ msgstr "Recherchez un produit..."
 msgid "Search recipes..."
 msgstr "Recherchez des recettes..."
 
+#: src/applications/Recipes/Ui/RecipeHubContent.tsx
+msgid "Search:"
+msgstr ""
+
+#: src/applications/Pantry/Ui/PantryPage.tsx
+msgid "Search..."
+msgstr ""
+
+#: src/applications/Dashboard/Ui/widgets/RecentActivityWidget.tsx
+#: src/applications/Dashboard/Ui/widgets/RecipeSuggestionWidget.tsx
 #: src/applications/Recipes/Ui/PublicRecipeHub.tsx
 #: src/applications/Recipes/Ui/PublicRecipeHub.tsx
 msgid "See all"
@@ -3182,6 +3476,10 @@ msgstr "Sélectionnez une catégorie"
 #: src/applications/Recipes/Ui/RecipeForm/RecipeBasicInfoStep.tsx
 msgid "Select a cuisine"
 msgstr "Sélectionnez une cuisine"
+
+#: src/applications/Pantry/Ui/components/AddToShoppingListModal.tsx
+msgid "Select a list"
+msgstr ""
 
 #: src/applications/ShoppingLists/Ui/ShoppingListDetails/ProductSelectionModal.tsx
 msgid "Select a price and store"
@@ -3270,6 +3568,7 @@ msgid "Share link copied to clipboard"
 msgstr "Lien de partage copié dans le presse-papiers"
 
 #: src/applications/ShoppingLists/Ui/ShoppingLists/ShoppingListCard.tsx
+#: src/applications/ShoppingLists/Ui/ShoppingLists/ShoppingListCard.tsx
 msgid "Share List"
 msgstr "Partager la liste"
 
@@ -3302,6 +3601,7 @@ msgid "Shopping list deleted successfully"
 msgstr "Liste de courses supprimée avec succès"
 
 #: src/applications/Dashboard/Ui/StatsCards.tsx
+#: src/applications/Dashboard/Ui/widgets/RecentActivityWidget.tsx
 #: src/components/DesktopNav.tsx
 #: src/views/Home/components/QuickAccess/QuickAccessSection.tsx
 msgid "Shopping Lists"
@@ -3330,6 +3630,10 @@ msgstr ""
 #: src/applications/Authentication/Ui/Signin/SignButton/SigninWithGoogleButton.tsx
 msgid "Sign in with Google"
 msgstr "Se connecter avec Google"
+
+#: src/views/Settings/SettingsPage.tsx
+msgid "Sign out"
+msgstr ""
 
 #: src/views/Home/components/HowItWorks/HowItWorksSection.tsx
 msgid "Sign up"
@@ -3385,6 +3689,14 @@ msgstr "Soupe"
 msgid "Start"
 msgstr "Commencer"
 
+#: src/app/[locale]/recipes/my-recipes/MyRecipesPageClient.tsx
+msgid "Start creating your first recipe or browse the community recipes"
+msgstr ""
+
+#: src/app/[locale]/recipes/favorites/FavoriteRecipesPageClient.tsx
+msgid "Start exploring recipes and click the heart icon to save your favorites"
+msgstr ""
+
 #: src/app/[locale]/pricing/Content.tsx
 #: src/views/Home/components/Hero/HeroSection.tsx
 msgid "Start for free"
@@ -3402,9 +3714,13 @@ msgstr "Commencez à organiser vos courses en créant votre première liste. Ajo
 msgid "Start saving in just a few simple steps. No more running around different stores!"
 msgstr "Commencez à économiser en quelques étapes simples. Plus besoin de courir dans différents magasins !"
 
+#: src/applications/Dashboard/Ui/widgets/PantryAlertWidget.tsx
+msgid "Start tracking your food"
+msgstr ""
+
 #: src/applications/Pantry/Ui/PantryPage.tsx
-msgid "Start tracking your food to reduce waste"
-msgstr "Commencez à suivre vos aliments pour réduire le gaspillage"
+msgid "Start tracking your food to reduce waste and always know what you have in stock"
+msgstr ""
 
 #: src/applications/Recipes/Ui/RecipeForm/RichTextEditor.tsx
 msgid "Start typing your description..."
@@ -3694,7 +4010,9 @@ msgstr "À améliorer"
 msgid "To verify, type <0>{expectedText}</0> below:"
 msgstr "Pour vérifier, tapez <0>{expectedText}</0> ci-dessous :"
 
+#: src/applications/Pantry/Ui/components/ExpirationAlerts.tsx
 #: src/applications/Pantry/Ui/components/PantryItemCard.tsx
+#: src/applications/Pantry/Ui/components/PantryItemCardEnhanced.tsx
 msgid "Today"
 msgstr "Aujourd'hui"
 
@@ -3702,7 +4020,12 @@ msgstr "Aujourd'hui"
 msgid "Together, we build a collaborative and reliable database."
 msgstr "Ensemble, nous construisons une base de données collaborative et fiable."
 
+#: src/applications/Pantry/Ui/PantryPage.tsx
+msgid "Toggle statistics"
+msgstr ""
+
 #: src/applications/Pantry/Ui/components/PantryItemCard.tsx
+#: src/applications/Pantry/Ui/components/PantryItemCardEnhanced.tsx
 msgid "Tomorrow"
 msgstr "Demain"
 
@@ -3759,6 +4082,10 @@ msgstr "Transparence"
 #: src/applications/Recipes/Ui/PublicRecipeHub.tsx
 msgid "Trending"
 msgstr "Tendances"
+
+#: src/applications/Recipes/Ui/RecipeSearchPage.tsx
+msgid "Try adjusting your search criteria"
+msgstr ""
 
 #: src/app/[locale]/error.tsx
 msgid "Try Again"
@@ -3877,9 +4204,22 @@ msgstr "Télécharger depuis la galerie"
 msgid "Upload new"
 msgstr "Télécharger nouveau"
 
+#: src/applications/Pantry/Ui/components/RecipeSuggestions.tsx
+msgid "Use before they expire"
+msgstr ""
+
 #: src/applications/Recipes/Ui/RecipeForm/PhotoImportStep.tsx
 msgid "Use Manual Creation"
 msgstr "Utiliser la création manuelle"
+
+#: src/applications/Pantry/Ui/components/PantryItemCardEnhanced.tsx
+#: src/applications/Pantry/Ui/components/PantryItemCardEnhanced.tsx
+msgid "Use one"
+msgstr ""
+
+#: src/applications/Dashboard/Ui/widgets/RecipeSuggestionWidget.tsx
+msgid "Use these before they expire:"
+msgstr ""
 
 #: src/applications/Recipes/Ui/RecipeForm/PhotoImportStep.tsx
 msgid "Use This Recipe"
@@ -3928,6 +4268,10 @@ msgstr "Voir les tendances des prix au fil du temps. Surveillez les changements 
 #: src/applications/Recipes/Ui/RecipeDetails/ShareRecipeModal/ShareRecipeModal.tsx
 msgid "Viewer"
 msgstr "Spectateur"
+
+#: src/applications/Recipes/Ui/components/RecipeAuthorInfo.tsx
+msgid "views"
+msgstr ""
 
 #: src/applications/StoreManagement/Ui/StoreEnrichmentPanel.tsx
 msgid "Warning"
@@ -3997,6 +4341,10 @@ msgstr "Vous ne pouvez ajouter que {maxFile} fichiers maximum"
 #: src/app/[locale]/pricing/Content.tsx
 msgid "You can support Deazl by contributing code, reporting bugs, suggesting improvements, or making a donation to help cover hosting costs."
 msgstr "Vous pouvez soutenir Deazl en contribuant du code, en signalant des bogues, en suggérant des améliorations ou en faisant un don pour aider à couvrir les coûts d'hébergement."
+
+#: src/app/[locale]/recipes/my-recipes/MyRecipesPageClient.tsx
+msgid "You don't have any {filter} recipes yet"
+msgstr ""
 
 #: src/applications/Products/Ui/AddToListModal.tsx
 msgid "You don't have any shopping lists yet"
