@@ -14,8 +14,9 @@ export const updateRecipe = async (recipeId: string, params: UpdateRecipePayload
 
     const recipe = await recipeApplicationService.updateRecipe(recipeId, payload);
 
-    revalidatePath(`/recipes/${recipeId}`);
-    revalidatePath("/recipes");
+    // Invalidate all caches related to this recipe
+    revalidatePath(`/recipes/${recipeId}`, "page");
+    revalidatePath("/recipes", "page");
 
     return recipe.toObject();
   } catch (error) {

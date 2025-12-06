@@ -58,8 +58,8 @@ const formatTimeLabel = (minutes: number, locale: Locale): string => {
 const translations = {
   en: {
     recipeTitle: (name: string, category?: string | null) => {
-      const categoryStr = category ? ` ${categoryLabels.en[category] || category}` : "";
-      return `${name}${categoryStr} Recipe - Deazl`;
+      const categoryStr = category ? ` (${categoryLabels.en[category] || category})` : "";
+      return `${name}${categoryStr} - Deazl`;
     },
     recipeDescription: (params: RecipeMetadataParams) => {
       const diffLabel =
@@ -147,7 +147,7 @@ export function getRecipeMetadata(
     .recipeDescription({ ...params, category: params.category, cuisine: params.cuisine })
     .replace(/<[^>]*>/g, "")
     .trim();
-  const url = `https://deazl.app/${locale}/recipes/${params.recipeId}`;
+  const url = `https://deazl.fr/${locale}/recipes/${params.recipeId}`;
 
   const keywordsBase = [
     params.recipeName,
@@ -219,8 +219,8 @@ export function getRecipeMetadata(
       alternates: {
         canonical: url,
         languages: {
-          en: `https://deazl.app/en/recipes/${params.recipeId}`,
-          fr: `https://deazl.app/fr/recipes/${params.recipeId}`
+          en: `https://deazl.fr/en/recipes/${params.recipeId}`,
+          fr: `https://deazl.fr/fr/recipes/${params.recipeId}`
         }
       }
     }),
@@ -257,7 +257,7 @@ export function getRecipesHubMetadata(locale: Locale) {
     openGraph: {
       title: t.recipesTitle,
       description: t.recipesDescription,
-      url: `https://deazl.app/${locale}/recipes`,
+      url: `https://deazl.fr/${locale}/recipes`,
       siteName: "Deazl",
       type: "website" as const,
       locale: locale === "fr" ? "fr_FR" : "en_US"
@@ -280,10 +280,10 @@ export function getRecipesHubMetadata(locale: Locale) {
       }
     },
     alternates: {
-      canonical: `https://deazl.app/${locale}/recipes`,
+      canonical: `https://deazl.fr/${locale}/recipes`,
       languages: {
-        en: "https://deazl.app/en/recipes",
-        fr: "https://deazl.app/fr/recipes"
+        en: "https://deazl.fr/en/recipes",
+        fr: "https://deazl.fr/fr/recipes"
       }
     }
   };
