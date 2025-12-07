@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@heroui/react";
+import { Button, Card, CardBody } from "@heroui/react";
 import { useLingui } from "@lingui/react/macro";
 import Image from "@tiptap/extension-image";
 import Placeholder from "@tiptap/extension-placeholder";
@@ -102,101 +102,103 @@ export const RichTextEditor = ({ value, onChange, placeholder, label, descriptio
     <div className="space-y-2">
       {label && <div className="text-sm font-medium text-foreground">{label}</div>}
 
-      <div className="border-2 border-default-200 rounded-large focus-within:border-primary transition-colors">
-        <div className="flex flex-wrap gap-1 p-2 border-b border-divider bg-default-50">
-          <Button
-            size="sm"
-            variant={editor.isActive("bold") ? "solid" : "light"}
-            color={editor.isActive("bold") ? "primary" : "default"}
-            isIconOnly
-            onPress={() => editor.chain().focus().toggleBold().run()}
-            aria-label={t`Bold`}
-          >
-            <Bold className="w-4 h-4" />
-          </Button>
+      <Card>
+        <CardBody className="p-0">
+          <div className="flex flex-wrap gap-1 p-2 border-divider bg-default-50">
+            <Button
+              size="sm"
+              variant={editor.isActive("bold") ? "solid" : "light"}
+              color={editor.isActive("bold") ? "primary" : "default"}
+              isIconOnly
+              onPress={() => editor.chain().focus().toggleBold().run()}
+              aria-label={t`Bold`}
+            >
+              <Bold className="w-4 h-4" />
+            </Button>
 
-          <Button
-            size="sm"
-            variant={editor.isActive("italic") ? "solid" : "light"}
-            color={editor.isActive("italic") ? "primary" : "default"}
-            isIconOnly
-            onPress={() => editor.chain().focus().toggleItalic().run()}
-            aria-label={t`Italic`}
-          >
-            <Italic className="w-4 h-4" />
-          </Button>
+            <Button
+              size="sm"
+              variant={editor.isActive("italic") ? "solid" : "light"}
+              color={editor.isActive("italic") ? "primary" : "default"}
+              isIconOnly
+              onPress={() => editor.chain().focus().toggleItalic().run()}
+              aria-label={t`Italic`}
+            >
+              <Italic className="w-4 h-4" />
+            </Button>
 
-          <div className="w-px h-6 bg-divider mx-1" />
+            <div className="w-px h-6 bg-divider mx-1" />
 
-          <Button
-            size="sm"
-            variant={editor.isActive("heading", { level: 2 }) ? "solid" : "light"}
-            color={editor.isActive("heading", { level: 2 }) ? "primary" : "default"}
-            isIconOnly
-            onPress={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-            aria-label={t`Heading 2`}
-          >
-            <Heading2 className="w-4 h-4" />
-          </Button>
+            <Button
+              size="sm"
+              variant={editor.isActive("heading", { level: 2 }) ? "solid" : "light"}
+              color={editor.isActive("heading", { level: 2 }) ? "primary" : "default"}
+              isIconOnly
+              onPress={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+              aria-label={t`Heading 2`}
+            >
+              <Heading2 className="w-4 h-4" />
+            </Button>
 
-          <Button
-            size="sm"
-            variant={editor.isActive("heading", { level: 3 }) ? "solid" : "light"}
-            color={editor.isActive("heading", { level: 3 }) ? "primary" : "default"}
-            isIconOnly
-            onPress={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-            aria-label={t`Heading 3`}
-          >
-            <Heading3 className="w-4 h-4" />
-          </Button>
+            <Button
+              size="sm"
+              variant={editor.isActive("heading", { level: 3 }) ? "solid" : "light"}
+              color={editor.isActive("heading", { level: 3 }) ? "primary" : "default"}
+              isIconOnly
+              onPress={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+              aria-label={t`Heading 3`}
+            >
+              <Heading3 className="w-4 h-4" />
+            </Button>
 
-          <div className="w-px h-6 bg-divider mx-1" />
+            <div className="w-px h-6 bg-divider mx-1" />
 
-          <Button
-            size="sm"
-            variant={editor.isActive("bulletList") ? "solid" : "light"}
-            color={editor.isActive("bulletList") ? "primary" : "default"}
-            isIconOnly
-            onPress={() => editor.chain().focus().toggleBulletList().run()}
-            aria-label={t`Bullet List`}
-          >
-            <List className="w-4 h-4" />
-          </Button>
+            <Button
+              size="sm"
+              variant={editor.isActive("bulletList") ? "solid" : "light"}
+              color={editor.isActive("bulletList") ? "primary" : "default"}
+              isIconOnly
+              onPress={() => editor.chain().focus().toggleBulletList().run()}
+              aria-label={t`Bullet List`}
+            >
+              <List className="w-4 h-4" />
+            </Button>
 
-          <Button
-            size="sm"
-            variant={editor.isActive("orderedList") ? "solid" : "light"}
-            color={editor.isActive("orderedList") ? "primary" : "default"}
-            isIconOnly
-            onPress={() => editor.chain().focus().toggleOrderedList().run()}
-            aria-label={t`Ordered List`}
-          >
-            <ListOrdered className="w-4 h-4" />
-          </Button>
+            <Button
+              size="sm"
+              variant={editor.isActive("orderedList") ? "solid" : "light"}
+              color={editor.isActive("orderedList") ? "primary" : "default"}
+              isIconOnly
+              onPress={() => editor.chain().focus().toggleOrderedList().run()}
+              aria-label={t`Ordered List`}
+            >
+              <ListOrdered className="w-4 h-4" />
+            </Button>
 
-          <div className="w-px h-6 bg-divider mx-1" />
+            <div className="w-px h-6 bg-divider mx-1" />
 
-          <Button
-            size="sm"
-            variant="light"
-            color="default"
-            isIconOnly
-            onPress={() => fileInputRef.current?.click()}
-            aria-label={t`Add Image`}
-          >
-            <ImageIcon className="w-4 h-4" />
-          </Button>
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/*"
-            onChange={handleFileSelect}
-            className="hidden"
-          />
-        </div>
+            <Button
+              size="sm"
+              variant="light"
+              color="default"
+              isIconOnly
+              onPress={() => fileInputRef.current?.click()}
+              aria-label={t`Add Image`}
+            >
+              <ImageIcon className="w-4 h-4" />
+            </Button>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleFileSelect}
+              className="hidden"
+            />
+          </div>
 
-        <EditorContent editor={editor} />
-      </div>
+          <EditorContent editor={editor} />
+        </CardBody>
+      </Card>
 
       {description && <p className="text-xs text-default-500">{description}</p>}
     </div>

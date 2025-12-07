@@ -124,8 +124,7 @@ export const SmartIngredientInput = forwardRef<HTMLInputElement, SmartIngredient
             autoFocus={autoFocus}
             isRequired={isRequired}
             isDisabled={isDisabled}
-            startContent={<Search className="h-4 w-4 text-gray-400" />}
-            variant="bordered"
+            startContent={<Search className="h-4 w-4 text-gray-400 dark:text-gray-500" />}
             className="flex-1"
             allowsCustomValue
             classNames={{

@@ -1,6 +1,16 @@
 "use client";
 
-import { Button, Card, CardBody, CardHeader, Divider, Input, Select, SelectItem } from "@heroui/react";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Divider,
+  Input,
+  NumberInput,
+  Select,
+  SelectItem
+} from "@heroui/react";
 import { useLingui } from "@lingui/react/macro";
 import { Trans } from "@lingui/react/macro";
 import { Copy, Plus, Trash2 } from "lucide-react";
@@ -238,7 +248,6 @@ export const RecipeIngredientsStep = ({
                     onValueChange={(value) => handleUpdateGroupName(groupIndex, value)}
                     className="flex-1"
                     isRequired
-                    variant="bordered"
                   />
                   <Button
                     isIconOnly
@@ -292,33 +301,30 @@ export const RecipeIngredientsStep = ({
                         isRequired
                       />
                       <div className="flex gap-2 w-full">
-                        <Input
+                        {/* <NumberInput
                           type="number"
-                          value={ingredient.quantity.toString()}
-                          onValueChange={(value) =>
-                            handleUpdateIngredientInGroup(
-                              groupIndex,
-                              ingIndex,
-                              "quantity",
-                              Number.parseFloat(value) || 0.01
-                            )
-                          }
+                          value={ingredient.quantity}
+                          onValueChange={(value) => {
+                            // const num = value === "" ? 0 : Number.parseFloat(value);
+                            if (!Number.isNaN(value) && value >= 0) {
+                              handleUpdateIngredientInGroup(groupIndex, ingIndex, "quantity", value || 0);
+                            }
+                          }}
                           isRequired
-                          min={0.01}
-                          step={0.01}
-                          placeholder="Qty"
-                          variant="bordered"
+                          // min={0}
+                          // step={0.01}
+                          placeholder="0"
                           className="w-24"
-                        />
+                        /> */}
                         <Select
-                          selectedKeys={[ingredient.unit]}
+                          defaultSelectedKeys={ingredient.unit ? [ingredient.unit] : []}
                           onSelectionChange={(keys) => {
                             const value = Array.from(keys)[0] as string;
                             handleUpdateIngredientInGroup(groupIndex, ingIndex, "unit", value);
                           }}
-                          variant="bordered"
                           className="flex-1"
                           aria-label={t`Unit`}
+                          disallowEmptySelection
                         >
                           {unitOptions.map((option) => (
                             <SelectItem key={option.value}>{option.label}</SelectItem>
@@ -410,28 +416,31 @@ export const RecipeIngredientsStep = ({
                 isRequired
               />
               <div className="flex gap-2 w-full">
-                <Input
-                  type="number"
-                  value={ingredient.quantity?.toString() || "1"}
-                  onValueChange={(value) =>
-                    onUpdateIngredient(index, "quantity", Number.parseFloat(value) || 0.01)
-                  }
+                <NumberInput
+                  value={ingredient.quantity}
+                  onValueChange={(value) => {
+                    // const num = value === "" ? 0 : Number.parseFloat(value);
+                    if (!Number.isNaN(value) && value >= 0) {
+                      onUpdateIngredient(index, "quantity", value || 0);
+                    }
+                  }}
                   isRequired
-                  min={0.01}
+                  min={0}
                   step={0.01}
-                  placeholder="Qty"
-                  variant="bordered"
+                  placeholder="0"
+                  size="sm"
                   className="w-24"
                 />
                 <Select
-                  selectedKeys={[ingredient.unit || "unit"]}
+                  defaultSelectedKeys={ingredient.unit ? [ingredient.unit] : ["unit"]}
                   onSelectionChange={(keys) => {
                     const value = Array.from(keys)[0] as string;
                     onUpdateIngredient(index, "unit", value);
                   }}
-                  variant="bordered"
+                  size="lg"
                   className="flex-1"
                   aria-label={t`Unit`}
+                  disallowEmptySelection
                 >
                   {unitOptions.map((option) => (
                     <SelectItem key={option.value}>{option.label}</SelectItem>

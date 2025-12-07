@@ -19,7 +19,7 @@ const config: CapacitorConfig = {
   webDir: "public",
   
   server: {
-    url: 'http://192.168.1.153:3001', //process.env.PCOMPARATOR_PUBLIC_URL,  // ← Remplace par ton IP (yarn mobile:ip)
+    url: 'http://192.168.1.39:3001', //process.env.PCOMPARATOR_PUBLIC_URL,  // ← Remplace par ton IP (yarn mobile:ip)
     cleartext: true, //process.env.NODE_ENV === "development" ? true : false
   },
   ios: {
