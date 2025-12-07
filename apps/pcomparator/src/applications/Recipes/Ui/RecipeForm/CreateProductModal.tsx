@@ -91,14 +91,12 @@ export function CreateProductModal({
               onValueChange={setName}
               isRequired
               autoFocus
-              variant="bordered"
             />
             <Input
               label={<Trans>Barcode (Optional)</Trans>}
               placeholder="Ex: 1234567890123"
               value={barcode}
               onValueChange={setBarcode}
-              variant="bordered"
               description={<Trans>Leave empty to auto-generate</Trans>}
             />
           </div>

@@ -33,7 +33,7 @@ export const RecipeFormLayout = ({
   return (
     <div className="w-full">
       {/* Header */}
-      <div className="mb-4 sm:mb-6 pb-4 sm:pb-6 border-b border-gray-200">
+      <div className="mb-4 sm:mb-6 pb-4 sm:pb-6 border-b border-divider">
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-1 sm:mb-2">
           {title}
         </h1>
@@ -55,8 +55,8 @@ export const RecipeFormLayout = ({
                     isCompleted
                       ? "bg-primary text-primary-foreground"
                       : isCurrent
-                        ? "bg-primary text-primary-foreground ring-4 ring-primary-100"
-                        : "bg-gray-200 text-gray-400"
+                        ? "bg-primary text-primary-foreground ring-4 ring-primary-100 dark:ring-primary-900"
+                        : "bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500"
                   }`}
                 >
                   {isCompleted ? (
@@ -67,7 +67,11 @@ export const RecipeFormLayout = ({
                 </div>
                 <span
                   className={`text-xs sm:text-sm mt-2 font-medium ${
-                    isCurrent ? "text-primary" : isCompleted ? "text-gray-700" : "text-gray-400"
+                    isCurrent
+                      ? "text-primary"
+                      : isCompleted
+                        ? "text-gray-700 dark:text-gray-300"
+                        : "text-gray-400 dark:text-gray-500"
                   }`}
                 >
                   {step.title}
@@ -81,8 +85,8 @@ export const RecipeFormLayout = ({
 
       {/* Error Message */}
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6 flex items-start gap-3">
-          <span className="text-red-500 font-bold">⚠️</span>
+        <div className="bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 px-4 py-3 rounded-lg mb-6 flex items-start gap-3">
+          <span className="text-red-500 dark:text-red-400 font-bold">⚠️</span>
           <span>{error}</span>
         </div>
       )}

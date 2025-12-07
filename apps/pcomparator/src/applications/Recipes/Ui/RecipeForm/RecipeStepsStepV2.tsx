@@ -227,7 +227,6 @@ export const RecipeStepsStep = ({
                     onValueChange={(value) => handleUpdateGroupName(groupIndex, value)}
                     className="flex-1"
                     isRequired
-                    variant="bordered"
                   />
                   <Button
                     isIconOnly
@@ -272,26 +271,26 @@ export const RecipeStepsStep = ({
                           }
                           isRequired
                           placeholder={t`Describe this step in detail...`}
-                          variant="bordered"
                           minRows={3}
                           maxRows={10}
                         />
                         <Input
                           type="number"
                           value={step.duration?.toString() || ""}
-                          onValueChange={(value) =>
-                            handleUpdateStepInGroup(
-                              groupIndex,
-                              stepIndex,
-                              "duration",
-                              value ? Number.parseInt(value) : null
-                            )
-                          }
+                          onValueChange={(value) => {
+                            if (value === "") {
+                              handleUpdateStepInGroup(groupIndex, stepIndex, "duration", null);
+                            } else {
+                              const num = Number.parseInt(value);
+                              if (!Number.isNaN(num) && num >= 0) {
+                                handleUpdateStepInGroup(groupIndex, stepIndex, "duration", num || null);
+                              }
+                            }
+                          }}
                           placeholder={t`Duration (optional)`}
                           startContent={<Clock className="w-4 h-4 text-default-400" />}
                           endContent={<span className="text-xs text-default-400">min</span>}
-                          variant="bordered"
-                          min={1}
+                          min={0}
                           className="max-w-xs"
                         />
                       </div>
@@ -373,21 +372,26 @@ export const RecipeStepsStep = ({
                   onValueChange={(value) => onUpdateStep(index, "description", value)}
                   isRequired
                   placeholder={t`Describe this step in detail...`}
-                  variant="bordered"
                   minRows={3}
                   maxRows={10}
                 />
                 <Input
                   type="number"
                   value={step.duration?.toString() || ""}
-                  onValueChange={(value) =>
-                    onUpdateStep(index, "duration", value ? Number.parseInt(value) : null)
-                  }
+                  onValueChange={(value) => {
+                    if (value === "") {
+                      onUpdateStep(index, "duration", null);
+                    } else {
+                      const num = Number.parseInt(value);
+                      if (!Number.isNaN(num) && num >= 0) {
+                        onUpdateStep(index, "duration", num || null);
+                      }
+                    }
+                  }}
                   placeholder={t`Duration (optional)`}
                   startContent={<Clock className="w-4 h-4 text-default-400" />}
                   endContent={<span className="text-xs text-default-400">min</span>}
-                  variant="bordered"
-                  min={1}
+                  min={0}
                   className="max-w-xs"
                 />
               </div>

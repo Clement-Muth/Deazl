@@ -125,17 +125,17 @@ export function PhotoImportStep({ onRecipeExtracted, onBack }: PhotoImportStepPr
         )}
 
         {error && (
-          <div className="bg-danger-50 border border-danger-200 rounded-lg p-4 space-y-2">
-            <p className="text-danger text-sm font-semibold">
+          <div className="bg-danger-50 dark:bg-danger-950 border border-danger-200 dark:border-danger-800 rounded-lg p-4 space-y-2">
+            <p className="text-danger dark:text-danger-300 text-sm font-semibold">
               {error.includes("Rate limit") ? (
                 <Trans>Too many requests - Please wait a moment</Trans>
               ) : (
                 <Trans>Analysis failed</Trans>
               )}
             </p>
-            <p className="text-danger-600 text-xs">{error}</p>
+            <p className="text-danger-600 dark:text-danger-400 text-xs">{error}</p>
             {error.includes("Rate limit") && (
-              <p className="text-default-600 text-xs mt-2">
+              <p className="text-default-600 dark:text-default-400 text-xs mt-2">
                 <Trans>
                   The AI service is temporarily overloaded. Please wait a minute and try again, or use manual
                   creation.

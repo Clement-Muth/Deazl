@@ -82,7 +82,6 @@ export const RecipeBasicInfoStep = ({
           value={formData.name}
           onValueChange={(value) => onFormDataChange({ name: value })}
           isRequired
-          variant="bordered"
         />
 
         <div className="space-y-2">
@@ -102,42 +101,47 @@ export const RecipeBasicInfoStep = ({
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Select
             label={<Trans>Difficulty</Trans>}
-            selectedKeys={[formData.difficulty]}
+            defaultSelectedKeys={formData.difficulty ? [formData.difficulty] : []}
             onSelectionChange={(keys) => {
               const value = Array.from(keys)[0] as string;
               onFormDataChange({ difficulty: value as any });
             }}
-            variant="bordered"
+            disallowEmptySelection
+            isRequired
           >
-            <SelectItem key="EASY">
-              <Trans>Easy</Trans>
-            </SelectItem>
-            <SelectItem key="MEDIUM">
-              <Trans>Medium</Trans>
-            </SelectItem>
-            <SelectItem key="HARD">
-              <Trans>Hard</Trans>
-            </SelectItem>
+            <SelectItem key="EASY">{t`Easy`}</SelectItem>
+            <SelectItem key="MEDIUM">{t`Medium`}</SelectItem>
+            <SelectItem key="HARD">{t`Hard`}</SelectItem>
           </Select>
 
           <Input
             label={<Trans>Preparation (min)</Trans>}
             type="number"
-            value={formData.preparationTime.toString()}
-            onValueChange={(value) => onFormDataChange({ preparationTime: Number.parseInt(value) || 1 })}
+            value={formData.preparationTime?.toString() || ""}
+            onValueChange={(value) => {
+              const num = value === "" ? 0 : Number.parseInt(value);
+              if (!Number.isNaN(num) && num >= 0) {
+                onFormDataChange({ preparationTime: num || 0 });
+              }
+            }}
             isRequired
-            min={1}
-            variant="bordered"
+            min={0}
+            placeholder="0"
           />
 
           <Input
             label={<Trans>Cooking (min)</Trans>}
             type="number"
-            value={formData.cookingTime.toString()}
-            onValueChange={(value) => onFormDataChange({ cookingTime: Number.parseInt(value) || 1 })}
+            value={formData.cookingTime?.toString() || ""}
+            onValueChange={(value) => {
+              const num = value === "" ? 0 : Number.parseInt(value);
+              if (!Number.isNaN(num) && num >= 0) {
+                onFormDataChange({ cookingTime: num || 0 });
+              }
+            }}
             isRequired
-            min={1}
-            variant="bordered"
+            min={0}
+            placeholder="0"
           />
         </div>
 
@@ -145,88 +149,44 @@ export const RecipeBasicInfoStep = ({
           <Select
             label={<Trans>Category</Trans>}
             placeholder={t`Select a category`}
-            selectedKeys={formData.category ? [formData.category] : []}
+            defaultSelectedKeys={formData.category ? [formData.category] : []}
             onSelectionChange={(keys) => {
               const value = Array.from(keys)[0] as string | undefined;
               onFormDataChange({ category: value });
             }}
-            variant="bordered"
           >
-            <SelectItem key="appetizer">
-              <Trans>Appetizer</Trans>
-            </SelectItem>
-            <SelectItem key="main-course">
-              <Trans>Main Course</Trans>
-            </SelectItem>
-            <SelectItem key="dessert">
-              <Trans>Dessert</Trans>
-            </SelectItem>
-            <SelectItem key="side-dish">
-              <Trans>Side Dish</Trans>
-            </SelectItem>
-            <SelectItem key="salad">
-              <Trans>Salad</Trans>
-            </SelectItem>
-            <SelectItem key="soup">
-              <Trans>Soup</Trans>
-            </SelectItem>
-            <SelectItem key="breakfast">
-              <Trans>Breakfast</Trans>
-            </SelectItem>
-            <SelectItem key="snack">
-              <Trans>Snack</Trans>
-            </SelectItem>
-            <SelectItem key="beverage">
-              <Trans>Beverage</Trans>
-            </SelectItem>
+            <SelectItem key="appetizer">{t`Appetizer`}</SelectItem>
+            <SelectItem key="main-course">{t`Main Course`}</SelectItem>
+            <SelectItem key="dessert">{t`Dessert`}</SelectItem>
+            <SelectItem key="side-dish">{t`Side Dish`}</SelectItem>
+            <SelectItem key="salad">{t`Salad`}</SelectItem>
+            <SelectItem key="soup">{t`Soup`}</SelectItem>
+            <SelectItem key="breakfast">{t`Breakfast`}</SelectItem>
+            <SelectItem key="snack">{t`Snack`}</SelectItem>
+            <SelectItem key="beverage">{t`Beverage`}</SelectItem>
           </Select>
 
           <Select
             label={<Trans>Cuisine</Trans>}
             placeholder={t`Select a cuisine`}
-            selectedKeys={formData.cuisine ? [formData.cuisine] : []}
+            defaultSelectedKeys={formData.cuisine ? [formData.cuisine] : []}
             onSelectionChange={(keys) => {
               const value = Array.from(keys)[0] as string | undefined;
               onFormDataChange({ cuisine: value });
             }}
-            variant="bordered"
           >
-            <SelectItem key="french">
-              <Trans>French</Trans>
-            </SelectItem>
-            <SelectItem key="italian">
-              <Trans>Italian</Trans>
-            </SelectItem>
-            <SelectItem key="asian">
-              <Trans>Asian</Trans>
-            </SelectItem>
-            <SelectItem key="mediterranean">
-              <Trans>Mediterranean</Trans>
-            </SelectItem>
-            <SelectItem key="american">
-              <Trans>American</Trans>
-            </SelectItem>
-            <SelectItem key="mexican">
-              <Trans>Mexican</Trans>
-            </SelectItem>
-            <SelectItem key="indian">
-              <Trans>Indian</Trans>
-            </SelectItem>
-            <SelectItem key="japanese">
-              <Trans>Japanese</Trans>
-            </SelectItem>
-            <SelectItem key="chinese">
-              <Trans>Chinese</Trans>
-            </SelectItem>
-            <SelectItem key="middle-eastern">
-              <Trans>Middle Eastern</Trans>
-            </SelectItem>
-            <SelectItem key="african">
-              <Trans>African</Trans>
-            </SelectItem>
-            <SelectItem key="fusion">
-              <Trans>Fusion</Trans>
-            </SelectItem>
+            <SelectItem key="french">{t`French`}</SelectItem>
+            <SelectItem key="italian">{t`Italian`}</SelectItem>
+            <SelectItem key="asian">{t`Asian`}</SelectItem>
+            <SelectItem key="mediterranean">{t`Mediterranean`}</SelectItem>
+            <SelectItem key="american">{t`American`}</SelectItem>
+            <SelectItem key="mexican">{t`Mexican`}</SelectItem>
+            <SelectItem key="indian">{t`Indian`}</SelectItem>
+            <SelectItem key="japanese">{t`Japanese`}</SelectItem>
+            <SelectItem key="chinese">{t`Chinese`}</SelectItem>
+            <SelectItem key="middle-eastern">{t`Middle Eastern`}</SelectItem>
+            <SelectItem key="african">{t`African`}</SelectItem>
+            <SelectItem key="fusion">{t`Fusion`}</SelectItem>
           </Select>
         </div>
 
@@ -234,11 +194,16 @@ export const RecipeBasicInfoStep = ({
           <Input
             label={<Trans>Number of Servings</Trans>}
             type="number"
-            value={formData.servings.toString()}
-            onValueChange={(value) => onFormDataChange({ servings: Number.parseInt(value) || 1 })}
+            value={formData.servings?.toString() || ""}
+            onValueChange={(value) => {
+              const num = value === "" ? 0 : Number.parseInt(value);
+              if (!Number.isNaN(num) && num >= 0) {
+                onFormDataChange({ servings: num || 0 });
+              }
+            }}
             isRequired
             min={1}
-            variant="bordered"
+            placeholder="1"
             className="flex-1"
           />
 

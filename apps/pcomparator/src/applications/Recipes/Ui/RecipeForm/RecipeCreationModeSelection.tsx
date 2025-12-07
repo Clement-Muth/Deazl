@@ -58,31 +58,46 @@ export function RecipeCreationModeSelection({ onModeSelected }: RecipeCreationMo
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {modes.map(({ mode, icon: Icon, title, description, color, available }) => (
-          <Card
-            key={mode}
-            isPressable={available}
-            onPress={() => available && onModeSelected(mode)}
-            className={`${!available ? "opacity-50" : ""}`}
-          >
-            <CardHeader className="pb-2">
-              <div className={`p-3 rounded-lg bg-${color}-100 dark:bg-${color}-900/20 mr-3`}>
-                <Icon className={`w-6 h-6 text-${color}`} />
-              </div>
-              <div className="flex flex-col flex-1">
-                <h3 className="text-lg font-semibold">{title}</h3>
-                {!available && (
-                  <span className="text-xs text-warning">
-                    <Trans>Coming soon</Trans>
-                  </span>
-                )}
-              </div>
-            </CardHeader>
-            <CardBody className="pt-0">
-              <p className="text-sm text-default-500">{description}</p>
-            </CardBody>
-          </Card>
-        ))}
+        {modes.map(({ mode, icon: Icon, title, description, color, available }) => {
+          const getIconColors = () => {
+            switch (color) {
+              case "primary":
+                return "bg-primary-100 dark:bg-primary-900/20 text-primary";
+              case "secondary":
+                return "bg-secondary-100 dark:bg-secondary-900/20 text-secondary";
+              case "success":
+                return "bg-success-100 dark:bg-success-900/20 text-success";
+              default:
+                return "bg-default-100 dark:bg-default-200/20 text-default-foreground";
+            }
+          };
+
+          return (
+            <Card
+              key={mode}
+              isPressable={available}
+              onPress={() => available && onModeSelected(mode)}
+              className={`${!available ? "opacity-50" : ""}`}
+            >
+              <CardHeader className="pb-2">
+                <div className={`p-3 rounded-lg mr-3 ${getIconColors()}`}>
+                  <Icon className="w-6 h-6" />
+                </div>
+                <div className="flex flex-col flex-1">
+                  <h3 className="text-lg font-semibold">{title}</h3>
+                  {!available && (
+                    <span className="text-xs text-warning">
+                      <Trans>Coming soon</Trans>
+                    </span>
+                  )}
+                </div>
+              </CardHeader>
+              <CardBody className="pt-0">
+                <p className="text-sm text-default-500">{description}</p>
+              </CardBody>
+            </Card>
+          );
+        })}
       </div>
     </div>
   );
